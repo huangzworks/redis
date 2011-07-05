@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 2
 
    set
+   sorted_set
 
 Indices and tables
 ==================

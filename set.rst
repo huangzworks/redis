@@ -1,11 +1,32 @@
 ===
-SET
+Set
 ===
+
+附录，常用集合运算：
+
+::
+
+    A = {'a', 'b', 'c'}
+    B = {'a', 'e', 'i', 'o', 'u'}
+
+    inter(x, y): 交集，在集合x和集合y中都存在的元素。
+    inter(A, B) = {'a'}
+    
+    union(x, y): 并集，在集合x中或集合y中的元素，如果一个元素在x和y中都出现，那只记录一次即可。
+    union(A,B) = {'a', 'b', 'c', 'e', 'i', 'o', 'u'}
+
+    diff(x, y): 差集，在集合x中而不在集合y中的元素。
+    diff(A,B) = {'b', 'c'}
+
+    card(x): 基数，一个集合中元素的数量。
+    card(A) = 3
+
+    空集： 基数为0的集合。
 
 SADD
 ====
 
-``SADD key member``
+.. function:: SADD key member
 
 将member元素加入到集合key当中。
 
@@ -38,7 +59,7 @@ SADD
 SINTER
 ======
 
-``SINTER key [key ...]``
+.. function:: SINTER key [key ...]
 
 返回一个集合的全部成员，该集合是所有给定集合的\ **交集**\。
 
@@ -69,7 +90,7 @@ SINTER
 SMOVE
 =====
 
-``SMOVE source destination member``
+.. function:: SMOVE source destination member
 
 将member元素从source集合移动到destination集合。
 
@@ -107,7 +128,7 @@ SMOVE
 SUNION
 ======
 
-``SUNION key [key ...]``
+.. function:: SUNION key [key ...]
 
 返回一个集合的全部成员，该集合是所有给定集合的\ **并集**\。
 
@@ -135,7 +156,7 @@ SUNION
 SCARD
 =====
 
-``SCARD key``
+.. function:: SCARD key
 
 返回集合的\ **基数**\（集合中元素的数量）。
 
@@ -166,7 +187,7 @@ SCARD
 SINTERSTORE
 ===========
 
-``SINTERSTORE destination key [key ...]``
+.. function:: SINTERSTORE destination key [key ...]
 
 此命令等同于\ `SINTER`_\，但它将结果保存到destination集合，而不是简单地返回结果集。
 
@@ -198,7 +219,7 @@ SINTERSTORE
 SPOP
 ====
 
-``SPOP key``
+.. function:: SPOP key
 
 移除并返回集合中的一个随机元素。
 
@@ -227,7 +248,7 @@ SPOP
 SUNIONSTORE
 ===========
 
-``SUNIONSTORE destination key [key ...]``
+.. function:: SUNIONSTORE destination key [key ...]
 
 
 此命令等同于\ `SUNION`_\，但它将结果保存到destination集合，而不是简单地返回结果集。
@@ -263,7 +284,7 @@ SUNIONSTORE
 SDIFF
 =====
 
-``SDIFF key [key ...]``
+.. function:: SDIFF key [key ...]
 
 返回一个集合的全部成员，该集合是第一个给定集合和其他所有给定集合的\ **差集** \。
 
@@ -295,7 +316,7 @@ SDIFF
 SISMEMBER
 =========
 
-``SISMEMBER key member``
+.. function:: SISMEMBER key member
 
 判断member元素是否是集合的成员。
 
@@ -323,7 +344,7 @@ SISMEMBER
 SRANDMEMBER
 ===========
 
-``SRANDMEMBER key``
+.. function:: SRANDMEMBER key
 
 返回集合中的一个随机元素。
 
@@ -355,7 +376,7 @@ SRANDMEMBER
 SDIFFSTORE
 ==========
 
-``SDIFFSTORE destination key [key ...]``
+.. function:: SDIFFSTORE destination key [key ...]
 
 此命令等同于\ `SDIFF`_\，但它将结果保存到destination集合，而不是简单地返回结果集。
 
@@ -390,7 +411,7 @@ SDIFFSTORE
 SMEMBERS
 ========
 
-``SMEMBERS key``
+.. function:: SMEMBERS key
 
 返回集合中的所有成员。
 
@@ -411,7 +432,7 @@ SMEMBERS
 SREM
 ====
 
-``SREM key member``
+.. function:: SREM key member
 
 移除集合中的member元素。
 
