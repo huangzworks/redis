@@ -10,7 +10,10 @@ Contents:
 
 .. toctree::
    :maxdepth: 2
-
+   
+   key
+   string
+   hash
    set
    sorted_set
 

@@ -1,4 +1,3 @@
-===
 Set
 ===
 
@@ -24,7 +23,7 @@ Set
     空集： 基数为0的集合。
 
 SADD
-====
+----
 
 .. function:: SADD key member
 
@@ -57,7 +56,7 @@ SADD
 
 
 SINTER
-======
+-------
 
 .. function:: SINTER key [key ...]
 
@@ -88,7 +87,7 @@ SINTER
 
 
 SMOVE
-=====
+-----
 
 .. function:: SMOVE source destination member
 
@@ -126,7 +125,7 @@ SMOVE
 
 
 SUNION
-======
+------
 
 .. function:: SUNION key [key ...]
 
@@ -154,7 +153,7 @@ SUNION
 
 
 SCARD
-=====
+-----
 
 .. function:: SCARD key
 
@@ -185,7 +184,7 @@ SCARD
 
 
 SINTERSTORE
-===========
+-----------
 
 .. function:: SINTERSTORE destination key [key ...]
 
@@ -217,7 +216,7 @@ SINTERSTORE
 
 
 SPOP
-====
+----
 
 .. function:: SPOP key
 
@@ -246,7 +245,7 @@ SPOP
 
 
 SUNIONSTORE
-===========
+-----------
 
 .. function:: SUNIONSTORE destination key [key ...]
 
@@ -282,7 +281,7 @@ SUNIONSTORE
 
 
 SDIFF
-=====
+-----
 
 .. function:: SDIFF key [key ...]
 
@@ -314,7 +313,7 @@ SDIFF
 
 
 SISMEMBER
-=========
+---------
 
 .. function:: SISMEMBER key member
 
@@ -342,7 +341,7 @@ SISMEMBER
 
 
 SRANDMEMBER
-===========
+-----------
 
 .. function:: SRANDMEMBER key
 
@@ -374,7 +373,7 @@ SRANDMEMBER
 
 
 SDIFFSTORE
-==========
+----------
 
 .. function:: SDIFFSTORE destination key [key ...]
 
@@ -409,7 +408,7 @@ SDIFFSTORE
 
 
 SMEMBERS
-========
+--------
 
 .. function:: SMEMBERS key
 
@@ -430,7 +429,7 @@ SMEMBERS
 
 
 SREM
-====
+-----
 
 .. function:: SREM key member
 

@@ -1,4 +1,4 @@
-key
+Key
 ===
 
 DEL
@@ -21,14 +21,14 @@ DEL
 
 ::
 
-    redis 127.0.0.1:6379> SET name "huangz" # 设置一个值
+    redis> SET name "huangz" # 设置一个值
     OK
-    redis 127.0.0.1:6379> DEL name  # 然后将其删除
+    redis> DEL name  # 然后将其删除
     (integer) 1
 
-    redis 127.0.0.1:6379> EXISTS phone  # 检查一个不存在的key
+    redis> EXISTS phone  # 检查一个不存在的key
     (integer) 0
-    redis 127.0.0.1:6379> DEL phone # 试图删除一个不存在的key
+    redis> DEL phone # 试图删除一个不存在的key
     (integer) 0
 
 
@@ -102,7 +102,7 @@ RANDOMKEY
     redis> randomkey
     "food"
 
-    redis 127.0.0.1:6379> keys *    # 查看数据库内所有key，证明RANDOMKEY并不删除key
+    redis> keys *    # 查看数据库内所有key，证明RANDOMKEY并不删除key
     1) "food"
     2) "drink"
     3) "fruit"
@@ -196,7 +196,7 @@ MOVE
     O(1)
 
 返回值：
-    移动成功返回\ ``1``\ 失败则返回\ ``0``\ 。
+    移动成功返回\ ``1``\ ，失败则返回\ ``0``\ 。
 
 ::
 
@@ -215,7 +215,7 @@ MOVE
     redis> SELECT 1  # 使用数据库1
     OK
 
-    redis:1> EXISTS song  # 证实song被移到了数据库1(注意命令操作符变成了"redis:1"，表明正在使用数据库1)
+    redis:1> EXISTS song  # 证实song被移到了数据库1(注意命令提示符变成了"redis:1"，表明正在使用数据库1)
     (integer) 1
  
     # 当key不存在的时候 
@@ -279,35 +279,35 @@ RENAME
 
 :: 
 
-    redis:1> SET message "hello world"
+    redis> SET message "hello world"
     OK
     
-    redis:1> RENAME message greeting
+    redis> RENAME message greeting
     OK
 
-    redis:1> EXISTS message  # message不复存在
+    redis> EXISTS message  # message不复存在
     (integer) 0
     
-    redis:1> EXISTS greeting  # greeting取而代之
+    redis> EXISTS greeting  # greeting取而代之
     (integer) 1
 
     # 当key不存在时，返回错误
     
-    redis:1> RENAME fake_key never_exists
+    redis> RENAME fake_key never_exists
     (error) ERR no such key
     
     # 当newkey已存在时，RENAME会覆盖旧newkey
     
-    redis:1> SET pc "lenovo"
+    redis> SET pc "lenovo"
     OK
     
-    redis:1> SET personal_computer "dell"
+    redis> SET personal_computer "dell"
     OK
 
-    redis:1> RENAME pc personal_computer
+    redis> RENAME pc personal_computer
     OK
 
-    redis:1> GET pc
+    redis> GET pc
     (nil)
 
     redis:1> GET personal_computer  # dell“没有”了
@@ -334,25 +334,25 @@ TYPE
 
 ::
 
-    redis:1> SET weather "sunny"  # 构建一个字符串
+    redis> SET weather "sunny"  # 构建一个字符串
     OK
 
-    redis:1> TYPE weather 
+    redis> TYPE weather 
     string
 
-    redis:1> LPUSH book_list "programming in scala"  # 构建一个列表
+    redis> LPUSH book_list "programming in scala"  # 构建一个列表
     (integer) 1
 
-    redis:1> LPUSH book_list "algorithms in C"
+    redis> LPUSH book_list "algorithms in C"
     (integer) 2
 
-    redis:1> TYPE book_list 
+    redis> TYPE book_list 
     list
 
-    redis:1> SADD pat "dog"  # 构建一个集合
+    redis> SADD pat "dog"  # 构建一个集合
     (integer) 1
 
-    redis:1> TYPE pat
+    redis> TYPE pat
     set
 
 
@@ -510,26 +510,26 @@ EXPIREAT
 --------
 .. function:: EXPIREAT key timestamp
 
-\ `EXPIREAT`\ 的作用和\ `EXPIRE`\ 一样，都用于为\ ``key``\ 设置过期时间。
-不同在于\ ``EXPIREAT``\ 接受的时间参数是绝对UNIX时间戳(unix timestamp)。
+| \ `EXPIREAT`_\ 的作用和\ `EXPIRE`_\ 一样，都用于为\ ``key``\ 设置过期时间。
+| 不同在于\ `EXPIREAT`_\ 接受的时间参数是\ *UNIX时间戳*\ (unix timestamp)。
 
 时间复杂度：
     O(1)
 
 返回值：
-    如果过期时间设置成功，返回\ ``1``\ 。
-    当\ ``key``\ 不存在或没办法设置过期时间，返回\ ``0``\ 。
+    | 如果过期时间设置成功，返回\ ``1``\ 。
+    | 当\ ``key``\ 不存在或没办法设置过期时间，返回\ ``0``\ 。
 
 ::
 
-    redis> SET live_man "fake person"
+    redis> SET cache www.google.com
     OK
 
-    redis> EXPIREAT live_man 2000000000  # unix steamp DATE: 05 / 17 / 33 @ 10:33:20pm EST
+    redis> EXPIREAT cache 1355292000 # 这个key将在2012.12.12过期
     (integer) 1
 
-    redis> TTL live_man
-    (integer) 697061482
+    redis> TTL cache
+    (integer) 45081860
 
 
 PERSIST
@@ -543,8 +543,8 @@ PERSIST
     O(1)
 
 返回值：
-    当移除成功时，返回\ ``1``\ .
-    \ ``key``\ 不存在或\ ``key``\ 没有设置过期时间，返回\ ``0``\ 。
+    | 当过期时间移除成功时，返回\ ``1``\ .
+    | 如果\ ``key``\ 不存在或\ ``key``\ 没有设置过期时间，返回\ ``0``\ 。
 
 ::
 
@@ -888,7 +888,7 @@ SORT
 
 **在GET和BY中使用哈希表**
 
-在\ `SORT`_\ 操作中，可以使用哈希表特有的语法，对其使用\ ``GET``\ 和\ ``BY``\ 。
+可以使用哈希表特有的语法，在\ `SORT`_\ 命令中进行\ ``GET``\ 和\ ``BY``\ 操作。
 
 ::
 
@@ -915,5 +915,5 @@ SORT
     | 如果只是使用\ `SORT`_\ 命令的\ ``GET``\ 选项获取数据而没有进行排序，时间为O(N)。
                                
 返回值：
-    没有使用\ ``STORE``\ 参数，返回列表形式的排序结果。
-    使用\ ``STORE``\ 参数，返回排序结果的元素数量。
+    | 没有使用\ ``STORE``\ 参数，返回列表形式的排序结果。
+    | 使用\ ``STORE``\ 参数，返回排序结果的元素数量。

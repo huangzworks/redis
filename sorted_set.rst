@@ -1,5 +1,5 @@
-Sorted Set
-==========
+Sorted Set (zset)
+=================
 
 ZADD
 ----
@@ -398,7 +398,6 @@ ZRANGEBYSCORE
 
 返回值:
     指定区间内，带有\ ``score``\ 值(可选)的有序集成员的列表。
-
 
 ::
 
