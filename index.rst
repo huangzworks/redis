@@ -14,6 +14,7 @@ Contents:
    key
    string
    hash
+   list
    set
    sorted_set
 
