@@ -27,18 +27,20 @@ SADD
 
 .. function:: SADD key member
 
-将member元素加入到集合key当中。
+将\ ``member``\ 元素加入到集合\ ``key``\ 当中。
 
-| 如果member元素已经是该集合的成员，那SADD命令不执行任何操作。
-| 假如key不存在，则创建一个只包含member元素作成员的集合。
-| 当key不是集合类型时，返回一个错误。
+如果\ ``member``\ 元素已经是该集合的成员，那\ `SADD`_\ 命令不执行任何操作。
 
-时间复杂度:
+假如\ ``key``\ 不存在，则创建一个只包含\ ``member``\ 元素作成员的集合。
+
+当\ ``key``\ 不是集合类型时，返回一个错误。
+
+**时间复杂度:**
     O(1)
 
-返回值:
-    | 如果添加元素成功，返回1。
-    | 如果元素已经是集合的成员，返回0。
+**返回值:**
+    | 如果添加元素成功，返回\ ``1``\ 。
+    | 如果元素已经是集合的成员，返回\ ``0``\ 。
 
 ::
 
@@ -55,35 +57,125 @@ SADD
     (integer) 0
 
 
-SINTER
--------
+SREM
+-----
 
-.. function:: SINTER key [key ...]
+.. function:: SREM key member
 
-返回一个集合的全部成员，该集合是所有给定集合的\ **交集**\。
+移除集合中的\ ``member``\ 元素。
 
-| 不存在的key被视为空集。
-| 当给定集合当中有一个空集时，结果也为空集（根据集合运算定律）。
+如果\ ``member``\ 元素不是集合中的成员，则\ `SREM`_\ 命令不执行任何操作。
 
-时间复杂度:
-    O(N * M)，N为给定集合当中基数最小的集合，M为给定集合的个数。
+当\ ``key``\ 不是集合类型，返回一个错误。
 
-返回值:
-    交集成员的列表。
+**时间复杂度:**
+    O(1)
+
+**返回值:**
+    | 如果移除元素成功，返回\ ``1``\ 。
+    | 如果\ ``member``\ 元素不是集合成员，返回\ ``0``\ 。
 
 ::
 
-    redis> SMEMBERS group_1
-    1) "LI LEI"
-    2) "TOM"
-    3) "JACK"   # <-
+    redis> SMEMBERS prog_lang
+    1) "c"
+    2) "ruby"
+    3) "python"
 
-    redis> SMEMBERS group_2
-    1) "HAN MEIMEI"
-    2) "JACK"   # <- 
+    redis> SREM prog_lang "c"
+    (integer) 1
 
-    redis> SINTER group_1 group_2
-    1) "JACK"
+    redis> SMEMBERS prog_lang
+    1) "ruby"
+    2) "python"
+
+    redis> SREM prog_lang "scheme"
+    (integer) 0
+
+    redis> SMEMBERS prog_lang
+    1) "ruby"
+    2) "python"
+
+
+
+SMEMBERS
+--------
+
+.. function:: SMEMBERS key
+
+返回集合\ ``key``\ 中的所有成员。
+
+**时间复杂度:**
+    O(N)，\ ``N``\ 为集合的基数。
+
+**返回值:**
+    集合中的所有成员。
+
+::
+
+    redis> SMEMBERS prog_lang
+    1) "c"
+    2) "ruby"
+    3) "python"
+
+SISMEMBER
+---------
+
+.. function:: SISMEMBER key member
+
+判断\ ``member``\ 元素是否是集合\ ``key``\ 的成员。
+
+**时间复杂度:**
+    O(1)
+
+**返回值:**
+    | 如果\ ``member``\ 元素是集合的成员，返回\ ``1``\ 。
+    | 如果\ ``member``\ 元素不是集合的成员，或\ ``key``\ 不存在，返回\ ``0``\ 。
+
+::
+
+    redis> SMEMBERS joe's_movies
+    1) "hi, lady"
+    2) "Fast Five"
+    3) "2012"
+
+    redis> SISMEMBER joe's_movies "bet man"
+    (integer) 0
+
+    redis> SISMEMBER joe's_movies "Fast Five"
+    (integer) 1
+
+
+
+SCARD
+-----
+
+.. function:: SCARD key
+
+返回集合\ ``key``\ 的\ **基数**\(集合中元素的数量)。
+
+**时间复杂度:**
+    O(1)
+
+**返回值：**
+    | 集合的基数。
+    | 当\ ``key``\ 不存在时，返回\ ``0``\ 。
+
+::
+
+    redis> SMEMBERS tool
+    1) "pc"
+    2) "printer"
+    3) "phone"
+
+    redis> SCARD tool
+    (integer) 3
+
+    redis> SMEMBERS fake_set
+    (empty list or set)
+
+    redis> SCARD fake_set
+    (integer) 0
 
 
 SMOVE
@@ -91,19 +183,22 @@ SMOVE
 
 .. function:: SMOVE source destination member
 
-将member元素从source集合移动到destination集合。
+将\ ``member``\ 元素从\ ``source``\ 集合移动到\ ``destination``\ 集合。
 
-| SMOVE是原子性操作。
-| 如果source集合不存在或不包含指定的member元素，则SMOVE命令不执行任何操作，仅返回0。否则，member元素从source集合中被移除，并添加到destination集合中去。
-| 当destination集合已经包含member元素时，SMOVE命令只是简单地将source集合中的member元素删除。
-| 当source或destination不是集合类型时，返回一个错误。
+\ `SMOVE`_\ 是原子性操作。
 
-复杂度:
+如果\ ``source``\ 集合不存在或不包含指定的\ ``member``\ 元素，则\ `SMOVE`_\ 命令不执行任何操作，仅返回\ ``0``\ 。否则，\ ``member``\ 元素从\ ``source``\ 集合中被移除，并添加到\ ``destination``\ 集合中去。
+
+当\ ``destination``\ 集合已经包含\ ``member``\ 元素时，\ `SMOVE`_\ 命令只是简单地将\ ``source``\ 集合中的\ ``member``\ 元素删除。
+
+当\ ``source``\ 或\ ``destination``\ 不是集合类型时，返回一个错误。
+
+**时间复杂度:**
     O(1)
 
-返回值:
-    | 如果member元素被成功移除，返回1。
-    | 如果member元素不是source集合的成员，并且没有任何操作对destination集合执行，那么返回0。
+**返回值:**
+    | 如果\ ``member``\ 元素被成功移除，返回\ ``1``\ 。
+    | 如果\ ``member``\ 元素不是\ ``source``\ 集合的成员，并且没有任何操作对\ ``destination``\ 集合执行，那么返回\ ``0``\ 。
 
 ::
 
@@ -124,63 +219,99 @@ SMOVE
     1) "Believe Me"
 
 
-SUNION
-------
+SPOP
+----
 
-.. function:: SUNION key [key ...]
+.. function:: SPOP key
 
-返回一个集合的全部成员，该集合是所有给定集合的\ **并集**\。
+移除并返回集合中的一个随机元素。
 
-不存在的key被视为空集。
-
-复杂度:
-    O(N)，N是所有给定集合的成员数量之和。
-
-返回值:
-    并集成员的列表。
-
-::
-
-    redis> SMEMBERS songs
-    1) "Billie Jean"
-
-    redis> SMEMBERS my_songs
-    1) "Believe Me"
-
-    redis> SUNION songs my_songs
-    1) "Billie Jean"
-    2) "Believe Me"
-
-
-SCARD
------
-
-.. function:: SCARD key
-
-返回集合的\ **基数**\（集合中元素的数量）。
-
-复杂度:
+**时间复杂度:**
     O(1)
 
-返回值：
-    | 集合的基数。
-    | 当key不存在时，返回0。
+**返回值:**
+    | 被移除的随机元素。
+    | 当\ ``key``\ 不存在或\ ``key``\ 是空集时，返回\ ``nil``\ 。
 
 ::
 
-    redis> SMEMBERS tool
-    1) "pc"
-    2) "printer"
-    3) "phone"
+    redis> SMEMBERS my_sites
+    1) "huangz.iteye.com"
+    2) "sideeffect.me"
+    3) "douban.com/people/i_m_huangz"
 
-    redis> SCARD tool
-    (integer) 3
+    redis> SPOP my_sites
+    "huangz.iteye.com"  
 
-    redis> SMEMBERS fake_set
-    (empty list or set)
+    redis> SMEMBERS my_sites
+    1) "sideeffect.me"
+    2) "douban.com/people/i_m_huang"
 
-    redis> SCARD fake_set
-    (integer) 0
+SRANDMEMBER
+-----------
+
+.. function:: SRANDMEMBER key
+
+返回集合中的一个随机元素。
+
+该操作和\ `SPOP`_\相似，但\ `SPOP`_\将随机元素从集合中移除并返回，而\ `SRANDMEMBER`_\则仅仅返回随机元素，而不对集合进行任何改动。
+
+**时间复杂度:**
+    O(1)
+
+**返回值:**
+    被选中的随机元素。
+    当\ ``key``\ 不存在或\ ``key``\ 是空集时，返回\ ``nil``\ 。
+
+::
+
+    redis> SMEMBERS joe's_movies
+    1) "hi, lady"
+    2) "Fast Five"
+    3) "2012"
+
+    redis> SRANDMEMBER joe's_movies
+    "Fast Five"
+
+    redis> SMEMBERS joe's_movies    # 集合中的元素不变
+    1) "hi, lady"
+    2) "Fast Five"
+    3) "2012"
+
+
+
+SINTER
+-------
+
+.. function:: SINTER key [key ...]
+
+返回一个集合的全部成员，该集合是所有给定集合的\ **交集**\。
+
+不存在的\ ``key``\ 被视为空集。
+
+当给定集合当中有一个空集时，结果也为空集(根据集合运算定律)。
+
+**时间复杂度:**
+    O(N * M)，\ ``N``\ 为给定集合当中基数最小的集合，\ ``M``\ 为给定集合的个数。
+
+**返回值:**
+    交集成员的列表。
+
+::
+
+    redis> SMEMBERS group_1
+    1) "LI LEI"
+    2) "TOM"
+    3) "JACK"   # <-
+
+    redis> SMEMBERS group_2
+    1) "HAN MEIMEI"
+    2) "JACK"   # <- 
+
+    redis> SINTER group_1 group_2
+    1) "JACK"
+
+
 
 
 SINTERSTORE
@@ -188,15 +319,15 @@ SINTERSTORE
 
 .. function:: SINTERSTORE destination key [key ...]
 
-此命令等同于\ `SINTER`_\，但它将结果保存到destination集合，而不是简单地返回结果集。
+此命令等同于\ `SINTER`_\，但它将结果保存到\ ``destination``\ 集合，而不是简单地返回结果集。
 
-如果destination集合已经存在，则将其覆盖。
+如果\ ``destination``\ 集合已经存在，则将其覆盖。
 
-时间复杂度:
-    O(N * M)，N为给定集合当中基数最小的集合，M为给定集合的个数。
+**时间复杂度:**
+    O(N * M)，\ ``N``\ 为给定集合当中基数最小的集合，\ ``M``\ 为给定集合的个数。
 
-返回值:
-    结果集中的元素数量。
+**返回值:**
+    结果集中的成员数量。
 
 ::
 
@@ -215,33 +346,33 @@ SINTERSTORE
     1) "good bye joe"
 
 
-SPOP
-----
+SUNION
+------
 
-.. function:: SPOP key
+.. function:: SUNION key [key ...]
 
-移除并返回集合中的一个随机元素。
+返回一个集合的全部成员，该集合是所有给定集合的\ **并集**\。
 
-复杂度:
-    O(1)
+不存在的\ ``key``\ 被视为空集。
 
-返回值:
-    | 被移除的随机元素。
-    | 当key不存在或key是空集时，返回nil。
+**时间复杂度:**
+    O(N)，\ ``N``\ 是所有给定集合的成员数量之和。
+
+**返回值:**
+    并集成员的列表。
 
 ::
 
-    redis> SMEMBERS my_sites
-    1) "huangz.iteye.com"
-    2) "sideeffect.me"
-    3) "douban.com/people/i_m_huangz"
+    redis> SMEMBERS songs
+    1) "Billie Jean"
 
-    redis> SPOP my_sites
-    "huangz.iteye.com"  
+    redis> SMEMBERS my_songs
+    1) "Believe Me"
 
-    redis> SMEMBERS my_sites
-    1) "sideeffect.me"
-    2) "douban.com/people/i_m_huang"
+    redis> SUNION songs my_songs
+    1) "Billie Jean"
+    2) "Believe Me"
+
 
 
 SUNIONSTORE
@@ -250,14 +381,14 @@ SUNIONSTORE
 .. function:: SUNIONSTORE destination key [key ...]
 
 
-此命令等同于\ `SUNION`_\，但它将结果保存到destination集合，而不是简单地返回结果集。
+此命令等同于\ `SUNION`_\，但它将结果保存到\ ``destination``\ 集合，而不是简单地返回结果集。
 
-如果destination已经存在，则将其覆盖。
+如果\ ``destination``\ 已经存在，则将其覆盖。
 
-复杂度:
-    O(N)，N是所有给定集合的成员数量之和。
+**时间复杂度:**
+    O(N)，\ ``N``\ 是所有给定集合的成员数量之和。
 
-返回值:
+**返回值:**
     结果集中的元素数量。
 
 ::
@@ -285,14 +416,14 @@ SDIFF
 
 .. function:: SDIFF key [key ...]
 
-返回一个集合的全部成员，该集合是第一个给定集合和其他所有给定集合的\ **差集** \。
+返回一个集合的全部成员，该集合是所有给定集合的\ **差集** \。
 
-不存在的key被视为空集。
+不存在的\ ``key``\ 被视为空集。
 
-复杂度:
-    O(N)，N是所有给定集合的成员数量之和。
+**时间复杂度:**
+    O(N)，\ ``N``\ 是所有给定集合的成员数量之和。
 
-返回值:
+**返回值:**
     交集成员的列表。
 
 ::
@@ -312,79 +443,19 @@ SDIFF
     2) "start war"
 
 
-SISMEMBER
----------
-
-.. function:: SISMEMBER key member
-
-判断member元素是否是集合的成员。
-
-时间复杂度:
-    O(1)
-
-返回值:
-    | 如果member元素是集合的成员，返回1。
-    | 如果member元素不是集合的成员，或key不存在，返回0。
-
-::
-
-    redis> SMEMBERS joe's_movies
-    1) "hi, lady"
-    2) "Fast Five"
-    3) "2012"
-
-    redis> SISMEMBER joe's_movies "bet man"
-    (integer) 0
-
-    redis> SISMEMBER joe's_movies "Fast Five"
-    (integer) 1
-
-
-SRANDMEMBER
------------
-
-.. function:: SRANDMEMBER key
-
-返回集合中的一个随机元素。
-
-该操作和\ `SPOP`_\相似，但\ `SPOP`_\将随机元素从集合中移除并返回，而\ `SRANDMEMBER`_\则仅仅返回随机元素，而不对集合进行任何改动。
-
-时间复杂度:
-    O(1)
-
-返回值:
-    被选中的随机元素。
-    当key不存在或key是空集时，返回nil。
-
-::
-
-    redis> SMEMBERS joe's_movies
-    1) "hi, lady"
-    2) "Fast Five"
-    3) "2012"
-
-    redis> SRANDMEMBER joe's_movies
-    "Fast Five"
-
-    redis> SMEMBERS joe's_movies    # 集合中的元素不变
-    1) "hi, lady"
-    2) "Fast Five"
-    3) "2012"
-
-
 SDIFFSTORE
 ----------
 
 .. function:: SDIFFSTORE destination key [key ...]
 
-此命令等同于\ `SDIFF`_\，但它将结果保存到destination集合，而不是简单地返回结果集。
+此命令等同于\ `SDIFF`_\，但它将结果保存到\ ``destination``\ 集合，而不是简单地返回结果集。
 
-如果destination集合已经存在，则将其覆盖。
+如果\ ``destination``\ 集合已经存在，则将其覆盖。
 
-复杂度:
-    O(N)，N是所有给定集合的成员数量之和。
+**时间复杂度:**
+    O(N)，\ ``N``\ 是所有给定集合的成员数量之和。
 
-返回值:
+**返回值:**
     结果集中的元素数量。
 
 ::
@@ -407,61 +478,8 @@ SDIFFSTORE
     2) "Fast Five"
 
 
-SMEMBERS
---------
-
-.. function:: SMEMBERS key
-
-返回集合中的所有成员。
-
-时间复杂度:
-    O(N)，N为集合的基数。
-
-返回值:
-    集合中的所有成员。
-
-::
-
-    redis> SMEMBERS prog_lang
-    1) "c"
-    2) "ruby"
-    3) "python"
 
 
-SREM
------
 
-.. function:: SREM key member
 
-移除集合中的member元素。
 
-| 如果member元素不是集合中的成员，则SREM命令不执行任何操作。
-| 当key不是集合类型，返回一个错误。
-
-时间复杂度:
-    O(1)
-
-返回值:
-    | 如果移除元素成功，返回1。
-    | 如果member元素不是集合成员，返回0。
-
-::
-
-    redis> SMEMBERS prog_lang
-    1) "c"
-    2) "ruby"
-    3) "python"
-
-    redis> SREM prog_lang "c"
-    (integer) 1
-
-    redis> SMEMBERS prog_lang
-    1) "ruby"
-    2) "python"
-
-    redis> SREM prog_lang "scheme"
-    (integer) 0
-
-    redis> SMEMBERS prog_lang
-    1) "ruby"
-    2) "python"

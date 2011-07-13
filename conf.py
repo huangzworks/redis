@@ -40,7 +40,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Redis Command Reference (Chinese Translation)'
+project = u'Redis命令参考中文版(Redis Command Reference)'
 copyright = u'2011, huangz1990'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -219,7 +219,7 @@ man_pages = [
 # -- Options for Epub output ---------------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = u'Redis Command Reference (Chinese Translation)'
+epub_title = u'Redis命令参考(Redis Command Reference)'
 epub_author = u'huangz1990'
 epub_publisher = u'huangz1990'
 epub_copyright = u'2011, huangz1990'

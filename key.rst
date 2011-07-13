@@ -1,35 +1,53 @@
 Key
 ===
 
+.. _del:
+
 DEL
 ---
 
 .. function:: DEL key [key ...]
 
-移除给定的\ ``key``\ 。
+移除给定的一个或多个\ ``key``\ 。
 
 如果\ ``key``\ 不存在，则忽略该命令。
 
-时间时间复杂度：
+**时间复杂度：**
     | O(N)，\ ``N``\ 为要移除的\ ``key``\ 的数量。
 
     | 移除单个字符串类型的\ ``key``\ ，时间复杂度为O(1)。
-    | 移除单个列表、集合、有序集合和哈希表类型的\ ``key``\ ，时间复杂度为O(M)，\ ``M``\ 为以上数据结构内的元素数量。
+    | 移除单个列表、集合、有序集合或哈希表类型的\ ``key``\ ，时间复杂度为O(M)，\ ``M``\ 为以上数据结构内的元素数量。
 
-返回值：
+**返回值：**
     被移除\ ``key``\ 的数量。
 
 ::
 
-    redis> SET name "huangz" # 设置一个值
+    # 情况1： 删除单个key
+
+    redis> SET name huangz # 设置一个值
     OK
-    redis> DEL name  # 然后将其删除
+
+    redis> DEL name  # 将其删除
     (integer) 1
+
+
+    # 情况2： 删除一个不存在的key
 
     redis> EXISTS phone  # 检查一个不存在的key
     (integer) 0
-    redis> DEL phone # 试图删除一个不存在的key
+
+    redis> DEL phone # 试图删除一个不存在的key，失败
     (integer) 0
+
+
+    # 情况3： 同时删除多个key
+
+    redis> MSET name huangz age 20 blog huangz.iteye.com # 同时设置多个key-value对
+    OK
+
+    redis> DEL name age blog # 同时删除三个key
+    (integer) 3
 
 
 KEYS
@@ -39,16 +57,17 @@ KEYS
 
 查找符合给定模式的\ ``key``\ 。
 
-| \ ``h?llo``\ 命中\ ``hello``\ ， \ ``hallo and hxllo``\ 等。
-| \ ``h*llo``\ 命中\ ``hllo``\ 和\ ``heeeeello``\ 等。
-| \ ``h[ae]llo``\ 命中\ ``hello``\ 和\ ``hallo``\ ，但不命中\ ``hillo``\ 。
+| \ ``KEYS *``\ 命中数据库中所有\ ``key``\ 。
+| \ ``KEYS h?llo``\ 命中\ ``hello``\ ， \ ``hallo and hxllo``\ 等。
+| \ ``KEYS h*llo``\ 命中\ ``hllo``\ 和\ ``heeeeello``\ 等。
+| \ ``KEYS h[ae]llo``\ 命中\ ``hello``\ 和\ ``hallo``\ ，但不命中\ ``hillo``\ 。
 
 特殊符号用\ ``"\"``\ 隔开
 
-时间复杂度：
+**时间复杂度：**
     O(N)，\ ``N``\ 为数据库中\ ``key``\ 的数量。
             
-返回值：
+**返回值：**
     符合给定模式的\ ``key``\ 列表。
 
 .. warning::
@@ -84,14 +103,16 @@ RANDOMKEY
 
 从当前数据库中随机返回(不删除)一个\ ``key``\ 。
 
-时间复杂度：
+**时间复杂度：**
     O(1)
 
-返回值：
-    | 正常情况下，返回一个\ ``key``\ 。
+**返回值：**
+    | 当数据库不为空时，返回一个\ ``key``\ 。
     | 当数据库为空时，返回\ ``nil``\ 。
 
 :: 
+
+    # 情况1：数据库不为空
 
     redis> mset fruit "apple" drink "beer" food "cookies"   # 设置多个key
     OK
@@ -107,6 +128,9 @@ RANDOMKEY
     2) "drink"
     3) "fruit"
 
+
+    # 情况2：数据库为空
+
     redis> flushdb  # 删除当前数据库所有key
     OK
 
@@ -119,21 +143,23 @@ TTL
 
 .. function:: TTL key
 
-返回给定\ ``key``\ 的剩余生存时间(以秒为单位)。
+返回给定\ ``key``\ 的剩余生存时间(time to live)(以秒为单位)。
 
-时间复杂度：
+**时间复杂度：**
     O(1)
 
-返回值：
-    | \ ``key``\ 剩余的生存时间(以秒为单位)。
+**返回值：**
+    | \ ``key``\ 的剩余生存时间(以秒为单位)。
     | 当\ ``key``\ 不存在或没有设置生存时间时，返回\ ``-1``\  。
 
 ::
 
-    redis> set name "huangz"
+    # 情况1：带TTL的key
+
+    redis> set name "huangz"    # 设置一个key
     OK
 
-    redis> expire name 30  # 设置过期时间为30秒
+    redis> expire name 30  # 设置生存时间为30秒
     (integer) 1
 
     redis> get name
@@ -142,17 +168,29 @@ TTL
     redis> ttl name
     (integer) 25
 
-    redis> get name
-    "huangz"
-
-    redis> ttl name
-    (integer) 15
-
     redis> ttl name # 30秒过去，name过期
     (integer) -1
 
     redis> get name # 过期的key将被删除
     (nil)
+
+
+    # 情况2：不带TTL的key
+
+    redis> SET site wikipedia.org   
+    OK
+
+    redis> TTL wikipedia.org
+    (integer) -1
+
+
+    # 情况3：不存在的key
+
+    redis> EXISTS not_exists_key
+    (integer) 0
+
+    redis> TTL not_exists_key
+    (integer) -1
 
 
 EXISTS
@@ -162,10 +200,10 @@ EXISTS
 
 检查给定\ ``key``\ 是否存在。
 
-时间复杂度：
+**时间复杂度：**
     O(1)
 
-返回值：
+**返回值：**
     若\ ``key``\ 存在，返回\ ``1``\ ，否则返回\ ``0``\ 。
 
 ::
@@ -188,17 +226,21 @@ MOVE
 
 .. function:: MOVE key db
 
-| 将当前数据库(默认为\ ``0``\ )的\ ``key``\ 移动到给定的数据库\ ``db``\ 当中。
-| 如果当前数据库(源数据库)和给定数据库(目标数据库)有相同名字的给定\ ``key``\ ，或者\ ``key``\ 不存在于当前数据库，那么\ ``MOVE``\ 没有任何效果。
-| 因此，也可以利用这一特性，将\ `MOVE`_\ 当作锁(locking)原语。
+将当前数据库(默认为\ ``0``\ )的\ ``key``\ 移动到给定的数据库\ ``db``\ 当中。
 
-时间复杂度：
+如果当前数据库(源数据库)和给定数据库(目标数据库)有相同名字的给定\ ``key``\ ，或者\ ``key``\ 不存在于当前数据库，那么\ ``MOVE``\ 没有任何效果。
+
+因此，也可以利用这一特性，将\ `MOVE`_\ 当作锁(locking)原语。
+
+**时间复杂度：**
     O(1)
 
-返回值：
+**返回值：**
     移动成功返回\ ``1``\ ，失败则返回\ ``0``\ 。
 
 ::
+
+    # 情况1： key存在于当前数据库
 
     redis> SELECT 0  # redis默认使用数据库0，为了清晰起见，这里再显式指定一次。
     OK
@@ -218,7 +260,8 @@ MOVE
     redis:1> EXISTS song  # 证实song被移到了数据库1(注意命令提示符变成了"redis:1"，表明正在使用数据库1)
     (integer) 1
  
-    # 当key不存在的时候 
+
+    # 情况2：当key不存在的时候 
 
     redis:1> EXISTS fake_key  
     (integer) 0
@@ -232,7 +275,8 @@ MOVE
     redis> EXISTS fake_key  # 证实fake_key不存在
     (integer) 0
 
-    # 当源数据库和目标数据库有相同的key时
+
+    # 情况3：当源数据库和目标数据库有相同的key时
 
     redis> SELECT 0  # 使用数据库0
     OK
@@ -268,16 +312,19 @@ RENAME
 
 将\ ``key``\ 改名为\ ``newkey``\ 。
 
-| 当\ ``key``\ 和\ ``newkey``\ 相同或者\ ``key``\ 不存在时，返回一个错误。
-| 当\ ``newkey``\ 已经存在时，\ `RENAME`_\ 命令将覆盖旧值。
+当\ ``key``\ 和\ ``newkey``\ 相同或者\ ``key``\ 不存在时，返回一个错误。
 
-时间复杂度：
+当\ ``newkey``\ 已经存在时，\ `RENAME`_\ 命令将覆盖旧值。
+
+**时间复杂度：**
     O(1)
 
-返回值：
-    成功时提示\ ``OK``\ ，失败时候返回一个错误。
+**返回值：**
+    改名成功时提示\ ``OK``\ ，失败时候返回一个错误。
 
 :: 
+
+    # 情况1：key存在且newkey不存在
 
     redis> SET message "hello world"
     OK
@@ -291,12 +338,14 @@ RENAME
     redis> EXISTS greeting  # greeting取而代之
     (integer) 1
 
-    # 当key不存在时，返回错误
+
+    # 情况2：当key不存在时，返回错误
     
     redis> RENAME fake_key never_exists
     (error) ERR no such key
     
-    # 当newkey已存在时，RENAME会覆盖旧newkey
+
+    # 情况3：newkey已存在时，RENAME会覆盖旧newkey
     
     redis> SET pc "lenovo"
     OK
@@ -321,10 +370,10 @@ TYPE
 
 返回\ ``key``\ 所储存的值的类型。
 
-时间复杂度：
+**时间复杂度：**
     O(1)
 
-返回值：
+**返回值：**
     | \ ``none``\ (key不存在)
     | \ ``string``\ (字符串)
     | \ ``list``\ (列表)
@@ -343,9 +392,6 @@ TYPE
     redis> LPUSH book_list "programming in scala"  # 构建一个列表
     (integer) 1
 
-    redis> LPUSH book_list "algorithms in C"
-    (integer) 2
-
     redis> TYPE book_list 
     list
 
@@ -363,18 +409,19 @@ EXPIRE
 
 为给定\ ``key``\ 设置生存时间。
 
-| 当\ ``key``\ 过期时，它会被自动删除。
-| 在Redis的术语中，带有生存时间的\ ``key``\ 称为可挥发的(volatile) 。
+当\ ``key``\ 过期时，它会被自动删除。
 
-| 在低于2.1.3版本的Redis中，已存在的过期时间不可覆盖。
-| 从2.1.3版本开始，\ ``key``\ 的过期时间可以被更新，也可以被\ `PERSIST`_\ 命令移除。(详情参见 http://redis.io/topics/expire)。
+在Redis的术语中，带有生存时间的\ ``key``\ 称为可挥发的(volatile) 。
 
-时间复杂度：
+| 在低于2.1.3版本的Redis中，已存在的生存时间不可覆盖。
+| 从2.1.3版本开始，\ ``key``\ 的生存时间可以被更新，也可以被\ `PERSIST`_\ 命令移除。(详情参见 http://redis.io/topics/expire)。
+
+**时间复杂度：**
     O(1)
 
-返回值：
+**返回值：**
     | 设置成功返回\ ``1``\ 。
-    | 当\ ``key``\ 不存在或者不能为\ ``key``\ 设置过期时间时(比如在低于2.1.3中你尝试更新\ ``key``\ 的过期时间)，返回\ ``0``\ 。
+    | 当\ ``key``\ 不存在或者不能为\ ``key``\ 设置生存时间时(比如在低于2.1.3中你尝试更新\ ``key``\ 的生存时间)，返回\ ``0``\ 。
 
 ::
 
@@ -387,7 +434,7 @@ EXPIRE
     redis> TTL cache_page   # 查看给定key的剩余生存时间
     (integer) 24
     
-    redis> EXPIRE cache_page 30000  # 更新过期时间，30000秒
+    redis> EXPIRE cache_page 30000  # 更新生存时间，30000秒
     (integer) 1
     
     redis> TTL cache_page
@@ -418,12 +465,12 @@ OBJECT命令有多个子命令：
 * 哈希表可以编码为\ ``zipmap``\ 或者\ ``hashtable``\ 。\ ``zipmap``\ 是小哈希表的特殊表示。
 * 有序集合可以被编码为\ ``ziplist``\ 或者\ ``skiplist``\ 格式。\ ``ziplist``\ 用于表示小的有序集合，而\ ``skiplist``\ 则用于表示任何大小的有序集合。
 
-| 假如你做了什么让Redis没办法再使用节省空间的编码时(比如将一个只有1个元素的集合扩展为一个有100万个元素的集合)，特殊表示类型(specially encoded types)会自动转换成通用类型(general type)。
+| 假如你做了什么让Redis没办法再使用节省空间的编码时(比如将一个只有1个元素的集合扩展为一个有100万个元素的集合)，特殊编码类型(specially encoded types)会自动转换成通用类型(general type)。
                                                                                                         
-时间复杂度：
+**时间复杂度：**
     O(1)
 
-返回值：
+**返回值：**
     | \ ``REFCOUNT``\ 和\ ``IDLETIME``\ 返回数字。
     | \ ``ENCODING``\ 返回相应的编码类型。
 
@@ -465,20 +512,20 @@ RENAMENX
 
 .. function:: RENAMENX key newkey
 
-仅当\ ``newkey``\ 不存在时，将\ ``key``\ 改为\ ``newkey``\ 。
+当且仅当\ ``newkey``\ 不存在时，将\ ``key``\ 改为\ ``newkey``\ 。
 
 出错的情况和\ `RENAME`_\ 一样(\ ``key``\ 不存在时报错)。
 
-时间复杂度：
+**时间复杂度：**
     O(1)
 
-返回值：
-    | 当修改成功时，返回\ ``1``\ 。
+**返回值：**
+    | 修改成功时，返回\ ``1``\ 。
     | 如果\ ``newkey``\ 已经存在，返回\ ``0``\ 。
 
 ::
 
-    # newkey不存在，成功
+    # 情况1：newkey不存在，成功
 
     redis> SET player "MPlyaer"
     OK
@@ -489,7 +536,9 @@ RENAMENX
     redis> RENAMENX player best_player
     (integer) 1
 
-    # newkey存在时，失败
+
+    # 情况2：newkey存在时，失败
+
     redis> SET animal "bear"
     OK
 
@@ -510,15 +559,16 @@ EXPIREAT
 --------
 .. function:: EXPIREAT key timestamp
 
-| \ `EXPIREAT`_\ 的作用和\ `EXPIRE`_\ 一样，都用于为\ ``key``\ 设置过期时间。
-| 不同在于\ `EXPIREAT`_\ 接受的时间参数是\ *UNIX时间戳*\ (unix timestamp)。
+\ `EXPIREAT`_\ 的作用和\ `EXPIRE`_\ 一样，都用于为\ ``key``\ 设置生存时间。
 
-时间复杂度：
+不同在于\ `EXPIREAT`_\ 命令接受的时间参数是\ *UNIX时间戳*\ (unix timestamp)。
+
+**时间复杂度：**
     O(1)
 
-返回值：
-    | 如果过期时间设置成功，返回\ ``1``\ 。
-    | 当\ ``key``\ 不存在或没办法设置过期时间，返回\ ``0``\ 。
+**返回值：**
+    | 如果生存时间设置成功，返回\ ``1``\ 。
+    | 当\ ``key``\ 不存在或没办法设置生存时间，返回\ ``0``\ 。
 
 ::
 
@@ -537,18 +587,18 @@ PERSIST
 
 .. function:: PERSIST key
 
-移除给定\ ``key``\ 的过期时间。
+移除给定\ ``key``\ 的生存时间。
 
-时间复杂度：
+**时间复杂度：**
     O(1)
 
-返回值：
-    | 当过期时间移除成功时，返回\ ``1``\ .
-    | 如果\ ``key``\ 不存在或\ ``key``\ 没有设置过期时间，返回\ ``0``\ 。
+**返回值：**
+    | 当生存时间移除成功时，返回\ ``1``\ .
+    | 如果\ ``key``\ 不存在或\ ``key``\ 没有设置生存时间，返回\ ``0``\ 。
 
 ::
 
-    redis> SET time_to_say_goodbye "oh, please no delete me"
+    redis> SET time_to_say_goodbye "886..."
     OK
 
     redis> EXPIRE time_to_say_goodbye 300
@@ -557,7 +607,7 @@ PERSIST
     redis> TTL time_to_say_goodbye
     (integer) 293
     
-    redis> PERSIST time_to_say_goodbye
+    redis> PERSIST time_to_say_goodbye  # 移除生存时间
     (integer) 1
     
     redis> TTL time_to_say_goodbye  # 移除成功
@@ -569,13 +619,13 @@ SORT
 
 .. function:: SORT key [BY pattern] [LIMIT offset count] [GET pattern [GET pattern ...]] [ASC | DESC] [ALPHA] [STORE destination]
 
-返回或保存给定列表、集合、有序集合\ ``key``\ 中的(经过排序的)元素。
+返回或保存给定列表、集合、有序集合\ ``key``\ 中经过排序的元素。
 
 排序默认以数字作为对象，值被解释为双精度浮点数，然后进行比较。
 
 **一般SORT用法**
 
-最简单的\ `SORT`_\ 使用方法是\ ``SORT key``\ 
+最简单的\ `SORT`_\ 使用方法是\ ``SORT key``\ 。
 
 假设\ ``today_cost``\ 是一个保存数字的列表，\ `SORT`_\ 命令默认会返回该列表值的递增(从小到大)排序结果。
 
@@ -597,7 +647,7 @@ SORT
 
     # 排序
 
-    redis> SORT today_cost
+    redis> SORT today_cost 
     1) "1.5"
     2) "8"
     3) "10"
@@ -667,7 +717,7 @@ SORT
 
     # 排序
 
-    redis> SORT rank LIMIT 0 5
+    redis> SORT rank LIMIT 0 5  # 返回排名前五的元素
     1) "0"
     2) "11"
     3) "22"
@@ -749,10 +799,10 @@ SORT
 ::
 
     redis> SORT user_id BY user_level_* DESC
-    1) "222"
-    2) "1"
-    3) "2"
-    4) "59230"
+    1) "222"    # hacker
+    2) "1"      # admin
+    3) "2"      # huangz    
+    4) "59230"  # jack
 
 但是有时候只是返回相应的\ ``id``\ 没有什么用，你可能更希望排序后返回\ ``id``\ 对应的用户名，这样更友好一点，使用\ ``GET``\ 选项可以做到这一点：
 
@@ -812,7 +862,7 @@ SORT
 ::
 
     redis> SORT user_id BY user_level_* DESC GET # GET user_name_* GET user_password_*
-    1) "222"            # id
+    1) "222"          # id
     2) "hacker"       # name
     3) "hey,im in"    # password
     4) "1"
@@ -841,9 +891,9 @@ SORT
     # 以fake_key作BY参数，不排序，只GET name 和 GET password
 
     redis> SORT user_id BY fake_key GET # GET user_name_* GET user_password_*
-    1) "222"
-    2) "hacker"
-    3) "hey,im in"
+    1) "222"        # id
+    2) "hacker"     # user_name
+    3) "hey,im in"  # password
     4) "59230"
     5) "jack"
     6) "jack201022"
@@ -880,11 +930,11 @@ SORT
     11) "admin"
     12) "a_long_long_password"
 
-一个有趣的用法是将\ `SORT`_\ 结果保存，用\ `EXPIRE`_\ 为结果集设置过期时间，这样结果集就成了\ `SORT`_\ 操作的一个缓存。
+一个有趣的用法是将\ `SORT`_\ 结果保存，用\ `EXPIRE`_\ 为结果集设置生存时间，这样结果集就成了\ `SORT`_\ 操作的一个缓存。
 
 这样就不必频繁地调用\ `SORT`_\ 操作了，只有当结果集过期时，才需要再调用一次\ `SORT`_\ 操作。
 
-有时候为了正确实现这一用法，你可能需要加锁以避免多个客户端同时进行缓存重建(也就是多个客户端，同一时间进行\ `SORT`_\ 操作，并保存为结果集)，具体参见\ `String setnx`_\ 命令。
+有时候为了正确实现这一用法，你可能需要加锁以避免多个客户端同时进行缓存重建(也就是多个客户端，同一时间进行\ `SORT`_\ 操作，并保存为结果集)，具体参见\ :ref:`setnx`\ 命令。
 
 **在GET和BY中使用哈希表**
 
@@ -893,7 +943,7 @@ SORT
 ::
 
     # 假设现在我们的用户表新增了一个serial项来为作为每个用户的序列号
-    #  序列号以哈希表的形式保存在serial哈希域内。
+    # 序列号以哈希表的形式保存在serial哈希域内。
 
     redis> HMSET serial 1 23131283 2 23810573 222 502342349 59230 2435829758
     OK
@@ -906,14 +956,14 @@ SORT
     3) "2"
     4) "1"
 
-字符串\ ``"->"``\ 用于分割关键字(key name)和索引域(hash field)，格式为\ ``"key->field"``\ 。
+符号\ ``"->"``\ 用于分割哈希表的关键字(key name)和索引域(hash field)，格式为\ ``"key->field"``\ 。
 
 除此之外，哈希表的\ ``BY``\ 和\ ``GET``\ 操作和上面介绍的其他数据结构(列表、集合、有序集合)没有什么不同。
 
-时间复杂度：
+**时间复杂度：**
     | O(N+M*log(M))，\ ``N``\ 为要排序的列表或集合内的元素数量，\ ``M``\ 为要返回的元素数量。
-    | 如果只是使用\ `SORT`_\ 命令的\ ``GET``\ 选项获取数据而没有进行排序，时间为O(N)。
+    | 如果只是使用\ `SORT`_\ 命令的\ ``GET``\ 选项获取数据而没有进行排序，时间复杂度O(N)。
                                
-返回值：
+**返回值：**
     | 没有使用\ ``STORE``\ 参数，返回列表形式的排序结果。
     | 使用\ ``STORE``\ 参数，返回排序结果的元素数量。

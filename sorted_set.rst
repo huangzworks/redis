@@ -8,18 +8,20 @@ ZADD
 
 将\ ``member``\ 元素及其\ ``score``\ 值加入到有序集\ ``key``\ 当中。
 
-| \ ``score``\ 值可以是整数值或双精度浮点数。
+\ ``score``\ 值可以是整数值或双精度浮点数。
 
-| 如果\ ``member``\ 已经是有序集的成员，那么更新\ ``member``\ 的\ ``score``\ 值，并通过重新插入\ ``member``\ 元素，来保证\ ``member``\ 在正确的位置上。
-| 假如\ ``key``\ 不存在，则创建一个包含\ ``member``\ 元素作成员的有序集。
-| 当\ ``key``\ 存在但不是有序集类型时，返回一个错误。
+如果\ ``member``\ 已经是有序集的成员，那么更新\ ``member``\ 的\ ``score``\ 值，并通过重新插入\ ``member``\ 元素，来保证\ ``member``\ 在正确的位置上。
 
-| 对有序集的介绍请移步到页面\ `sorted set <http://redis.io/topics/data-types#sorted-sets>`_\ 查看。
+假如\ ``key``\ 不存在，则创建一个包含\ ``member``\ 元素作成员的有序集。
 
-时间复杂度:
+当\ ``key``\ 存在但不是有序集类型时，返回一个错误。
+
+对有序集的介绍请参见\ `sorted set <http://redis.io/topics/data-types#sorted-sets>`_\ 。
+
+**时间复杂度:**
     O(1)
 
-返回值:
+**返回值:**
     | 如果添加元素成功，返回\ ``1``\ 。
     | 如果元素已经是集合的成员，且该元素的\ ``score``\ 值被成功更新，返回\ ``0``\ 。
 
@@ -51,49 +53,6 @@ ZADD
     5) "google.com"
     6) "10"
 
-ZINTERSTORE
------------
-
-.. function:: ZINTERSTORE destination numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX]
-
-计算给定的一个或多个有序集的交集，其中给定\ ``key``\ 的数量必须以\ ``numkeys``\ 参数指定。
-
-| 默认情况下，结果集中某个成员的\ ``score``\ 值是所有给定集下该成员\ ``score``\ 值的\ *和*\ 。
-| 关于\ ``WEIGHTS``\ 和\ ``AGGREGATE``\ 选项的描述，参见\ `ZUNIONSTORE`_\ 命令。
-
-时间复杂度:
-    O(N*K)+O(M*log(M))，\ ``N``\ 为给定\ ``key``\ 中基数最小的有序集，\ ``K``\ 为给定有序集的数量，\ ``M``\ 为结果集的基数。
-
-返回值:
-    保存到\ ``destination``\ 的结果集的基数。
-
-::
-    
-    redis > ZADD mid_test 70 "Li Lei"
-    (integer) 1
-    redis > ZADD mid_test 70 "Han Meimei"
-    (integer) 1
-    redis > ZADD mid_test 99.5 "Tom"
-    (integer) 1
-
-    redis > ZADD fin_test 88 "Li Lei"
-    (integer) 1
-    redis > ZADD fin_test 75 "Han Meimei"
-    (integer) 1
-    redis > ZADD fin_test 99.5 "Tom"
-    (integer) 1
-
-    redis > ZINTERSTORE sum_point 2 mid_test fin_test
-    (integer) 3
-
-    redis > ZRANGE sum_point 0 -1 WITHSCORES  # 显式集合内所有成员及其score值
-    1) "Han Meimei"
-    2) "145"
-    3) "Li Lei"
-    4) "158"
-    5) "Tom"
-    6) "199"
-
 
 ZREM
 ----
@@ -102,12 +61,12 @@ ZREM
 
 移除有序集\ ``key``\ 中的成员\ ``member``\ ，如果\ ``member``\ 不是有序集中的成员，那么不执行任何动作。
 
-| 当\ ``key``\ 存在但不是有序集类型时，返回一个错误。
+当\ ``key``\ 存在但不是有序集类型时，返回一个错误。
 
-时间复杂度:
+**时间复杂度:**
     O(log(N))，\ ``N``\ 为有序集的基数。
 
-返回值:
+**返回值:**
     | 如果\ ``member``\ 被成功移除，返回\ ``1``\ 。
     | 如果\ ``member``\ 不是有序集的成员，返回\ ``0``\ 。
 
@@ -125,46 +84,6 @@ ZREM
     (integer) 0
 
 
-ZREVRANGEBYSCORE
-----------------
-
-.. function:: ZREVRANGEBYSCORE key max min [WITHSCORES] [LIMIT offset count]
-
-返回有序集\ ``key``\ 中，\ ``score``\ 值介于\ ``max``\ 和\ ``min``\ 之间(默认包括等于\ ``max``\ 或\ ``min``\ )的所有的成员。有序集成员按\ ``score``\ 值递减(从大到小)的次序排列。
-
-具有相同\ ``score``\ 值的成员按字典序的反序(\ `reverse lexicographical order`_\ )排列。
-
-除了成员按\ ``score``\ 值递减的次序排列这一点外，\ `ZREVRANGEBYSCORE`_\ 命令的其他方面和\ `ZRANGEBYSCORE`_\ 命令一样。
-
-时间复杂度:
-    O(log(N)+M)，\ ``N``\ 为有序集的基数，\ ``M``\ 为结果集的基数。
-
-返回值:
-    指定区间内，带有\ ``score``\ 值(可选)的有序集成员的列表。
-
-::
-
-    redis > ZADD salary 10086 jack
-    (integer) 1
-    redis > ZADD salary 5000 tom
-    (integer) 1
-    redis > ZADD salary 7500 peter
-    (integer) 1
-    redis > ZADD salary 3500 joe
-    (integer) 1
-
-    redis > ZREVRANGEBYSCORE salary +inf -inf # 逆序排列所有成员
-    1) "jack"
-    2) "peter"
-    3) "tom"
-    4) "joe"
-
-    redis > ZREVRANGEBYSCORE salary 10000 2000 # 逆序排列薪水介于10000和2000之间的成员
-    1) "peter"
-    2) "tom"
-    3) "joe"
-
-
 ZCARD
 -----
 
@@ -172,10 +91,10 @@ ZCARD
 
 返回有序集\ ``key``\ 的基数。
 
-时间复杂度:
+**时间复杂度:**
     O(1)
 
-返回值:
+**返回值:**
     | 当\ ``key``\ 存在且是有序集类型时，返回有序集的基数。
     | 当\ ``key``\ 不存在时，返回\ ``0``\ 。
 
@@ -196,6 +115,97 @@ ZCARD
     redis > ZCARD non_exists_key
     (integer) 0
 
+ZCOUNT
+------
+
+.. function:: ZCOUNT key min max
+
+返回有序集\ ``key``\ 中，\ ``score``\ 值在\ ``min``\ 和\ ``max``\ 之间(默认包括\ ``score``\ 值等于\ ``min``\ 或\ ``max``\ )的成员。
+
+关于参数\ ``min``\ 和\ ``max``\ 的详细使用方法，请参考\ `ZRANGEBYSCORE`_\ 命令。
+
+**时间复杂度:**
+    O(log(N)+M)，\ ``N``\ 为有序集的基数，\ ``M``\ 为值在\ ``min``\ 和\ ``max``\ 之间的元素的数量。
+
+**返回值:**
+    \ ``score``\ 值在\ ``min``\ 和\ ``max``\ 之间的成员的数量。
+
+::
+
+    redis> ZRANGE salary 0 -1 WITHSCORES # 显示所有成员及其score值
+    1) "jack"
+    2) "2000"
+    3) "peter"
+    4) "3500"
+    5) "tom"
+    6) "5000"
+
+    redis> ZCOUNT salary 2000 5000   # 计算薪水在2000-5000之间的人数
+    (integer) 3
+
+    redis> ZCOUNT salary 3000 5000   # 计算薪水在3000-5000之间的人数
+    (integer) 2
+
+ZSCORE
+------
+
+.. function:: ZSCORE key member
+
+返回有序集\ ``key``\ 中，成员\ ``member``\ 的\ ``score``\ 值。
+
+如果\ ``member``\ 元素不是有序集\ ``key``\ 的成员，或\ ``key``\ 不存在，返回\ ``nil``\ 。
+
+**时间复杂度:**
+    O(1)
+
+**返回值:**
+    \ ``member``\ 成员的\ ``score``\ 值，以字符串形式表示。
+
+::
+    
+    redis> ZRANGE salary 0 -1 WITHSCORES # 显示所有成员及其score值
+    1) "tom"
+    2) "2000"
+    3) "peter"
+    4) "3500"
+    5) "jack"
+    6) "5000"
+
+    redis> ZSCORE salary peter   # 注意返回值是字符串
+    "3500"
+
+
+ZINCRBY
+-------
+
+.. function:: ZINCRBY key increment member
+
+为有序集\ ``key``\ 的成员\ ``member``\ 的\ ``score``\ 值加上增量\ ``increment``\ 。
+
+你也可以通过传递一个负数值\ ``increment``\ ，让\ ``score``\ 减去相应的值，比如\ ``ZINCRBY key -5 member``\ ，就是让\ ``member``\ 的\ ``score``\ 值减去\ ``5``\ 。
+
+当\ ``key``\ 不存在，或\ ``member``\ 不是\ ``key``\ 的成员时，\ ``ZINCRBY key increment member``\ 等同于\ ``ZADD key score member``\ 。
+
+当\ ``key``\ 不是有序集类型时，返回一个错误。
+
+\ ``score``\ 值可以是整数值或双精度浮点数。
+
+**时间复杂度:**
+    O(log(N))
+
+**返回值:**
+    \ ``member``\ 成员的新\ ``score``\ 值，以字符串形式表示。
+
+::
+
+    redis> ZSCORE salary tom 
+    "2000"
+
+    redis> ZINCRBY salary 2000 tom   # tom加薪啦！
+    "4000"
+
+
+
 
 ZRANGE
 ------
@@ -204,10 +214,11 @@ ZRANGE
 
 返回有序集\ ``key``\ 中，指定区间内的成员。
 
-| 其中成员的位置按\ ``score``\ 值递增(从小到大)来排序。
-| 具有相同\ ``score``\ 值的成员按字典序(\ `lexicographical order`_\ )来排列。
+其中成员的位置按\ ``score``\ 值递增(从小到大)来排序。
 
-| 如果你需要成员按\ ``score``\ 值递减(从大到小)来排列，请使用\ `ZREVRANGE`_\ 命令。
+具有相同\ ``score``\ 值的成员按字典序(\ `lexicographical order`_\ )来排列。
+
+如果你需要成员按\ ``score``\ 值递减(从大到小)来排列，请使用\ `ZREVRANGE`_\ 命令。
 
 | 下标参数\ ``start``\ 和\ ``stop``\ 都以\ ``0``\ 为底，也就是说，以\ ``0``\ 表示有序集第一个成员，以\ ``1``\ 表示有序集第二个成员，以此类推。
 | 你也可以使用负数下标，以\ ``-1``\ 表示最后一个成员，\ ``-2``\ 表示倒数第二个成员，以此类推。
@@ -219,10 +230,10 @@ ZRANGE
 | 可以通过使用\ ``WITHSCORES``\ 选项，来让成员和它的\ ``score``\ 值一并返回，返回列表以\ ``value1,score1, ..., valueN,scoreN``\ 的格式表示。
 | 客户端库可能会返回一些更复杂的数据类型，比如数组、元组等。
 
-时间复杂度:
+**时间复杂度:**
     O(log(N)+M)，\ ``N``\ 为有序集的基数，而\ ``M``\ 为结果集的基数。
 
-返回值:
+**返回值:**
     指定区间内，带有\ ``score``\ 值(可选)的有序集成员的列表。
 
 :: 
@@ -260,103 +271,41 @@ ZRANGE
    (empty list or set)
 
 
-ZREMRANGEBYRANK
----------------
+ZREVRANGE
+---------
 
-.. function:: ZREMRANGEBYRANK key start stop
+.. function:: ZREVRANGE key start stop [WITHSCORES]
 
-移除有序集\ ``key``\ 中，指定排名(rank)区间内的所有成员。
+返回有序集\ ``key``\ 中，指定区间内的成员。
 
-| 区间分别以下标参数\ ``start``\ 和\ ``stop``\ 指出，包含\ ``start``\ 和\ ``stop``\ 在内。
-| 下标参数\ ``start``\ 和\ ``stop``\ 都以\ ``0``\ 为底，也就是说，以\ ``0``\ 表示有序集第一个成员，以\ ``1``\ 表示有序集第二个成员，以此类推。
-| 你也可以使用负数下标，以\ ``-1``\ 表示最后一个成员，\ ``-2``\ 表示倒数第二个成员，以此类推。
+| 其中成员的位置按\ ``score``\ 值递减(从大到小)来排列。
+| 具有相同\ ``score``\ 值的成员按字典序的反序(\ `reverse lexicographical order`_\ )排列。
 
-时间复杂度:
-    O(log(N)+M)，\ ``N``\ 为有序集的基数，而\ ``M``\ 为被移除成员的数量。
+除了成员按\ ``score``\ 值递减的次序排列这一点外，\ `ZREVRANGE`_\ 命令的其他方面和\ `ZRANGE`_\ 命令一样。
 
-返回值:
-    被移除成员的数量。
+**时间复杂度:**
+    O(log(N)+M)，\ ``N``\ 为有序集的基数，而\ ``M``\ 为结果集的基数。
 
-::
-
-    redis> ZADD salary 2000 jack
-    (integer) 1
-    redis> ZADD salary 5000 tom
-    (integer) 1
-    redis> ZADD salary 3500 peter
-    (integer) 1
-
-    redis> ZREMRANGEBYRANK salary 0 1    # 移除下标0至1区间内的成员
-    (integer) 2
-
-    redis> ZRANGE salary 0 -1 WITHSCORES # 有序集只剩下一个成员
-    1) "tom"
-    2) "5000"
-
-
-ZREVRANK
---------
-
-.. function:: ZREVRANK key member
-
-返回有序集\ ``key``\ 中成员\ ``member``\ 的排名。其中有序集成员按\ ``score``\ 值递减(从大到小)排序。
-
-排名以\ ``0``\ 为底，也就是说，\ ``score``\ 值最大的成员排名为\ ``0``\ 。
-
-使用\ `ZRANK`_\ 命令可以获得成员按\ ``score``\ 值递增(从小到大)排列的排名。
-
-时间复杂度:
-    O(log(N))
-
-返回值:
-    | 如果\ ``member``\ 是有序集\ ``key``\ 的成员，返回\ ``member``\ 的排名。
-    | 如果\ ``member``\ 不是有序集\ ``key``\ 的成员，返回\ ``nil``\ 。
+**返回值:**
+    指定区间内，带有\ ``score``\ 值(可选)的有序集成员的列表。
 
 ::
 
-    redis> ZADD salary 2000 jack
-    (integer) 1
-    redis> ZADD salary 5000 tom
-    (integer) 1
-    redis> ZADD salary 3500 peter
-    (integer) 1
-
-    redis> ZREVRANK salary peter # peter的工资排第二
-    (integer) 1
-    redis> ZREVRANK salary tom   # tom的工资最高
-    (integer) 0
-
-
-ZCOUNT
-------
-
-.. function:: ZCOUNT key min max
-
-返回有序集\ ``key``\ 中，\ ``score``\ 值在\ ``min``\ 和\ ``max``\ 之间(默认包括\ ``score``\ 值等于\ ``min``\ 或\ ``max``\ )的成员。
-
-关于参数\ ``min``\ 和\ ``max``\ 的详细使用方法，请参考\ `ZRANGEBYSCORE`_\ 命令。
-
-时间复杂度:
-    O(log(N)+M)
-
-返回值:
-    \ ``score``\ 值在\ ``min``\ 和\ ``max``\ 之间的成员的数量。
-
-::
-
-    redis> ZRANGE salary 0 -1 WITHSCORES # 显示所有成员及其score值
-    1) "jack"
-    2) "2000"
-    3) "peter"
-    4) "3500"
-    5) "tom"
+    redis> ZRANGE salary 0 -1 WITHSCORES # 递增排列
+    1) "peter"
+    2) "3500"
+    3) "tom"
+    4) "4000"
+    5) "jack"
     6) "5000"
 
-    redis> ZCOUNT salary 2000 5000   # 计算薪水在2000-5000之间的人数
-    (integer) 3
-
-    redis> ZCOUNT salary 3000 5000   # 计算薪水在3000-5000之间的人数
-    (integer) 2
+    redis> ZREVRANGE salary 0 -1 WITHSCORES  # 递减排列
+    1) "jack"
+    2) "5000"
+    3) "tom"
+    4) "4000"
+    5) "peter"
+    6) "3500"
 
 
 ZRANGEBYSCORE
@@ -385,18 +334,18 @@ ZRANGEBYSCORE
 
     ZRANGEBYSCORE zset (1 5
 
-会返回所有符合条件\ ``1 < score <= 5``\ 的成员；
+返回所有符合条件\ ``1 < score <= 5``\ 的成员；
 
 ::
 
     ZRANGEBYSCORE zset (5 (10
 
-会返回所有符合条件\ ``5 < score < 10``\ 的成员。
+返回所有符合条件\ ``5 < score < 10``\ 的成员。
 
-时间复杂度:
+**时间复杂度:**
     O(log(N)+M)，\ ``N``\ 为有序集的基数，\ ``M``\ 为被结果集的基数。
 
-返回值:
+**返回值:**
     指定区间内，带有\ ``score``\ 值(可选)的有序集成员的列表。
 
 ::
@@ -431,6 +380,149 @@ ZRANGEBYSCORE
     1) "peter"
 
 
+
+
+ZREVRANGEBYSCORE
+----------------
+
+.. function:: ZREVRANGEBYSCORE key max min [WITHSCORES] [LIMIT offset count]
+
+返回有序集\ ``key``\ 中，\ ``score``\ 值介于\ ``max``\ 和\ ``min``\ 之间(默认包括等于\ ``max``\ 或\ ``min``\ )的所有的成员。有序集成员按\ ``score``\ 值递减(从大到小)的次序排列。
+
+具有相同\ ``score``\ 值的成员按字典序的反序(\ `reverse lexicographical order`_\ )排列。
+
+除了成员按\ ``score``\ 值递减的次序排列这一点外，\ `ZREVRANGEBYSCORE`_\ 命令的其他方面和\ `ZRANGEBYSCORE`_\ 命令一样。
+
+**时间复杂度:**
+    O(log(N)+M)，\ ``N``\ 为有序集的基数，\ ``M``\ 为结果集的基数。
+
+**返回值:**
+    指定区间内，带有\ ``score``\ 值(可选)的有序集成员的列表。
+
+::
+
+    redis > ZADD salary 10086 jack
+    (integer) 1
+    redis > ZADD salary 5000 tom
+    (integer) 1
+    redis > ZADD salary 7500 peter
+    (integer) 1
+    redis > ZADD salary 3500 joe
+    (integer) 1
+
+    redis > ZREVRANGEBYSCORE salary +inf -inf # 逆序排列所有成员
+    1) "jack"
+    2) "peter"
+    3) "tom"
+    4) "joe"
+
+    redis > ZREVRANGEBYSCORE salary 10000 2000 # 逆序排列薪水介于10000和2000之间的成员
+    1) "peter"
+    2) "tom"
+    3) "joe"
+
+
+
+ZRANK
+-----
+
+.. function:: ZRANK key member
+
+返回有序集\ ``key``\ 中成员\ ``member``\ 的排名。其中有序集成员按\ ``score``\ 值递增(从小到大)顺序排列。
+
+排名以\ ``0``\ 为底，也就是说，\ ``score``\ 值最小的成员排名为\ ``0``\ 。
+
+使用\ `ZREVRANK`_\ 命令可以获得成员按\ ``score``\ 值递减(从大到小)排列的排名。
+
+**时间复杂度:**
+    O(log(N))
+
+**返回值:**
+    | 如果\ ``member``\ 是有序集\ ``key``\ 的成员，返回\ ``member``\ 的排名。
+    | 如果\ ``member``\ 不是有序集\ ``key``\ 的成员，返回\ ``nil``\ 。
+
+::
+
+    redis> ZRANGE salary 0 -1 WITHSCORES # 显示所有成员及其score值
+    1) "peter"
+    2) "3500"
+    3) "tom"
+    4) "4000"
+    5) "jack"
+    6) "5000"
+
+    redis> ZRANK salary tom  # 显示tom的薪水排名，第二
+    (integer) 1
+
+
+ZREVRANK
+--------
+
+.. function:: ZREVRANK key member
+
+返回有序集\ ``key``\ 中成员\ ``member``\ 的排名。其中有序集成员按\ ``score``\ 值递减(从大到小)排序。
+
+排名以\ ``0``\ 为底，也就是说，\ ``score``\ 值最大的成员排名为\ ``0``\ 。
+
+使用\ `ZRANK`_\ 命令可以获得成员按\ ``score``\ 值递增(从小到大)排列的排名。
+
+**时间复杂度:**
+    O(log(N))
+
+**返回值:**
+    | 如果\ ``member``\ 是有序集\ ``key``\ 的成员，返回\ ``member``\ 的排名。
+    | 如果\ ``member``\ 不是有序集\ ``key``\ 的成员，返回\ ``nil``\ 。
+
+::
+
+    redis> ZADD salary 2000 jack
+    (integer) 1
+    redis> ZADD salary 5000 tom
+    (integer) 1
+    redis> ZADD salary 3500 peter
+    (integer) 1
+
+    redis> ZREVRANK salary peter # peter的工资排第二
+    (integer) 1
+    redis> ZREVRANK salary tom   # tom的工资最高
+    (integer) 0
+
+ZREMRANGEBYRANK
+---------------
+
+.. function:: ZREMRANGEBYRANK key start stop
+
+移除有序集\ ``key``\ 中，指定排名(rank)区间内的所有成员。
+
+区间分别以下标参数\ ``start``\ 和\ ``stop``\ 指出，包含\ ``start``\ 和\ ``stop``\ 在内。
+
+| 下标参数\ ``start``\ 和\ ``stop``\ 都以\ ``0``\ 为底，也就是说，以\ ``0``\ 表示有序集第一个成员，以\ ``1``\ 表示有序集第二个成员，以此类推。
+| 你也可以使用负数下标，以\ ``-1``\ 表示最后一个成员，\ ``-2``\ 表示倒数第二个成员，以此类推。
+
+**时间复杂度:**
+    O(log(N)+M)，\ ``N``\ 为有序集的基数，而\ ``M``\ 为被移除成员的数量。
+
+**返回值:**
+    被移除成员的数量。
+
+::
+
+    redis> ZADD salary 2000 jack
+    (integer) 1
+    redis> ZADD salary 5000 tom
+    (integer) 1
+    redis> ZADD salary 3500 peter
+    (integer) 1
+
+    redis> ZREMRANGEBYRANK salary 0 1    # 移除下标0至1区间内的成员
+    (integer) 2
+
+    redis> ZRANGE salary 0 -1 WITHSCORES # 有序集只剩下一个成员
+    1) "tom"
+    2) "5000"
+
+
+
 ZREMRANGEBYSCORE
 ----------------
 
@@ -440,10 +532,10 @@ ZREMRANGEBYSCORE
 
 自版本2.1.6开始，\ ``score``\ 值等于\ ``min``\ 或\ ``max``\ 的成员也可以不包括在内，详情请参见\ `ZRANGEBYSCORE`_\ 命令。
 
-时间复杂度:
+**时间复杂度:**
     O(log(N)+M)，\ ``N``\ 为有序集的基数，而\ ``M``\ 为被移除成员的数量。
 
-返回值:
+**返回值:**
     被移除成员的数量。
 
 ::
@@ -464,132 +556,51 @@ ZREMRANGEBYSCORE
     2) "5000"
 
 
-ZSCORE
-------
+ZINTERSTORE
+-----------
 
-.. function:: ZSCORE key member
+.. function:: ZINTERSTORE destination numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX]
 
-返回有序集\ ``key``\ 中，成员\ ``member``\ 的\ ``score``\ 值。
+计算给定的一个或多个有序集的交集，其中给定\ ``key``\ 的数量必须以\ ``numkeys``\ 参数指定。
 
-如果\ ``member``\ 元素不是有序集\ ``key``\ 的成员，或\ ``key``\ 不存在，返回\ ``nil``\ 。
+默认情况下，结果集中某个成员的\ ``score``\ 值是所有给定集下该成员\ ``score``\ 值的\ *和*\ 。
 
-时间复杂度:
-    O(1)
+关于\ ``WEIGHTS``\ 和\ ``AGGREGATE``\ 选项的描述，参见\ `ZUNIONSTORE`_\ 命令。
 
-返回值:
-    \ ``member``\ 成员的\ ``score``\ 值，以字符串形式表示。
+**时间复杂度:**
+    O(N*K)+O(M*log(M))，\ ``N``\ 为给定\ ``key``\ 中基数最小的有序集，\ ``K``\ 为给定有序集的数量，\ ``M``\ 为结果集的基数。
+
+**返回值:**
+    保存到\ ``destination``\ 的结果集的基数。
 
 ::
     
-    redis> ZRANGE salary 0 -1 WITHSCORES # 显示所有成员及其score值
-    1) "tom"
-    2) "2000"
-    3) "peter"
-    4) "3500"
-    5) "jack"
-    6) "5000"
-
-    redis> ZSCORE salary peter   # 注意返回值是字符串
-    "3500"
-
-
-ZINCRBY
--------
-
-.. function:: ZINCRBY key increment member
-
-为有序集\ ``key``\ 的成员\ ``member``\ 的\ ``score``\ 值加上增量\ ``increment``\ 。
-
-你也可以通过传递一个负数值\ ``increment``\ ，让\ ``score``\ 减去相应的值，比如\ ``ZINCRBY key -5 member``\ ，就是让\ ``member``\ 的\ ``score``\ 值减去\ ``5``\ 。
-
-当\ ``key``\ 不存在，或\ ``member``\ 不是\ ``key``\ 的成员时，\ ``ZINCRBY key increment member``\ 等同于\ ``ZADD key score member``\ 。
-
-当\ ``key``\ 不是有序集类型时，返回一个错误。
-
-\ ``score``\ 值可以是整数值或双精度浮点数。
-
-时间复杂度:
-    O(log(N))
-
-返回值:
-    \ ``member``\ 成员的新\ ``score``\ 值，以字符串形式表示。
-
-::
-
-    redis> ZSCORE salary tom 
-    "2000"
-
-    redis> ZINCRBY salary 2000 tom   # tom加薪啦！
-    "4000"
-
-
-ZRANK
------
-
-.. function:: ZRANK key member
-
-返回有序集\ ``key``\ 中成员\ ``member``\ 的排名。其中有序集成员按\ ``score``\ 值递增(从小到大)顺序排列。
-
-排名以\ ``0``\ 为底，也就是说，\ ``score``\ 值最小的成员排名为\ ``0``\ 。
-
-使用\ `ZREVRANK`_\ 命令可以获得成员按\ ``score``\ 值递减(从大到小)排列的排名。
-
-时间复杂度:
-    O(log(N))
-
-返回值:
-    | 如果\ ``member``\ 是有序集\ ``key``\ 的成员，返回\ ``member``\ 的排名。
-    | 如果\ ``member``\ 不是有序集\ ``key``\ 的成员，返回\ ``nil``\ 。
-
-::
-
-    redis> ZRANGE salary 0 -1 WITHSCORES # 显示所有成员及其score值
-    1) "peter"
-    2) "3500"
-    3) "tom"
-    4) "4000"
-    5) "jack"
-    6) "5000"
-
-    redis> ZRANK salary tom  # 显示tom的薪水排名，第二
+    redis > ZADD mid_test 70 "Li Lei"
+    (integer) 1
+    redis > ZADD mid_test 70 "Han Meimei"
+    (integer) 1
+    redis > ZADD mid_test 99.5 "Tom"
     (integer) 1
 
+    redis > ZADD fin_test 88 "Li Lei"
+    (integer) 1
+    redis > ZADD fin_test 75 "Han Meimei"
+    (integer) 1
+    redis > ZADD fin_test 99.5 "Tom"
+    (integer) 1
 
-ZREVRANGE
----------
+    redis > ZINTERSTORE sum_point 2 mid_test fin_test
+    (integer) 3
 
-.. function:: ZREVRANGE key start stop [WITHSCORES]
+    redis > ZRANGE sum_point 0 -1 WITHSCORES  # 显式集合内所有成员及其score值
+    1) "Han Meimei"
+    2) "145"
+    3) "Li Lei"
+    4) "158"
+    5) "Tom"
+    6) "199"
 
-返回有序集\ ``key``\ 中，指定区间内的成员。
 
-| 其中成员的位置按\ ``score``\ 值递减(从大到小)来排列。
-| 具有相同\ ``score``\ 值的成员按字典序的反序(\ `reverse lexicographical order`_\ )排列。
-
-除了成员按\ ``score``\ 值递减的次序排列这一点外，\ `ZREVRANGE`_\ 命令的其他方面和\ `ZRANGE`_\ 命令一样。
-
-时间复杂度:
-    O(log(N)+M)，\ ``N``\ 为有序集的基数，而\ ``M``\ 为结果集的基数。
-
-返回值:
-    指定区间内，带有\ ``score``\ 值(可选)的有序集成员的列表。
-
-::
-
-    redis> ZRANGE salary 0 -1 WITHSCORES # 递增排列
-    1) "peter"
-    2) "3500"
-    3) "tom"
-    4) "4000"
-    5) "jack"
-    6) "5000"
-
-    redis> ZREVRANGE salary 0 -1 WITHSCORES  # 递减排列
-    1) "jack"
-    2) "5000"
-    3) "tom"
-    4) "4000"
-    5) "peter"
-    6) "3500"
 
 
 ZUNIONSTORE
@@ -613,10 +624,10 @@ ZUNIONSTORE
 
 默认使用的参数\ ``SUM``\ ，可以将所有集合中某个成员的\ ``score``\ 值之\ *和*\ 作为结果集中该成员的\ ``score``\ 值；使用参数\ ``MIN``\ ，可以将所有集合中某个成员的\ *最小*\ \ ``score``\ 值作为结果集中该成员的\ ``score``\ 值；而参数\ ``MAX``\ 则是将所有集合中某个成员的\ *最大*\ \ ``score``\ 值作为结果集中该成员的\ ``score``\ 值。
 
-时间复杂度:
+**时间复杂度:**
     O(N)+O(M log(M))，\ ``N``\ 为给定有序集基数的总和，\ ``M``\ 为结果集的基数。
 
-返回值:
+**返回值:**
     保存到\ ``destination``\ 的结果集的基数。
 
 ::
