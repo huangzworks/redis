@@ -25,7 +25,7 @@ Set
 SADD
 ----
 
-.. function:: SADD key member
+.. function:: SADD key member [member ...]
 
 将\ ``member``\ 元素加入到集合\ ``key``\ 当中。
 
@@ -39,8 +39,9 @@ SADD
     O(1)
 
 **返回值:**
-    | 如果添加元素成功，返回\ ``1``\ 。
-    | 如果元素已经是集合的成员，返回\ ``0``\ 。
+    成功添加到集合中的元素数量。
+
+.. note:: 在Redis2.3版本之前，SADD只接受单个member值。
 
 ::
 

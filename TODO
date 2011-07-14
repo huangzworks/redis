@@ -18,4 +18,4 @@
 
 - readthedocs中命令和介绍之间的空白间隙过大的问题
 
-- 更新SADD、SREM、LPUSH、RPUSH等支持多个key
+- 注意redis2.3版本动向，修改相应命令和代码示例
