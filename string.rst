@@ -125,6 +125,8 @@ SETEX
 
 将值\ ``value``\ 关联到\ ``key``\ ，并将\ ``key``\ 的生存时间设为\ ``seconds``\ (以秒为单位)。
 
+如果\ ``key`` \ 已经存在，\ `SETEX`_\ 命令将覆写旧值。
+
 这个命令类似于以下两个命令：
 
 ::
@@ -143,14 +145,28 @@ SETEX
 
 ::
 
+    # 情况1：key不存在
+
     redis> SETEX cache_user_id 60 10086
     OK
 
     redis> GET cache_user_id  # 值
     "10086"
      
-     redis> TTL cache_user_id  # 过期时间
+     redis> TTL cache_user_id  # 剩余生存时间
      (integer) 49
+
+
+    # 情况2：key已经存在，key被覆写
+
+    redis> SET cd "timeless"
+    OK
+
+    redis> SETEX cd 3000 "goodbye my love"
+    OK
+
+    redis> GET cd
+    "goodbye my love"
 
 
 SETRANGE
