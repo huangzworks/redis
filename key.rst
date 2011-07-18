@@ -833,7 +833,7 @@ SORT
 
     # 获取name和password
 
-    redis> SORT user_id BY user_level_# DESC GET user_name_* GET user_password_*
+    redis> SORT user_id BY user_level_* DESC GET user_name_* GET user_password_*
     1) "hacker"       # 用户名
     2) "hey,im in"    # 密码
     3) "jack"
@@ -845,7 +845,7 @@ SORT
 
     # 注意GET操作是有序的，GET user_name_* GET user_password_* 和 GET user_password_* GET user_name_*返回的结果位置不同
 
-    redis> SORT user_id BY user_level_# DESC GET user_password_* GET user_name_*
+    redis> SORT user_id BY user_level_* DESC GET user_password_* GET user_name_*
     1) "hey,im in"    # 密码
     2) "hacker"       # 用户名
     3) "jack201022"
