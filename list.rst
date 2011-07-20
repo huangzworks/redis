@@ -503,7 +503,7 @@ LSET
 
 更多信息请参考\ `LINDEX`_\ 操作。 
 
-当\ ``index``\ 参数超出范围时，返回一个错误。
+当\ ``index``\ 参数超出范围，或对一个空列表(\ ``key``\ 不存在)进行\ `LSET`_\ 时，返回一个错误。
 
 **时间复杂度：**
     | 对头元素或尾元素进行\ `LSET`_\ 操作，复杂度为O(1)。
@@ -513,6 +513,16 @@ LSET
     操作成功返回\ ``ok``\ ，否则返回错误信息。
 
 ::
+    # 情况1：对空列表(key不存在)进行LSET
+
+    redis> EXISTS list
+    (integer) 0
+
+    redis> LSET list 0 item
+    (error) ERR no such key
+
+
+    # 情况2：对非空列表进行LSET
 
     redis> LPUSH job "cook food"
     (integer) 1
@@ -525,6 +535,15 @@ LSET
 
     redis> LRANGE job  0 0
     1) "play game"
+
+
+    # 情况3：index超出范围
+
+    redis> LLEN list # 列表长度为1
+    (integer) 1
+
+    redis> LSET list 3 'out of range'
+    (error) ERR index out of range
 
 
 LTRIM
