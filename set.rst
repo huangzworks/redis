@@ -114,7 +114,7 @@ SMEMBERS
 
 ::
 
-    # 情况1： 空集合
+    # 情况1：空集合
 
     redis> EXISTS not_exists_key    # 不存在的key视为空集合
     (integer) 0
@@ -345,6 +345,8 @@ SINTERSTORE
 
 如果\ ``destination``\ 集合已经存在，则将其覆盖。
 
+\ ``destination``\ 可以是\ ``key``\ 本身。
+
 **时间复杂度:**
     O(N * M)，\ ``N``\ 为给定集合当中基数最小的集合，\ ``M``\ 为给定集合的个数。
 
@@ -406,6 +408,8 @@ SUNIONSTORE
 此命令等同于\ `SUNION`_\，但它将结果保存到\ ``destination``\ 集合，而不是简单地返回结果集。
 
 如果\ ``destination``\ 已经存在，则将其覆盖。
+
+\ ``destination``\ 可以是\ ``key``\ 本身。
 
 **时间复杂度:**
     O(N)，\ ``N``\ 是所有给定集合的成员数量之和。
@@ -473,6 +477,8 @@ SDIFFSTORE
 此命令等同于\ `SDIFF`_\，但它将结果保存到\ ``destination``\ 集合，而不是简单地返回结果集。
 
 如果\ ``destination``\ 集合已经存在，则将其覆盖。
+
+\ ``destination``\ 可以是\ ``key``\ 本身。
 
 **时间复杂度:**
     O(N)，\ ``N``\ 是所有给定集合的成员数量之和。
