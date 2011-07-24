@@ -114,10 +114,31 @@ SMEMBERS
 
 ::
 
-    redis> SMEMBERS prog_lang
+    # 情况1： 空集合
+
+    redis> EXISTS not_exists_key    # 不存在的key视为空集合
+    (integer) 0
+
+    redis> SMEMBERS not_exists_key
+    (empty list or set)
+
+    
+    # 情况2：非空集合
+
+    redis> SADD programming_language python
+    (integer) 1
+
+    redis> SADD programming_language ruby
+    (integer) 1
+
+    redis> SADD programming_language c
+    (integer) 1
+
+    redis> SMEMBERS programming_language
     1) "c"
     2) "ruby"
     3) "python"
+
 
 SISMEMBER
 ---------
