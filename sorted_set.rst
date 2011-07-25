@@ -184,7 +184,7 @@ ZINCRBY
 
 你也可以通过传递一个负数值\ ``increment``\ ，让\ ``score``\ 减去相应的值，比如\ ``ZINCRBY key -5 member``\ ，就是让\ ``member``\ 的\ ``score``\ 值减去\ ``5``\ 。
 
-当\ ``key``\ 不存在，或\ ``member``\ 不是\ ``key``\ 的成员时，\ ``ZINCRBY key increment member``\ 等同于\ ``ZADD key score member``\ 。
+当\ ``key``\ 不存在，或\ ``member``\ 不是\ ``key``\ 的成员时，\ ``ZINCRBY key increment member``\ 等同于\ ``ZADD key increment member``\ 。
 
 当\ ``key``\ 不是有序集类型时，返回一个错误。
 
