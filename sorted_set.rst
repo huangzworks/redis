@@ -557,9 +557,9 @@ ZINTERSTORE
 
 .. function:: ZINTERSTORE destination numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX]
 
-计算给定的一个或多个有序集的交集，其中给定\ ``key``\ 的数量必须以\ ``numkeys``\ 参数指定。
+计算给定的一个或多个有序集的交集，其中给定\ ``key``\ 的数量必须以\ ``numkeys``\ 参数指定，并将该交集(结果集)储存到\ ``destination``\ 。
 
-默认情况下，结果集中某个成员的\ ``score``\ 值是所有给定集下该成员\ ``score``\ 值的\ *和*\ 。
+默认情况下，结果集中某个成员的\ ``score``\ 值是所有给定集下该成员\ ``score``\ 值之\ *和*\ 。
 
 关于\ ``WEIGHTS``\ 和\ ``AGGREGATE``\ 选项的描述，参见\ `ZUNIONSTORE`_\ 命令。
 
@@ -597,16 +597,14 @@ ZINTERSTORE
     6) "199"
 
 
-
-
 ZUNIONSTORE
 -----------
 
 .. function:: ZUNIONSTORE destination numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX]
 
-计算给定的一个或多个有序集的并集，其中给定\ ``key``\ 的数量必须以\ ``numkeys``\ 参数指定。
+计算给定的一个或多个有序集的并集，其中给定\ ``key``\ 的数量必须以\ ``numkeys``\ 参数指定，并将该并集(结果集)储存到\ ``destination``\ 。
 
-默认情况下，结果集中某个成员的\ ``score``\ 值是所有给定集下该成员\ ``score``\ 值的\ *和*\ 。
+默认情况下，结果集中某个成员的\ ``score``\ 值是所有给定集下该成员\ ``score``\ 值之\ *和*\ 。
 
 **WEIGHTS**
 
