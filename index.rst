@@ -19,8 +19,6 @@ Redis命令参考中文版(Redis Command Reference)
 | 报告翻译错误或加入本翻译项目，请到\ `项目GitHub页面 <https://github.com/huangz1990/redis>`_\ 。
 | 联系译者请到\ `twitter <http://twitter.com/#!/huangz1990>`_\ 、\ `豆瓣 <http://www.douban.com/people/i_m_huangz/>`_\ 或发送邮件到Gmail：huangz1990 (友情提示：使用"#"替换"@"对于防范垃圾邮件一点效果也没有)。
 
-最后更新自:\ |today|\ 。
-
 **目录(使用CTRL+F快速查找命令)：**
 
 .. toctree::

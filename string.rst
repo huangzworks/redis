@@ -725,17 +725,13 @@ SETBIT
 
 ::
 
-    redis> SETBIT bit 1 1
-    (integer) 0
-    redis> GETBIT bit 0
-    (integer) 1
-
-    redis> GETBIT bit 1
-    (integer) 1
-    redis> SETBIT eight 3 0
+    redis> SETBIT bit 10086 1
     (integer) 0
 
+    redis> GETBIT bit 10086
+    (integer) 1
 
+    
 GETBIT
 ------
 
@@ -752,15 +748,21 @@ GETBIT
     字符串值指定偏移量上的位(bit)。
 
 ::
+    
+    # 情况1：对不存在的key/不存在的offset进行GETBIT，
+    #        默认为0
 
-    redis> EXISTS active_flag
+    redis> EXISTS bit
     (integer) 0
 
-    redis> GETBIT active_flag 0  # key不存在时
+    redis> GETBIT bit 10086
     (integer) 0
 
-    redis> SETBIT active_flag 0 1
+    
+    # 情况2：对已存在的offset进行GETBIT
+
+    redis> SETBIT bit 10086 1
     (integer) 0
 
-    redis> GETBIT active_flag 0
+    redis> GETBIT bit 10086
     (integer) 1

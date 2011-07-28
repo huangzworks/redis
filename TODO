@@ -23,3 +23,5 @@
 - 修改MOVE的代码示例，争取更清晰地表达其含义，以及多种不同情况下的表现。
 
 - 添加LRANGE的更多case
+
+- sorted_set部分的reverse lexicographical order连接应用格式错误。
