@@ -785,6 +785,17 @@ RPOPLPUSH
     redis> LRANGE reciver 0 -1
     1) "d"
 
+    redis> RPOPLPUSH alpha reciver   # 再执行一次，确保rpop和lpush的位置正确
+    "c"
+
+    redis> LRANGE alpha 0 -1
+    1) "a"
+    2) "b"
+
+    redis> LRANGE reciver 0 -1
+    1) "c"
+    2) "d"
+
     
     # 情况2：source和destination相同
 
