@@ -271,9 +271,11 @@ HINCRBY
 
 为哈希表\ ``key``\ 中的域\ ``field``\ 的值加上增量\ ``increment``\ 。
 
+增量也可以为负数，相当于对给定域进行减法操作。
+
 如果\ ``key``\ 不存在，一个新的哈希表被创建并执行\ `HINCRBY`_\ 命令。
 
-如果域\ ``field``\ 不存在，或域已有的字符串值不能表示为数字，那么在执行命令前，域的值被设置为\ ``0``\ 。
+如果域\ ``field``\ 不存在，或域已有的字符串值不能表示为数字，那么在执行命令前，域的值被初始化为\ ``0``\ 。
 
 本操作的值限制在64位(bit)有符号数字表示之内。
                     
@@ -285,15 +287,29 @@ HINCRBY
 
 ::
 
-    redis> HEXISTS hash_count page_views
+    # 情况1：increment为正数
+
+    redis> HEXISTS counter page_view # 对空域进行设置
     (integer) 0
 
-    redis> HINCRBY hash_count page_views 200    
+    redis> HINCRBY counter page_view 200
     (integer) 200
 
-    redis> HINCRBY hash_count page_views 10
-    (integer) 210
+    redis> HGET counter page_view
+    "200"
 
+
+    # 情况2：increment为负数
+
+    redis> HGET counter page_view
+    "200"
+
+    redis> HINCRBY counter page_view -50
+    (integer) 150
+
+    redis> HGET counter page_view
+    "150"
+    
 
 HKEYS
 -----
