@@ -288,24 +288,45 @@ BLPOP
 
 \ `BLPOP`_\ 可以用于流水线(pipline,批量地发送多个命令并读入多个回复)，但把它用在\ :ref:`multi`\ /\ :ref:`exec`\ 块当中没有意义。因为这要求整个服务器被阻塞以保证块执行时的原子性，该行为阻止了其他客户端执行\ `LPUSH`_\ 或\ `RPUSH`_\ 命令。
 
-一个被包含在\ :ref:`multi`\ /\ :ref:`exec`\ 块内的\ `BLPOP`_\ 操作，行为表现得就像操作超时一样，仅仅返回一个\ ``nil``\ 值。
-
-如果你是科幻迷，你可以想象在\ :ref:`multi`\ /\ :ref:`exec`\ 块内，时间以无限的速度在流逝。
+因此，一个被包裹在\ :ref:`multi`\ /\ :ref:`exec`\ 块内的\ `BLPOP`_\ 命令，行为表现得就像\ `LPOP`_\ 一样，对空列表返回\ ``nil``\ ，对非空列表弹出列表元素，不进行任何阻塞操作。
 
 ::
 
+    # 情况1：对非空列表进行操作
+
+    redis> RPUSH job programming
+    (integer) 1
+
     redis> MULTI
     OK
+
     redis> BLPOP job 30
     QUEUED
-    redis> EXEC
-    1) (nil)  # 操作没有等待，立即被返回了
+
+    redis> EXEC  # 不阻塞，立即返回
+    1) 1) "job"
+       2) "programming"
+
+
+    # 情况2：对空列表进行操作
+
+    redis> LLEN job  # 空列表
+    (integer) 0
+
+    redis> MULTI
+    OK
+
+    redis> BLPOP job 30
+    QUEUED
+
+    redis> EXEC  # 不阻塞，立即返回
+    1) (nil)
 
 **时间复杂度：**
     O(1)
 
 **返回值：**
-    | 假如在指定时间内没有任何元素被弹出，则返回一个\ ``nil``\ 和等待时长。
+    | 如果列表为空，返回一个\ ``nil``\ 。
     | 反之，返回一个含有两个元素的列表，第一个元素是被弹出元素所属的\ ``key``\ ，第二个元素是被弹出元素的值。
 
 BRPOP
