@@ -411,7 +411,7 @@ EXPIRE
 
 当\ ``key``\ 过期时，它会被自动删除。
 
-在Redis的术语中，带有生存时间的\ ``key``\ 称为可挥发的(volatile) 。
+在Redis中，带有生存时间的\ ``key``\ 被称作“易失的”(volatile)。
 
 | 在低于2.1.3版本的Redis中，已存在的生存时间不可覆盖。
 | 从2.1.3版本开始，\ ``key``\ 的生存时间可以被更新，也可以被\ `PERSIST`_\ 命令移除。(详情参见 http://redis.io/topics/expire)。
