@@ -275,7 +275,9 @@ HINCRBY
 
 如果\ ``key``\ 不存在，一个新的哈希表被创建并执行\ `HINCRBY`_\ 命令。
 
-如果域\ ``field``\ 不存在，或域已有的字符串值不能表示为数字，那么在执行命令前，域的值被初始化为\ ``0``\ 。
+如果域\ ``field``\ 不存在，那么在执行命令前，域的值被初始化为\ ``0``\ 。
+
+对一个储存字符串值的域\ ``field``\ 执行\ `HINCRBY`_\ 命令将造成一个错误。
 
 本操作的值限制在64位(bit)有符号数字表示之内。
                     
@@ -309,7 +311,22 @@ HINCRBY
 
     redis> HGET counter page_view
     "150"
+
+
+    # 情况3：尝试对字符串值的域执行HINCRBY命令
     
+    redis 127.0.0.1:6379> HSET myhash string hello,world    # 设定一个字符串值
+    (integer) 1
+
+    redis 127.0.0.1:6379> HGET myhash string
+    "hello,world"
+
+    redis 127.0.0.1:6379> HINCRBY myhash string 1   # 命令执行失败，错误。
+    (error) ERR hash value is not an integer
+
+    redis 127.0.0.1:6379> HGET myhash string    # 原值不变
+    "hello,world"
+
 
 HKEYS
 -----
