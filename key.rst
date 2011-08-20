@@ -50,6 +50,8 @@ DEL
     (integer) 3
 
 
+.. _keys:
+
 KEYS
 =====
 
@@ -96,6 +98,8 @@ KEYS
     4) "one"
 
 
+.. _randomkey:
+
 RANDOMKEY
 ==========
 
@@ -137,6 +141,8 @@ RANDOMKEY
     redis> randomkey
     (nil)
 
+
+.. _ttl:
 
 TTL
 ====
@@ -193,6 +199,8 @@ TTL
     (integer) -1
 
 
+.. _exists:
+
 EXISTS
 ======
 
@@ -220,6 +228,8 @@ EXISTS
     redis> exists db  # key不存在
     (integer) 0
 
+
+.. _move:
 
 MOVE
 ====
@@ -305,6 +315,8 @@ MOVE
     "apple"
 
 
+.. _rename:
+
 RENAME
 =======
 
@@ -362,7 +374,9 @@ RENAME
     redis:1> GET personal_computer  # dell“没有”了
     "lenovo"
 
-        
+
+.. _type:
+
 TYPE
 =====
 
@@ -402,6 +416,8 @@ TYPE
     set
 
 
+.. _expire:
+
 EXPIRE
 =======
 
@@ -440,7 +456,9 @@ EXPIRE
     redis> TTL cache_page
     (integer) 29996
     
-    
+   
+.. _object:
+
 OBJECT
 ======
 
@@ -507,6 +525,8 @@ OBJECT命令有多个子命令：
     "int"
 
 
+.. _renamenx:
+
 RENAMENX
 =========
 
@@ -555,6 +575,8 @@ RENAMENX
     "butterfly"
 
 
+.. _expireat:
+
 EXPIREAT
 ========
 
@@ -582,6 +604,8 @@ EXPIREAT
     redis> TTL cache
     (integer) 45081860
 
+
+.. _persist:
 
 PERSIST
 ========
@@ -614,6 +638,8 @@ PERSIST
     redis> TTL time_to_say_goodbye  # 移除成功
     (integer) -1
 
+
+.. _sort:
 
 SORT
 =====

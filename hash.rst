@@ -1,6 +1,8 @@
 Hash
 *****
 
+.. _hset:
+
 HSET
 =====
 
@@ -28,6 +30,8 @@ HSET
     (integer) 0
 
 
+.. _hsetnx:
+
 HSETNX
 =======
 
@@ -54,6 +58,8 @@ HSETNX
     redis> HSETNX nosql key-value-store redis  # 操作无效，域key-value-store已存在
     (integer) 0
 
+
+.. _hmset:
 
 HMSET
 =====
@@ -96,6 +102,8 @@ HMSET
     (error) ERR Operation against a key holding the wrong kind of value
 
 
+.. _hget:
+
 HGET
 =====
 .. function:: HGET key field
@@ -117,6 +125,8 @@ HGET
     redis> HGET huangz blog
     "huangz.iteye.com"
 
+
+.. _hmget:
 
 HMGET
 =====
@@ -145,6 +155,8 @@ HMGET
     2) "nounou"
     3) (nil)  # 不存在的域返回nil值
 
+
+.. _hgetall:
 
 HGETALL
 =======
@@ -176,6 +188,8 @@ HGETALL
     3) "gump"
     4) "Forrest Gump"
 
+
+.. _hdel:
 
 HDEL
 =====
@@ -210,6 +224,8 @@ HDEL
     (nil)
 
 
+.. _hlen:
+
 HLEN
 ======
 
@@ -236,6 +252,8 @@ HLEN
     (integer) 2
 
 
+.. _hexists:
+
 HEXISTS
 ========
 
@@ -261,6 +279,8 @@ HEXISTS
     redis> HEXISTS phone myphone
     (integer) 1
 
+
+.. _hincrby:
 
 HINCRBY
 ========
@@ -326,6 +346,8 @@ HINCRBY
     "hello,world"
 
 
+.. _hkeys:
+
 HKEYS
 ======
 
@@ -360,6 +382,8 @@ HKEYS
     redis> HKEYS fake_key 
     (empty list or set)
 
+
+.. _hvals:
 
 HVALS
 ======

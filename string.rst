@@ -1,6 +1,8 @@
 String
 *******
 
+.. _set:
+
 SET
 ===
 
@@ -118,6 +120,8 @@ SETNX
 .. warning:: 为了让这个加锁算法更健壮，获得锁的客户端应该常常检查过期时间以免锁因诸如DEL等命令的执行而被意外解开，因为客户端失败的情况非常复杂，不仅仅是崩溃这么简单，还可能是客户端因为某些操作被阻塞了相当长时间，紧接着DEL命令被尝试执行(但这时锁却在另外的客户端手上)。
 
 
+.. _setex:
+
 SETEX
 ======
 
@@ -168,6 +172,8 @@ SETEX
     redis> GET cd
     "goodbye my love"
 
+
+.. _setrange:
 
 SETRANGE
 =========
@@ -224,6 +230,8 @@ SETRANGE
     "\x00\x00\x00\x00\x00Redis!"
 
 
+.. _mset:
+
 MSET
 =====
 
@@ -260,6 +268,8 @@ MSET
     redis> GET google
     "google.hk"
 
+
+.. _msetnx:
 
 MSETNX
 ========
@@ -304,6 +314,8 @@ MSETNX
     3) "redis"
 
 
+.. _append:
+
 APPEND
 ======
 
@@ -339,6 +351,8 @@ APPEND
     "nokia - 1110"
 
 
+.. _get:
+
 GET
 ====
 
@@ -368,6 +382,8 @@ GET
     redis> GET animate
     "anohana"
 
+
+.. _mget:
 
 MGET
 =====
@@ -399,6 +415,8 @@ MGET
     1) "huangz"
     2) (nil)
 
+
+.. _getrange:
 
 GETRANGE
 =========
@@ -441,6 +459,8 @@ GETRANGE
     redis> GETRANGE greeting 0 1008611  # 值域范围不超过实际字符串，超过部分自动被符略
     "hello, my friend"
 
+
+.. _getset:
 
 GETSET
 ========
@@ -489,6 +509,8 @@ GETSET
     "0"
 
 
+.. _strlen:
+
 STRLEN
 =======
 
@@ -516,6 +538,8 @@ STRLEN
     redis> STRLEN nonexisting # 不存在的key长度视为0
     (integer) 0
 
+
+.. _decr:
 
 DECR
 =====
@@ -567,6 +591,8 @@ DECR
     (error) ERR value is not an integer or out of range
 
 
+.. _decrby:
+
 DECRBY
 =======
 
@@ -608,6 +634,8 @@ DECRBY
     (integer) -10
 
 
+.. _incr:
+
 INCR
 =====
 
@@ -641,6 +669,8 @@ INCR
     redis> GET page_view    # 数字值在Redis中以字符串的形式保存
     "21"
 
+
+.. _incrby:
 
 INCRBY
 ======
@@ -698,6 +728,8 @@ INCRBY
     (error) ERR value is not an integer or out of range
 
 
+.. _setbit:
+
 SETBIT
 =======
 
@@ -730,7 +762,9 @@ SETBIT
     redis> GETBIT bit 10086
     (integer) 1
 
-    
+
+.. _getbit:
+
 GETBIT
 ======
 

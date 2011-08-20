@@ -1,6 +1,8 @@
 Sorted Set (zset)
 ******************
 
+.. _zadd:
+
 ZADD
 ====
 
@@ -54,6 +56,8 @@ ZADD
     6) "10"
 
 
+.. _zrem:
+
 ZREM
 =====
 
@@ -83,6 +87,8 @@ ZREM
     redis > ZREM phone moto-1212  # 移除失败，不存在该成员
     (integer) 0
 
+
+.. _zcard:
 
 ZCARD
 ======
@@ -114,6 +120,9 @@ ZCARD
     (integer) 0
     redis > ZCARD non_exists_key
     (integer) 0
+
+
+.. _zcount:
 
 ZCOUNT
 =======
@@ -147,6 +156,8 @@ ZCOUNT
     (integer) 2
 
 
+.. _zscore:
+
 ZSCORE
 ======
 
@@ -175,6 +186,8 @@ ZSCORE
     redis> ZSCORE salary peter   # 注意返回值是字符串
     "3500"
 
+
+.. _zincrby:
 
 ZINCRBY
 ========
@@ -205,6 +218,8 @@ ZINCRBY
     redis> ZINCRBY salary 2000 tom   # tom加薪啦！
     "4000"
 
+
+.. _zrange:
 
 ZRANGE
 =======
@@ -270,6 +285,8 @@ ZRANGE
    (empty list or set)
 
 
+.. _zrevrange:
+
 ZREVRANGE
 ===========
 
@@ -306,6 +323,8 @@ ZREVRANGE
     5) "peter"
     6) "3500"
 
+
+.. _zrangebyscore:
 
 ZRANGEBYSCORE
 ==============
@@ -379,6 +398,8 @@ ZRANGEBYSCORE
     1) "peter"
 
 
+.. _zrevrangebyscore:
+
 ZREVRANGEBYSCORE
 =================
 
@@ -419,6 +440,8 @@ ZREVRANGEBYSCORE
     3) "joe"
 
 
+.. _zrank:
+
 ZRANK
 =======
 
@@ -450,6 +473,8 @@ ZRANK
     redis> ZRANK salary tom  # 显示tom的薪水排名，第二
     (integer) 1
 
+
+.. _zrevrank:
 
 ZREVRANK
 =========
@@ -483,6 +508,8 @@ ZREVRANK
     redis> ZREVRANK salary tom   # tom的工资最高
     (integer) 0
 
+
+.. _zremrangebyrank:
 
 ZREMRANGEBYRANK
 ================
@@ -519,6 +546,8 @@ ZREMRANGEBYRANK
     2) "5000"
 
 
+.. _zremrangebyscore:
+
 ZREMRANGEBYSCORE
 =================
 
@@ -551,6 +580,8 @@ ZREMRANGEBYSCORE
     1) "jack"
     2) "5000"
 
+
+.. _zinterstore:
 
 ZINTERSTORE
 =============
@@ -596,6 +627,8 @@ ZINTERSTORE
     5) "Tom"
     6) "199"
 
+
+.. _zunionstore:
 
 ZUNIONSTORE
 ============

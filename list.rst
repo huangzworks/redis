@@ -12,6 +12,8 @@ List
 指不包含任何元素的列表，Redis将不存在的\ ``key``\ 也视为空列表。
 
 
+.. _lpush:
+
 LPUSH
 ======
 
@@ -45,6 +47,8 @@ LPUSH
     2) "a"
     3) "d"
 
+
+.. _lpushx:
 
 LPUSHX
 =======
@@ -85,6 +89,8 @@ LPUSHX
     2) "hello"
 
 
+.. _rpush:
+
 RPUSH
 ========
 
@@ -120,6 +126,8 @@ RPUSH
     1) "lisp"
     2) "scheme"
 
+
+.. _rpushx:
 
 RPUSHX
 =======
@@ -160,6 +168,8 @@ RPUSHX
     2) "hello"
 
 
+.. _lpop:
+
 LPOP
 =======
 
@@ -187,6 +197,8 @@ LPOP
     redis> LPOP course  # 移除头元素
     "algorithm001"
 
+
+.. _rpop:
 
 RPOP
 =======
@@ -219,7 +231,7 @@ RPOP
     2) "two"
 
 
-
+.. _blpop:
 
 BLPOP
 =======
@@ -329,6 +341,9 @@ BLPOP
     | 如果列表为空，返回一个\ ``nil``\ 。
     | 反之，返回一个含有两个元素的列表，第一个元素是被弹出元素所属的\ ``key``\ ，第二个元素是被弹出元素的值。
 
+
+.. _brpop:
+
 BRPOP
 =======
 
@@ -364,6 +379,7 @@ BRPOP
     2) "c++101" # 弹出元素的值
 
 
+.. _llen:
 
 LLEN
 =======
@@ -400,6 +416,8 @@ LLEN
     redis> LLEN job
     (integer) 2
 
+
+.. _lrange:
 
 LRANGE
 =======
@@ -444,6 +462,8 @@ LRANGE
     1) "lisp"
     2) "scheme"
 
+
+.. _lrem:
 
 LREM
 =======
@@ -515,6 +535,8 @@ LREM
     (integer) 0
 
 
+.. _lset:
+
 LSET
 =======
 
@@ -567,6 +589,8 @@ LSET
     redis> LSET list 3 'out of range'
     (error) ERR index out of range
 
+
+.. _ltrim:
 
 LTRIM
 =======
@@ -666,6 +690,8 @@ LTRIM
     (empty list or set)
 
 
+.. _lindex:
+
 LINDEX
 =======
 
@@ -704,6 +730,8 @@ LINDEX
     redis> LINDEX mylist 3  # index不在mylist的区间范围内
     (nil)
 
+
+.. _linsert:
 
 LINSERT
 =========
@@ -750,6 +778,8 @@ LINSERT
     redis> LINSERT fake_list BEFORE "nono" "gogogog"
     (integer) 0 # 失败
 
+
+.. _rpoplpush:
 
 RPOPLPUSH
 ===========
@@ -837,6 +867,8 @@ Redis的列表经常被用作队列(queue)，用于在不同程序之间有序�
 
 另一方面，助手(helper)程序可以通过监视备份表，将超过一定处理时限的消息重新放入队列中去(负责处理该消息的消费者可能已经崩溃)，这样就不会丢失任何消息了。
 
+
+.. _brpoplpush:
 
 BRPOPLPUSH
 ===========

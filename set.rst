@@ -23,6 +23,8 @@ Set
     空集： 基数为0的集合。
 
 
+.. _sadd:
+
 SADD
 =====
 
@@ -58,6 +60,8 @@ SADD
     redis> SADD bbs "v2ex.com"  # 尝试添加重复元素，返回0
     (integer) 0
 
+
+.. _srem:
 
 SREM
 =====
@@ -99,6 +103,7 @@ SREM
     2) "python"
 
 
+.. _smembers:
 
 SMEMBERS
 =========
@@ -141,6 +146,8 @@ SMEMBERS
     3) "python"
 
 
+.. _sismember:
+
 SISMEMBER
 ==========
 
@@ -169,6 +176,7 @@ SISMEMBER
     (integer) 1
 
 
+.. _scard:
 
 SCARD
 ======
@@ -200,6 +208,8 @@ SCARD
     redis> SCARD fake_set
     (integer) 0
 
+
+.. _smove:
 
 SMOVE
 ========
@@ -242,6 +252,8 @@ SMOVE
     1) "Believe Me"
 
 
+.. _spop:
+
 SPOP
 =====
 
@@ -270,6 +282,8 @@ SPOP
     1) "sideeffect.me"
     2) "douban.com/people/i_m_huang"
 
+
+.. _srandmember:
 
 SRANDMEMBER
 ============
@@ -303,6 +317,8 @@ SRANDMEMBER
     3) "2012"
 
 
+.. _sinter:
+
 SINTER
 ========
 
@@ -334,6 +350,8 @@ SINTER
     redis> SINTER group_1 group_2
     1) "JACK"
 
+
+.. _sinterstore:
 
 SINTERSTORE
 ============
@@ -369,6 +387,8 @@ SINTERSTORE
     1) "good bye joe"
 
 
+.. _sunion:
+
 SUNION
 =======
 
@@ -397,6 +417,7 @@ SUNION
     2) "Believe Me"
 
 
+.. _sunionstore:
 
 SUNIONSTORE
 ============
@@ -436,6 +457,8 @@ SUNIONSTORE
     4) "youtube.com"
 
 
+.. _sdiff:
+
 SDIFF
 ======
 
@@ -467,6 +490,8 @@ SDIFF
     1) "bet man"
     2) "start war"
 
+
+.. _sdiffstore:
 
 SDIFFSTORE
 ============
