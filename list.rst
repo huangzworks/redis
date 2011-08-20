@@ -1,5 +1,5 @@
 List
-====
+*****
 
 **头元素和尾元素**
 
@@ -13,7 +13,7 @@ List
 
 
 LPUSH
-------
+======
 
 .. function:: LPUSH key value [value ...]
 
@@ -47,7 +47,7 @@ LPUSH
 
 
 LPUSHX
--------
+=======
 
 .. function:: LPUSHX key value
 
@@ -86,7 +86,7 @@ LPUSHX
 
 
 RPUSH
-------
+========
 
 .. function:: RPUSH key value [value ...]
 
@@ -122,7 +122,7 @@ RPUSH
 
 
 RPUSHX
-------
+=======
 
 .. function:: RPUSHX key value 
 
@@ -161,7 +161,7 @@ RPUSHX
 
 
 LPOP
-----
+=======
 
 .. function:: LPOP key
 
@@ -189,7 +189,7 @@ LPOP
 
 
 RPOP
-----
+=======
 
 .. function:: RPOP key
 
@@ -222,7 +222,7 @@ RPOP
 
 
 BLPOP
------
+=======
 
 .. function:: BLPOP key [key ...] timeout 
 
@@ -330,7 +330,7 @@ BLPOP
     | 反之，返回一个含有两个元素的列表，第一个元素是被弹出元素所属的\ ``key``\ ，第二个元素是被弹出元素的值。
 
 BRPOP
------
+=======
 
 .. function:: BRPOP key [key ...] timeout
 
@@ -366,7 +366,7 @@ BRPOP
 
 
 LLEN
-----
+=======
 
 .. function:: LLEN key
 
@@ -402,7 +402,7 @@ LLEN
 
 
 LRANGE
-------
+=======
 
 .. function:: LRANGE key start stop
 
@@ -446,7 +446,7 @@ LRANGE
 
 
 LREM
-----
+=======
 
 .. function:: LREM key count value 
 
@@ -516,7 +516,7 @@ LREM
 
 
 LSET
-----
+=======
 
 .. function:: LSET key index value 
 
@@ -569,7 +569,7 @@ LSET
 
 
 LTRIM
------
+=======
 
 .. function:: LTRIM key start stop
 
@@ -667,7 +667,7 @@ LTRIM
 
 
 LINDEX
-------
+=======
 
 .. function:: LINDEX key index
 
@@ -706,7 +706,7 @@ LINDEX
 
 
 LINSERT
--------
+=========
 
 .. function:: LINSERT key BEFORE|AFTER pivot value
 
@@ -752,7 +752,7 @@ LINSERT
 
 
 RPOPLPUSH
----------
+===========
 
 .. function:: RPOPLPUSH source destination
 
@@ -839,7 +839,7 @@ Redis的列表经常被用作队列(queue)，用于在不同程序之间有序�
 
 
 BRPOPLPUSH
-----------
+===========
 
 .. function:: BRPOPLPUSH source destination timeout
 

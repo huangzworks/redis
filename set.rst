@@ -1,5 +1,5 @@
 Set
-===
+***
 
 附录，常用集合运算：
 
@@ -22,8 +22,9 @@ Set
 
     空集： 基数为0的集合。
 
+
 SADD
-----
+=====
 
 .. function:: SADD key member [member ...]
 
@@ -59,7 +60,7 @@ SADD
 
 
 SREM
------
+=====
 
 .. function:: SREM key member
 
@@ -100,7 +101,7 @@ SREM
 
 
 SMEMBERS
---------
+=========
 
 .. function:: SMEMBERS key
 
@@ -141,7 +142,7 @@ SMEMBERS
 
 
 SISMEMBER
----------
+==========
 
 .. function:: SISMEMBER key member
 
@@ -170,7 +171,7 @@ SISMEMBER
 
 
 SCARD
------
+======
 
 .. function:: SCARD key
 
@@ -201,7 +202,7 @@ SCARD
 
 
 SMOVE
------
+========
 
 .. function:: SMOVE source destination member
 
@@ -242,7 +243,7 @@ SMOVE
 
 
 SPOP
-----
+=====
 
 .. function:: SPOP key
 
@@ -269,8 +270,9 @@ SPOP
     1) "sideeffect.me"
     2) "douban.com/people/i_m_huang"
 
+
 SRANDMEMBER
------------
+============
 
 .. function:: SRANDMEMBER key
 
@@ -301,9 +303,8 @@ SRANDMEMBER
     3) "2012"
 
 
-
 SINTER
--------
+========
 
 .. function:: SINTER key [key ...]
 
@@ -334,10 +335,8 @@ SINTER
     1) "JACK"
 
 
-
-
 SINTERSTORE
------------
+============
 
 .. function:: SINTERSTORE destination key [key ...]
 
@@ -371,7 +370,7 @@ SINTERSTORE
 
 
 SUNION
-------
+=======
 
 .. function:: SUNION key [key ...]
 
@@ -400,7 +399,7 @@ SUNION
 
 
 SUNIONSTORE
------------
+============
 
 .. function:: SUNIONSTORE destination key [key ...]
 
@@ -438,7 +437,7 @@ SUNIONSTORE
 
 
 SDIFF
------
+======
 
 .. function:: SDIFF key [key ...]
 
@@ -470,7 +469,7 @@ SDIFF
 
 
 SDIFFSTORE
-----------
+============
 
 .. function:: SDIFFSTORE destination key [key ...]
 
@@ -504,10 +503,3 @@ SDIFFSTORE
     redis> SMEMBERS joe_diff_peter
     1) "hi, lady"
     2) "Fast Five"
-
-
-
-
-
-
-

@@ -1,8 +1,8 @@
 Sorted Set (zset)
-=================
+******************
 
 ZADD
-----
+====
 
 .. function:: ZADD key score member
 
@@ -55,7 +55,7 @@ ZADD
 
 
 ZREM
-----
+=====
 
 .. function:: ZREM key member
 
@@ -85,7 +85,7 @@ ZREM
 
 
 ZCARD
------
+======
 
 .. function:: ZCARD key
 
@@ -116,7 +116,7 @@ ZCARD
     (integer) 0
 
 ZCOUNT
-------
+=======
 
 .. function:: ZCOUNT key min max
 
@@ -146,8 +146,9 @@ ZCOUNT
     redis> ZCOUNT salary 3000 5000   # 计算薪水在3000-5000之间的人数
     (integer) 2
 
+
 ZSCORE
-------
+======
 
 .. function:: ZSCORE key member
 
@@ -176,7 +177,7 @@ ZSCORE
 
 
 ZINCRBY
--------
+========
 
 .. function:: ZINCRBY key increment member
 
@@ -206,7 +207,7 @@ ZINCRBY
 
 
 ZRANGE
-------
+=======
 
 .. function:: ZRANGE key start stop [WITHSCORES]
 
@@ -270,7 +271,7 @@ ZRANGE
 
 
 ZREVRANGE
----------
+===========
 
 .. function:: ZREVRANGE key start stop [WITHSCORES]
 
@@ -307,7 +308,7 @@ ZREVRANGE
 
 
 ZRANGEBYSCORE
--------------
+==============
 
 .. function:: ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT offset count]
 
@@ -378,10 +379,8 @@ ZRANGEBYSCORE
     1) "peter"
 
 
-
-
 ZREVRANGEBYSCORE
-----------------
+=================
 
 .. function:: ZREVRANGEBYSCORE key max min [WITHSCORES] [LIMIT offset count]
 
@@ -419,8 +418,9 @@ ZREVRANGEBYSCORE
     2) "tom"
     3) "joe"
 
+
 ZRANK
------
+=======
 
 .. function:: ZRANK key member
 
@@ -452,7 +452,7 @@ ZRANK
 
 
 ZREVRANK
---------
+=========
 
 .. function:: ZREVRANK key member
 
@@ -483,8 +483,9 @@ ZREVRANK
     redis> ZREVRANK salary tom   # tom的工资最高
     (integer) 0
 
+
 ZREMRANGEBYRANK
----------------
+================
 
 .. function:: ZREMRANGEBYRANK key start stop
 
@@ -518,9 +519,8 @@ ZREMRANGEBYRANK
     2) "5000"
 
 
-
 ZREMRANGEBYSCORE
-----------------
+=================
 
 .. function:: ZREMRANGEBYSCORE key min max
 
@@ -553,7 +553,7 @@ ZREMRANGEBYSCORE
 
 
 ZINTERSTORE
------------
+=============
 
 .. function:: ZINTERSTORE destination numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX]
 
@@ -598,7 +598,7 @@ ZINTERSTORE
 
 
 ZUNIONSTORE
------------
+============
 
 .. function:: ZUNIONSTORE destination numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX]
 

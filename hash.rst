@@ -1,8 +1,8 @@
 Hash
-====
+*****
 
 HSET
-----
+=====
 
 .. function:: HSET key field value 
 
@@ -29,7 +29,7 @@ HSET
 
 
 HSETNX
-------
+=======
 
 .. function:: HSETNX key field value
 
@@ -56,7 +56,7 @@ HSETNX
 
 
 HMSET
------
+=====
 
 .. function:: HMSET key field value [field value ...] 
 
@@ -97,8 +97,7 @@ HMSET
 
 
 HGET
-----
-
+=====
 .. function:: HGET key field
 
 返回哈希表\ ``key``\ 中给定域\ ``field``\ 的值。
@@ -120,7 +119,7 @@ HGET
 
 
 HMGET
------
+=====
 
 .. function:: HMGET key field [field ...] 
 
@@ -148,7 +147,7 @@ HMGET
 
 
 HGETALL
--------
+=======
 
 .. function:: HGETALL key 
 
@@ -178,9 +177,8 @@ HGETALL
     4) "Forrest Gump"
 
 
-
 HDEL
-----
+=====
 
 .. function:: HDEL key field [field ...]
 
@@ -213,7 +211,7 @@ HDEL
 
 
 HLEN
-----
+======
 
 .. function:: HLEN key
 
@@ -239,7 +237,7 @@ HLEN
 
 
 HEXISTS
--------
+========
 
 .. function:: HEXISTS key field 
 
@@ -265,7 +263,7 @@ HEXISTS
 
 
 HINCRBY
--------
+========
 
 .. function:: HINCRBY key field increment
 
@@ -329,7 +327,7 @@ HINCRBY
 
 
 HKEYS
------
+======
 
 .. function:: HKEYS key 
 
@@ -364,7 +362,7 @@ HKEYS
 
 
 HVALS
------
+======
 
 .. function:: HVALS key 
 

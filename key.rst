@@ -4,7 +4,7 @@ Key
 .. _del:
 
 DEL
----
+====
 
 .. function:: DEL key [key ...]
 
@@ -51,7 +51,7 @@ DEL
 
 
 KEYS
-----
+=====
 
 .. function:: KEYS pattern
 
@@ -139,7 +139,7 @@ RANDOMKEY
 
 
 TTL
----
+====
 
 .. function:: TTL key
 
@@ -194,7 +194,7 @@ TTL
 
 
 EXISTS
-------
+======
 
 .. function:: EXISTS key
 
@@ -222,7 +222,7 @@ EXISTS
 
 
 MOVE
-----
+====
 
 .. function:: MOVE key db
 
@@ -306,7 +306,7 @@ MOVE
 
 
 RENAME
-------
+=======
 
 .. function:: RENAME key newkey
 
@@ -364,7 +364,7 @@ RENAME
 
         
 TYPE
-----
+=====
 
 .. function:: TYPE key
 
@@ -403,7 +403,7 @@ TYPE
 
 
 EXPIRE
-------
+=======
 
 .. function:: EXPIRE key seconds
 
@@ -442,7 +442,7 @@ EXPIRE
     
     
 OBJECT
-------
+======
 
 .. function:: OBJECT subcommand [arguments [arguments]]
 
@@ -508,7 +508,7 @@ OBJECT命令有多个子命令：
 
 
 RENAMENX
---------
+=========
 
 .. function:: RENAMENX key newkey
 
@@ -556,7 +556,8 @@ RENAMENX
 
 
 EXPIREAT
---------
+========
+
 .. function:: EXPIREAT key timestamp
 
 \ `EXPIREAT`_\ 的作用和\ `EXPIRE`_\ 一样，都用于为\ ``key``\ 设置生存时间。
@@ -583,7 +584,7 @@ EXPIREAT
 
 
 PERSIST
--------
+========
 
 .. function:: PERSIST key
 
@@ -615,7 +616,7 @@ PERSIST
 
 
 SORT
-----
+=====
 
 .. function:: SORT key [BY pattern] [LIMIT offset count] [GET pattern [GET pattern ...]] [ASC | DESC] [ALPHA] [STORE destination]
 
