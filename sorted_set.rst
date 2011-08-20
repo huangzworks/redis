@@ -659,5 +659,5 @@ ZUNIONSTORE
     11) "bob"
     12) "12000"
 
-.. _reverse lexicographical order: <http://en.wikipedia.org/wiki/Lexicographical_order#Reverse_lexicographic_order>
-.. _lexicographical order: <http://en.wikipedia.org/wiki/Lexicographical_order>
+.. _reverse lexicographical order: http://en.wikipedia.org/wiki/Lexicographical_order#Reverse_lexicographic_order
+.. _lexicographical order: http://en.wikipedia.org/wiki/Lexicographical_order
