@@ -1,5 +1,5 @@
 Key
-===
+***
 
 .. _del:
 
@@ -97,7 +97,7 @@ KEYS
 
 
 RANDOMKEY
----------
+==========
 
 **RANDOMKEY**
 
