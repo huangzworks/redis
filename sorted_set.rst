@@ -1,5 +1,7 @@
-Sorted Set (zset)
-******************
+.. _sorted_set_struct:
+
+有序集(Sorted Set)
+*******************
 
 .. _zadd:
 

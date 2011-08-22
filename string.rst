@@ -1,5 +1,7 @@
-String
-*******
+.. _string_struct:
+
+字符串(String)
+***************
 
 .. _set:
 

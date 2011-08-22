@@ -1,5 +1,7 @@
-Hash
-*****
+.. _hash_struct:
+
+哈希表(Hash)
+*************
 
 .. _hset:
 
