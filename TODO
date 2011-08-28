@@ -18,19 +18,8 @@
 
 - readthedocs中命令和介绍之间的空白间隙过大的问题
 
-- 注意redis2.3版本动向，修改相应命令和代码示例
-
 - 修改MOVE的代码示例，争取更清晰地表达其含义，以及多种不同情况下的表现。
 
 - 添加LRANGE的更多case
 
-- sorted_set部分的reverse lexicographical order连接应用格式错误。
-
-- 批量写入代码命令：SADD，HDEL，SREM，ZREM，ZADD，LPUSH，RPUSH
-
-    SADD set val1 val2 val3 … — 返回添加的元素个数
-    HDEL hash field2 field3 field3 … — 返回删除的元素个数
-    SREM set val1 val2 val3 … – 返回删除的元素个数
-    ZREM zset val1 val2 val3 … – 返回删除的元素个数
-    ZADD zset score1 val1 score2 val2 … – 返回添加的元素个数
-    LPUSH/RLPUSH list val1 val2 val3 … – 返回操作后的LIST的长度
+- 更新SADD，SREM，HDEL，ZREM，ZADD，LPUSH，RPUSH的代码示例，支持Redis 2.4。

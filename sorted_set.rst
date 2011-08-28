@@ -8,26 +8,27 @@
 ZADD
 ====
 
-.. function:: ZADD key score member
+.. function:: ZADD key score member [[score member] [score member] ...]
 
-将\ ``member``\ 元素及其\ ``score``\ 值加入到有序集\ ``key``\ 当中。
+将一个或多个\ ``member``\ 元素及其\ ``score``\ 值加入到有序集\ ``key``\ 当中。
+
+如果某个\ ``member``\ 已经是有序集的成员，那么更新这个\ ``member``\ 的\ ``score``\ 值，并通过重新插入这个\ ``member``\ 元素，来保证\ ``member``\ 在正确的位置上。
 
 \ ``score``\ 值可以是整数值或双精度浮点数。
 
-如果\ ``member``\ 已经是有序集的成员，那么更新\ ``member``\ 的\ ``score``\ 值，并通过重新插入\ ``member``\ 元素，来保证\ ``member``\ 在正确的位置上。
-
-假如\ ``key``\ 不存在，则创建一个包含\ ``member``\ 元素作成员的有序集。
+如果\ ``key``\ 不存在，则创建一个空的有序集并执行\ `ZADD`_\ 操作。
 
 当\ ``key``\ 存在但不是有序集类型时，返回一个错误。
 
-对有序集的介绍请参见\ `sorted set <http://redis.io/topics/data-types#sorted-sets>`_\ 。
+对有序集的更多介绍请参见\ `sorted set <http://redis.io/topics/data-types#sorted-sets>`_\ 。
 
 **时间复杂度:**
-    O(1)
+    O(log(N))，N是有序集的基数。
 
 **返回值:**
-    | 如果添加元素成功，返回\ ``1``\ 。
-    | 如果元素已经是集合的成员，且该元素的\ ``score``\ 值被成功更新，返回\ ``0``\ 。
+    被成功添加的\ *新*\ 成员的数量，不包括那些被更新的、已经存在的成员。
+
+.. note:: 在Redis2.4版本以前，\ `ZADD`_\ 每次只能添加一个元素。
 
 ::
 
@@ -63,18 +64,19 @@ ZADD
 ZREM
 =====
 
-.. function:: ZREM key member
+.. function:: ZREM key member [member ...]
 
-移除有序集\ ``key``\ 中的成员\ ``member``\ ，如果\ ``member``\ 不是有序集中的成员，那么不执行任何动作。
+移除有序集\ ``key``\ 中的一个或多个成员，不存在的成员将被忽略。
 
 当\ ``key``\ 存在但不是有序集类型时，返回一个错误。
 
 **时间复杂度:**
-    O(log(N))，\ ``N``\ 为有序集的基数。
+    O(log(N)+M)，\ ``N``\ 为有序集的基数，\ ``M``\ 为被移除成员的数量。
 
 **返回值:**
-    | 如果\ ``member``\ 被成功移除，返回\ ``1``\ 。
-    | 如果\ ``member``\ 不是有序集的成员，返回\ ``0``\ 。
+    被成功移除的成员的数量，不包括被忽略的成员。
+
+.. note:: 在Redis2.4版本以前，\ `ZREM`_\ 每次只能删除一个元素。
 
 ::
 
