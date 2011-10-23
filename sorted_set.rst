@@ -12,7 +12,7 @@ ZADD
 
 将一个或多个\ ``member``\ 元素及其\ ``score``\ 值加入到有序集\ ``key``\ 当中。
 
-如果某个\ ``member``\ 已经是有序集的成员，那么更新这个\ ``member``\ 的\ ``score``\ 值，并通过重新插入这个\ ``member``\ 元素，来保证\ ``member``\ 在正确的位置上。
+如果某个\ ``member``\ 已经是有序集的成员，那么更新这个\ ``member``\ 的\ ``score``\ 值，并通过重新插入这个\ ``member``\ 元素，来保证该\ ``member``\ 在正确的位置上。
 
 \ ``score``\ 值可以是整数值或双精度浮点数。
 
@@ -23,7 +23,7 @@ ZADD
 对有序集的更多介绍请参见\ `sorted set <http://redis.io/topics/data-types#sorted-sets>`_\ 。
 
 **时间复杂度:**
-    O(log(N))，N是有序集的基数。
+    O(M*log(N))，\ ``N``\ 是有序集的基数，\ ``M``\ 为成功添加的新成员的数量。
 
 **返回值:**
     被成功添加的\ *新*\ 成员的数量，不包括那些被更新的、已经存在的成员。
@@ -32,28 +32,46 @@ ZADD
 
 ::
 
+    # 添加单个元素
+
     redis> ZADD page_rank 10 google.com
     (integer) 1
-    redis> ZADD page_rank 9 bing.com
-    (integer) 1
-    redis> ZADD page_rank 10 example.com
-    (integer) 1
 
-    redis> ZRANGE page_rank 0 -1 WITHSCORES  # 查看有序集内所有成员及其score值
+    # 添加多个元素
+
+    redis> ZADD page_rank 9 baidu.com 8 bing.com
+    (integer) 2
+
+    redis> ZRANGE page_rank 0 -1 WITHSCORES
     1) "bing.com"
-    2) "9"
-    3) "example.com"
-    4) "10"
+    2) "8"
+    3) "baidu.com"
+    4) "9"
     5) "google.com"
     6) "10"
 
-    redis> ZADD page_rank 5 example.com  # 重新插入一个已存在成员，并修改其score值
+    # 添加已存在元素，且 score 值不变
+
+    redis> ZADD page_rank 10 google.com
     (integer) 0
 
-    redis> ZRANGE page_rank 0 -1 WITHSCORES  # 位置已经被重排了
-    1) "example.com"
-    2) "5"
-    3) "bing.com"
+    redis> ZRANGE page_rank 0 -1 WITHSCORES  # 没有改变
+    1) "bing.com"
+    2) "8"
+    3) "baidu.com"
+    4) "9"
+    5) "google.com"
+    6) "10"
+
+    # 添加已存在元素，但是改变 score 值
+
+    redis> ZADD page_rank 6 bing.com
+    (integer) 0
+
+    redis> ZRANGE page_rank 0 -1 WITHSCORES  # bing.com 元素的score值被改变
+    1) "bing.com"
+    2) "6"
+    3) "baidu.com"
     4) "9"
     5) "google.com"
     6) "10"
@@ -71,7 +89,7 @@ ZREM
 当\ ``key``\ 存在但不是有序集类型时，返回一个错误。
 
 **时间复杂度:**
-    O(log(N)+M)，\ ``N``\ 为有序集的基数，\ ``M``\ 为被移除成员的数量。
+    O(M*log(N))，\ ``N``\ 为有序集的基数，\ ``M``\ 为被成功移除的成员的数量。
 
 **返回值:**
     被成功移除的成员的数量，不包括被忽略的成员。
@@ -80,15 +98,38 @@ ZREM
 
 ::
 
-    redis > ZADD phone 998 iPh0ne
-    (integer) 1
-    redis > ZADD phone 999 nokia-5233
+    # 测试数据
+
+    redis> ZRANGE page_rank 0 -1 WITHSCORES
+    1) "bing.com"
+    2) "8"
+    3) "baidu.com"
+    4) "9"
+    5) "google.com"
+    6) "10"
+
+    # 移除单个元素
+
+    redis> ZREM page_rank google.com
     (integer) 1
 
-    redis > ZREM phone iPh0ne # 成功移除
-    (integer) 1
+    redis> ZRANGE page_rank 0 -1 WITHSCORES
+    1) "bing.com"
+    2) "8"
+    3) "baidu.com"
+    4) "9"
 
-    redis > ZREM phone moto-1212  # 移除失败，不存在该成员
+    # 移除多个元素
+
+    redis> ZREM page_rank baidu.com bing.com
+    (integer) 2
+
+    redis> ZRANGE page_rank 0 -1 WITHSCORES
+    (empty list or set)
+
+    # 移除不存在元素
+
+    redis> ZREM page_rank non-exists-element
     (integer) 0
 
 

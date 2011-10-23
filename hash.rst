@@ -210,17 +210,36 @@ HDEL
 
 ::
 
-    redis> HSET hash_name jack "Jack Sparrow"
+    # 测试数据
+
+    redis> HGETALL abbr
+    1) "a"
+    2) "apple"
+    3) "b"
+    4) "banana"
+    5) "c"
+    6) "cat"
+    7) "d"
+    8) "dog"
+
+    # 删除单个域
+
+    redis> HDEL abbr a
     (integer) 1
 
-    redis> HGET hash_name jack
-    "Jack Sparrow"
+    # 删除不存在的域
 
-    redis> HDEL hash_name jack
-    (integer) 1
+    redis> HDEL abbr not-exists-field
+    (integer) 0
 
-    redis> HGET hash_name jack
-    (nil)
+    # 删除多个域
+
+    redis> HDEL abbr b c
+    (integer) 2
+
+    redis> HGETALL abbr
+    1) "d"
+    2) "dog"
 
 
 .. _hlen:
@@ -332,16 +351,16 @@ HINCRBY
 
     # 情况3：尝试对字符串值的域执行HINCRBY命令
     
-    redis 127.0.0.1:6379> HSET myhash string hello,world    # 设定一个字符串值
+    redis> HSET myhash string hello,world    # 设定一个字符串值
     (integer) 1
 
-    redis 127.0.0.1:6379> HGET myhash string
+    redis> HGET myhash string
     "hello,world"
 
-    redis 127.0.0.1:6379> HINCRBY myhash string 1   # 命令执行失败，错误。
+    redis> HINCRBY myhash string 1   # 命令执行失败，错误。
     (error) ERR hash value is not an integer
 
-    redis 127.0.0.1:6379> HGET myhash string    # 原值不变
+    redis> HGET myhash string    # 原值不变
     "hello,world"
 
 

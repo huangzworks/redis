@@ -21,16 +21,16 @@ LPUSH
 
 .. function:: LPUSH key value [value ...]
 
-将一个或多个值\ ``value``\ 插入到列表\ ``key``\ 的表头。
+将一个或多个值\ ``value``\ 插入到列表\ ``key``\ 的\ *表头*\ 。
 
-如果有多个\ ``value``\ 值，那么各个\ ``value``\ 值按顺序插入到表头：比如对一个空列表执行\ ``LPUSH a b c``\ ，则结果列表为\ ``a b c``\ 。
+如果有多个\ ``value``\ 值，那么各个\ ``value``\ 值按从左到右的顺序依次插入到表头：比如对一个空列表(\ ``mylist``\ )执行\ ``LPUSH mylist a b c``\ ，则结果列表为\ ``c b a``\ ，等同于执行执行命令\ ``LPUSH mylist a``\ 、\ ``LPUSH mylist b``\ 、\ ``LPUSH mylist c``\ 。
 
 如果\ ``key``\ 不存在，一个空列表会被创建并执行\ `LPUSH`_\ 操作。
 
 当\ ``key``\ 存在但不是列表类型时，返回一个错误。
 
 **时间复杂度：**
-    O(1)
+    O(N)
 
 **返回值：**
     执行\ `LPUSH`_\ 命令后，列表的长度。
@@ -38,19 +38,30 @@ LPUSH
 .. note:: 在Redis 2.4版本以前的\ `LPUSH`_\ 命令，都只接受单个\ ``value``\ 值。
 
 ::
+    
+    # 加入单个元素
 
-    redis> LPUSH word d
+    redis> LPUSH languages python
     (integer) 1
-    redis> LPUSH word a
+
+    # 加入重复元素
+
+    redis> LPUSH languages python
     (integer) 2
-    redis> LPUSH word b
+
+    redis> LRANGE languages 0 -1 # 列表允许重复元素
+    1) "python"
+    2) "python"
+
+    # 加入多个元素
+
+    redis> LPUSH mylist a b c
     (integer) 3
 
-    redis> LRANGE word 0 -1  # 显示列表内所有元素
-    1) "b"
-    2) "a"
-    3) "d"
-
+    redis> LRANGE mylist 0 -1
+    1) "c"
+    2) "b"
+    3) "a"
 
 .. _lpushx:
 
@@ -102,14 +113,14 @@ RPUSH
 
 将一个或多个值\ ``value``\ 插入到列表\ ``key``\ 的\ *表尾*\ 。
 
-如果有多个\ ``value``\ 值，那么各个\ ``value``\ 值按顺序插入到表尾：比如对一个空列表执行\ ``RPUSH a b c``\ ，则结果列表为\ ``a b c``\ 。
+如果有多个\ ``value``\ 值，那么各个\ ``value``\ 值按从左到右的顺序依次插入到表尾：比如对一个空列表(\ ``mylist``\ )执行\ ``RPUSH mylist a b c``\ ，则结果列表为\ ``a b c``\ ，等同于执行命令\ ``RPUSH mylist a``\ 、\ ``RPUSH mylist b``\ 、\ ``RPUSH mylist c``\ 。
 
 如果\ ``key``\ 不存在，一个空列表会被创建并执行\ `RPUSH`_\ 操作。
 
 当\ ``key``\ 存在但不是列表类型时，返回一个错误。
 
 **时间复杂度：**
-    O(1)
+    O(N)
 
 **返回值：**
     执行\ `RPUSH`_\ 操作后，表的长度。
@@ -118,19 +129,29 @@ RPUSH
 
 ::
 
-    redis> LLEN fp-language # 显示列表中的元素数量
-    (integer) 0
+    # 添加单个元素
 
-    redis> RPUSH fp-language lisp
+    redis> RPUSH languages c
     (integer) 1
-    redis> LRANGE fp-language 0 0   # 显示列表中的元素
-    1) "lisp"
 
-    redis> RPUSH fp-language scheme
+    # 添加重复元素
+
+    redis> RPUSH languages c
     (integer) 2
-    redis> LRANGE fp-language 0 1   # 显示列表中的元素
-    1) "lisp"
-    2) "scheme"
+
+    redis> LRANGE languages 0 -1 # 列表允许重复元素
+    1) "c"
+    2) "c"
+
+    # 添加多个元素
+
+    redis> RPUSH mylist a b c
+    (integer) 3
+
+    redis> LRANGE mylist 0 -1
+    1) "a"
+    2) "b"
+    3) "c"
 
 
 .. _rpushx:

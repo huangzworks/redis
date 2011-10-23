@@ -10,7 +10,7 @@ Redis命令参考中文版(Redis Command Reference)
 
 全文共分为十个部分，其中主要的六个部分(Key、String、Hash、List、Set、SortedSet)的所有命令已经翻译完毕，剩余的四个部分(Pub/Sub、Transactions、Connection、Server)还有待日后跟进。
 
-所有示例代码经过Redis 2.2.10版本测试，质量保证。
+所有示例代码经过Redis 2.4.1版本测试，质量保证。
 
 报告翻译问题，加入本项目或联系译者，请阅读\ :ref:`about`\ 页面。
 

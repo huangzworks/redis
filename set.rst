@@ -48,17 +48,25 @@ SADD
 
 ::
 
-    redis> SADD bbs "v2ex.com"
-    (integer) 1
-    redis> SADD bbs "codecompo.com"
+    # 添加单个元素
+
+    redis> SADD bbs "discuz.net"
     (integer) 1
 
-    redis> SMEMBERS bbs     # 显示bbs集合中所有成员
-    1) "codecompo.com"
-    2) "v2ex.com"
+    # 添加重复元素 
 
-    redis> SADD bbs "v2ex.com"  # 尝试添加重复元素，返回0
+    redis> SADD bbs "discuz.net"
     (integer) 0
+
+    # 添加多个元素
+
+    redis> SADD bbs "tianya.cn" "groups.google.com"
+    (integer) 2
+
+    redis> SMEMBERS bbs
+    1) "discuz.net"
+    2) "groups.google.com"
+    3) "tianya.cn"
 
 
 .. _srem:
@@ -82,24 +90,31 @@ SREM
 
 ::
 
-    redis> SMEMBERS prog_lang
-    1) "c"
-    2) "ruby"
-    3) "python"
+    # 测试数据
 
-    redis> SREM prog_lang "c"
+    redis> SMEMBERS languages
+    1) "c"
+    2) "lisp"
+    3) "python"
+    4) "ruby"
+
+    # 移除单个元素
+
+    redis> SREM languages ruby
     (integer) 1
 
-    redis> SMEMBERS prog_lang
-    1) "ruby"
-    2) "python"
+    # 移除不存在元素
 
-    redis> SREM prog_lang "scheme"
+    redis> SREM languages non-exists-language
     (integer) 0
 
-    redis> SMEMBERS prog_lang
-    1) "ruby"
-    2) "python"
+    # 移除多个元素
+
+    redis> SREM languages lisp python c
+    (integer) 3
+
+    redis> SMEMBERS languages
+    (empty list or set)
 
 
 .. _smembers:
