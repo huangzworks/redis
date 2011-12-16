@@ -82,7 +82,9 @@ PSUBSCRIBE
 
 .. function:: PSUBSCRIBE pattern [pattern ...]
 
-订阅给定的模式。
+订阅符合给定模式的频道。
+
+每个模式以 ``*`` 作为匹配符，比如 ``huangz*`` 匹配所有以 ``huangz`` 开头的频道( ``huangzmsg`` 、 ``huangz-blog`` 、 ``huangz.tweets`` 等等)， ``news.*`` 匹配所有以 ``news.`` 开头的频道( ``news.it`` 、 ``news.global.today`` 等等)，诸如此类。
 
 **时间复杂度：**
     O(N)， ``N`` 是订阅的模式的数量。

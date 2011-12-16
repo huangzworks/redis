@@ -25,4 +25,9 @@ Redis命令参考简体中文版
    list
    set
    sorted_set
+   pub_sub
+   transaction
+   connection
+   server
    about
+
