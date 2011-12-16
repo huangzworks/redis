@@ -64,12 +64,15 @@ SUBSCRIBE
     1) "subscribe"       # 返回值的类型：显示订阅成功
     2) "msg"             # 订阅的频道名字
     3) (integer) 1       # 目前已订阅的频道数量
+
     1) "subscribe"
     2) "chat_room"
     3) (integer) 2
+
     1) "message"         # 返回值的类型：信息
     2) "msg"             # 来源(从那个频道发送过来)
     3) "hello moto"      # 信息内容
+
     1) "message"
     2) "chat_room"
     3) "testing...haha"
