@@ -134,3 +134,17 @@ PSUBSCRIBE
     3) "news.life"
     4) "An apple a day, keep doctors away"
 
+
+.. _unsubscribe:
+
+UNSUBSCRIBE
+=============
+
+.. warning:: 此命令在新版 Redis 中似乎已经被废弃？
+
+.. _punsubscribe:
+
+PUNSUBSCRIBE
+===============
+
+.. warning:: 此命令在新版 Redis 中似乎已经被废弃？
