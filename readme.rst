@@ -3,6 +3,11 @@
 关于本文档
 ***********
 
+在线阅读地址
+===============
+
+本译文可以在 `redis.readthedocs.org <http://redis.readthedocs.org>`_ 在线阅读。
+
 翻译事项 
 =========
 
