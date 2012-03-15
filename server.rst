@@ -14,6 +14,8 @@ BGREWRITEAOF
 
 即使 `BGREWRITEAOF`_ 命令执行失败，旧 AOF 文件中的数据也不会因此丢失或改变。
 
+请移步 `持久化文档 <http://redis.io/topics/persistence>`_ 查看更多相关细节。
+
 **时间复杂度：**
     O(N)， ``N`` 为要追加到 AOF 文件中的数据数量。
 
@@ -36,6 +38,8 @@ BGSAVE
 `BGSAVE`_ 命令执行之后立即返回 ``OK`` ，然后 Redis fork出一个新子进程，原来的 Redis 进程(父进程)继续处理客户端请求，而子进程则负责将数据保存到磁盘，然后退出。
 
 客户端可以通过 `LASTSAVE`_ 命令查看相关信息，判断 `BGSAVE`_ 命令是否执行成功。
+
+请移步 `持久化文档 <http://redis.io/topics/persistence>`_ 查看更多相关细节。
 
 **时间复杂度：**
     O(N)， ``N`` 为要保存到数据库中的 key 的数量。
@@ -448,7 +452,7 @@ CONFIG GET
 
 .. function:: CONFIG GET parameter
 
-`CONFIG GET`_ 命令用于取得运行中的 Redis 服务器的配置参数(configuration parameters)，不过并非所有配置参数都被 ``CONFIG GET`` 命令所支持。
+`CONFIG GET`_ 命令用于取得运行中的 Redis 服务器的配置参数(configuration parameters)，在 Redis 2.4 版本中， 有部分参数没有办法用 ``CONFIG GET`` 访问，但是在最新的 Redis 2.6 版本中，所有配置参数都已经可以用 ``CONFIG GET`` 访问了。
 
 `CONFIG GET`_ 接受单个参数 ``parameter`` 作为搜索关键字，查找所有匹配的配置参数，其中参数和值以“键-值对”(key-value pairs)的方式排列。
 

@@ -352,6 +352,42 @@ APPEND
     redis> GET myphone  # 查看整个字符串
     "nokia - 1110"
 
+**模式：时间序列(Time series)**
+
+`APPEND`_ 可以为一系列定长(fixed-size)数据(sample)提供一种紧凑的表示方式，通常称之为时间序列。
+
+每当一个新数据到达的时候，执行以下命令：
+
+::
+
+    APPEND timeseries "fixed-size sample"
+    
+然后可以通过以下的方式访问时间序列的各项属性：
+
+- :ref:`STRLEN` 给出时间序列中数据的数量
+- :ref:`GETRANGE` 可以用于随机访问。只要有相关的时间信息的话，我们就可以在 Redis 2.6 中使用 Lua 脚本和 :ref:`GETRANGE` 命令实现二分查找。
+- :ref:`SETRANGE` 可以用于覆盖或修改已存在的的时间序列。
+
+这个模式的唯一缺陷是我们只能增长时间序列，而不能对时间序列进行缩短，因为 Redis 目前还没有对字符串进行修剪的命令，但是，不管怎么说，这个模式的储存方式还是可以节省下大量的空间。
+
+提示：可以考虑使用 UNIX 时间戳作为时间序列的键名，这样一来，可以避免单个 ``key`` 因为保存过大的时间序列而占用大量内存，另一方面，也可以节省下大量命名空间。
+
+下面是一个时间序列的例子：
+
+::
+
+    redis> EXISTS mykey
+    (integer) 0
+
+    redis> APPEND mykey "Hello"
+    (integer) 5
+
+    redis> APPEND mykey " World"
+    (integer) 11
+
+    redis> GET mykey
+    "Hello World"
+
 
 .. _get:
 
