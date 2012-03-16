@@ -630,7 +630,9 @@ DEBUG OBJECT
 
 .. function:: DEBUG OBJECT key
 
-返回给定 ``key`` 的调试信息。
+`DEBUG OBJECT`_ 是一个调试命令，它不应被客户端所使用。
+
+查看 :ref:`OBJECT` 命令获取更多信息。
 
 **时间复杂度：**
     O(1)
@@ -655,7 +657,7 @@ DEBUG SEGFAULT
 
 .. function:: DEBUG SEGFAULT
 
-令 Redis 服务器崩溃，调试用。
+执行一个不合法的内存访问从而让 Redis 崩溃，仅在开发时用于 BUG 模拟。
 
 **时间复杂度：**
     不明确
