@@ -902,13 +902,13 @@ BRPOPLPUSH
 
 .. function:: BRPOPLPUSH source destination timeout
 
-\ `BRPOPLPUSH`_\ 是\ `RPOPLPUSH`_\ 的阻塞版本，当给定列表\ ``source``\ 不为空时，\ `BRPOPLPUSH`_\ 的表现和\ `RPOPLPUSH`_\ 一样。
+`BRPOPLPUSH`_ 是 `RPOPLPUSH`_ 的阻塞版本，当给定列表 ``source`` 不为空时， `BRPOPLPUSH`_ 的表现和 `RPOPLPUSH`_ 一样。
 
-当列表\ ``source``\ 为空时，\ `BRPOPLPUSH`_\ 命令将阻塞连接，直到等待超时，或有另一个客户端对\ ``source``\ 执行\ `LPUSH`_\ 或\ `RPUSH`_\ 命令为止。
+当列表 ``source`` 为空时， `BRPOPLPUSH`_ 命令将阻塞连接，直到等待超时，或有另一个客户端对 ``source`` 执行 `LPUSH`_ 或 `RPUSH`_ 命令为止。
 
-超时参数\ ``timeout``\ 接受一个以秒为单位的数字作为值。超时参数设为\ ``0``\ 表示阻塞时间可以无限期延长(block indefinitely) 。
+超时参数 ``timeout`` 接受一个以秒为单位的数字作为值。超时参数设为 ``0`` 表示阻塞时间可以无限期延长(block indefinitely) 。
 
-更多相关信息，请参考\ `RPOPLPUSH`_\ 命令。
+更多相关信息，请参考 `RPOPLPUSH`_ 命令。
 
 **时间复杂度：**
     O(1)
@@ -937,3 +937,13 @@ BRPOPLPUSH
     redis> BRPOPLPUSH msg reciver 1 
     (nil)
     (1.34s)
+
+模式：安全队列
+---------------------
+
+参考 `RPOPLPUSH`_ 命令的『安全队列』模式。
+
+模式：循环列表
+------------------------
+
+参考 `RPOPLPUSH`_ 命令的『循环列表』模式。
