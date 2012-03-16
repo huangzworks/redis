@@ -368,6 +368,34 @@ BLPOP
     | 如果列表为空，返回一个\ ``nil``\ 。
     | 反之，返回一个含有两个元素的列表，第一个元素是被弹出元素所属的\ ``key``\ ，第二个元素是被弹出元素的值。
 
+模式：事件提醒
+------------------
+
+有时候，为了等待一个新元素到达数据中，需要使用轮询的方式对数据进行探查。
+
+另一种更好的方式是，使用系统提供的阻塞原语，在新元素到达时立即进行处理，而新元素还没到底时，就一直阻塞住，避免轮询占用资源。
+
+对于 Redis ，我们似乎需要一个阻塞版的 :ref:`SPOP` 命令，但实际上，使用 :ref:`BLPOP` 或者 :ref:`BRPOP` 就能很好地解决这个问题。
+
+使用元素的客户端(消费者)可以执行类似以下的代码：
+
+::
+
+    LOOP forever
+        WHILE SPOP(key) returns elements
+            ... process elements ...
+        END
+        BRPOP helper_key
+    END
+
+添加元素的客户端(生存者)则执行以下代码：
+
+::
+
+    MULTI
+        SADD key element
+        LPUSH helper_key x
+    EXEC
 
 .. _brpop:
 
