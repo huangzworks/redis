@@ -722,6 +722,32 @@ INCR
 - 客户端可以通过使用 :ref:`GETSET` 命令原子性地获取计数器的当前值并将计数器清零，更多信息请参考 :ref:`GETSET` 命令。
 - 使用其他自增/自减操作，比如 :ref:`DECR` 和 :ref:`INCRBY` ，用户可以通过执行不同的操作增加或减少计数器的值，比如在游戏中的记分器就可能用到这些命令。
 
+模式：限速器
+-------------
+
+限速器是特殊化的计算器，它用于限制一个操作可以被执行的速率(rate)。
+
+限速器的典型用法是限制公开 API 的请求次数，以下是一个限速器实现示例，它将 API 的最大请求数限制在每个 IP 地址每秒钟十个之内：
+
+::
+
+    FUNCTION LIMIT_API_CALL(ip)
+    ts = CURRENT_UNIX_TIME()
+    keyname = ip+":"+ts
+    current = GET(keyname)
+    IF current != NULL AND current > 10 THEN
+        ERROR "too many requests per second"
+    ELSE
+        MULTI
+            INCR(keyname,1)
+            EXPIRE(keyname,10)
+        EXEC
+        PERFORM_API_CALL()
+    END
+
+这个实现每秒钟为每个 IP 地址使用一个不同的计数器，并用 :ref:`EXPIRE` 命令设置生存时间(这样 redis 就会自动删除过期的计数器)。
+
+注意，我们使用事务打包执行 :ref:`INCR` 命令和 :ref:`EXPIRE` 命令，避免引入竞争条件，保证每次调用 API 时都可以正确地对计数器进行自增操作并设置生存时间。
 
 .. _incrby:
 
