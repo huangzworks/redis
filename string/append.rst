@@ -34,7 +34,8 @@ APPEND
     redis> GET myphone  # 查看整个字符串
     "nokia - 1110"
 
-**模式：时间序列(Time series)**
+模式：时间序列(Time series)
+------------------------------
 
 `APPEND`_ 可以为一系列定长(fixed-size)数据(sample)提供一种紧凑的表示方式，通常称之为时间序列。
 
@@ -69,6 +70,3 @@ APPEND
 
     redis> GET mykey
     "Hello World"
-
-
-

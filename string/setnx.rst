@@ -32,7 +32,8 @@ SETNX
     redis> GET job  # 没有被覆盖
     "programmer"
 
-**设计模式(Design pattern): 将SETNX用于加锁(locking)**
+模式：将SETNX用于加锁(locking)
+----------------------------------------
 
 \ `SETNX`_\ 可以用作加锁原语(locking primitive)。比如说，要对关键字(key)\ ``foo``\ 加锁，客户端可以尝试以下方式：
 

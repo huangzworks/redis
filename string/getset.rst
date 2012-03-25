@@ -27,7 +27,8 @@ GETSET
     redis> GETSET mail xxx@yahoo.com  # mail被更新，旧值被返回
     "xxx@google.com"
 
-**设计模式**
+模式
+--------
 
 \ `GETSET`_\ 可以和\ `INCR`_\ 组合使用，实现一个有原子性(atomic)复位操作的计数器(counter)。
 
