@@ -17,7 +17,7 @@ INCRBYFLOAT
 
 当以下任意一个条件发生时，返回一个错误：
 
-- ``key`` 的值不是一个字符串(因为 redis 中的数字和浮点数都以字符串的形式保存，所以它们都属于字符串类型）
+- ``key`` 的值不是字符串类型(因为 redis 中的数字和浮点数都以字符串的形式保存，所以它们都属于字符串类型）
 - ``key`` 当前的值或者给定的增量 ``increment`` 不能解释(parse)为双精度浮点数(double precision floating point number）
 
 **可用版本：**
