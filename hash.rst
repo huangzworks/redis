@@ -23,6 +23,8 @@
 
 .. include:: hash/hincrby.rst
 
+.. include:: hash/hincrbyfloat.rst
+
 .. include:: hash/hkeys.rst
 
 .. include:: hash/hvals.rst
