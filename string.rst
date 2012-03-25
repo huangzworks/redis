@@ -37,6 +37,8 @@
 
 .. include:: string/incrby.rst
 
+.. include:: string/incrbyfloat.rst
+
 .. include:: string/setbit.rst
 
 .. include:: string/getbit.rst
