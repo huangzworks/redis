@@ -168,11 +168,11 @@ Redis 提供了以下几个 SCRIPT 命令，用于对脚本子系统(scripting s
 - :ref:`script_load`
 - :ref:`script_kill`
 
-**纯函数(pure function)脚本**
+**纯函数脚本**
 
-A very important part of scripting is writing scripts that are pure functions. Scripts executed in a Redis instance are replicated on slaves sending the same script, instead of the resulting commands. The same happens for the Append Only File. The reason is that scripts are much faster than sending commands one after the other to a Redis instance, so if the client is taking the master very busy sending scripts, turning this scripts into single commands for the slave / AOF would result in too much bandwidth for the replication link or the Append Only File (and also too much CPU since dispatching a command received via network is a lot more work for Redis compared to dispatching a command invoked by Lua scripts).
+在编写脚本方面，一个重要的要求就是，脚本应该被写成纯函数(pure function)。
 
-这个方法的唯一缺陷是，它要求脚本具有以下属性：
+也就是说，脚本应该具有以下属性：
 
 - 对于同样的数据集输入，给定相同的参数，脚本执行的 Redis 写命令总是相同的。脚本执行的操作不能依赖于任何隐藏(非显式)数据，不能依赖于脚本在执行过程中、或脚本在不同执行时期之间可能变更的状态，并且它也不能依赖于任何来自 I/O 设备的外部输入。
 
