@@ -23,7 +23,7 @@ DECR
 
 ::
 
-    # 情况1：对存在的数字值key进行DECR
+    # 情况1：对存在的数字值 key 进行 DECR
 
     redis> SET failure_times 10
     OK
@@ -32,7 +32,7 @@ DECR
     (integer) 9
 
 
-    # 情况2：对不存在的key值进行DECR
+    # 情况2：对不存在的 key 值进行 DECR
 
     redis> EXISTS count 
     (integer) 0
@@ -41,7 +41,7 @@ DECR
     (integer) -1
 
 
-    # 情况3：对存在但不是数值的key进行DECR
+    # 情况3：对存在但不是数值的 key 进行 DECR
 
     redis> SET company YOUR_CODE_SUCKS.LLC
     OK

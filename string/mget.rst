@@ -16,7 +16,7 @@ MGET
 
 ::
 
-    redis> MSET name huangz twitter twitter.com/huangz1990  #用MSET一次储存多个值
+    redis> MSET name huangz twitter twitter.com/huangz1990  #用 MSET 一次储存多个值
     OK
 
     redis> MGET name twitter
@@ -26,7 +26,7 @@ MGET
     redis> EXISTS fake_key
     (integer) 0
 
-    redis> MGET name fake_key  # 当MGET中有不存在key的情况
+    redis> MGET name fake_key  # 当 MGET 中有不存在 key 的情况
     1) "huangz"
     2) (nil)
 

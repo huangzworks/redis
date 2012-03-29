@@ -17,7 +17,7 @@ SET
 
 ::
 
-    # 情况1：对字符串类型的key进行SET
+    # 情况1：对字符串类型的 key 进行 SET
 
     redis> SET apple www.apple.com
     OK
@@ -26,7 +26,7 @@ SET
     "www.apple.com"
 
 
-    # 情况2：对非字符串类型的key进行SET
+    # 情况2：对非字符串类型的 key 进行 SET
 
     redis> LPUSH greet_list "hello"  # 建立一个列表
     (integer) 1

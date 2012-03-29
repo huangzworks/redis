@@ -22,12 +22,12 @@ MSET
     redis> MSET date "2011.4.18" time "9.09a.m." weather "sunny"    
     OK
 
-    redis> KEYS *   # 确保指定的三个key-value对被插入
+    redis> KEYS *   # 确保指定的三个 key-value 对被插入
     1) "time"
     2) "weather"
     3) "date"
 
-    redis> SET google "google.cn"  # MSET覆盖旧值的例子
+    redis> SET google "google.cn"  # MSET 覆盖旧值的例子
     OK
 
     redis> MSET google "google.hk"

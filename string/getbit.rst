@@ -17,7 +17,7 @@ GETBIT
 
 ::
     
-    # 情况1：对不存在的key/不存在的offset进行GETBIT，
+    # 情况1：对不存在的 key 或不存在的 offset 进行 GETBIT，
     #        默认为0
 
     redis> EXISTS bit
@@ -27,7 +27,7 @@ GETBIT
     (integer) 0
 
     
-    # 情况2：对已存在的offset进行GETBIT
+    # 情况2：对已存在的 offset 进行 GETBIT
 
     redis> SETBIT bit 10086 1
     (integer) 0
