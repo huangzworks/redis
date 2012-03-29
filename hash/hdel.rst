@@ -3,7 +3,7 @@
 HDEL
 =====
 
-.. function:: HDEL key field [field ...]
+**HDEL key field [field ...]**
 
 删除哈希表\ ``key``\ 中的一个或多个指定域，不存在的域将被忽略。
 

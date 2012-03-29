@@ -3,7 +3,7 @@
 LPUSHX
 =======
 
-.. function:: LPUSHX key value
+**LPUSHX key value**
 
 将值\ ``value``\ 插入到列表\ ``key``\ 的表头，当且仅当\ ``key``\ 存在并且是一个列表。
 
@@ -17,21 +17,21 @@ LPUSHX
 
 ::
 
-    # 情况1：对空列表执行LPUSHX
+    # 情况1：对空列表执行 LPUSHX
 
-    redis> LLEN greet    # greet是一个空列表
+    redis> LLEN greet    # greet 是一个空列表
     (integer) 0
 
-    redis> LPUSHX greet "hello"  # 尝试LPUSHX，失败，因为列表为空
+    redis> LPUSHX greet "hello"  # 尝试 LPUSHX，失败，因为列表为空
     (integer) 0
 
     
-    # 情况2：对非空列表执行LPUSHX
+    # 情况2：对非空列表执行 LPUSHX
 
-    redis> LPUSH greet "hello"   # 先用LPUSH创建一个有一个元素的列表
+    redis> LPUSH greet "hello"   # 先用 LPUSH 创建一个有一个元素的列表
     (integer) 1
 
-    redis> LPUSHX greet "good morning"   # 这次LPUSHX执行成功
+    redis> LPUSHX greet "good morning"   # 这次 LPUSHX 执行成功
     (integer) 2
 
     redis> LRANGE greet 0 -1

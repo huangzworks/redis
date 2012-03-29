@@ -3,7 +3,7 @@
 SDIFFSTORE
 ============
 
-.. function:: SDIFFSTORE destination key [key ...]
+**SDIFFSTORE destination key [key ...]**
 
 此命令等同于\ `SDIFF`_\，但它将结果保存到\ ``destination``\ 集合，而不是简单地返回结果集。
 

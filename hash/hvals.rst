@@ -3,7 +3,7 @@
 HVALS
 ======
 
-.. function:: HVALS key 
+**HVALS key**
 
 返回哈希表\ ``key``\ 中的所有值。
 

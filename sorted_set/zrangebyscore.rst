@@ -9,10 +9,10 @@ ZRANGEBYSCORE
 
 具有相同\ ``score``\ 值的成员按字典序(\ `lexicographical order`_\ )来排列(该属性是有序集提供的，不需要额外的计算)。
 
-可选的\ ``LIMIT``\ 参数指定返回结果的数量及区间(就像SQL中的\ ``SELECT LIMIT offset, count``\ )，注意当\ ``offset``\ 很大时，定位\ ``offset``\ 的操作可能需要遍历整个有序集，此过程最坏复杂度为O(N)时间。
+可选的\ ``LIMIT``\ 参数指定返回结果的数量及区间(就像SQL中的\ ``SELECT LIMIT offset, count``\ )，注意当\ ``offset``\ 很大时，定位\ ``offset``\ 的操作可能需要遍历整个有序集，此过程最坏复杂度为 O(N) 时间。
 
 | 可选的\ ``WITHSCORES``\ 参数决定结果集是单单返回有序集的成员，还是将有序集成员及其\ ``score``\ 值一起返回。
-| 该选项自Redis 2.0版本起可用。
+| 该选项自 Redis 2.0 版本起可用。
 
 **区间及无限**
 
@@ -54,7 +54,7 @@ ZRANGEBYSCORE
     2) "tom"
     3) "peter"
 
-    redis> ZRANGEBYSCORE salary -inf +inf WITHSCORES # 显示整个有序集及成员的score值
+    redis> ZRANGEBYSCORE salary -inf +inf WITHSCORES # 显示整个有序集及成员的 score 值
     1) "jack"
     2) "2500"
     3) "tom"
@@ -62,7 +62,7 @@ ZRANGEBYSCORE
     5) "peter"
     6) "12000"
 
-    redis> ZRANGEBYSCORE salary -inf 5000 WITHSCORES # 显示工资<=5000的所有成员
+    redis> ZRANGEBYSCORE salary -inf 5000 WITHSCORES # 显示工资 <=5000 的所有成员
     1) "jack"
     2) "2500"
     3) "tom"

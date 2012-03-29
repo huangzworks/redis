@@ -3,7 +3,7 @@
 LRANGE
 =======
 
-.. function:: LRANGE key start stop
+**LRANGE key start stop**
 
 返回列表\ ``key``\ 中指定区间内的元素，区间以偏移量\ ``start``\ 和\ ``stop``\ 指定。
 

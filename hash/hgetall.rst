@@ -3,7 +3,7 @@
 HGETALL
 =======
 
-.. function:: HGETALL key 
+**HGETALL key**
 
 返回哈希表\ ``key``\ 中，所有的域和值。
 

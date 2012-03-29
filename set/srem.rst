@@ -3,7 +3,7 @@
 SREM
 =====
 
-.. function:: SREM key member [member ...]
+**SREM key member [member ...]**
 
 移除集合\ ``key``\ 中的一个或多个\ ``member``\ 元素，不存在的\ ``member``\ 元素会被忽略。
 
@@ -15,7 +15,7 @@ SREM
 **返回值:**
     被成功移除的元素的数量，不包括被忽略的元素。
 
-.. note:: 在Redis2.4版本以前，\ `SREM`_\ 只接受单个\ ``member``\ 值。
+.. note:: 在 Redis 2.4 版本以前，\ `SREM`_\ 只接受单个\ ``member``\ 值。
 
 ::
 

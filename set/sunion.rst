@@ -3,7 +3,7 @@
 SUNION
 =======
 
-.. function:: SUNION key [key ...]
+**SUNION key [key ...]**
 
 返回一个集合的全部成员，该集合是所有给定集合的\ *并集*\。
 

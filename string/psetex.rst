@@ -3,7 +3,7 @@
 PSETEX
 ==========
 
-.. function:: PSETEX key milliseconds value
+**PSETEX key milliseconds value**
 
 这个命令和 :ref:`SETEX` 命令相似，但它以毫秒为单位设置 ``key`` 的生存时间，而不是像 :ref:`SETEX` 命令那样，以秒为单位。
 

@@ -3,7 +3,7 @@
 RPUSH
 ========
 
-.. function:: RPUSH key value [value ...]
+**RPUSH key value [value ...]**
 
 将一个或多个值\ ``value``\ 插入到列表\ ``key``\ 的\ *表尾*\ 。
 
@@ -19,7 +19,7 @@ RPUSH
 **返回值：**
     执行\ `RPUSH`_\ 操作后，表的长度。
 
-.. note:: 在Redis 2.4版本以前的\ `RPUSH`_\ 命令，都只接受单个\ ``value``\ 值。
+.. note:: 在 Redis 2.4 版本以前的\ `RPUSH`_\ 命令，都只接受单个\ ``value``\ 值。
 
 ::
 

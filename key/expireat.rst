@@ -24,7 +24,7 @@ EXPIREAT
     redis> SET cache www.google.com
     OK
 
-    redis> EXPIREAT cache 1355292000 # 这个key将在2012.12.12过期
+    redis> EXPIREAT cache 1355292000 # 这个 key 将在 2012.12.12 过期
     (integer) 1
 
     redis> TTL cache

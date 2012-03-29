@@ -3,7 +3,7 @@
 LPOP
 =======
 
-.. function:: LPOP key
+**LPOP key**
 
 移除并返回列表\ ``key``\ 的头元素。 
 

@@ -3,7 +3,7 @@
 SPOP
 =====
 
-.. function:: SPOP key
+**SPOP key**
 
 移除并返回集合中的一个随机元素。
 

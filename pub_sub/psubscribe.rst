@@ -3,7 +3,7 @@
 PSUBSCRIBE
 ===========
 
-.. function:: PSUBSCRIBE pattern [pattern ...]
+**PSUBSCRIBE pattern [pattern ...]**
 
 订阅符合给定模式的频道。
 

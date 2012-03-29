@@ -3,7 +3,7 @@
 STRLEN
 =======
 
-.. function:: STRLEN key
+**STRLEN key**
 
 返回\ ``key``\ 所储存的字符串值的长度。
 

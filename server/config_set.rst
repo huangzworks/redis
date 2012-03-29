@@ -3,7 +3,7 @@
 CONFIG SET
 ============
 
-.. function:: CONFIG SET parameter value
+**CONFIG SET parameter value**
 
 `CONFIG SET`_ 命令可以动态地调整 Redis 服务器的配置(configuration)而无须重启。
 

@@ -21,7 +21,7 @@ INFO
     redis_git_dirty:0
     arch_bits:32
     multiplexing_api:epoll
-    process_id:903                  # 当前 Redis 服务器进程id
+    process_id:903                  # 当前 Redis 服务器进程 id
     uptime_in_seconds:24612         # 运行时间(以秒计算)
     uptime_in_days:0                # 运行时间(以日计算)
     lru_clock:283730            

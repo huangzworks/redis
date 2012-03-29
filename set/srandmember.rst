@@ -3,7 +3,7 @@
 SRANDMEMBER
 ============
 
-.. function:: SRANDMEMBER key
+**SRANDMEMBER key**
 
 返回集合中的一个随机元素。
 

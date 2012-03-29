@@ -17,7 +17,7 @@ ZCOUNT
 
 ::
 
-    redis> ZRANGE salary 0 -1 WITHSCORES # 显示所有成员及其score值
+    redis> ZRANGE salary 0 -1 WITHSCORES # 显示所有成员及其 score 值
     1) "jack"
     2) "2000"
     3) "peter"
@@ -25,10 +25,10 @@ ZCOUNT
     5) "tom"
     6) "5000"
 
-    redis> ZCOUNT salary 2000 5000   # 计算薪水在2000-5000之间的人数
+    redis> ZCOUNT salary 2000 5000   # 计算薪水在 2000-5000 之间的人数
     (integer) 3
 
-    redis> ZCOUNT salary 3000 5000   # 计算薪水在3000-5000之间的人数
+    redis> ZCOUNT salary 3000 5000   # 计算薪水在 3000-5000 之间的人数
     (integer) 2
 
 
