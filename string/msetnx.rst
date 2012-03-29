@@ -20,7 +20,7 @@ MSETNX
 
 ::
 
-    # 情况1：对不存在的key进行MSETNX
+    # 情况1：对不存在的 key 进行 MSETNX
 
     redis> MSETNX rmdbs "MySQL" nosql "MongoDB" key-value-store "redis"
     (integer) 1
@@ -28,13 +28,13 @@ MSETNX
 
     # 情况2：对已存在的key进行MSETNX
 
-    redis> MSETNX rmdbs "Sqlite" language "python"  # rmdbs键已经存在，操作失败
+    redis> MSETNX rmdbs "Sqlite" language "python"  # rmdbs 键已经存在，操作失败
     (integer) 0
 
-    redis> EXISTS language  # 因为操作是原子性的，language没有被设置
+    redis> EXISTS language  # 因为操作是原子性的，language 没有被设置
     (integer) 0
 
-    redis> GET rmdbs  # rmdbs没有被修改
+    redis> GET rmdbs  # rmdbs 没有被修改
     "MySQL"
 
     redis> MGET rmdbs nosql key-value-store  

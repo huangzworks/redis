@@ -16,7 +16,7 @@ SETEX
     SET key value
     EXPIRE key seconds  # 设置生存时间
 
-不同之处是，\ `SETEX`_\ 是一个原子性(atomic)操作，关联值和设置生存时间两个动作会在同一时间内完成，该命令在Redis用作缓存时，非常实用。
+不同之处是，\ `SETEX`_\ 是一个原子性(atomic)操作，关联值和设置生存时间两个动作会在同一时间内完成，该命令在 Redis 用作缓存时，非常实用。
 
 **时间复杂度：**
     O(1)
@@ -27,7 +27,7 @@ SETEX
 
 ::
 
-    # 情况1：key不存在
+    # 情况1：key 不存在
 
     redis> SETEX cache_user_id 60 10086
     OK
@@ -39,7 +39,7 @@ SETEX
      (integer) 49
 
 
-    # 情况2：key已经存在，key被覆写
+    # 情况2：key 已经存在，key 被覆写
 
     redis> SET cd "timeless"
     OK

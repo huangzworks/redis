@@ -17,16 +17,16 @@ APPEND
 
 ::
 
-    # 情况1：对不存在的key执行APPEND
+    # 情况1：对不存在的 key 执行 APPEND
 
-    redis> EXISTS myphone  # 确保myphone不存在
+    redis> EXISTS myphone  # 确保 myphone 不存在
     (integer) 0
 
-    redis> APPEND myphone "nokia"  # 对不存在的key进行APPEND，等同于SET myphone "nokia"
+    redis> APPEND myphone "nokia"  # 对不存在的 key 进行 APPEND，等同于 SET myphone "nokia"
     (integer) 5 # 字符长度
 
 
-    # 情况2：对字符串进行APPEND
+    # 情况2：对字符串进行 APPEND
 
     redis> APPEND myphone " - 1110"  
     (integer) 12  # 长度从5个字符增加到12个字符

@@ -19,7 +19,7 @@ GETRANGE
     截取得出的子字符串。
 
 .. note::
-    在<=2.0的版本里，GETRANGE被叫作SUBSTR。
+    在<=2.0的版本里，GETRANGE 被叫作 SUBSTR。
 
 ::
 
