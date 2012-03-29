@@ -3,7 +3,7 @@
 SMEMBERS
 =========
 
-.. function:: SMEMBERS key
+**SMEMBERS key**
 
 返回集合\ ``key``\ 中的所有成员。
 
@@ -17,7 +17,7 @@ SMEMBERS
 
     # 情况1：空集合
 
-    redis> EXISTS not_exists_key    # 不存在的key视为空集合
+    redis> EXISTS not_exists_key    # 不存在的 key 视为空集合
     (integer) 0
 
     redis> SMEMBERS not_exists_key

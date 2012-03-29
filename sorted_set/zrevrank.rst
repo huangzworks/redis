@@ -27,9 +27,9 @@ ZREVRANK
     redis> ZADD salary 3500 peter
     (integer) 1
 
-    redis> ZREVRANK salary peter # peter的工资排第二
+    redis> ZREVRANK salary peter # peter 的工资排第二
     (integer) 1
-    redis> ZREVRANK salary tom   # tom的工资最高
+    redis> ZREVRANK salary tom   # tom 的工资最高
     (integer) 0
 
 

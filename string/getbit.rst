@@ -3,7 +3,7 @@
 GETBIT
 ======
 
-.. function:: GETBIT key offset 
+**GETBIT key offset**
 
 对\ ``key``\ 所储存的字符串值，获取指定偏移量上的位(bit)。
 

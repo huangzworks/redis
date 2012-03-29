@@ -3,7 +3,7 @@
 INCR
 =====
 
-.. function:: INCR key
+**INCR key**
 
 将\ ``key``\ 中储存的数字值增一。
 

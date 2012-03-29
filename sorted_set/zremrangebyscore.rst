@@ -17,7 +17,7 @@ ZREMRANGEBYSCORE
 
 ::
     
-    redis> ZRANGE salary 0 -1 WITHSCORES # 显示有序集内所有成员及其score值
+    redis> ZRANGE salary 0 -1 WITHSCORES # 显示有序集内所有成员及其 score 值
     1) "tom"
     2) "2000"
     3) "peter"
@@ -25,7 +25,7 @@ ZREMRANGEBYSCORE
     5) "jack"
     6) "5000"
 
-    redis> ZREMRANGEBYSCORE salary 1500 3500 # 解雇所有薪水在1500到3500内的员工
+    redis> ZREMRANGEBYSCORE salary 1500 3500 # 解雇所有薪水在 1500 到 3500 内的员工
     (integer) 2
 
     redis> ZRANGE salary 0 -1 WITHSCORES # 剩下的有序集成员

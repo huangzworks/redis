@@ -23,7 +23,7 @@ ZADD
 **返回值:**
     被成功添加的\ *新*\ 成员的数量，不包括那些被更新的、已经存在的成员。
 
-.. note:: 在Redis2.4版本以前，\ `ZADD`_\ 每次只能添加一个元素。
+.. note:: 在 Redis 2.4 版本以前，\ `ZADD`_\ 每次只能添加一个元素。
 
 ::
 
@@ -63,7 +63,7 @@ ZADD
     redis> ZADD page_rank 6 bing.com
     (integer) 0
 
-    redis> ZRANGE page_rank 0 -1 WITHSCORES  # bing.com 元素的score值被改变
+    redis> ZRANGE page_rank 0 -1 WITHSCORES  # bing.com 元素的 score 值被改变
     1) "bing.com"
     2) "6"
     3) "baidu.com"

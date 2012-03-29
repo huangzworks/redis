@@ -3,7 +3,7 @@
 MSETNX
 ========
 
-.. function:: MSETNX key value [key value ...]
+**MSETNX key value [key value ...]**
 
 同时设置一个或多个\ ``key-value``\ 对，当且仅当\ ``key``\ 不存在。
 

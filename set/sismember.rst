@@ -3,7 +3,7 @@
 SISMEMBER
 ==========
 
-.. function:: SISMEMBER key member
+**SISMEMBER key member**
 
 判断\ ``member``\ 元素是否是集合\ ``key``\ 的成员。
 

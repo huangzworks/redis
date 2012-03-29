@@ -3,7 +3,7 @@
 HSET
 =====
 
-.. function:: HSET key field value 
+**HSET key field value**
 
 将哈希表\ ``key``\ 中的域\ ``field``\ 的值设为\ ``value``\ 。
 

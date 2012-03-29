@@ -3,7 +3,7 @@
 HEXISTS
 ========
 
-.. function:: HEXISTS key field 
+**HEXISTS key field**
 
 查看哈希表\ ``key``\ 中，给定域\ ``field``\ 是否存在。
 

@@ -3,7 +3,7 @@
 SETBIT
 =======
 
-.. function:: SETBIT key offset value 
+**SETBIT key offset value**
 
 对\ ``key``\ 所储存的字符串值，设置或清除指定偏移量上的位(bit)。
 

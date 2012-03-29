@@ -20,7 +20,7 @@ ZRANK
 
 ::
 
-    redis> ZRANGE salary 0 -1 WITHSCORES # 显示所有成员及其score值
+    redis> ZRANGE salary 0 -1 WITHSCORES # 显示所有成员及其 score 值
     1) "peter"
     2) "3500"
     3) "tom"
@@ -28,7 +28,7 @@ ZRANK
     5) "jack"
     6) "5000"
 
-    redis> ZRANK salary tom  # 显示tom的薪水排名，第二
+    redis> ZRANK salary tom  # 显示 tom 的薪水排名，第二
     (integer) 1
 
 

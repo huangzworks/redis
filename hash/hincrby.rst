@@ -3,7 +3,7 @@
 HINCRBY
 ========
 
-.. function:: HINCRBY key field increment
+**HINCRBY key field increment**
 
 为哈希表\ ``key``\ 中的域\ ``field``\ 的值加上增量\ ``increment``\ 。
 
@@ -15,7 +15,7 @@ HINCRBY
 
 对一个储存字符串值的域\ ``field``\ 执行\ `HINCRBY`_\ 命令将造成一个错误。
 
-本操作的值限制在64位(bit)有符号数字表示之内。
+本操作的值限制在 64 位(bit)有符号数字表示之内。
                     
 **时间复杂度：**
     O(1)
@@ -25,7 +25,7 @@ HINCRBY
 
 ::
 
-    # 情况1：increment为正数
+    # 情况1：increment 为正数
 
     redis> HEXISTS counter page_view # 对空域进行设置
     (integer) 0
@@ -37,7 +37,7 @@ HINCRBY
     "200"
 
 
-    # 情况2：increment为负数
+    # 情况2：increment 为负数
 
     redis> HGET counter page_view
     "200"

@@ -3,7 +3,7 @@
 AUTH
 =====
 
-.. function:: AUTH password
+**AUTH password**
 
 通过设置配置文件中 ``requirepass`` 项的值(使用命令 ``CONFIG SET requirepass password`` )，可以使用密码来保护 Redis 服务器。
 

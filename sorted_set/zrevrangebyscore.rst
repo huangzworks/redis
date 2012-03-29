@@ -34,7 +34,7 @@ ZREVRANGEBYSCORE
     3) "tom"
     4) "joe"
 
-    redis > ZREVRANGEBYSCORE salary 10000 2000 # 逆序排列薪水介于10000和2000之间的成员
+    redis > ZREVRANGEBYSCORE salary 10000 2000 # 逆序排列薪水介于 10000 和 2000 之间的成员
     1) "peter"
     2) "tom"
     3) "joe"

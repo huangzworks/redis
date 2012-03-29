@@ -3,7 +3,7 @@
 LTRIM
 =======
 
-.. function:: LTRIM key start stop
+**LTRIM key start stop**
 
 对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除。
 
@@ -46,24 +46,24 @@ LTRIM
 
     # 情况1：一般情况下标
 
-    redis> LRANGE alpha 0 -1 # 建立一个5元素的列表
+    redis> LRANGE alpha 0 -1 # 建立一个 5 元素的列表
     1) "h"
     2) "e"
     3) "l"
     4) "l"
     5) "o"
 
-    redis> LTRIM alpha 1 -1  # 删除索引为0的元素
+    redis> LTRIM alpha 1 -1  # 删除索引为 0 的元素
     OK
 
-    redis> LRANGE alpha 0 -1 # "h"被删除
+    redis> LRANGE alpha 0 -1 # "h" 被删除
     1) "e"
     2) "l"
     3) "l"
     4) "o"
 
     
-    # 情况2：stop下标比元素的最大下标要大
+    # 情况2：stop 下标比元素的最大下标要大
 
     redis> LTRIM alpha 1 10086 
     OK
@@ -77,7 +77,7 @@ LTRIM
 
     redis> LTRIM alpha 10086 200000  
     OK
-    redis> LRANGE alpha 0 -1 # 整个列表被清空，等同于DEL alpha
+    redis> LRANGE alpha 0 -1 # 整个列表被清空，等同于 DEL alpha
     (empty list or set)
 
 

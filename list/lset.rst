@@ -3,7 +3,7 @@
 LSET
 =======
 
-.. function:: LSET key index value 
+**LSET key index value**
 
 将列表\ ``key``\ 下标为\ ``index``\ 的元素的值甚至为\ ``value``\ 。
 
@@ -12,15 +12,15 @@ LSET
 当\ ``index``\ 参数超出范围，或对一个空列表(\ ``key``\ 不存在)进行\ `LSET`_\ 时，返回一个错误。
 
 **时间复杂度：**
-    | 对头元素或尾元素进行\ `LSET`_\ 操作，复杂度为O(1)。
-    | 其他情况下，为O(N)，\ ``N``\ 为列表的长度。
+    | 对头元素或尾元素进行\ `LSET`_\ 操作，复杂度为 O(1)。
+    | 其他情况下，为 O(N)，\ ``N``\ 为列表的长度。
 
 **返回值：**
     操作成功返回\ ``ok``\ ，否则返回错误信息。
 
 ::
 
-    # 情况1：对空列表(key不存在)进行LSET
+    # 情况1：对空列表(key 不存在)进行 LSET
 
     redis> EXISTS list
     (integer) 0
@@ -29,7 +29,7 @@ LSET
     (error) ERR no such key
 
 
-    # 情况2：对非空列表进行LSET
+    # 情况2：对非空列表进行 LSET
 
     redis> LPUSH job "cook food"
     (integer) 1
@@ -44,9 +44,9 @@ LSET
     1) "play game"
 
 
-    # 情况3：index超出范围
+    # 情况3：index 超出范围
 
-    redis> LLEN list # 列表长度为1
+    redis> LLEN list # 列表长度为 1
     (integer) 1
 
     redis> LSET list 3 'out of range'

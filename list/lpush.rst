@@ -3,7 +3,7 @@
 LPUSH
 ======
 
-.. function:: LPUSH key value [value ...]
+**LPUSH key value [value ...]**
 
 将一个或多个值\ ``value``\ 插入到列表\ ``key``\ 的\ *表头*\ 。
 

@@ -3,7 +3,7 @@
 INCRBY
 ======
 
-.. function:: INCRBY key increment
+**INCRBY key increment**
 
 将\ ``key``\ 所储存的值加上增量\ ``increment``\ 。
 

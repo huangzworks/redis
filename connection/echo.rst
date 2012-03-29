@@ -3,7 +3,7 @@
 ECHO
 =======
 
-.. function:: ECHO message
+**ECHO message**
 
 打印一个特定的信息 ``message`` ，测试时使用。
 

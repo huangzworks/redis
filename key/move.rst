@@ -39,7 +39,7 @@ MOVE
     redis> SELECT 1  # 使用数据库 1
     OK
 
-    redis:1> EXISTS song  # 证实 song 被移到了数据库 1 (注意命令提示符变成了"redis:1"，表明正在使用数据库1)
+    redis:1> EXISTS song  # 证实 song 被移到了数据库 1 (注意命令提示符变成了"redis:1"，表明正在使用数据库 1)
     (integer) 1
  
 
@@ -48,7 +48,7 @@ MOVE
     redis:1> EXISTS fake_key  
     (integer) 0
 
-    redis:1> MOVE fake_key 0  # 试图从数据库1移动一个不存在的 key 到数据库 0 ，失败
+    redis:1> MOVE fake_key 0  # 试图从数据库 1 移动一个不存在的 key 到数据库 0，失败
     (integer) 0
 
     redis:1> select 0  # 使用数据库0
@@ -70,19 +70,19 @@ MOVE
     redis:1> SET favorite_fruit "apple"
     OK
 
-    redis:1> SELECT 0  # 使用数据库0，并试图将favorite_fruit移动到数据库1
+    redis:1> SELECT 0  # 使用数据库0，并试图将 favorite_fruit 移动到数据库 1
     OK
 
-    redis> MOVE favorite_fruit 1  # 因为两个数据库有相同的key，MOVE失败
+    redis> MOVE favorite_fruit 1  # 因为两个数据库有相同的 key，MOVE 失败
     (integer) 0
     
-    redis> GET favorite_fruit  # 数据库0的favorite_fruit没变
+    redis> GET favorite_fruit  # 数据库 0 的 favorite_fruit 没变
     "banana"
 
     redis> SELECT 1
     OK
 
-    redis:1> GET favorite_fruit  # 数据库1的favorite_fruit也是
+    redis:1> GET favorite_fruit  # 数据库 1 的 favorite_fruit 也是
     "apple"
 
 

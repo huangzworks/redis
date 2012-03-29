@@ -3,7 +3,7 @@
 DECRBY
 =======
 
-.. function:: DECRBY key decrement
+**DECRBY key decrement**
 
 将\ ``key``\ 所储存的值减去减量\ ``decrement``\ 。
 

@@ -3,7 +3,7 @@
 RPOP
 =======
 
-.. function:: RPOP key
+**RPOP key**
 
 移除并返回列表\ ``key``\ 的尾元素。 
 
