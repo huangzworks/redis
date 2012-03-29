@@ -3,9 +3,12 @@
 PEXPIRE
 ========
 
-.. function:: PEXPIRE key milliseconds
+**PEXPIRE key milliseconds**
 
 这个命令和 :ref:`EXPIRE` 命令的作用类似，但是它以毫秒为单位设置 ``key`` 的生存时间，而不像 :ref:`EXPIRE` 命令那样，以秒为单位。
+
+**可用版本：**
+    >= 2.6.0
 
 **时间复杂度：**
     O(1)
@@ -22,9 +25,8 @@ PEXPIRE
     redis> PEXPIRE mykey 1500
     (integer) 1
 
-    redis> TTL mykey
+    redis> TTL mykey    # TTL 的返回值以秒为单位
     (integer) 2
 
-    redis> PTTL mykey
+    redis> PTTL mykey   # PTTL 可以给出准确的毫秒数
     (integer) 1499
- 

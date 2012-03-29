@@ -3,26 +3,29 @@
 EXISTS
 ======
 
-.. function:: EXISTS key
+**EXISTS key**
 
-检查给定\ ``key``\ 是否存在。
+检查给定 ``key`` 是否存在。
+
+**可用版本：**
+    >= 1.0.0
 
 **时间复杂度：**
     O(1)
 
 **返回值：**
-    若\ ``key``\ 存在，返回\ ``1``\ ，否则返回\ ``0``\ 。
+    若 ``key`` 存在，返回 ``1`` ，否则返回 ``0`` 。
 
 ::
 
-    redis> set db "redis"
+    redis> SET db "redis"
     OK
 
-    redis> exists db  # key存在
+    redis> EXISTS db
     (integer) 1
 
-    redis> del db   # 删除key
+    redis> DEL db
     (integer) 1
 
-    redis> exists db  # key不存在
+    redis> EXISTS db
     (integer) 0

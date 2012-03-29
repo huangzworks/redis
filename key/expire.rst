@@ -3,17 +3,19 @@
 EXPIRE
 =======
 
-.. function:: EXPIRE key seconds
+**EXPIRE key seconds**
 
 为给定 ``key`` 设置生存时间。当 ``key`` 过期时，它会被自动删除。
 
 在Redis中，带有生存时间的 ``key`` 被称作『可挥发』(volatile)的。
 
-生存时间只能被 :ref:`DEL` 命令删除，或者被 :ref:`SET` 和 :ref:`GETSET` 命令覆写(overwrite)，这意味着，如果一个命令只是修改(alter)一个带生存时间的 ``key`` 的值而不是用一个新的 ``key`` 值来代替(replace)它的话，那么生存时间不会被改变。
+生存时间可以通过使用 :ref:`DEL` 命令来删除整个 ``key`` 来移除，或者被 :ref:`SET` 和 :ref:`GETSET` 命令覆写(overwrite)，这意味着，如果一个命令只是修改(alter)一个带生存时间的 ``key`` 的值而不是用一个新的 ``key`` 值来代替(replace)它的话，那么生存时间不会被改变。
 
-比如说，对一个 ``key`` 执行 :ref:`INCR` 命令，对一个列表进行 :ref:`LPUSH` 命令，或者对一个哈希表执行 :ref:`HSET` 命令，等等，都不会修改 ``key`` 本身的生存时间。
+比如说，对一个 ``key`` 执行 :ref:`INCR` 命令，对一个列表进行 :ref:`LPUSH` 命令，或者对一个哈希表执行 :ref:`HSET` 命令，这类操作都不会修改 ``key`` 本身的生存时间。
 
-另一方面，如果使用 :ref:`RENAME` 对一个 ``key`` 进行改名，那么改名后的 ``key`` 使用的生存时间和改名前一样。
+使用 :ref:`PERSIST` 命令可以在不删除 ``key`` 的情况下，移除 ``key`` 的生存时间，让 ``key`` 重新成为一个持久化(persistent) ``key`` 。
+
+另一方面，如果使用 :ref:`RENAME` 对一个 ``key`` 进行改名，那么改名后的 ``key`` 的生存时间和改名前一样。
 
 :ref:`RENAME` 命令的另一种可能是，尝试将一个带生存时间的 ``key`` 改名成另一个带生存时间的 ``another_key`` ，这时旧的 ``another_key`` (以及它的生存时间)会被删除，然后旧的 ``key`` 会改名为 ``another_key`` ，因此，新的 ``another_key`` 的生存时间也和原本的 ``key`` 一样。
 
@@ -29,6 +31,9 @@ EXPIRE
 
 在 Redis 2.1.3 之前的版本中，修改一个带有生存时间的 ``key`` 会导致整个 ``key`` 被删除，这一行为是受当时复制(replication)层的限制而作出的，现在这一限制已经被修复。
 
+**可用版本：**
+    >=  1.0.0
+
 **时间复杂度：**
     O(1)
 
@@ -38,21 +43,21 @@ EXPIRE
 
 ::
 
-    redis> SET cache_page "www.twitter.com/huangz1990"
+    redis> SET cache_page "www.google.com"
     OK
-    
-    redis> EXPIRE cache_page 30  # 设置30秒后过期
+
+    redis> EXPIRE cache_page 30  # 设置过期时间为 30 秒
     (integer) 1
-    
-    redis> TTL cache_page   # 查看给定key的剩余生存时间
-    (integer) 24
-    
-    redis> EXPIRE cache_page 30000  # 更新生存时间，30000秒
+
+    redis> TTL cache_page    # 查看剩余生存时间
+    (integer) 23
+
+    redis> EXPIRE cache_page 30000   # 更新过期时间
     (integer) 1
-    
+
     redis> TTL cache_page
     (integer) 29996
- 
+
 模式：导航会话
 -----------------
 
