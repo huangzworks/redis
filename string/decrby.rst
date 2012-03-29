@@ -23,7 +23,7 @@ DECRBY
 
 ::
 
-    # 情况1：对存在的数值key进行DECRBY
+    # 情况1：对存在的数值 key 进行 DECRBY
 
     redis> SET count 100
     OK
@@ -32,7 +32,7 @@ DECRBY
     (integer) 80
 
     
-    # 情况2：对不存在的key进行DECRBY
+    # 情况2：对不存在的 key 进行DECRBY
 
     redis> EXISTS pages 
     (integer) 0

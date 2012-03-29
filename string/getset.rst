@@ -21,10 +21,10 @@ GETSET
     redis> EXISTS mail 
     (integer) 0
 
-    redis> GETSET mail xxx@google.com  # 因为mail之前不存在，没有旧值，返回nil
+    redis> GETSET mail xxx@google.com  # 因为 mail 之前不存在，没有旧值，返回 nil
     (nil)
 
-    redis> GETSET mail xxx@yahoo.com  # mail被更新，旧值被返回
+    redis> GETSET mail xxx@yahoo.com  # mail 被更新，旧值被返回
     "xxx@google.com"
 
 模式
@@ -41,7 +41,7 @@ GETSET
     redis> INCR mycount 
     (integer) 11
 
-    redis> GETSET mycount 0  # 一个原子内完成GET mycount和SET mycount 0操作
+    redis> GETSET mycount 0  # 一个原子内完成 GET mycount 和 SET mycount 0 操作
     "11"
 
     redis> GET mycount

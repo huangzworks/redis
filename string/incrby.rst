@@ -11,7 +11,7 @@ INCRBY
 
 如果值包含错误的类型，或字符串类型的值不能表示为数字，那么返回一个错误。
 
-本操作的值限制在64位(bit)有符号数字表示之内。
+本操作的值限制在 64 位(bit)有符号数字表示之内。
 
 关于更多递增(increment)/递减(decrement)操作信息，参见\ `INCR`_\ 命令。
 
@@ -23,7 +23,7 @@ INCRBY
 
 ::
     
-    # 情况1：key存在且是数字值
+    # 情况1：key 存在且是数字值
 
     redis> SET rank 50  # 设置rank为50
     OK
@@ -35,7 +35,7 @@ INCRBY
     "70"
 
 
-    # 情况2：key不存在
+    # 情况2：key 不存在
 
     redis> EXISTS counter
     (integer) 0
@@ -47,7 +47,7 @@ INCRBY
     "30"
 
 
-    # 情况3：key不是数字值
+    # 情况3：key 不是数字值
 
     redis> SET book "long long ago..."
     OK

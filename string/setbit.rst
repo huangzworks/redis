@@ -22,7 +22,7 @@ SETBIT
 **返回值：**
     指定偏移量原来储存的位。
 
-.. warning:: 对使用大的\ ``offset``\ 的\ `SETBIT`_\ 操作来说，内存分配可能造成Redis服务器被阻塞。具体参考\ `SETRANGE`_\ 命令，warning(警告)部分。
+.. warning:: 对使用大的\ ``offset``\ 的\ `SETBIT`_\ 操作来说，内存分配可能造成 Redis 服务器被阻塞。具体参考\ `SETRANGE`_\ 命令，warning(警告)部分。
 
 ::
 
