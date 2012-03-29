@@ -1,6 +1,6 @@
 .. _script_struct:
 
-脚本(script)
+脚本(Script)
 ****************
 
 .. include:: script/eval.rst
