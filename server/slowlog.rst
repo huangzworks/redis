@@ -3,7 +3,7 @@
 SLOWLOG
 ==========
 
-.. function:: SLOWLOG subcommand [argument]
+**SLOWLOG subcommand [argument]**
 
 **什么是 SLOWLOG**
 

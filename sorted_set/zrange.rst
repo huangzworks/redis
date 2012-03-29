@@ -18,7 +18,7 @@ ZRANGE
 
 | 超出范围的下标并不会引起错误。
 | 比如说，当\ ``start``\ 的值比有序集的最大下标还要大，或是\ ``start > stop``\ 时，\ `ZRANGE`_\ 命令只是简单地返回一个空列表。
-| 另一方面，假如\ ``stop``\ 参数的值比有序集的最大下标还要大，那么Redis将\ ``stop``\ 当作最大下标来处理。
+| 另一方面，假如\ ``stop``\ 参数的值比有序集的最大下标还要大，那么 Redis 将\ ``stop``\ 当作最大下标来处理。
 
 | 可以通过使用\ ``WITHSCORES``\ 选项，来让成员和它的\ ``score``\ 值一并返回，返回列表以\ ``value1,score1, ..., valueN,scoreN``\ 的格式表示。
 | 客户端库可能会返回一些更复杂的数据类型，比如数组、元组等。
@@ -46,13 +46,13 @@ ZRANGE
    5) "boss"
    6) "10086"
 
-   redis > ZRANGE salary 1 2 WITHSCORES   # 显示有序集下标区间1至2的成员
+   redis > ZRANGE salary 1 2 WITHSCORES   # 显示有序集下标区间 1 至 2 的成员
    1) "tom"
    2) "5000"
    3) "boss"
    4) "10086"
 
-   redis > ZRANGE salary 0 200000 WITHSCORES  # 测试end下标超出最大下标时的情况
+   redis > ZRANGE salary 0 200000 WITHSCORES  # 测试 end 下标超出最大下标时的情况
    1) "jack"
    2) "3500"
    3) "tom"

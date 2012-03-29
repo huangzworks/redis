@@ -3,7 +3,7 @@
 APPEND
 ======
 
-.. function:: APPEND key value
+**APPEND key value**
 
 如果\ ``key``\ 已经存在并且是一个字符串，\ `APPEND`_\ 命令将\ ``value``\ 追加到\ ``key``\ 原来的值之后。
 

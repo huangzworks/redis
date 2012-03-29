@@ -27,7 +27,7 @@ ZREMRANGEBYRANK
     redis> ZADD salary 3500 peter
     (integer) 1
 
-    redis> ZREMRANGEBYRANK salary 0 1    # 移除下标0至1区间内的成员
+    redis> ZREMRANGEBYRANK salary 0 1    # 移除下标 0 至 1 区间内的成员
     (integer) 2
 
     redis> ZRANGE salary 0 -1 WITHSCORES # 有序集只剩下一个成员

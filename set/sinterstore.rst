@@ -3,7 +3,7 @@
 SINTERSTORE
 ============
 
-.. function:: SINTERSTORE destination key [key ...]
+**SINTERSTORE destination key [key ...]**
 
 此命令等同于\ `SINTER`_\，但它将结果保存到\ ``destination``\ 集合，而不是简单地返回结果集。
 

@@ -3,7 +3,7 @@
 BLPOP
 =======
 
-.. function:: BLPOP key [key ...] timeout 
+**BLPOP key [key ...] timeout**
 
 \ `BLPOP`_\ 是列表的阻塞式(blocking)弹出原语。
 
@@ -32,7 +32,7 @@ BLPOP
     redis> LPUSH request "visit page"  # 为request列表增加一个值
     (integer) 1
 
-    redis> BLPOP job command request 0  # job列表为空，被跳过，紧接着command列表的第一个元素被弹出。
+    redis> BLPOP job command request 0  # job 列表为空，被跳过，紧接着 command 列表的第一个元素被弹出。
     1) "command"    # 弹出元素所属的列表
     2) "update system..."   # 弹出元素所属的值
 
@@ -44,13 +44,13 @@ BLPOP
 
 ::
 
-    redis> EXISTS job  # 确保两个key都不存在
+    redis> EXISTS job  # 确保两个 key 都不存在
     (integer) 0
     redis> EXISTS command
     (integer) 0
 
-    redis> BLPOP job command 300  #因为key一开始不存在，所以操作会被阻塞，直到另一客户端对job或者command列表进行PUSH操作。
-    1) "job"  # 这里被push的是job
+    redis> BLPOP job command 300  #因为key一开始不存在，所以操作会被阻塞，直到另一客户端对 job 或者 command 列表进行 PUSH 操作。
+    1) "job"  # 这里被 push 的是 job
     2) "do my home work"  # 被弹出的值
     (26.26s)  # 等待的秒数
 

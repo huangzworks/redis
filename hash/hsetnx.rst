@@ -3,7 +3,7 @@
 HSETNX
 =======
 
-.. function:: HSETNX key field value
+**HSETNX key field value**
 
 将哈希表\ ``key``\ 中的域\ ``field``\ 的值设置为\ ``value``\ ，当且仅当域\ ``field``\ 不存在。
 
@@ -23,7 +23,7 @@ HSETNX
     redis> HSETNX nosql key-value-store redis
     (integer) 1
 
-    redis> HSETNX nosql key-value-store redis  # 操作无效，域key-value-store已存在
+    redis> HSETNX nosql key-value-store redis  # 操作无效，域 key-value-store 已存在
     (integer) 0
 
 

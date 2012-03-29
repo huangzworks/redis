@@ -3,7 +3,7 @@
 SCARD
 ======
 
-.. function:: SCARD key
+**SCARD key**
 
 返回集合\ ``key``\ 的\ **基数**\(集合中元素的数量)。
 

@@ -3,7 +3,7 @@
 SET
 ===
 
-.. function:: SET key value
+**SET key value**
 
 将字符串值\ ``value``\ 关联到\ ``key``\ 。
 

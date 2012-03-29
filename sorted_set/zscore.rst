@@ -17,7 +17,7 @@ ZSCORE
 
 ::
     
-    redis> ZRANGE salary 0 -1 WITHSCORES # 显示所有成员及其score值
+    redis> ZRANGE salary 0 -1 WITHSCORES # 显示所有成员及其 score 值
     1) "tom"
     2) "2000"
     3) "peter"

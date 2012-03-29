@@ -21,7 +21,7 @@ RANDOMKEY
 
     # 数据库不为空
 
-    redis> MSET fruit "apple" drink "beer" food "cookies"   # 设置多个key
+    redis> MSET fruit "apple" drink "beer" food "cookies"   # 设置多个 key
     OK
 
     redis> RANDOMKEY
@@ -30,7 +30,7 @@ RANDOMKEY
     redis> RANDOMKEY
     "food"
 
-    redis> KEYS *    # 查看数据库内所有key，证明RANDOMKEY并不删除key
+    redis> KEYS *    # 查看数据库内所有key，证明 RANDOMKEY 并不删除 key
     1) "food"
     2) "drink"
     3) "fruit"
@@ -38,7 +38,7 @@ RANDOMKEY
 
     # 数据库为空
 
-    redis> FLUSHDB  # 删除当前数据库所有key
+    redis> FLUSHDB  # 删除当前数据库所有 key
     OK
 
     redis> RANDOMKEY

@@ -3,7 +3,7 @@
 LINDEX
 =======
 
-.. function:: LINDEX key index
+**LINDEX key index**
 
 返回列表\ ``key``\ 中，下标为\ ``index``\ 的元素。
 
@@ -35,7 +35,7 @@ LINDEX
     redis> LINDEX mylist -1
     "World"
 
-    redis> LINDEX mylist 3  # index不在mylist的区间范围内
+    redis> LINDEX mylist 3  # index不在 mylist 的区间范围内
     (nil)
 
 

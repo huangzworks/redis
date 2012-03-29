@@ -3,7 +3,7 @@
 RPOPLPUSH
 ===========
 
-.. function:: RPOPLPUSH source destination
+**RPOPLPUSH source destination**
 
 命令\ `RPOPLPUSH`_\ 在一个原子时间内，执行以下两个动作：
 
@@ -35,7 +35,7 @@ RPOPLPUSH
     redis> RPUSH alpha d
     (integer) 4
 
-    # 情况1：source和destination不同
+    # 情况1：source 和 destination 不同
 
     redis> LRANGE alpha 0 -1 # 查看所有元素
     1) "a"
@@ -43,7 +43,7 @@ RPOPLPUSH
     3) "c"
     4) "d"
 
-    redis> RPOPLPUSH alpha reciver   # 执行一次RPOPLPUSH看看
+    redis> RPOPLPUSH alpha reciver   # 执行一次 RPOPLPUSH 看看
     "d"
 
     redis> LRANGE alpha 0 -1 
@@ -54,7 +54,7 @@ RPOPLPUSH
     redis> LRANGE reciver 0 -1
     1) "d"
 
-    redis> RPOPLPUSH alpha reciver   # 再执行一次，确保rpop和lpush的位置正确
+    redis> RPOPLPUSH alpha reciver   # 再执行一次，确保 RPOP 和 LPUSH 的位置正确
     "c"
 
     redis> LRANGE alpha 0 -1
@@ -66,12 +66,12 @@ RPOPLPUSH
     2) "d"
 
     
-    # 情况2：source和destination相同
+    # 情况2：source 和 destination 相同
 
     redis> RPOPLPUSH alpha alpha 
     "c"
 
-    redis> LRANGE alpha 0 -1 # 原来的尾元素"c"被放到了头部
+    redis> LRANGE alpha 0 -1 # 原来的尾元素 "c" 被放到了头部
     1) "c"
     2) "a"
     3) "b"

@@ -3,7 +3,7 @@
 DEBUG SEGFAULT
 ===============
 
-.. function:: DEBUG SEGFAULT
+**DEBUG SEGFAULT**
 
 执行一个不合法的内存访问从而让 Redis 崩溃，仅在开发时用于 BUG 模拟。
 
