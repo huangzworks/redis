@@ -3,7 +3,7 @@
 GET
 ====
 
-.. function:: GET key 
+**GET key**
     
 返回\ ``key``\ 所关联的字符串值。
 

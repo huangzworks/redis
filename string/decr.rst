@@ -3,7 +3,7 @@
 DECR
 =====
 
-.. function:: DECR key
+**DECR key**
 
 将\ ``key``\ 中储存的数字值减一。
 

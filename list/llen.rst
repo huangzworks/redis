@@ -3,7 +3,7 @@
 LLEN
 =======
 
-.. function:: LLEN key
+**LLEN key**
 
 返回列表\ ``key``\ 的长度。
 

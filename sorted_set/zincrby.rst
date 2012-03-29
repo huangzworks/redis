@@ -26,5 +26,5 @@ ZINCRBY
     redis> ZSCORE salary tom 
     "2000"
 
-    redis> ZINCRBY salary 2000 tom   # tom加薪啦！
+    redis> ZINCRBY salary 2000 tom   # tom 加薪啦！
     "4000"

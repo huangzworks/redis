@@ -3,7 +3,7 @@
 SETRANGE
 =========
 
-.. function:: SETRANGE key offset value
+**SETRANGE key offset value**
 
 用\ ``value``\ 参数覆写(Overwrite)给定\ ``key``\ 所储存的字符串值，从偏移量\ ``offset``\ 开始。
 

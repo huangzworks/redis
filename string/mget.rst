@@ -2,7 +2,8 @@
 
 MGET
 =====
-.. function:: MGET key [key ...] 
+
+**MGET key [key ...]**
 
 返回所有(一个或多个)给定\ ``key``\ 的值。
 

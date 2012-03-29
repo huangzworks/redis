@@ -3,7 +3,7 @@
 BRPOP
 =======
 
-.. function:: BRPOP key [key ...] timeout
+**BRPOP key [key ...] timeout**
 
 \ `BRPOP`_\ 是列表的阻塞式(blocking)弹出原语。
 
@@ -31,7 +31,7 @@ BRPOP
     (integer) 2
 
     redis> BRPOP course 30
-    1) "course" # 弹出元素的key
+    1) "course" # 弹出元素的 key
     2) "c++101" # 弹出元素的值
 
 

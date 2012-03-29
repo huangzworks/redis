@@ -3,7 +3,7 @@
 MSET
 =====
 
-.. function:: MSET key value [key value ...]
+**MSET key value [key value ...]**
 
 同时设置一个或多个\ ``key-value``\ 对。
 

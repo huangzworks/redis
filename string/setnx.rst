@@ -3,7 +3,7 @@
 SETNX
 =====
 
-.. function:: SETNX key value
+**SETNX key value**
 
 将\ ``key``\ 的值设为\ ``value``\ ，当且仅当\ ``key``\ 不存在。
 

@@ -3,7 +3,7 @@
 SINTER
 ========
 
-.. function:: SINTER key [key ...]
+**SINTER key [key ...]**
 
 返回一个集合的全部成员，该集合是所有给定集合的\ *交集*\。
 

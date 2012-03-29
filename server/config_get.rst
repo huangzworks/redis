@@ -3,7 +3,7 @@
 CONFIG GET
 =============
 
-.. function:: CONFIG GET parameter
+**CONFIG GET parameter**
 
 `CONFIG GET`_ 命令用于取得运行中的 Redis 服务器的配置参数(configuration parameters)，在 Redis 2.4 版本中， 有部分参数没有办法用 ``CONFIG GET`` 访问，但是在最新的 Redis 2.6 版本中，所有配置参数都已经可以用 ``CONFIG GET`` 访问了。
 

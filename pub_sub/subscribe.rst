@@ -3,7 +3,7 @@
 SUBSCRIBE
 ==========
 
-.. function:: SUBSCRIBE channel [channel ...]
+**SUBSCRIBE channel [channel ...]**
 
 订阅给定频道的信息。
 

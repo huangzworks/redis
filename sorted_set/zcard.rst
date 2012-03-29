@@ -26,7 +26,7 @@ ZCARD
     redis > ZCARD salary
     (integer) 2
 
-    redis > EXISTS non_exists_key # 对不存在的key进行ZCARD操作
+    redis > EXISTS non_exists_key # 对不存在的 key 进行 ZCARD 操作
     (integer) 0
     redis > ZCARD non_exists_key
     (integer) 0

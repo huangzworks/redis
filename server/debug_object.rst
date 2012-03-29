@@ -3,7 +3,7 @@
 DEBUG OBJECT
 ===============
 
-.. function:: DEBUG OBJECT key
+**DEBUG OBJECT key**
 
 `DEBUG OBJECT`_ 是一个调试命令，它不应被客户端所使用。
 

@@ -3,7 +3,7 @@
 LINSERT
 =========
 
-.. function:: LINSERT key BEFORE|AFTER pivot value
+**LINSERT key BEFORE|AFTER pivot value**
 
 将值\ ``value``\ 插入到列表\ ``key``\ 当中，位于值\ ``pivot``\ 之前或之后。
 
@@ -36,10 +36,10 @@ LINSERT
     2) "There"
     3) "World"
 
-    redis> LINSERT mylist BEFORE "go" "let's"    # 对一个非空列表插入，查找一个不存在的pivot
+    redis> LINSERT mylist BEFORE "go" "let's"    # 对一个非空列表插入，查找一个不存在的 pivot
     (integer) -1    # 失败
 
-    redis> EXISTS fake_list  # 对一个空列表执行LINSERT命令
+    redis> EXISTS fake_list  # 对一个空列表执行 LINSERT 命令
     (integer) 0
 
     redis> LINSERT fake_list BEFORE "nono" "gogogog"

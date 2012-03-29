@@ -5,12 +5,12 @@ OBJECT
 
 **OBJECT subcommand [arguments [arguments]]**
 
-`OBJECT`_ 命令允许从内部察看给定 ``key`` 的Redis对象。
+`OBJECT`_ 命令允许从内部察看给定 ``key`` 的 Redis 对象。
 
 | 它通常用在除错(debugging)或者了解为了节省空间而对 ``key`` 使用特殊编码的情况。
 | 当将Redis用作缓存程序时，你也可以通过 `OBJECT`_ 命令中的信息，决定 ``key`` 的驱逐策略(eviction policies)。
 
-OBJECT命令有多个子命令：
+OBJECT 命令有多个子命令：
 
 *  ``OBJECT REFCOUNT <key>`` 返回给定 ``key`` 引用所储存的值的次数。此命令主要用于除错。
 *  ``OBJECT ENCODING <key>`` 返回给定 ``key`` 锁储存的值所使用的内部表示(representation)。
@@ -24,7 +24,7 @@ OBJECT命令有多个子命令：
 * 哈希表可以编码为 ``zipmap`` 或者 ``hashtable`` 。 ``zipmap`` 是小哈希表的特殊表示。
 * 有序集合可以被编码为 ``ziplist`` 或者 ``skiplist`` 格式。 ``ziplist`` 用于表示小的有序集合，而 ``skiplist`` 则用于表示任何大小的有序集合。
 
-| 假如你做了什么让Redis没办法再使用节省空间的编码时(比如将一个只有1个元素的集合扩展为一个有100万个元素的集合)，特殊编码类型(specially encoded types)会自动转换成通用类型(general type)。
+| 假如你做了什么让 Redis 没办法再使用节省空间的编码时(比如将一个只有 1 个元素的集合扩展为一个有 100 万个元素的集合)，特殊编码类型(specially encoded types)会自动转换成通用类型(general type)。
 
 **可用版本：**
     >= 2.2.3
@@ -62,7 +62,7 @@ OBJECT命令有多个子命令：
     redis> OBJECT ENCODING phone
     "raw"
 
-    redis> SET age 20  # 短数字被编码为int
+    redis> SET age 20  # 短数字被编码为 int
     OK
     
     redis> OBJECT ENCODING age

@@ -3,7 +3,7 @@
 SMOVE
 ========
 
-.. function:: SMOVE source destination member
+**SMOVE source destination member**
 
 将\ ``member``\ 元素从\ ``source``\ 集合移动到\ ``destination``\ 集合。
 

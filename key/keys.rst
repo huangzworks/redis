@@ -28,7 +28,7 @@ KEYS
 
 ::
 
-    redis> MSET one 1 two 2 three 3 four 4  # 一次设置4个key
+    redis> MSET one 1 two 2 three 3 four 4  # 一次设置 4 个 key
     OK
 
     redis> KEYS *o*
@@ -42,7 +42,7 @@ KEYS
     redis> KEYS t[w]*
     1) "two"
     
-    redis> KEYS *  # 匹配数据库内所有key
+    redis> KEYS *  # 匹配数据库内所有 key
     1) "four"
     2) "three"
     3) "two"

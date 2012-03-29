@@ -3,7 +3,7 @@
 PUBLISH
 =========
 
-.. function:: PUBLISH channel message
+**PUBLISH channel message**
 
 将信息 ``message`` 发送到指定的频道 ``channel`` 。
 

@@ -3,7 +3,7 @@
 BRPOPLPUSH
 ===========
 
-.. function:: BRPOPLPUSH source destination timeout
+**BRPOPLPUSH source destination timeout**
 
 `BRPOPLPUSH`_ 是 `RPOPLPUSH`_ 的阻塞版本，当给定列表 ``source`` 不为空时， `BRPOPLPUSH`_ 的表现和 `RPOPLPUSH`_ 一样。
 

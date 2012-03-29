@@ -3,7 +3,7 @@
 HMGET
 =====
 
-.. function:: HMGET key field [field ...] 
+**HMGET key field [field ...]**
 
 返回哈希表\ ``key``\ 中，一个或多个给定域的值。
 

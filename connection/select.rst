@@ -3,7 +3,7 @@
 SELECT
 ========
 
-.. function:: SELECT index
+**SELECT index**
 
 切换到指定的数据库，数据库索引号用数字值指定，以 ``0`` 作为起始索引值。
 

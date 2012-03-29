@@ -23,7 +23,7 @@ DEL
 
 ::
 
-    #  删除单个key
+    #  删除单个 key
 
     redis> SET name huangz 
     OK
@@ -32,7 +32,7 @@ DEL
     (integer) 1
 
 
-    # 删除一个不存在的key
+    # 删除一个不存在的 key
 
     redis> EXISTS phone 
     (integer) 0
@@ -41,7 +41,7 @@ DEL
     (integer) 0
 
 
-    # 同时删除多个key
+    # 同时删除多个 key
 
     redis> SET name "redis"
     OK

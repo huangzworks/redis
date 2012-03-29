@@ -3,7 +3,7 @@
 CONFIG RESETSTAT
 =================
 
-.. function:: CONFIG RESETSTAT
+**CONFIG RESETSTAT**
 
 重置 `INFO`_ 命令中的某些统计数据，包括：
 

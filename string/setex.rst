@@ -3,7 +3,7 @@
 SETEX
 ======
 
-.. function:: SETEX key seconds value 
+**SETEX key seconds value**
 
 将值\ ``value``\ 关联到\ ``key``\ ，并将\ ``key``\ 的生存时间设为\ ``seconds``\ (以秒为单位)。
 
