@@ -5,33 +5,36 @@ APPEND
 
 **APPEND key value**
 
-如果\ ``key``\ 已经存在并且是一个字符串，\ `APPEND`_\ 命令将\ ``value``\ 追加到\ ``key``\ 原来的值之后。
+如果 ``key`` 已经存在并且是一个字符串， `APPEND`_ 命令将 ``value`` 追加到 ``key`` 原来的值之后。
 
-如果\ ``key``\ 不存在，\ `APPEND`_\ 就简单地将给定\ ``key``\ 设为\ ``value``\ ，就像执行\ ``SET key value``\ 一样。
+如果 ``key`` 不存在， `APPEND`_ 就简单地将给定 ``key`` 设为 ``value`` ，就像执行 ``SET key value`` 一样。
+
+**可用版本：**
+    >= 2.0.0
 
 **时间复杂度：**
-    平摊复杂度O(1)
+    平摊O(1)
 
 **返回值：**
-    追加\ ``value``\ 之后，\ ``key``\ 中字符串的长度。
+    追加 ``value`` 之后， ``key`` 中字符串的长度。
 
 ::
 
-    # 情况1：对不存在的 key 执行 APPEND
+    # 对不存在的 key 执行 APPEND
 
     redis> EXISTS myphone  # 确保 myphone 不存在
     (integer) 0
 
-    redis> APPEND myphone "nokia"  # 对不存在的 key 进行 APPEND，等同于 SET myphone "nokia"
-    (integer) 5 # 字符长度
+    redis> APPEND myphone "nokia"   # 对不存在的 key 进行 APPEND ，等同于 SET myphone "nokia"
+    (integer) 5                     # 字符长度
 
 
-    # 情况2：对字符串进行 APPEND
+    # 对已存在的字符串进行 APPEND
 
-    redis> APPEND myphone " - 1110"  
-    (integer) 12  # 长度从5个字符增加到12个字符
+    redis> APPEND myphone " - 1110"  # 长度从 5 个字符增加到 12 个字符
+    (integer) 12  
 
-    redis> GET myphone  # 查看整个字符串
+    redis> GET myphone 
     "nokia - 1110"
 
 模式：时间序列(Time series)
@@ -53,20 +56,20 @@ APPEND
 
 这个模式的唯一缺陷是我们只能增长时间序列，而不能对时间序列进行缩短，因为 Redis 目前还没有对字符串进行修剪(tirm)的命令，但是，不管怎么说，这个模式的储存方式还是可以节省下大量的空间。
 
-提示：可以考虑使用 UNIX 时间戳作为时间序列的键名，这样一来，可以避免单个 ``key`` 因为保存过大的时间序列而占用大量内存，另一方面，也可以节省下大量命名空间。
+.. note:: 可以考虑使用 UNIX 时间戳作为时间序列的键名，这样一来，可以避免单个 ``key`` 因为保存过大的时间序列而占用大量内存，另一方面，也可以节省下大量命名空间。
 
 下面是一个时间序列的例子：
 
 ::
 
-    redis> EXISTS mykey
-    (integer) 0
+    redis> APPEND ts "0043"
+    (integer) 4
 
-    redis> APPEND mykey "Hello"
-    (integer) 5
+    redis> APPEND ts "0035"
+    (integer) 8
 
-    redis> APPEND mykey " World"
-    (integer) 11
+    redis> GETRANGE ts 0 3
+    "0043"
 
-    redis> GET mykey
-    "Hello World"
+    redis> GETRANGE ts 4 7
+    "0035"

@@ -35,6 +35,7 @@ INCRBYFLOAT
 
     redis> SET mykey 10.50
     OK
+
     redis> INCRBYFLOAT mykey 0.1
     "10.6"
 
@@ -42,15 +43,18 @@ INCRBYFLOAT
 
     redis> SET mykey 314e-2
     OK
-    redis> GET mykey     # 用 SET 设置的值可以是指数符号
+
+    redis> GET mykey            # 用 SET 设置的值可以是指数符号
     "314e-2"
-    redis> INCRBYFLOAT mykey 0   # 但执行 INCRBYFLOAT 之后格式会被改成非指数符号
+
+    redis> INCRBYFLOAT mykey 0  # 但执行 INCRBYFLOAT 之后格式会被改成非指数符号
     "3.14"
 
     # 可以对整数类型执行
 
     redis> SET mykey 3
     OK
+
     redis> INCRBYFLOAT mykey 1.1
     "4.1"
 
@@ -58,9 +62,12 @@ INCRBYFLOAT
 
     redis> SET mykey 3.0
     OK
-    redis> GET mykey     # SET 设置的值小数部分可以是 0
+
+    redis> GET mykey                                    # SET 设置的值小数部分可以是 0
     "3.0"
-    redis> INCRBYFLOAT mykey 1.000000000000000000000     # 但 INCRBYFLOAT 会将无用的 0 忽略掉，有需要的话，将浮点变为整数
+
+    redis> INCRBYFLOAT mykey 1.000000000000000000000    # 但 INCRBYFLOAT 会将无用的 0 忽略掉，有需要的话，将浮点变为整数
     "4"
+
     redis> GET mykey     
     "4"
