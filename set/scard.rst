@@ -5,29 +5,28 @@ SCARD
 
 **SCARD key**
 
-返回集合\ ``key``\ 的\ **基数**\(集合中元素的数量)。
+返回集合 ``key`` 的基数(集合中元素的数量)。
+
+**可用版本：**
+    >= 1.0.0
 
 **时间复杂度:**
     O(1)
 
 **返回值：**
     | 集合的基数。
-    | 当\ ``key``\ 不存在时，返回\ ``0``\ 。
+    | 当 ``key`` 不存在时，返回 ``0`` 。
 
 ::
 
-    redis> SMEMBERS tool
-    1) "pc"
-    2) "printer"
-    3) "phone"
-
-    redis> SCARD tool
+    redis> SADD tool pc printer phone
     (integer) 3
 
-    redis> SMEMBERS fake_set
-    (empty list or set)
+    redis> SCARD tool   # 非空集合
+    (integer) 3
 
-    redis> SCARD fake_set
+    redis> DEL tool
+    (integer) 1
+
+    redis> SCARD tool   # 空集合
     (integer) 0
-
-

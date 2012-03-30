@@ -5,14 +5,17 @@ SISMEMBER
 
 **SISMEMBER key member**
 
-判断\ ``member``\ 元素是否是集合\ ``key``\ 的成员。
+判断 ``member`` 元素是否集合 ``key`` 的成员。
+
+**可用版本：**
+    >= 1.0.0
 
 **时间复杂度:**
     O(1)
 
 **返回值:**
-    | 如果\ ``member``\ 元素是集合的成员，返回\ ``1``\ 。
-    | 如果\ ``member``\ 元素不是集合的成员，或\ ``key``\ 不存在，返回\ ``0``\ 。
+    | 如果 ``member`` 元素是集合的成员，返回 ``1`` 。
+    | 如果 ``member`` 元素不是集合的成员，或 ``key`` 不存在，返回 ``0`` 。
 
 ::
 
@@ -26,6 +29,3 @@ SISMEMBER
 
     redis> SISMEMBER joe's_movies "Fast Five"
     (integer) 1
-
-
-

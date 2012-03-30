@@ -7,27 +7,34 @@ SPOP
 
 移除并返回集合中的一个随机元素。
 
+如果只想获取一个随机元素，但不想该元素从集合中被移除的话，可以使用 :ref:`SRANDMEMBER` 命令。
+
+**可用版本：**
+    >= 1.0.0
+
 **时间复杂度:**
     O(1)
 
 **返回值:**
     | 被移除的随机元素。
-    | 当\ ``key``\ 不存在或\ ``key``\ 是空集时，返回\ ``nil``\ 。
+    | 当 ``key`` 不存在或 ``key`` 是空集时，返回 ``nil`` 。
 
 ::
 
-    redis> SMEMBERS my_sites
-    1) "huangz.iteye.com"
-    2) "sideeffect.me"
-    3) "douban.com/people/i_m_huangz"
+    redis> SMEMBERS db
+    1) "MySQL"
+    2) "MongoDB"
+    3) "Redis"
 
-    redis> SPOP my_sites
-    "huangz.iteye.com"  
+    redis> SPOP db
+    "Redis"
 
-    redis> SMEMBERS my_sites
-    1) "sideeffect.me"
-    2) "douban.com/people/i_m_huang"
+    redis> SMEMBERS db
+    1) "MySQL"
+    2) "MongoDB"
 
-.. seealso:: 如果只想获取一个随机元素，但不想该元素从集合中被移除的话，可以使用\ `SRANDMEMBER`_\ 命令。
+    redis> SPOP db
+    "MySQL"
 
-
+    redis> SMEMBERS db
+    1) "MongoDB"
