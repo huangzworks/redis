@@ -65,4 +65,3 @@ HINCRBYFLOAT
     2) "3.5"
     3) "coffee"
     4) "4.5"
-
