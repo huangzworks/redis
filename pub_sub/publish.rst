@@ -7,6 +7,9 @@ PUBLISH
 
 将信息 ``message`` 发送到指定的频道 ``channel`` 。
 
+**可用版本：**
+    >= 2.0.0
+
 **时间复杂度：**
     O(N+M)，其中 ``N`` 是频道 ``channel`` 的订阅者数量，而 ``M`` 则是使用模式订阅(subscribed patterns)的客户端的数量。
 

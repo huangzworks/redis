@@ -7,6 +7,9 @@ SUBSCRIBE
 
 订阅给定频道的信息。
 
+**可用版本：**
+    >= 2.0.0
+
 **时间复杂度：**
     O(N)，其中 ``N`` 是订阅的频道的数量。
 
@@ -38,5 +41,3 @@ SUBSCRIBE
     1) "message"
     2) "chat_room"
     3) "testing...haha"
-
-
