@@ -7,6 +7,9 @@ ECHO
 
 打印一个特定的信息 ``message`` ，测试时使用。
 
+**可用版本：**
+    >= 1.0.0
+
 **时间复杂度：**
     O(1)
 
@@ -20,5 +23,3 @@ ECHO
 
     redis> ECHO "Goodbye Moto"
     "Goodbye Moto"
-
-
