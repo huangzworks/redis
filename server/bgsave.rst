@@ -11,6 +11,9 @@ BGSAVE
 
 请移步 `持久化文档 <http://redis.io/topics/persistence>`_ 查看更多相关细节。
 
+**可用版本：**
+    >= 1.0.0
+
 **时间复杂度：**
     O(N)， ``N`` 为要保存到数据库中的 key 的数量。
 

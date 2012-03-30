@@ -13,6 +13,9 @@ CONFIG RESETSTAT
 - Number of connections received (连接服务器的次数)
 - Number of expired keys (过期key的数量)
 
+**可用版本：**
+    >= 2.0.0
+
 **时间复杂度：**
     O(1)
 

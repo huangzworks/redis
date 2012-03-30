@@ -15,6 +15,9 @@ CONFIG SET
 
 关于如何使用 `CONFIG SET`_ 命令修改 Redis 持久化方式，请参见 `Redis Persistence <http://redis.io/topics/persistence>`_ 。
 
+**可用版本：**
+    >= 2.0.0
+
 **时间复杂度：**
     不明确
 

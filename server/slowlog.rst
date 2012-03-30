@@ -107,11 +107,11 @@ Slow log 的行为由两个配置参数(configuration parameter)指定，可以�
     redis> SLOWLOG LEN
     (integer) 0
 
+**可用版本：**
+    >= 2.2.12
+
 **时间复杂度：**
     O(1)
 
 **返回值：**
     取决于不同命令，返回不同的值。
-
-
-

@@ -7,6 +7,9 @@ INFO
 
 返回关于 Redis 服务器的各种信息和统计值。
 
+**可用版本：**
+    >= 1.0.0
+
 **时间复杂度：**
     O(1)
 
@@ -61,6 +64,3 @@ INFO
     db0:keys=6,expires=0            # 各个数据库的 key 的数量，以及带有生存期的 key 的数量
     db1:keys=6,expires=0
     db2:keys=1,expires=0
-
-
-

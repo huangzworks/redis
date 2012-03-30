@@ -11,6 +11,9 @@ BGREWRITEAOF
 
 请移步 `持久化文档 <http://redis.io/topics/persistence>`_ 查看更多相关细节。
 
+**可用版本：**
+    >= 1.0.0
+
 **时间复杂度：**
     O(N)， ``N`` 为要追加到 AOF 文件中的数据数量。
 
@@ -21,5 +24,3 @@ BGREWRITEAOF
     
     redis> BGREWRITEAOF
     Background append only file rewriting started
-
-
