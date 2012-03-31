@@ -22,20 +22,28 @@ TYPE
     |  ``hash`` (哈希表)
 
 ::
+    
+    # 字符串
 
-    redis> SET weather "sunny"  # 构建一个字符串
+    redis> SET weather "sunny"
     OK
 
     redis> TYPE weather 
     string
 
-    redis> LPUSH book_list "programming in scala"  # 构建一个列表
+    
+    # 列表
+
+    redis> LPUSH book_list "programming in scala"
     (integer) 1
 
     redis> TYPE book_list 
     list
 
-    redis> SADD pat "dog"  # 构建一个集合
+    
+    # 集合
+
+    redis> SADD pat "dog"
     (integer) 1
 
     redis> TYPE pat
