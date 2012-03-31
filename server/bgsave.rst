@@ -7,7 +7,7 @@ BGSAVE
 
 `BGSAVE`_ 命令执行之后立即返回 ``OK`` ，然后 Redis fork出一个新子进程，原来的 Redis 进程(父进程)继续处理客户端请求，而子进程则负责将数据保存到磁盘，然后退出。
 
-客户端可以通过 `LASTSAVE`_ 命令查看相关信息，判断 `BGSAVE`_ 命令是否执行成功。
+客户端可以通过 :ref:`LASTSAVE` 命令查看相关信息，判断 `BGSAVE`_ 命令是否执行成功。
 
 请移步 `持久化文档 <http://redis.io/topics/persistence>`_ 查看更多相关细节。
 

@@ -5,7 +5,7 @@ LASTSAVE
 
 **LASTSAVE**
 
-返回最近一次 Redis 成功执行保存操作的时间点( `SAVE`_ 、 `BGSAVE`_ 等)，以 UNIX 时间戳格式表示。
+返回最近一次 Redis 成功执行保存操作的时间点，以 UNIX 时间戳格式表示。
 
 **可用版本：**
     >= 1.0.0

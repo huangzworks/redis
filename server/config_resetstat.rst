@@ -5,7 +5,7 @@ CONFIG RESETSTAT
 
 **CONFIG RESETSTAT**
 
-重置 `INFO`_ 命令中的某些统计数据，包括：
+重置 :ref:`INFO` 命令中的某些统计数据，包括：
 
 - Keyspace hits (键空间命中次数)
 - Keyspace misses (键空间不命中次数)
