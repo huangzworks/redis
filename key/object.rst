@@ -38,31 +38,31 @@ OBJECT 命令有多个子命令：
 
 ::
 
-    redis> SET game "COD"  # 设置一个字符串
+    redis> SET game "COD"           # 设置一个字符串
     OK
     
-    redis> OBJECT REFCOUNT game  # 只有一个引用
+    redis> OBJECT REFCOUNT game     # 只有一个引用
     (integer) 1
     
-    redis> OBJECT IDLETIME game  # 等待一阵。。。然后查看空转时间
+    redis> OBJECT IDLETIME game     # 等待一阵。。。然后查看空转时间
     (integer) 90
     
-    redis> GET game  # 提取game， 让它处于活跃(active)状态
+    redis> GET game                 # 提取game， 让它处于活跃(active)状态
     "COD"
 
-    redis> OBJECT IDLETIME game  # 不再处于空转
+    redis> OBJECT IDLETIME game     # 不再处于空转
     (integer) 0
 
-    redis> OBJECT ENCODING game  # 字符串的编码方式
+    redis> OBJECT ENCODING game     # 字符串的编码方式
     "raw"
 
-    redis> SET phone 15820123123  # 大的数字也被编码为字符串
+    redis> SET phone 15820123123    # 大的数字也被编码为字符串
     OK
 
     redis> OBJECT ENCODING phone
     "raw"
 
-    redis> SET age 20  # 短数字被编码为 int
+    redis> SET age 20               # 短数字被编码为 int
     OK
     
     redis> OBJECT ENCODING age
