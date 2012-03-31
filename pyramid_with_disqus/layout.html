@@ -1,0 +1,67 @@
+{% extends "basic/layout.html" %}
+
+{%- block extrahead %}
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="{{ pathto('_static/ie6.css', 1) }}" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+{% endblock %}
+
+{% block header %}
+{%- if logo %}
+<div class="header">
+  <div class="logo">
+    <a href="{{ pathto(master_doc) }}">
+      <img class="logo" src="{{ pathto('_static/' + logo, 1) }}" alt="Logo"/>
+    </a>
+  </div>
+</div>
+{%- endif %}
+{% endblock %}
+
+{%- block content %}
+  {%- block sidebar1 %} {# possible location for sidebar #} {% endblock %}
+
+    <div class="document">
+  {%- block document %}
+      <div class="documentwrapper">
+      {%- if render_sidebar %}
+        <div class="bodywrapper">
+      {%- endif %}
+          <div class="body">
+            {% block body %} {% endblock %}
+
+            <!-- add disqus begin -->
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+            <!-- add disqus end -->
+
+          </div>
+      {%- if render_sidebar %}
+        </div>
+      {%- endif %}
+      </div>
+  {%- endblock %}
+
+  {%- block sidebar2 %}{{ sidebar() }}{% endblock %}
+      <div class="clearer"></div>
+    </div>
+{%- endblock %}
+
+{%- block sidebarlogo %}{%- endblock %}
+{%- block sidebarsourcelink %}{%- endblock %}
+
+<!--add by huangz -->
