@@ -13,179 +13,179 @@ Redis命令参考简体中文版
 Key(键)
 -------------------
 
-:ref:`DEL` ,
-:ref:`KEYS` ,
-:ref:`RANDOMKEY` ,
-:ref:`TTL`,
-:ref:`PTTL` ,
-:ref:`EXISTS` ,
-:ref:`MOVE` ,
-:ref:`RENAME` ,
-:ref:`RENAMENX` ,
-:ref:`TYPE` ,
-:ref:`EXPIRE` ,
-:ref:`PEXPIRE` ,
-:ref:`EXPIREAT` ,
-:ref:`OBJECT` ,
-:ref:`PEXPIREAT` ,
-:ref:`PERSIST` ,
-:ref:`SORT`
+:doc:`key/del` ,
+:doc:`key/keys` ,
+:doc:`key/randomkey` ,
+:doc:`key/ttl`,
+:doc:`key/pttl` ,
+:doc:`key/exists` ,
+:doc:`key/move` ,
+:doc:`key/rename` ,
+:doc:`key/renamenx` ,
+:doc:`key/type` ,
+:doc:`key/expire` ,
+:doc:`key/pexpire` ,
+:doc:`key/expireat` ,
+:doc:`key/object` ,
+:doc:`key/pexpireat` ,
+:doc:`key/persist` ,
+:doc:`key/sort`
 
 String(字符串)
 -------------------
 
-:ref:`SET` ,
-:ref:`SETNX` ,
-:ref:`SETEX` ,
-:ref:`PSETEX` ,
-:ref:`SETRANGE` ,
-:ref:`MSET` ,
-:ref:`MSETNX` ,
-:ref:`APPEND` ,
-:ref:`GET` ,
-:ref:`MGET` ,
-:ref:`GETRANGE` ,
-:ref:`GETSET` ,
-:ref:`STRLEN` ,
-:ref:`DECR` ,
-:ref:`DECRBY` ,
-:ref:`INCR` ,
-:ref:`INCRBY` ,
-:ref:`INCRBYFLOAT` ,
-:ref:`SETBIT` ,
-:ref:`GETBIT` 
+:doc:`string/set` ,
+:doc:`string/setnx` ,
+:doc:`string/setex` ,
+:doc:`string/psetex` ,
+:doc:`string/setrange` ,
+:doc:`string/mset` ,
+:doc:`string/msetnx` ,
+:doc:`string/append` ,
+:doc:`string/get` ,
+:doc:`string/mget` ,
+:doc:`string/getrange` ,
+:doc:`string/getset` ,
+:doc:`string/strlen` ,
+:doc:`string/decr` ,
+:doc:`string/decrby` ,
+:doc:`string/incr` ,
+:doc:`string/incrby` ,
+:doc:`string/incrbyfloat` ,
+:doc:`string/setbit` ,
+:doc:`string/getbit` 
 
 Hash(哈希表)
 -------------------
 
-:ref:`HSET` ,
-:ref:`HSETNX` ,
-:ref:`HMSET` ,
-:ref:`HGET` ,
-:ref:`HMGET` ,
-:ref:`HGETALL` ,
-:ref:`HDEL` ,
-:ref:`HLEN` ,
-:ref:`HEXISTS` ,
-:ref:`HINCRBY` ,
-:ref:`HINCRBYFLOAT` ,
-:ref:`HKEYS`,
-:ref:`HVALS`
+:doc:`hash/hset` ,
+:doc:`hash/hsetnx` ,
+:doc:`hash/hmset` ,
+:doc:`hash/hget` ,
+:doc:`hash/hmget` ,
+:doc:`hash/hgetall` ,
+:doc:`hash/hdel` ,
+:doc:`hash/hlen` ,
+:doc:`hash/hexists` ,
+:doc:`hash/hincrby` ,
+:doc:`hash/hincrbyfloat` ,
+:doc:`hash/hkeys`,
+:doc:`hash/hvals`
 
 List(列表)
 -------------------
 
-:ref:`LPUSH` ,
-:ref:`LPUSHX` ,
-:ref:`RPUSH` ,
-:ref:`RPUSHX` ,
-:ref:`LPOP` ,
-:ref:`RPOP` ,
-:ref:`BLPOP` ,
-:ref:`BRPOP` ,
-:ref:`LLEN` ,
-:ref:`LRANGE` ,
-:ref:`LREM` ,
-:ref:`LSET` ,
-:ref:`LTRIM` ,
-:ref:`LINDEX` ,
-:ref:`LINSERT` ,
-:ref:`RPOPLPUSH` ,
-:ref:`BRPOPLPUSH` 
+:doc:`list/lpush` ,
+:doc:`list/lpushx` ,
+:doc:`list/rpush` ,
+:doc:`list/rpushx` ,
+:doc:`list/lpop` ,
+:doc:`list/rpop` ,
+:doc:`list/blpop` ,
+:doc:`list/brpop` ,
+:doc:`list/llen` ,
+:doc:`list/lrange` ,
+:doc:`list/lrem` ,
+:doc:`list/lset` ,
+:doc:`list/ltrim` ,
+:doc:`list/lindex` ,
+:doc:`list/linsert` ,
+:doc:`list/rpoplpush` ,
+:doc:`list/brpoplpush` 
 
 Set(集合)
 -------------------------
 
-:ref:`SADD` ,
-:ref:`SREM` ,
-:ref:`SMEMBERS` ,
-:ref:`SISMEMBER` ,
-:ref:`SCARD` ,
-:ref:`SMOVE` ,
-:ref:`SPOP` ,
-:ref:`SRANDMEMBER` ,
-:ref:`SINTER` ,
-:ref:`SINTERSTORE` ,
-:ref:`SUNION` ,
-:ref:`SUNIONSTORE` ,
-:ref:`SDIFF` ,
-:ref:`SDIFFSTORE` 
+:doc:`set/sadd` ,
+:doc:`set/srem` ,
+:doc:`set/smembers` ,
+:doc:`set/sismember` ,
+:doc:`set/scard` ,
+:doc:`set/smove` ,
+:doc:`set/spop` ,
+:doc:`set/srandmember` ,
+:doc:`set/sinter` ,
+:doc:`set/sinterstore` ,
+:doc:`set/sunion` ,
+:doc:`set/sunionstore` ,
+:doc:`set/sdiff` ,
+:doc:`set/sdiffstore` 
 
 Sorted Set(有序集)
 -------------------------
 
-:ref:`ZADD` ,
-:ref:`ZREM` ,
-:ref:`ZCARD` ,
-:ref:`ZCOUNT` ,
-:ref:`ZSCORE` ,
-:ref:`ZINCRBY` ,
-:ref:`ZRANGE` ,
-:ref:`ZREVRANGE` ,
-:ref:`ZRANGEBYSCORE` ,
-:ref:`ZREVRANGEBYSCORE` ,
-:ref:`ZRANK` ,
-:ref:`ZREVRANK` ,
-:ref:`ZREMRANGEBYRANK` ,
-:ref:`ZREMRANGEBYSCORE` ,
-:ref:`ZINTERSTORE` ,
-:ref:`ZUNIONSTORE`
+:doc:`sorted_set/zadd` ,
+:doc:`sorted_set/zrem` ,
+:doc:`sorted_set/zcard` ,
+:doc:`sorted_set/zcount` ,
+:doc:`sorted_set/zscore` ,
+:doc:`sorted_set/zincrby` ,
+:doc:`sorted_set/zrange` ,
+:doc:`sorted_set/zrevrange` ,
+:doc:`sorted_set/zrangebyscore` ,
+:doc:`sorted_set/zrevrangebyscore` ,
+:doc:`sorted_set/zrank` ,
+:doc:`sorted_set/zrevrank` ,
+:doc:`sorted_set/zremrangebyrank` ,
+:doc:`sorted_set/zremrangebyscore` ,
+:doc:`sorted_set/zinterstore` ,
+:doc:`sorted_set/zunionstore`
 
 Pub/Sub(发布/订阅)
 ---------------------------------
 
-:ref:`publish` ,
-:ref:`subscribe` ,
-:ref:`psubscribe` ,
-:ref:`unsubscribe` ,
-:ref:`punsubscribe` 
+:doc:`pub_sub/publish` ,
+:doc:`pub_sub/subscribe` ,
+:doc:`pub_sub/psubscribe` ,
+:doc:`pub_sub/unsubscribe` ,
+:doc:`pub_sub/punsubscribe` 
 
 Transaction(事务)
 --------------------------
 
-:ref:`watch` ,
-:ref:`unwatch` ,
-:ref:`multi` ,
-:ref:`exec` ,
-:ref:`discard` 
+:doc:`transaction/watch` ,
+:doc:`transaction/unwatch` ,
+:doc:`transaction/multi` ,
+:doc:`transaction/exec` ,
+:doc:`transaction/discard` 
 
 Connection(连接)
 ----------------------
 
-:ref:`auth` ,
-:ref:`ping` ,
-:ref:`select` ,
-:ref:`echo` ,
-:ref:`quit` 
+:doc:`connection/auth` ,
+:doc:`connection/ping` ,
+:doc:`connection/select` ,
+:doc:`connection/echo` ,
+:doc:`connection/quit` 
 
 Server(服务器)
 ---------------------
 
-:ref:`time` ,
-:ref:`dbsize` ,
-:ref:`bgrewriteaof` ,
-:ref:`bgsave` ,
-:ref:`save` ,
-:ref:`lastsave` ,
-:ref:`slaveof` ,
-:ref:`flushall` ,
-:ref:`flushdb` ,
-:ref:`shutdown` ,
-:ref:`slowlog` ,
-:ref:`info` ,
-:ref:`config_get` ,
-:ref:`config_set` ,
-:ref:`config_resetstat` ,
-:ref:`debug_object` ,
-:ref:`debug_segfault` ,
-:ref:`monitor` ,
-:ref:`sync`
+:doc:`server/time` ,
+:doc:`server/dbsize` ,
+:doc:`server/bgrewriteaof` ,
+:doc:`server/bgsave` ,
+:doc:`server/save` ,
+:doc:`server/lastsave` ,
+:doc:`server/slaveof` ,
+:doc:`server/flushall` ,
+:doc:`server/flushdb` ,
+:doc:`server/shutdown` ,
+:doc:`server/slowlog` ,
+:doc:`server/info` ,
+:doc:`server/config_get` ,
+:doc:`server/config_set` ,
+:doc:`server/config_resetstat` ,
+:doc:`server/debug_object` ,
+:doc:`server/debug_segfault` ,
+:doc:`server/monitor` ,
+:doc:`server/sync`
 
 Script(脚本)
 --------------------
 
-:ref:`eval` ,
-:ref:`script_flush` ,
-:ref:`script_load` ,
-:ref:`script_exists` ,
-:ref:`script_kill` 
+:doc:`script/eval` ,
+:doc:`script/script_flush` ,
+:doc:`script/script_load` ,
+:doc:`script/script_exists` ,
+:doc:`script/script_kill` 
