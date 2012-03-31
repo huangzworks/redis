@@ -7,7 +7,7 @@ ZRANGEBYSCORE
 
 返回有序集 ``key`` 中，所有 ``score`` 值介于 ``min`` 和 ``max`` 之间(包括等于 ``min`` 或 ``max`` )的成员。有序集成员按 ``score`` 值递增(从小到大)次序排列。
 
-具有相同 ``score`` 值的成员按字典序( `lexicographical order`_ )来排列(该属性是有序集提供的，不需要额外的计算)。
+具有相同 ``score`` 值的成员按字典序(`lexicographical order <http://en.wikipedia.org/wiki/Lexicographical_order>`_)来排列(该属性是有序集提供的，不需要额外的计算)。
 
 可选的 ``LIMIT`` 参数指定返回结果的数量及区间(就像SQL中的 ``SELECT LIMIT offset, count`` )，注意当 ``offset`` 很大时，定位 ``offset`` 的操作可能需要遍历整个有序集，此过程最坏复杂度为 O(N) 时间。
 
@@ -18,7 +18,7 @@ ZRANGEBYSCORE
 
 ``min`` 和 ``max`` 可以是 ``-inf`` 和 ``+inf`` ，这样一来，你就可以在不知道有序集的最低和最高 ``score`` 值的情况下，使用 `ZRANGEBYSCORE`_ 这类命令。
 
-默认情况下，区间的取值使用 `闭区间 <http://zh.wikipedia.org/wiki/%E5%8D%80%E9%96%93>`_ (小于等于或大于等于)，你也可以通过给参数前增加 ``(`` 符号来使用可选的 `开区间 <http://zh.wikipedia.org/wiki/%E5%8D%80%E9%96%93>`_ (小于或大于)。
+默认情况下，区间的取值使用\ `闭区间 <http://zh.wikipedia.org/wiki/%E5%8D%80%E9%96%93>`_ (小于等于或大于等于)，你也可以通过给参数前增加 ``(`` 符号来使用可选的\ `开区间 <http://zh.wikipedia.org/wiki/%E5%8D%80%E9%96%93>`_ (小于或大于)。
 
 举个例子：
 
@@ -73,6 +73,3 @@ ZRANGEBYSCORE
 
     redis> ZRANGEBYSCORE salary (5000 400000            # 显示工资大于5000小于400000的成员
     1) "peter"
-
-
-
