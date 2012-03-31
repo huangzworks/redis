@@ -10,8 +10,7 @@ Redis命令参考简体中文版
 
 本文所有示例代码均经过 Redis 2.4.4 版本测试，质量保证。 提交翻译问题、加入本项目或联系译者，请阅读\ :ref:`readme`\ 页面。
 
-Key(键)
--------------------
+**Key(键)**
 
 :doc:`key/del` ,
 :doc:`key/keys` ,
@@ -31,8 +30,7 @@ Key(键)
 :doc:`key/persist` ,
 :doc:`key/sort`
 
-String(字符串)
--------------------
+**String(字符串)**
 
 :doc:`string/set` ,
 :doc:`string/setnx` ,
@@ -55,8 +53,7 @@ String(字符串)
 :doc:`string/setbit` ,
 :doc:`string/getbit` 
 
-Hash(哈希表)
--------------------
+**Hash(哈希表)**
 
 :doc:`hash/hset` ,
 :doc:`hash/hsetnx` ,
@@ -72,8 +69,7 @@ Hash(哈希表)
 :doc:`hash/hkeys`,
 :doc:`hash/hvals`
 
-List(列表)
--------------------
+**List(列表)**
 
 :doc:`list/lpush` ,
 :doc:`list/lpushx` ,
@@ -93,8 +89,7 @@ List(列表)
 :doc:`list/rpoplpush` ,
 :doc:`list/brpoplpush` 
 
-Set(集合)
--------------------------
+**Set(集合)**
 
 :doc:`set/sadd` ,
 :doc:`set/srem` ,
@@ -111,8 +106,7 @@ Set(集合)
 :doc:`set/sdiff` ,
 :doc:`set/sdiffstore` 
 
-Sorted Set(有序集)
--------------------------
+**Sorted Set(有序集)**
 
 :doc:`sorted_set/zadd` ,
 :doc:`sorted_set/zrem` ,
@@ -131,8 +125,7 @@ Sorted Set(有序集)
 :doc:`sorted_set/zinterstore` ,
 :doc:`sorted_set/zunionstore`
 
-Pub/Sub(发布/订阅)
----------------------------------
+**Pub/Sub(发布/订阅)**
 
 :doc:`pub_sub/publish` ,
 :doc:`pub_sub/subscribe` ,
@@ -140,8 +133,7 @@ Pub/Sub(发布/订阅)
 :doc:`pub_sub/unsubscribe` ,
 :doc:`pub_sub/punsubscribe` 
 
-Transaction(事务)
---------------------------
+**Transaction(事务)**
 
 :doc:`transaction/watch` ,
 :doc:`transaction/unwatch` ,
@@ -149,8 +141,7 @@ Transaction(事务)
 :doc:`transaction/exec` ,
 :doc:`transaction/discard` 
 
-Connection(连接)
-----------------------
+**Connection(连接)**
 
 :doc:`connection/auth` ,
 :doc:`connection/ping` ,
@@ -158,8 +149,7 @@ Connection(连接)
 :doc:`connection/echo` ,
 :doc:`connection/quit` 
 
-Server(服务器)
----------------------
+**Server(服务器)**
 
 :doc:`server/time` ,
 :doc:`server/dbsize` ,
@@ -181,8 +171,7 @@ Server(服务器)
 :doc:`server/monitor` ,
 :doc:`server/sync`
 
-Script(脚本)
---------------------
+**Script(脚本)**
 
 :doc:`script/eval` ,
 :doc:`script/script_flush` ,
