@@ -77,3 +77,59 @@ INCR
 这个实现每秒钟为每个 IP 地址使用一个不同的计数器，并用 :ref:`EXPIRE` 命令设置生存时间(这样 Redis 就会负责自动删除过期的计数器)。
 
 注意，我们使用事务打包执行 :ref:`INCR` 命令和 :ref:`EXPIRE` 命令，避免引入竞争条件，保证每次调用 API 时都可以正确地对计数器进行自增操作并设置生存时间。
+
+以下是另一个限速器实现：
+
+::
+
+    FUNCTION LIMIT_API_CALL(ip):
+    current = GET(ip)
+    IF current != NULL AND current > 10 THEN
+        ERROR "too many requests per second"
+    ELSE
+        value = INCR(ip)
+        IF value == 1 THEN
+            EXPIRE(value,1)
+        END
+        PERFORM_API_CALL()
+    END
+
+这个限速器只使用单个计数器，它的生存时间为一秒钟，如果在一秒钟内，这个计数器的值大于 ``10`` 的话，那么访问就会被禁止。
+
+这个新的限速器在思路方面是没有问题的，但它在实现方面不够严谨，如果我们仔细观察一下的话，就会发现在 :ref:`INCR` 和 :ref:`EXPIRE` 之间存在着一个竞争条件，假如客户端在执行 :ref:`INCR` 之后，因为某些原因(比如客户端失败)而忘记设置 :ref:`EXPIRE` 的话，那么这个计数器就会一直存在下去，造成每个用户只能访问 ``10`` 次，噢，这简直是个灾难！
+
+要消灭这个实现中的竞争条件，我们可以将它转化为一个 Lua 脚本，并放到 Redis 中运行(这个方法仅限于 Redis 2.6 及以上的版本)：
+
+::
+    
+    local current
+    current = redis.call("incr",KEYS[1])
+    if tonumber(current) == 1 then
+        redis.call("expire",KEYS[1],1)
+    end
+
+通过将计数器作为脚本放到 Redis 上运行，我们保证了 :ref:`INCR` 和 :ref:`EXPIRE` 两个操作的原子性，现在这个脚本实现不会引入竞争条件，它可以运作的很好。
+
+关于在 Redis 中运行 Lua 脚本的更多信息，请参考 :ref:`EVAL` 命令。
+
+还有另一种消灭竞争条件的方法，就是使用 Redis 的列表结构来代替 :ref:`INCR` 命令，这个方法无须脚本支持，因此它在 Redis 2.6 以下的版本也可以运行得很好：
+
+::
+
+    FUNCTION LIMIT_API_CALL(ip)
+    current = LLEN(ip)
+    IF current > 10 THEN
+        ERROR "too many requests per second"
+    ELSE
+        IF EXISTS(ip) == FALSE
+            MULTI
+                RPUSH(ip,ip)
+                EXPIRE(ip,1)
+            EXEC
+        ELSE
+            RPUSHX(ip,ip)
+        END
+        PERFORM_API_CALL()
+    END
+
+新的限速器使用了列表结构作为容器， :ref:`LLEN` 用于对访问次数进行检查，一个事务包裹着 :ref:`RPUSH` 和 :ref:`EXPIRE` 两个命令，用于在第一次执行计数时创建列表，并正确设置地设置过期时间，最后， :ref:`RPUSHX` 在后续的计数操作中进行增加操作。
