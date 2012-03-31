@@ -1,6 +1,6 @@
 .. _change_log:
 
-更新细节(change log)
+更新日志(change log)
 =========================
 
 2012 年 4 月(Redis 2.6)
@@ -10,19 +10,19 @@
 2011 年 12 月(Redis 2.4)
 --------------------------
 
-完成 pub/sub 、 transaction 、 connection 和 server 四个部分的翻译
+完成 pub/sub 、 transaction 、 connection 和 server 四个部分的翻译。
 
 2011 年 10 月(Redis 2.4)
 --------------------------
 
-更新命令到 Redis 2.4 版本
+更新命令到 Redis 2.4 版本。
 
 2011 年 6 月(Redis 2.2)
 --------------------------
 
-完成 keys 、 string 、 list 、 set 和 sorted set 六个部分的翻译
+完成 keys 、 string 、 list 、 set 和 sorted set 六个部分的翻译。
 
 2011 年 4 月(Redis 2.2)
 --------------------------
 
-开始进行 Redis 命令参考的翻译工作
+开始进行 Redis 命令参考的翻译工作。
