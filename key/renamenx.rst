@@ -5,9 +5,9 @@ RENAMENX
 
 **RENAMENX key newkey**
 
-当且仅当 ``newkey`` 不存在时，将 ``key`` 改为 ``newkey`` 。
+当且仅当 ``newkey`` 不存在时，将 ``key`` 改名为 ``newkey`` 。
 
-出错的情况和 `RENAME`_ 一样( ``key`` 不存在时报错)。
+如果 ``key`` 不存在时，返回一个错误。
 
 **可用版本：**
     >= 1.0.0
