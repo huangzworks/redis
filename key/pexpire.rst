@@ -1,4 +1,4 @@
-.. _pexipre:
+.. _pexpire:
 
 PEXPIRE
 ========
