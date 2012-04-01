@@ -7,7 +7,7 @@ RENAME
 
 将 ``key`` 改名为 ``newkey`` 。
 
-当 ``key`` 和 ``newkey`` 相同或者 ``key`` 不存在时，返回一个错误。
+当 ``key`` 和 ``newkey`` 相同，或者 ``key`` 不存在时，返回一个错误。
 
 当 ``newkey`` 已经存在时， `RENAME`_ 命令将覆盖旧值。
 
@@ -30,10 +30,10 @@ RENAME
     redis> RENAME message greeting
     OK
 
-    redis> EXISTS message  # message 不复存在
+    redis> EXISTS message               # message 不复存在
     (integer) 0
     
-    redis> EXISTS greeting  # greeting 取而代之
+    redis> EXISTS greeting              # greeting 取而代之
     (integer) 1
 
 
@@ -57,5 +57,5 @@ RENAME
     redis> GET pc
     (nil)
 
-    redis:1> GET personal_computer  # 原来的值 dell 被覆盖了
+    redis:1> GET personal_computer      # 原来的值 dell 被覆盖了
     "lenovo"

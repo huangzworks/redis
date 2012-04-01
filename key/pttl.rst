@@ -28,6 +28,7 @@ PTTL
     redis> PTTL mykey
     (integer) 1000
 
+
     # 对不存在的 key 返回 -1
 
     redis> EXISTS some_key

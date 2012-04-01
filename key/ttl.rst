@@ -39,6 +39,7 @@ TTL
     redis> GET name  # 并且 key 被删除
     (nil)
 
+
     # 不带TTL的key
 
     redis> SET site wikipedia.org   

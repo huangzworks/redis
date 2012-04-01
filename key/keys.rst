@@ -7,12 +7,15 @@ KEYS
 
 查找所有符合给定模式 ``pattern`` 的 ``key`` 。
 
-|  ``KEYS *`` 命中数据库中所有 ``key`` 。
-|  ``KEYS h?llo`` 命中 ``hello`` ，  ``hallo and hxllo`` 等。
-|  ``KEYS h*llo`` 命中 ``hllo`` 和 ``heeeeello`` 等。
-|  ``KEYS h[ae]llo`` 命中 ``hello`` 和 ``hallo`` ，但不命中 ``hillo`` 。
+|  ``KEYS *`` 匹配数据库中所有 ``key`` 。
+|  ``KEYS h?llo`` 匹配 ``hello`` ，  ``hallo and hxllo`` 等。
+|  ``KEYS h*llo`` 匹配 ``hllo`` 和 ``heeeeello`` 等。
+|  ``KEYS h[ae]llo`` 匹配 ``hello`` 和 ``hallo`` ，但不匹配 ``hillo`` 。
 
-特殊符号用 ``"\"`` 隔开
+特殊符号用 ``\`` 隔开
+
+.. warning::
+     `KEYS`_ 的速度非常快，但在一个大的数据库中使用它仍然可能造成性能问题，如果你需要从一个数据集中查找特定的 ``key`` ，你最好还是用 Redis 的集合结构(set)来代替。
 
 **可用版本：**
     >= 1.0.0
@@ -22,9 +25,6 @@ KEYS
             
 **返回值：**
     符合给定模式的 ``key`` 列表。
-
-.. warning::
-     `KEYS`_ 的速度非常快，但在一个大的数据库中使用它仍然可能造成性能问题，如果你需要从一个数据集中查找特定的 ``key`` ，你最好还是用 Redis 的集合结构(set)来代替。
 
 ::
 
