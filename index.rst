@@ -28,10 +28,10 @@ Redis 命令参考简体中文版
 |   - :doc:`key/expire`             |   - :doc:`string/getrange`                |   - :doc:`hash/hincrbyfloat`          |   - :doc:`list/lrem`              |
 |   - :doc:`key/pexpire`            |   - :doc:`string/getset`                  |   - :doc:`hash/hkeys`                 |   - :doc:`list/lset`              |
 |   - :doc:`key/expireat`           |   - :doc:`string/strlen`                  |   - :doc:`hash/hvals`                 |   - :doc:`list/ltrim`             |
-|   - :doc:`key/object`             |   - :doc:`string/decr`                    |                                       |   - :doc:`list/lindex`            |
-|   - :doc:`key/pexpireat`          |   - :doc:`string/decrby`                  |                                       |   - :doc:`list/linsert`           |
-|   - :doc:`key/persist`            |   - :doc:`string/incr`                    |                                       |   - :doc:`list/rpoplpush`         |
-|   - :doc:`key/sort`               |   - :doc:`string/incrby`                  |                                       |   - :doc:`list/brpoplpush`        |
+|   - :doc:`key/pexpireat`          |   - :doc:`string/decr`                    |                                       |   - :doc:`list/lindex`            |
+|   - :doc:`key/persist`            |   - :doc:`string/decrby`                  |                                       |   - :doc:`list/linsert`           |
+|   - :doc:`key/sort`               |   - :doc:`string/incr`                    |                                       |   - :doc:`list/rpoplpush`         |
+|   - :doc:`key/object`             |   - :doc:`string/incrby`                  |                                       |   - :doc:`list/brpoplpush`        |
 |                                   |   - :doc:`string/incrbyfloat`             |                                       |                                   |
 |                                   |   - :doc:`string/setbit`                  |                                       |                                   |
 |                                   |   - :doc:`string/getbit`                  |                                       |                                   |
