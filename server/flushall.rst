@@ -5,7 +5,7 @@ FLUSHALL
 
 **FLUSHALL**
 
-清空整个 Redis 服务器的数据(删除\ *所有数据库的所有 key*\ )。
+清空整个 Redis 服务器的数据(删除所有数据库的所有 key )。
 
 此命令从不失败。
 
@@ -40,6 +40,3 @@ FLUSHALL
 
     redis> DBSIZE
     (integer) 0
-
-
-

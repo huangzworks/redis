@@ -5,7 +5,7 @@ FLUSHDB
 
 **FLUSHDB**
 
-清空\ *当前*\ 数据库中的所有 key。
+清空当前数据库中的所有 key。
 
 此命令从不失败。
 
@@ -28,5 +28,3 @@ FLUSHDB
 
     redis> DBSIZE    # 清空后的 key 数量
     (integer) 0
-
-
