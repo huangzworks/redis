@@ -23,10 +23,12 @@ PUBLISH
     redis> publish bad_channel "can any body hear me?"
     (integer) 0
 
+
     # 向有一个订阅者的频道发送信息
 
     redis> publish msg "good morning"
     (integer) 1
+
 
     # 向有多个订阅者的频道发送信息
 

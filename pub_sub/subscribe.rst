@@ -5,7 +5,7 @@ SUBSCRIBE
 
 **SUBSCRIBE channel [channel ...]**
 
-订阅给定频道的信息。
+订阅给定的一个或多个频道的信息。
 
 **可用版本：**
     >= 2.0.0

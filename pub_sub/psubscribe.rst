@@ -5,7 +5,7 @@ PSUBSCRIBE
 
 **PSUBSCRIBE pattern [pattern ...]**
 
-订阅符合给定模式的频道。
+订阅一个或多个符合给定模式的频道。
 
 每个模式以 ``*`` 作为匹配符，比如 ``it*`` 匹配所有以 ``it`` 开头的频道( ``it.news`` 、 ``it.blog`` 、 ``it.tweets`` 等等)， ``news.*`` 匹配所有以 ``news.`` 开头的频道( ``news.it`` 、 ``news.global.today`` 等等)，诸如此类。
 
