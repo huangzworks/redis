@@ -44,10 +44,10 @@ INCRBYFLOAT
     redis> SET mykey 314e-2
     OK
 
-    redis> GET mykey            # 用 SET 设置的值可以是指数符号
+    redis> GET mykey                # 用 SET 设置的值可以是指数符号
     "314e-2"
 
-    redis> INCRBYFLOAT mykey 0  # 但执行 INCRBYFLOAT 之后格式会被改成非指数符号
+    redis> INCRBYFLOAT mykey 0      # 但执行 INCRBYFLOAT 之后格式会被改成非指数符号
     "3.14"
 
     # 可以对整数类型执行
