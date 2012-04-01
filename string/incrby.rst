@@ -37,6 +37,7 @@ INCRBY
     redis> GET rank  
     "70"
 
+
     # key 不存在时
 
     redis> EXISTS counter
@@ -47,6 +48,7 @@ INCRBY
 
     redis> GET counter
     "30"
+
 
     # key 不是数字值时
 

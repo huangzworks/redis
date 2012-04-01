@@ -29,6 +29,7 @@ STRLEN
     redis> STRLEN mykey
     (integer) 11
 
+
     # 不存在的 key 长度为 0
 
     redis> STRLEN nonexisting

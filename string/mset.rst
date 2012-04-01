@@ -30,6 +30,7 @@ MSET
     2) "11:00 a.m."
     3) "sunny"
 
+
     # MSET 覆盖旧值例子
 
     redis> SET google "google.hk"       

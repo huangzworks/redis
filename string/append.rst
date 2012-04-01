@@ -5,7 +5,7 @@ APPEND
 
 **APPEND key value**
 
-如果 ``key`` 已经存在并且是一个字符串， `APPEND`_ 命令将 ``value`` 追加到 ``key`` 原来的值之后。
+如果 ``key`` 已经存在并且是一个字符串， `APPEND`_ 命令将 ``value`` 追加到 ``key`` 原来的值的末尾。
 
 如果 ``key`` 不存在， `APPEND`_ 就简单地将给定 ``key`` 设为 ``value`` ，就像执行 ``SET key value`` 一样。
 
@@ -22,16 +22,16 @@ APPEND
 
     # 对不存在的 key 执行 APPEND
 
-    redis> EXISTS myphone  # 确保 myphone 不存在
+    redis> EXISTS myphone               # 确保 myphone 不存在
     (integer) 0
 
-    redis> APPEND myphone "nokia"   # 对不存在的 key 进行 APPEND ，等同于 SET myphone "nokia"
-    (integer) 5                     # 字符长度
+    redis> APPEND myphone "nokia"       # 对不存在的 key 进行 APPEND ，等同于 SET myphone "nokia"
+    (integer) 5                         # 字符长度
 
 
     # 对已存在的字符串进行 APPEND
 
-    redis> APPEND myphone " - 1110"  # 长度从 5 个字符增加到 12 个字符
+    redis> APPEND myphone " - 1110"     # 长度从 5 个字符增加到 12 个字符
     (integer) 12  
 
     redis> GET myphone 

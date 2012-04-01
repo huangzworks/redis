@@ -5,7 +5,7 @@ SETRANGE
 
 **SETRANGE key offset value**
 
-用 ``value`` 参数覆写(Overwrite)给定 ``key`` 所储存的字符串值，从偏移量 ``offset`` 开始。
+用 ``value`` 参数覆写(overwrite)给定 ``key`` 所储存的字符串值，从偏移量 ``offset`` 开始。
 
 不存在的 ``key`` 当作空白字符串处理。
 

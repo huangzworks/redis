@@ -19,7 +19,7 @@ MSETNX
 
 **返回值：**
     | 当所有 ``key`` 都成功设置，返回 ``1`` 。
-    | 如果所有给定 ``key`` 都设置失败(最少有一个 ``key`` 已经存在)，那么返回 ``0`` 。
+    | 如果所有给定 ``key`` 都设置失败(至少有一个 ``key`` 已经存在)，那么返回 ``0`` 。
 
 ::
 
@@ -33,13 +33,14 @@ MSETNX
     2) "MongoDB"
     3) "redis"
 
+
     # MSET 的给定 key 当中有已存在的 key
 
     redis> MSETNX rmdbs "Sqlite" language "python"  # rmdbs 键已经存在，操作失败
     (integer) 0
 
-    redis> EXISTS language   # 因为 MSET 是原子性操作，language 没有被设置
+    redis> EXISTS language                          # 因为 MSET 是原子性操作，language 没有被设置
     (integer) 0
 
-    redis> GET rmdbs         # rmdbs 也没有被修改
+    redis> GET rmdbs                                # rmdbs 也没有被修改
     "MySQL"

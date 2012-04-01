@@ -39,6 +39,7 @@ INCRBYFLOAT
     redis> INCRBYFLOAT mykey 0.1
     "10.6"
 
+
     # 值和增量都是指数符号
 
     redis> SET mykey 314e-2
@@ -50,6 +51,7 @@ INCRBYFLOAT
     redis> INCRBYFLOAT mykey 0      # 但执行 INCRBYFLOAT 之后格式会被改成非指数符号
     "3.14"
 
+
     # 可以对整数类型执行
 
     redis> SET mykey 3
@@ -57,6 +59,7 @@ INCRBYFLOAT
 
     redis> INCRBYFLOAT mykey 1.1
     "4.1"
+
 
     # 后跟的 0 会被移除
 
