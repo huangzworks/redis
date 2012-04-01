@@ -190,7 +190,7 @@ Redis 提供了以下几个 SCRIPT 命令，用于对脚本子系统(scripting s
 
 - Redis 会返回一个错误，阻止这样的脚本运行： 这些脚本在执行随机命令之后(比如 :ref:`RANDOMKEY` 、 :ref:`SRANDMEMBER` 或 :ref:`TIME` 等)，还会执行可以修改数据集的 Redis 命令。如果脚本只是执行只读操作，那么就没有这一限制。注意，随机命令并不一定就指那些带 RAND 字眼的命令，任何带有非确定性的命令都会被认为是随机命令，比如 :ref:`TIME` 命令就是这方面的一个很好的例子。
 
-- 每当从 Lua 脚本中调用那些返回无序元素的命令时，执行命令所得的数据在返回给 Lua 之前会先执行一个静默(slient)的字典序排序(lexicographical sorting)。举个例子，因为 Redis 的 Set 保存的是无序的元素，所以在 Redis 命令行客户端中直接执行 :ref:`SMEMBERS` ，返回的元素是无序的，但是，假如在脚本中执行 ``redis.call("smembers", KEYS[1])`` ，那么返回的总是排过序的元素。
+- 每当从 Lua 脚本中调用那些返回无序元素的命令时，执行命令所得的数据在返回给 Lua 之前会先执行一个静默(slient)的字典序排序(`lexicographical sorting <http://en.wikipedia.org/wiki/Lexicographical_order>`_)。举个例子，因为 Redis 的 Set 保存的是无序的元素，所以在 Redis 命令行客户端中直接执行 :ref:`SMEMBERS` ，返回的元素是无序的，但是，假如在脚本中执行 ``redis.call("smembers", KEYS[1])`` ，那么返回的总是排过序的元素。
 
 - 对 Lua 的伪随机数生成函数 ``math.random`` 和 ``math.randomseed`` 进行修改，使得每次在运行新脚本的时候，总是拥有同样的 seed 值。这意味着，每次运行脚本时，只要不使用 ``math.randomseed`` ，那么 ``math.random`` 产生的随机数序列总是相同的。
 
