@@ -36,12 +36,14 @@ HINCRBYFLOAT
     redis> HINCRBYFLOAT mykey field 0.1
     "10.6"
 
+
     # 值和增量都是指数符号
 
     redis> HSET mykey field 5.0e3
     (integer) 0
     redis> HINCRBYFLOAT mykey field 2.0e2
     "5200"
+
 
     # 对不存在的键执行 HINCRBYFLOAT
 
@@ -52,6 +54,7 @@ HINCRBYFLOAT
     redis> HGETALL price
     1) "milk"
     2) "3.5"
+
 
     # 对不存在的域进行 HINCRBYFLOAT
 

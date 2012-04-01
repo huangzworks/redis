@@ -19,11 +19,16 @@ HGET
 
 ::
 
+    # 域存在
+
     redis> HSET site redis redis.com
     (integer) 1
 
     redis> HGET site redis
     "redis.com"
+
+    
+    # 域不存在
 
     redis> HGET site mysql
     (nil)

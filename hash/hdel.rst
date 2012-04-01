@@ -32,15 +32,18 @@ HDEL
     7) "d"
     8) "dog"
 
+
     # 删除单个域
 
     redis> HDEL abbr a
     (integer) 1
 
+
     # 删除不存在的域
 
     redis> HDEL abbr not-exists-field
     (integer) 0
+
 
     # 删除多个域
 
