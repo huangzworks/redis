@@ -31,6 +31,8 @@
 
 本文档的翻译工作由 huangz 完成，可以通过 `twitter <http://twitter.com/#!/huangz1990>`_ 、 `豆瓣 <http://www.douban.com/people/i_m_huangz/>`_ 或发送邮件到 Gmail 帐号 huangz1990 来与我取得联系。
 
+另外，本项目在进行的过程中获得了许多朋友的正式或非正式的帮助，在此对他们表示感谢。
+
 项目进展
 ---------------------------
 
