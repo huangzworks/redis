@@ -5,7 +5,7 @@ ZCOUNT
 
 **ZCOUNT key min max**
 
-返回有序集 ``key`` 中， ``score`` 值在 ``min`` 和 ``max`` 之间(默认包括 ``score`` 值等于 ``min`` 或 ``max`` )的成员。
+返回有序集 ``key`` 中， ``score`` 值在 ``min`` 和 ``max`` 之间(默认包括 ``score`` 值等于 ``min`` 或 ``max`` )的成员的数量。
 
 关于参数 ``min`` 和 ``max`` 的详细使用方法，请参考 :ref:`ZRANGEBYSCORE` 命令。
 
