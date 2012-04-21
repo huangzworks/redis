@@ -207,6 +207,7 @@ Redis 提供了以下几个 SCRIPT 命令，用于对脚本子系统(scripting s
 
     RandomPushScript = <<EOF
         local i = tonumber(ARGV[1])
+        local res
         while (i > 0) do
             res = redis.call('lpush',KEYS[1],math.random())
             i = i-1
@@ -243,6 +244,7 @@ Redis 提供了以下几个 SCRIPT 命令，用于对脚本子系统(scripting s
 
     RandomPushScript = <<EOF
         local i = tonumber(ARGV[1])
+        local res
         math.randomseed(tonumber(ARGV[2]))
         while (i > 0) do
             res = redis.call('lpush',KEYS[1],math.random())
