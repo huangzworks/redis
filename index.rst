@@ -36,7 +36,7 @@ Redis 命令参考
 |   - :doc:`key/persist`            |   - :doc:`string/decrby`                  |                                       |   - :doc:`list/linsert`           |
 |   - :doc:`key/sort`               |   - :doc:`string/incr`                    |                                       |   - :doc:`list/rpoplpush`         |
 |   - :doc:`key/object`             |   - :doc:`string/incrby`                  |                                       |   - :doc:`list/brpoplpush`        |
-|                                   |   - :doc:`string/incrbyfloat`             |                                       |                                   |
+|   - :doc:`key/migrate`            |   - :doc:`string/incrbyfloat`             |                                       |                                   |
 |                                   |   - :doc:`string/setbit`                  |                                       |                                   |
 |                                   |   - :doc:`string/getbit`                  |                                       |                                   |
 |                                   |                                           |                                       |                                   |
