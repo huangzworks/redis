@@ -262,6 +262,24 @@ Seed 会在复制(replication link)和写 AOF 文件时作为一个参数来传�
 
 注意，Redis 实现保证 ``math.random`` 和 ``math.randomseed`` 的输出和运行 Redis 的系统架构无关，无论是 32 位还是 64 位系统，无论是小端(little endian)还是大端(big endian)系统，这两个函数的输出总是相同的。
 
+**全局变量保护**
+
+为了防止不必要的数据泄漏进 Lua 环境， Redis 脚本不允许创建全局变量。如果一个脚本需要在多次执行之间维持某种状态，它应该使用 Redis key 来进行状态保存。
+
+企图在脚本中访问一个全局变量(不论这个变量是否存在)将引起脚本停止， `EVAL`_ 命令会返回一个错误：
+
+::
+
+    redis 127.0.0.1:6379> eval 'a=10' 0
+    (error) ERR Error running script (call to f_933044db579a2f8fd45d8065f04a8d0249383e57): user_script:1: Script attempted to create global variable 'a'
+
+Lua 的 debug 工具，或者其他设施，比如打印（alter）用于实现全局保护的 meta table ，都可以用于实现全局变量保护。
+
+实现全局变量保护并不难，不过有时候还是会不小心而为之。一旦用户在脚本中混入了 Lua 全局状态，那么 AOF 持久化和复制（replication）都会无法保证，所以，请不要使用全局变量。
+
+避免引入全局变量的一个诀窍是：将脚本中用到的所有变量都使用 ``local`` 关键字定义为局部变量。
+    
+
 **库**
 
 Redis 内置的 Lua 解释器加载了以下 Lua 库：
