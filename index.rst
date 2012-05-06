@@ -37,8 +37,10 @@ Redis 命令参考
 |   - :doc:`key/sort`               |   - :doc:`string/incr`                    |                                       |   - :doc:`list/rpoplpush`         |
 |   - :doc:`key/object`             |   - :doc:`string/incrby`                  |                                       |   - :doc:`list/brpoplpush`        |
 |   - :doc:`key/migrate`            |   - :doc:`string/incrbyfloat`             |                                       |                                   |
-|                                   |   - :doc:`string/setbit`                  |                                       |                                   |
-|                                   |   - :doc:`string/getbit`                  |                                       |                                   |
+|   - :doc:`key/dump`               |   - :doc:`string/setbit`                  |                                       |                                   |
+|   - :doc:`key/restore`            |   - :doc:`string/getbit`                  |                                       |                                   |
+|                                   |                                           |                                       |                                   |
+|                                   |                                           |                                       |                                   |
 |                                   |                                           |                                       |                                   |
 +-----------------------------------+-------------------------------------------+---------------------------------------+-----------------------------------+
 | |                                 | |                                         | |                                     | |                                 |
