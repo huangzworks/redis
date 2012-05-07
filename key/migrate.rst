@@ -57,16 +57,16 @@ MIGRATE
 
     $ ./redis-cli
 
-    redis> flushdb
+    redis 127.0.0.1:6379> flushdb
     OK
 
-    redis> SET greeting "Hello from 6379 instance"
+    redis 127.0.0.1:6379> SET greeting "Hello from 6379 instance"
     OK
 
-    redis> MIGRATE 127.0.0.1 7777 greeting 0 1000
+    redis 127.0.0.1:6379> MIGRATE 127.0.0.1 7777 greeting 0 1000
     OK
 
-    redis> EXISTS greeting                           # 迁移成功后 key 被删除
+    redis 127.0.0.1:6379> EXISTS greeting                           # 迁移成功后 key 被删除
     (integer) 0
 
 使用另一个客户端，查看 7777 端口上的实例：
