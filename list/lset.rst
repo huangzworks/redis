@@ -5,7 +5,7 @@ LSET
 
 **LSET key index value**
 
-将列表 ``key`` 下标为 ``index`` 的元素的值甚至为 ``value`` 。
+将列表 ``key`` 下标为 ``index`` 的元素的值设置为 ``value`` 。
 
 当 ``index`` 参数超出范围，或对一个空列表( ``key`` 不存在)进行 `LSET`_ 时，返回一个错误。
 
