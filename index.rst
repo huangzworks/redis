@@ -11,7 +11,6 @@ Redis 命令参考
 
 本文所有示例代码均经过 Redis 2.6 版本测试，质量保证。
 
-下载离线版本： `HTML 格式 <http://media.readthedocs.org/htmlzip/redis/latest/redis.zip>`_ ， `Epub 格式 <http://media.readthedocs.org/epub/redis/latest/redis.epub>`_ ， `Manpage 格式 <http://media.readthedocs.org/man/redis/latest/redis.1>`_ ， PDF 格式(因为中文编码问题，暂不支持)。
 
 目录(使用 CTRL + F 快速查找)：
 ----------------------------------
@@ -88,6 +87,14 @@ Redis 命令参考
 |                                   |                                           |   - :doc:`server/sync`                |                                   |
 |                                   |                                           |                                       |                                   |
 +-----------------------------------+-------------------------------------------+---------------------------------------+-----------------------------------+
+
+下载离线版本
+------------------
+
+
+`HTML 格式 <http://media.readthedocs.org/htmlzip/redis/latest/redis.zip>`_ ， PDF 格式(因为中文编码问题，暂不支持)。
+
+注意，因为文档总是在不断地更新和修正当中，请定期下载最新的离线文档，确保获得最好的阅读体验。
 
 关于
 -------
