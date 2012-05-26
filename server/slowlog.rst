@@ -17,21 +17,21 @@ Slow log 是 Redis 用来记录查询执行时间的日志系统。
 
 Slow log 的行为由两个配置参数(configuration parameter)指定，可以通过改写 redis.conf 文件或者用 ``CONFIG GET`` 和 ``CONFIG SET`` 命令对它们动态地进行修改。
 
-第一个选项是 ``slowlog-log-slower-then`` ，它决定要对执行时间大于多少微秒(microsecond，1秒 = 1,000,000 微秒)的查询进行记录。
+第一个选项是 ``slowlog-log-slower-than`` ，它决定要对执行时间大于多少微秒(microsecond，1秒 = 1,000,000 微秒)的查询进行记录。
 
 比如执行以下命令将让 slow log 记录所有查询时间大于等于 100 微秒的查询：
 
-``CONFIG SET slowlog-log-slower-then 100`` ，
+``CONFIG SET slowlog-log-slower-than 100``
 
 而以下命令记录所有查询时间大于 1000 微秒的查询：
 
-``CONFIG SET slowlog-log-slower-then 1000`` 。
+``CONFIG SET slowlog-log-slower-than 1000``
 
 另一个选项是 ``slowlog-max-len`` ，它决定 slow log *最多*\ 能保存多少条日志， slow log 本身是一个 LIFO 队列，当队列大小超过 ``slowlog-max-len`` 时，最旧的一条日志将被删除，而最新的一条日志加入到 slow log ，以此类推。
 
 以下命令让 slow log 最多保存 1000 条日志：
 
-``CONFIG SET slowlog-max-len 1000`` 。
+``CONFIG SET slowlog-max-len 1000``
 
 使用 ``CONFIG GET`` 命令可以查询两个选项的当前值：
 
@@ -75,7 +75,7 @@ Slow log 的行为由两个配置参数(configuration parameter)指定，可以�
        3) (integer) 11
        4) 1) "CONFIG"
           2) "GET"
-          3) "slowlog-log-slower-then"
+          3) "slowlog-log-slower-than"
 
     # ...
 
