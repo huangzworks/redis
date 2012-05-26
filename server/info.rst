@@ -18,20 +18,21 @@ INFO
 
 ::
 
-    redis 127.0.0.1:6379> INFO
+    redis> INFO
     # Server
-    redis_version:2.5.3
-    redis_git_sha1:d0407c2d
+    redis_version:2.5.9
+    redis_git_sha1:473f3090
     redis_git_dirty:0
+    os:Linux 3.3.7-1-ARCH i686
     arch_bits:32
     multiplexing_api:epoll
-    gcc_version:4.6.3
-    process_id:11095
-    run_id:ef1f6b6c7392e52d6001eaf777acbe547d1192e2
+    gcc_version:4.7.0
+    process_id:8104
+    run_id:bc9e20c6f0aac67d0d396ab950940ae4d1479ad1
     tcp_port:6379
-    uptime_in_seconds:6
+    uptime_in_seconds:7
     uptime_in_days:0
-    lru_clock:1205426
+    lru_clock:1680564
 
     # Clients
     connected_clients:1
@@ -40,23 +41,28 @@ INFO
     blocked_clients:0
 
     # Memory
-    used_memory:331076
-    used_memory_human:323.32K
-    used_memory_rss:1568768
-    used_memory_peak:293424
-    used_memory_peak_human:286.55K
-    used_memory_lua:16384
-    mem_fragmentation_ratio:4.74
-    mem_allocator:jemalloc-2.2.5
+    used_memory:439304
+    used_memory_human:429.01K
+    used_memory_rss:13897728
+    used_memory_peak:401776
+    used_memory_peak_human:392.36K
+    used_memory_lua:20480
+    mem_fragmentation_ratio:31.64
+    mem_allocator:jemalloc-3.0.0
 
     # Persistence
     loading:0
+    rdb_changes_since_last_save:0
+    rdb_bgsave_in_progress:0
+    rdb_last_save_time:1338011402
+    rdb_last_bgsave_status:ok
+    rdb_last_bgsave_time_sec:-1
+    rdb_current_bgsave_time_sec:-1
     aof_enabled:0
-    changes_since_last_save:0
-    bgsave_in_progress:0
-    last_save_time:1333260015
-    last_bgsave_status:ok
-    bgrewriteaof_in_progress:0
+    aof_rewrite_in_progress:0
+    aof_rewrite_scheduled:0
+    aof_last_rewrite_time_sec:-1
+    aof_current_rewrite_time_sec:-1
 
     # Stats
     total_connections_received:1
@@ -76,10 +82,9 @@ INFO
     connected_slaves:0
 
     # CPU
-    used_cpu_sys:0.01
-    used_cpu_user:0.00
+    used_cpu_sys:0.03
+    used_cpu_user:0.01
     used_cpu_sys_children:0.00
     used_cpu_user_children:0.00
 
     # Keyspace
-    db0:keys=20,expires=0
