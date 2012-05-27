@@ -334,7 +334,7 @@ SORT
     redis> HMSET serial 1 23131283 2 23810573 222 502342349 59230 2435829758
     OK
 
-    # 我们希望以比较 serial 中的大小来作为排序 user_id 的方式
+    # 用 serial 中值的大小为根据，对 user_id 进行排序
 
     redis> SORT user_id BY *->serial
     1) "222"
