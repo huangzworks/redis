@@ -67,11 +67,11 @@ Redis 命令参考
 | - Script(脚本)                    | - Connection(连接)                        | - Server(服务器)                      |                                   |
 |                                   |                                           |                                       |                                   |
 |   - :doc:`script/eval`            |   - :doc:`connection/auth`                |   - :doc:`server/time`                |                                   |
-|   - :doc:`script/script_flush`    |   - :doc:`connection/ping`                |   - :doc:`server/dbsize`              |                                   |
+|   - :doc:`script/evalsha`         |   - :doc:`connection/ping`                |   - :doc:`server/dbsize`              |                                   |
 |   - :doc:`script/script_load`     |   - :doc:`connection/select`              |   - :doc:`server/bgrewriteaof`        |                                   |
 |   - :doc:`script/script_exists`   |   - :doc:`connection/echo`                |   - :doc:`server/bgsave`              |                                   |
 |   - :doc:`script/script_kill`     |   - :doc:`connection/quit`                |   - :doc:`server/save`                |                                   |
-|                                   |                                           |   - :doc:`server/lastsave`            |                                   |
+|   - :doc:`script/script_flush`    |                                           |   - :doc:`server/lastsave`            |                                   |
 |                                   |                                           |   - :doc:`server/slaveof`             |                                   |
 |                                   |                                           |   - :doc:`server/flushall`            |                                   |
 |                                   |                                           |   - :doc:`server/flushdb`             |                                   |
