@@ -71,5 +71,5 @@ ZRANGEBYSCORE
     3) "tom"
     4) "5000"
 
-    redis> ZRANGEBYSCORE salary (5000 400000            # 显示工资大于5000小于400000的成员
+    redis> ZRANGEBYSCORE salary (5000 400000            # 显示工资大于 5000 小于等于 400000 的成员
     1) "peter"
