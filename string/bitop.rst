@@ -23,7 +23,7 @@ BITOP
 
 当 `BITOP`_ 处理不同长度的字符串时，较短的那个字符串所缺少的部分会被看作 ``0`` 。
 
-空的 ``key`` 也被看作包含 ``0`` 的字符串序列。
+空的 ``key`` 也被看作是包含 ``0`` 的字符串序列。
 
 **可用版本：**
     >= 2.6.0
@@ -32,38 +32,38 @@ BITOP
     O(N)
 
 **返回值：**
-    保存到 ``destkey`` 的字符串的长度，和输入 ``key`` 中最长的字符串相等。
+    保存到 ``destkey`` 的字符串的长度，和输入 ``key`` 中最长的字符串长度相等。
 
 .. note:: `BITOP`_ 的复杂度为 O(N) ，当处理大型矩阵(matrix)或者进行大数据量的统计时，最好将任务指派到附属节点(slave)进行，避免阻塞主节点。
 
 ::
 
-    redis> SET bits-1 1111
-    OK
+    redis 127.0.0.1:6379> SETBIT bits-1 0 1                     # bits-1 = 1001
+    (integer) 0
 
-    redis> SET bits-2 1001
-    OK
+    redis 127.0.0.1:6379> SETBIT bits-1 3 1
+    (integer) 0
 
-    redis> BITOP AND and-bits bits-1 bits-2
-    (integer) 4
+    redis 127.0.0.1:6379> SETBIT bits-2 0 1                     # bits-2 = 1011
+    (integer) 0
 
-    redis> GET and-bits
-    "1001"
+    redis 127.0.0.1:6379> SETBIT bits-2 1 1
+    (integer) 0
 
-    redis> BITOP XOR xor-bits bits-1 bits-2
-    (integer) 4
+    redis 127.0.0.1:6379> SETBIT bits-2 3 1
+    (integer) 0
 
-    redis> GET xor-bits                         # 0110
-    "\x00\x01\x01\x00"
+    redis 127.0.0.1:6379> BITOP AND and-result bits-1 bits-2
+    (integer) 1
 
-    redis> BITOP NOT negation-bits bits-2
-    (integer) 4
+    redis 127.0.0.1:6379> GETBIT and-result 0                   # and-result = 1001
+    (integer) 1
 
-    redis> GET negation-bits                    # 0110
-    "\xce\xcf\xcf\xce"
+    redis 127.0.0.1:6379> GETBIT and-result 1
+    (integer) 0
 
+    redis 127.0.0.1:6379> GETBIT and-result 2
+    (integer) 0
 
-模式：使用位图实现实时矩阵运算
-----------------------------------
-
-请参见 :doc:`bitcount` 命令。
+    redis 127.0.0.1:6379> GETBIT and-result 3
+    (integer) 1

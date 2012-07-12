@@ -38,8 +38,8 @@ Redis 命令参考
 |   - :doc:`key/migrate`            |   - :doc:`string/incrbyfloat`             |                                       |                                   |
 |   - :doc:`key/dump`               |   - :doc:`string/setbit`                  |                                       |                                   |
 |   - :doc:`key/restore`            |   - :doc:`string/getbit`                  |                                       |                                   |
-|                                   |                                           |                                       |                                   |
-|                                   |                                           |                                       |                                   |
+|                                   |   - :doc:`string/bitop`                   |                                       |                                   |
+|                                   |   - :doc:`string/bitcount`                |                                       |                                   |
 |                                   |                                           |                                       |                                   |
 +-----------------------------------+-------------------------------------------+---------------------------------------+-----------------------------------+
 | |                                 | |                                         | |                                     | |                                 |
