@@ -128,8 +128,12 @@ Redis 使用单个 Lua 解释器去运行所有脚本，并且， Redis 也保�
     redis> eval "return redis.call('get', 'foo')" 0
     (error) ERR Error running script (call to f_282297a0228f48cd3fc6a55de6316f31422f5d17): ERR Operation against a key holding the wrong kind of value 
 
-和 ``redis.call()`` 不同， ``redis.pcall()`` 出错时并不引发(raise)错误，而是返回一个带 ``err`` 域的 Lua 表(table)，用于表示错误。
+和 ``redis.call()`` 不同， ``redis.pcall()`` 出错时并不引发(raise)错误，而是返回一个带 ``err`` 域的 Lua 表(table)，用于表示错误：
 
+::
+
+    redis 127.0.0.1:6379> EVAL "return redis.pcall('get', 'foo')" 0
+    (error) ERR Operation against a key holding the wrong kind of value
 
 带宽和 EVALSHA
 -------------------
