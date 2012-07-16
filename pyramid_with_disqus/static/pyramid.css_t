@@ -345,3 +345,7 @@ tt.xref {
     font-weight: normal;
     font-style: normal;
 }
+
+em {
+    font-style: normal;
+}
