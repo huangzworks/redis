@@ -27,7 +27,7 @@ Slow log 的行为由两个配置参数(configuration parameter)指定，可以�
 
 ``CONFIG SET slowlog-log-slower-than 1000``
 
-另一个选项是 ``slowlog-max-len`` ，它决定 slow log *最多*\ 能保存多少条日志， slow log 本身是一个 LIFO 队列，当队列大小超过 ``slowlog-max-len`` 时，最旧的一条日志将被删除，而最新的一条日志加入到 slow log ，以此类推。
+另一个选项是 ``slowlog-max-len`` ，它决定 slow log *最多*\ 能保存多少条日志， slow log 本身是一个 FIFO 队列，当队列大小超过 ``slowlog-max-len`` 时，最旧的一条日志将被删除，而最新的一条日志加入到 slow log ，以此类推。
 
 以下命令让 slow log 最多保存 1000 条日志：
 
