@@ -38,32 +38,32 @@ BITOP
 
 ::
 
-    redis 127.0.0.1:6379> SETBIT bits-1 0 1                     # bits-1 = 1001
+    redis> SETBIT bits-1 0 1        # bits-1 = 1001
     (integer) 0
 
-    redis 127.0.0.1:6379> SETBIT bits-1 3 1
+    redis> SETBIT bits-1 3 1
     (integer) 0
 
-    redis 127.0.0.1:6379> SETBIT bits-2 0 1                     # bits-2 = 1011
+    redis> SETBIT bits-2 0 1        # bits-2 = 1011
     (integer) 0
 
-    redis 127.0.0.1:6379> SETBIT bits-2 1 1
+    redis> SETBIT bits-2 1 1
     (integer) 0
 
-    redis 127.0.0.1:6379> SETBIT bits-2 3 1
+    redis> SETBIT bits-2 3 1
     (integer) 0
 
-    redis 127.0.0.1:6379> BITOP AND and-result bits-1 bits-2
+    redis> BITOP AND and-result bits-1 bits-2
     (integer) 1
 
-    redis 127.0.0.1:6379> GETBIT and-result 0                   # and-result = 1001
+    redis> GETBIT and-result 0      # and-result = 1001
     (integer) 1
 
-    redis 127.0.0.1:6379> GETBIT and-result 1
+    redis> GETBIT and-result 1
     (integer) 0
 
-    redis 127.0.0.1:6379> GETBIT and-result 2
+    redis> GETBIT and-result 2
     (integer) 0
 
-    redis 127.0.0.1:6379> GETBIT and-result 3
+    redis> GETBIT and-result 3
     (integer) 1
