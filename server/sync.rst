@@ -7,6 +7,8 @@ SYNC
 
 用于复制功能(replication)的内部命令。
 
+更多信息请参考 `Redis 官网的 Replication 章节 <http://redis.io/topics/replication>`_ 。
+
 **可用版本：**
     >= 1.0.0
 
