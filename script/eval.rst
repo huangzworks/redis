@@ -234,7 +234,7 @@ Redis 提供了以下几个 SCRIPT 命令，用于对脚本子系统(scripting s
     EOF
 
     r.del(:mylist)
-    puts r.eval(RandomPushScript,1,:mylist,10)
+    puts r.eval(RandomPushScript,[:mylist],[10,rand(2**32)])
 
 这个程序每次运行都会生成带有以下元素的列表：
 
