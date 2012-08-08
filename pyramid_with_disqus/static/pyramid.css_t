@@ -51,12 +51,12 @@ div.logo {
 }
 
 div.body {
+    width: 900px;
     background-color: #ffffff;
     color: #3E4349;
     padding: 0 30px 30px 30px;
     font-size: 1em;
     border: 2px solid #ddd;
-    border-right-style: none;
     overflow: auto;
 }
  
@@ -92,6 +92,7 @@ div.related a {
 }
 
 div.related ul {
+    width: 964px;
     padding-left: {{ theme_sidebarwidth|toint + 10 }}px;
 }
  
