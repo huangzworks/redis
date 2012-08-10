@@ -375,3 +375,12 @@ div.body div.section h1 + p {
 div.body div#redis.section h1 + p {
     font-size: 1em;
 }
+
+/*
+ * 让左侧边栏 fixed
+ */
+
+div.sphinxsidebarwrapper {
+    position: fixed;
+    width: 230px;
+}
