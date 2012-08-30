@@ -89,7 +89,7 @@ INCR
     ELSE
         value = INCR(ip)
         IF value == 1 THEN
-            EXPIRE(value,1)
+            EXPIRE(ip,1)
         END
         PERFORM_API_CALL()
     END
