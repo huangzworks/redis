@@ -64,15 +64,21 @@ INCR
     ts = CURRENT_UNIX_TIME()
     keyname = ip+":"+ts
     current = GET(keyname)
+
     IF current != NULL AND current > 10 THEN
         ERROR "too many requests per second"
-    ELSE
-        MULTI
-            INCR(keyname,1)
-            EXPIRE(keyname,10)
-        EXEC
-        PERFORM_API_CALL()
     END
+
+    IF current == NULL THEN
+        MULTI
+            INCR(keyname, 1)
+            EXPIRE(keyname, 1)
+        EXEC
+    ELSE
+        INCR(keyname, 1)
+    END
+
+    PERFORM_API_CALL()
 
 这个实现每秒钟为每个 IP 地址使用一个不同的计数器，并用 :ref:`EXPIRE` 命令设置生存时间(这样 Redis 就会负责自动删除过期的计数器)。
 
