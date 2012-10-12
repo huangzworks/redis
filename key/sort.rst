@@ -347,8 +347,8 @@ SORT
     # 用 serial 中值的大小为根据，对 user_id 进行排序
 
     redis> SORT user_id BY *->serial
-    1) "222"
-    2) "59230"
+    1) "59230"
+    2) "222"
     3) "2"
     4) "1"
 
