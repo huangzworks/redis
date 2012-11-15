@@ -3,9 +3,29 @@
 INFO
 ======
 
-**INFO**
+**INFO [section]**
 
-返回关于 Redis 服务器的各种信息和统计值。
+以一种易于解释（parse）且易于阅读的格式，返回关于 Redis 服务器的各种信息和统计数值。
+
+通过给定可选的参数 ``section`` ，可以让命令只返回某一部分的信息：
+
+- ``server`` : 一般 Redis 服务器信息
+- ``clients`` : 已连接客户端信息
+- ``memory`` : 内存信息
+- ``persistence`` : ``RDB`` 和 ``AOF`` 的相关信息
+- ``stats`` : 一般统计信息
+- ``replication`` : 主/从复制信息
+- ``cpu`` : CPU 计算量统计信息
+- ``commandstats`` : Redis 命令统计信息
+- ``cluster`` : Redis 集群信息
+- ``keyspace`` : 数据库相关的统计信息
+
+除上面给出的这些值以外，参数还可以是下面这两个：
+
+- ``all`` : 返回所有信息
+- ``default`` : 返回默认选择的信息
+
+当不带参数直接调用 `INFO`_ 命令时，使用 ``default`` 作为默认参数。
 
 **可用版本：**
     >= 1.0.0
