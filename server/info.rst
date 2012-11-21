@@ -43,9 +43,17 @@ INFO
     - ``mem_fragmentation_ratio`` : ``used_memory_rss`` 和 ``used_memory`` 之间的比率
     - ``mem_allocator`` : 在编译时指定的， Redis 所使用的内存分配器。可以是 libc 、 jemalloc 或者 tcmalloc 。
 
-    | 在理想情况下， ``used_memory_rss`` 的值应该稍微高于 ``used_memory`` 。
-    | 当 ``rss >> used`` ，且它们两者的值相差较大时，表示存在（内部或外部的）内存碎片。内存碎片的比率可以通过 ``mem_fragmentation_ratio`` 的值看出。
-    | 当 ``used >> rss`` 时，表示 Redis 有一部分内存被操作系统换出到交换空间了，在这种情况下，操作可能会产生明显的延迟。
+    | 在理想情况下， ``used_memory_rss`` 的值应该只比 ``used_memory`` 稍微高一点儿。
+    | 当 ``rss > used`` ，且两者的值相差较大时，表示存在（内部或外部的）内存碎片。
+    | 内存碎片的比率可以通过 ``mem_fragmentation_ratio`` 的值看出。
+    | 当 ``used > rss`` 时，表示 Redis 的部分内存被操作系统换出到交换空间了，在这种情况下，操作可能会产生明显的延迟。
+
+    Because Redis does not have control over how its allocations are mapped to memory pages, high ``used_memory_rss`` is often the result of a spike in memory usage.
+
+    | 当 Redis 释放内存时，分配器可能会，也可能不会，将内存返还给操作系统。
+    | 如果 Redis 释放了内存，却没有将内存返还给操作系统，那么 ``used_memory`` 的值可能和操作系统显示的 Redis 内存占用并不一致。
+    | 查看 ``used_memory_peak`` 的值可以验证这种情况是否发生。
+
 
 - ``persistence`` : ``RDB`` 和 ``AOF`` 的相关信息
 - ``stats`` : 一般统计信息
@@ -66,7 +74,7 @@ INFO
 
     不同版本的 Redis 可能对返回的一些域进行了增加或删减。
 
-    因此，一个健壮的客户端程序在对 ``INFO``_ 命令的输出进行分析时，应该能够跳过不认识的域，并且妥善地处理丢失不见的域。
+    因此，一个健壮的客户端程序在对 :ref:`info` 命令的输出进行分析时，应该能够跳过不认识的域，并且妥善地处理丢失不见的域。
 
 **可用版本：**
     >= 1.0.0
