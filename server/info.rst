@@ -34,12 +34,12 @@ INFO
 
 - ``memory`` : 内存信息，包含以下域：
 
-    - ``used_memory`` : 由 Redis 分配器分配的内存总量，以比特（byte）为单位
+    - ``used_memory`` : 由 Redis 分配器分配的内存总量，以字节（byte）为单位
     - ``used_memory_human`` : 以人类可读的格式返回 Redis 分配的内存总量
     - ``used_memory_rss`` : 从操作系统的角度，返回 Redis 已分配的内存总量（俗称常驻集大小）。这个值和 ``top`` 、 ``ps`` 等命令的输出一致。
-    - ``used_memory_peak`` : Redis 的内存消耗峰值（以比特为单位）
+    - ``used_memory_peak`` : Redis 的内存消耗峰值（以字节为单位）
     - ``used_memory_peak_human`` : 以人类可读的格式返回 Redis 的内存消耗峰值
-    - ``used_memory_lua`` : Lua 引擎所使用的内存大小（以比特为单位）
+    - ``used_memory_lua`` : Lua 引擎所使用的内存大小（以字节为单位）
     - ``mem_fragmentation_ratio`` : ``used_memory_rss`` 和 ``used_memory`` 之间的比率
     - ``mem_allocator`` : 在编译时指定的， Redis 所使用的内存分配器。可以是 libc 、 jemalloc 或者 tcmalloc 。
 
