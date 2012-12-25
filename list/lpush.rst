@@ -7,7 +7,8 @@ LPUSH
 
 将一个或多个值 ``value`` 插入到列表 ``key`` 的表头
 
-如果有多个 ``value`` 值，那么各个 ``value`` 值按从左到右的顺序依次插入到表头：比如对一个空列表 ``mylist`` 执行 ``LPUSH mylist a b c`` ，则结果列表为 ``c b a`` ，等同于执行执行命令 ``LPUSH mylist a`` 、 ``LPUSH mylist b`` 、 ``LPUSH mylist c`` 。
+如果有多个 ``value`` 值，那么各个 ``value`` 值按从左到右的顺序依次插入到表头：
+比如说，对空列表 ``mylist`` 执行命令 ``LPUSH mylist a b c`` ，列表的值将是 ``c b a`` ，这等同于原子性地执行 ``LPUSH mylist a`` 、 ``LPUSH mylist b`` 和 ``LPUSH mylist c`` 三个命令。
 
 如果 ``key`` 不存在，一个空列表会被创建并执行 `LPUSH`_ 操作。
 
