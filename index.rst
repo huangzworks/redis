@@ -63,34 +63,34 @@ Redis 命令参考
 |                                   |   - :doc:`sorted_set/zunionstore`         |                                       |                                   |
 |                                   |                                           |                                       |                                   |
 +-----------------------------------+-------------------------------------------+---------------------------------------+-----------------------------------+
-| |                                 | |                                         | |                                     |                                   |
-| - Script(脚本)                    | - Connection(连接)                        | - Server(服务器)                      |                                   |
-|                                   |                                           |                                       |                                   |
-|   - :doc:`script/eval`            |   - :doc:`connection/auth`                |   - :doc:`server/time`                |                                   |
-|   - :doc:`script/evalsha`         |   - :doc:`connection/ping`                |   - :doc:`server/dbsize`              |                                   |
-|   - :doc:`script/script_load`     |   - :doc:`connection/select`              |   - :doc:`server/bgrewriteaof`        |                                   |
-|   - :doc:`script/script_exists`   |   - :doc:`connection/echo`                |   - :doc:`server/bgsave`              |                                   |
-|   - :doc:`script/script_kill`     |   - :doc:`connection/quit`                |   - :doc:`server/save`                |                                   |
-|   - :doc:`script/script_flush`    |                                           |   - :doc:`server/lastsave`            |                                   |
-|                                   |                                           |   - :doc:`server/slaveof`             |                                   |
-|                                   |                                           |   - :doc:`server/flushall`            |                                   |
-|                                   |                                           |   - :doc:`server/flushdb`             |                                   |
-|                                   |                                           |   - :doc:`server/shutdown`            |                                   |
-|                                   |                                           |   - :doc:`server/slowlog`             |                                   |
-|                                   |                                           |   - :doc:`server/info`                |                                   |
-|                                   |                                           |   - :doc:`server/config_get`          |                                   |
-|                                   |                                           |   - :doc:`server/config_set`          |                                   |
-|                                   |                                           |   - :doc:`server/config_resetstat`    |                                   |
-|                                   |                                           |   - :doc:`server/debug_object`        |                                   |
-|                                   |                                           |   - :doc:`server/debug_segfault`      |                                   |
-|                                   |                                           |   - :doc:`server/monitor`             |                                   |
-|                                   |                                           |   - :doc:`server/sync`                |                                   |
-|                                   |                                           |   - :doc:`server/client_list`         |                                   |
-|                                   |                                           |   - :doc:`server/client_kill`         |                                   |
-|                                   |                                           |   - :doc:`server/client_setname`      |                                   |
-|                                   |                                           |   - :doc:`server/client_getname`      |                                   |
-|                                   |                                           |                                       |                                   |
-+-----------------------------------+-------------------------------------------+---------------------------------------+-----------------------------------+
+| |                                 | |                                         | |                                                                         |
+| - Script(脚本)                    | - Connection(连接)                        | - Server(服务器)                                                          |
+|                                   |                                           |                                                                           |
+|   - :doc:`script/eval`            |   - :doc:`connection/auth`                |   - :doc:`server/time`                                                    |
+|   - :doc:`script/evalsha`         |   - :doc:`connection/ping`                |   - :doc:`server/dbsize`                                                  |
+|   - :doc:`script/script_load`     |   - :doc:`connection/select`              |   - :doc:`server/bgrewriteaof`                                            |
+|   - :doc:`script/script_exists`   |   - :doc:`connection/echo`                |   - :doc:`server/bgsave`                                                  |
+|   - :doc:`script/script_kill`     |   - :doc:`connection/quit`                |   - :doc:`server/save`                                                    |
+|   - :doc:`script/script_flush`    |                                           |   - :doc:`server/lastsave`                                                |
+|                                   |                                           |   - :doc:`server/slaveof`                                                 |
+|                                   |                                           |   - :doc:`server/flushall`                                                |
+|                                   |                                           |   - :doc:`server/flushdb`                                                 |
+|                                   |                                           |   - :doc:`server/shutdown`                                                |
+|                                   |                                           |   - :doc:`server/slowlog`                                                 |
+|                                   |                                           |   - :doc:`server/info`                                                    |
+|                                   |                                           |   - :doc:`server/config_get`                                              |
+|                                   |                                           |   - :doc:`server/config_set`                                              |
+|                                   |                                           |   - :doc:`server/config_resetstat`                                        |
+|                                   |                                           |   - :doc:`server/debug_object`                                            |
+|                                   |                                           |   - :doc:`server/debug_segfault`                                          |
+|                                   |                                           |   - :doc:`server/monitor`                                                 |
+|                                   |                                           |   - :doc:`server/sync`                                                    |
+|                                   |                                           |   - :doc:`server/client_list`                                             |
+|                                   |                                           |   - :doc:`server/client_kill`                                             |
+|                                   |                                           |   - :doc:`server/client_setname`                                          |
+|                                   |                                           |   - :doc:`server/client_getname`                                          |
+|                                   |                                           |                                                                           |
++-----------------------------------+-------------------------------------------+---------------------------------------------------------------------------+
 
 下载离线版本
 ------------------
