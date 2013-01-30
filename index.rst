@@ -6,11 +6,11 @@
 Redis 命令参考
 =================
 
-本文是 Redis Command Reference(`redis.io/commands <http://redis.io/commands>`_)的简体中文翻译版，
+本文档是 `Redis Command Reference <http://redis.io/commands>`_ 的简体中文翻译版，
 原文十一个部分、共一百多个命令已经全部翻译完毕。
 
-本文所有示例代码均经过 Redis 2.6 版本测试，质量保证。
-
+所有示例代码均经过 Redis 2.8 版本测试，质量保证。
+（\ `查看 Redis 2.8 版本更新内容 <https://redis.readthedocs.org/en/latest/change_log.html#redis-2-8>`_\ ）
 
 目录(使用 CTRL + F 快速查找)：
 ----------------------------------
