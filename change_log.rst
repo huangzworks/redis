@@ -3,6 +3,12 @@
 更新日志(change log)
 =========================
 
+进行中(Redis 2.8)
+-------------------
+
+- 添加 :ref:`client_setname` 命令和 :ref:`client_getname` 命令： https://github.com/huangz1990/redis/commit/afa48927793574b73fb4329bdef4850980ee0e89 。 
+
+
 2012 年 4 月(Redis 2.6)
 --------------------------
 
