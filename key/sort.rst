@@ -10,27 +10,23 @@ SORT
 排序默认以数字作为对象，值被解释为双精度浮点数，然后进行比较。
 
 
-一般SORT用法
-------------------
+一般 SORT 用法
+---------------------
 
-最简单的 `SORT`_ 使用方法是 ``SORT key`` 。
+最简单的 `SORT`_ 使用方法是 ``SORT key`` 和 ``SORT key DESC`` ：
 
-假设 ``today_cost`` 是一个保存数字的列表， `SORT`_ 命令默认会返回该列表值的递增(从小到大)排序结果。
+- ``SORT key`` 返回键值从小到大排序的结果。
+
+- ``SORT key DESC`` 返回键值从大到小排序的结果。
+
+假设 ``today_cost`` 列表保存了今日的开销金额，
+那么可以用 `SORT`_ 命令对它进行排序：
 
 ::
 
-    # 将数据一一加入到列表中
+    # 开销金额列表
 
-    redis> LPUSH today_cost 30
-    (integer) 1
-
-    redis> LPUSH today_cost 1.5
-    (integer) 2
-
-    redis> LPUSH today_cost 10
-    (integer) 3
-
-    redis> LPUSH today_cost 8
+    redis> LPUSH today_cost 30 1.5 10 8
     (integer) 4
 
     # 排序
@@ -41,20 +37,36 @@ SORT
     3) "10"
     4) "30"
 
-当数据集中保存的是字符串值时，你可以用 ``ALPHA`` 修饰符(modifier)进行排序。
-   
+    # 逆序排序
+
+    redis 127.0.0.1:6379> SORT today_cost DESC
+    1) "30"
+    2) "10"
+    3) "8"
+    4) "1.5"
+
+
+使用 ALPHA 修饰符对字符串进行排序
+-------------------------------------
+
+因为 `SORT`_ 命令默认排序对象为数字，
+当需要对字符串进行排序时，
+需要显式地在 `SORT`_ 命令之后添加 ``ALPHA`` 修饰符：
+
 :: 
 
-    # 将数据一一加入到列表中
+    # 网址
 
     redis> LPUSH website "www.reddit.com"
     (integer) 1
+
     redis> LPUSH website "www.slashdot.com"
     (integer) 2
+
     redis> LPUSH website "www.infoq.com"
     (integer) 3
 
-    # 默认排序
+    # 默认（按数字）排序
 
     redis> SORT website
     1) "www.infoq.com"
@@ -68,293 +80,359 @@ SORT
     2) "www.reddit.com"
     3) "www.slashdot.com"
 
-如果你正确设置了 ``!LC_COLLATE`` 环境变量的话，Redis能识别 ``UTF-8`` 编码。
+如果系统正确地设置了 ``LC_COLLATE`` 环境变量的话，Redis能识别 ``UTF-8`` 编码。
 
-| 排序之后返回的元素数量可以通过 ``LIMIT`` 修饰符进行限制。
-|  ``LIMIT`` 修饰符接受两个参数： ``offset`` 和 ``count`` 。
-|  ``offset`` 指定要跳过的元素数量， ``count`` 指定跳过 ``offset`` 个指定的元素之后，要返回多少个对象。
+
+使用 LIMIT 修饰符限制返回结果
+---------------------------------
+
+排序之后返回元素的数量可以通过 ``LIMIT`` 修饰符进行限制，
+修饰符接受 ``offset`` 和 ``count`` 两个参数：
+
+- ``offset`` 指定要跳过的元素数量。
+- ``count`` 指定跳过 ``offset`` 个指定的元素之后，要返回多少个对象。
 
 以下例子返回排序结果的前 5 个对象( ``offset`` 为 ``0`` 表示没有元素被跳过)。
 
 ::
 
-    # 将数据一一加入到列表中
+    # 添加测试数据，列表值为 1 指 10
 
-    redis> LPUSH rank 30
-    (integer) 1
-    redis> LPUSH rank 56
-    (integer) 2
-    redis> LPUSH rank 42
-    (integer) 3
-    redis> LPUSH rank 22
-    (integer) 4
-    redis> LPUSH rank 0
+    redis 127.0.0.1:6379> RPUSH rank 1 3 5 7 9
     (integer) 5
-    redis> LPUSH rank 11
-    (integer) 6
-    redis> LPUSH rank 32
-    (integer) 7
-    redis> LPUSH rank 67
-    (integer) 8
-    redis> LPUSH rank 50
-    (integer) 9
-    redis> LPUSH rank 44
+
+    redis 127.0.0.1:6379> RPUSH rank 2 4 6 8 10
     (integer) 10
-    redis> LPUSH rank 55
-    (integer) 11
 
-    # 排序
+    # 返回列表中最小的 5 个值
 
-    redis> SORT rank LIMIT 0 5  # 返回排名前五的元素
-    1) "0"
-    2) "11"
-    3) "22"
-    4) "30"
-    5) "32"
+    redis 127.0.0.1:6379> SORT rank LIMIT 0 5
+    1) "1"
+    2) "2"
+    3) "3"
+    4) "4"
+    5) "5"
 
-修饰符可以组合使用。以下例子返回降序(从大到小)的前 5 个对象。
+可以组合使用多个修饰符。以下例子返回从大到小排序的前 5 个对象。
 
 :: 
 
-    redis> SORT rank LIMIT 0 5 DESC
-    1) "78"
-    2) "67"
-    3) "56"
-    4) "55"
-    5) "50"
-
+    redis 127.0.0.1:6379> SORT rank LIMIT 0 5 DESC
+    1) "10"
+    2) "9"
+    3) "8"
+    4) "7"
+    5) "6"
 
 使用外部 key 进行排序
 ---------------------------
 
-有时候你会希望使用外部的 ``key`` 作为权重来比较元素，代替默认的对比方法。
+可以使用外部 ``key`` 的数据作为权重，代替默认的直接对比键值的方式来进行排序。
 
-假设现在有用户(user)数据如下：
+假设现在有用户数据如下：
 
-    =====  ====== ======
-    id     name   level
-    =====  ====== ======
-    1      admin   9999
-    2      huangz  10   
-    59230  jack    3   
-    222    hacker  9999 
-    =====  ====== ======
+.. include:: _user_info_table.include
 
-|  ``id`` 数据保存在 ``key`` 名为 ``user_id`` 的列表中。
-|  ``name`` 数据保存在 ``key`` 名为 ``user_name_{id}`` 的列表中
-|  ``level`` 数据保存在 ``user_level_{id}`` 的 ``key`` 中。
+以下代码将数据输入到 Redis 中：
 
 ::
 
-    # 先将要使用的数据加入到数据库中
-
     # admin
 
-    redis> LPUSH user_id 1
+    redis 127.0.0.1:6379> LPUSH uid 1
     (integer) 1
-    redis> SET user_name_1 admin
-    OK
-    redis> SET user_level_1 9999
+
+    redis 127.0.0.1:6379> SET user_name_1 admin
     OK
 
-    # huangz
-
-    redis> LPUSH user_id 2
-    (integer) 2
-    redis> SET user_name_2 huangz
-    OK
-    redis> SET user_level_2 10
+    redis 127.0.0.1:6379> SET user_level_1 9999
     OK
 
     # jack
 
-    redis> LPUSH user_id 59230
+    redis 127.0.0.1:6379> LPUSH uid 2
+    (integer) 2
+
+    redis 127.0.0.1:6379> SET user_name_2 jack
+    OK
+
+    redis 127.0.0.1:6379> SET user_level_2 10
+    OK
+
+    # peter
+
+    redis 127.0.0.1:6379> LPUSH uid 3
     (integer) 3
-    redis> SET user_name_59230 jack
-    OK
-    redis> SET user_level_59230 3
+
+    redis 127.0.0.1:6379> SET user_name_3 peter
     OK
 
-    # hacker
+    redis 127.0.0.1:6379> SET user_level_3 25
+    OK
 
-    redis> LPUSH user_id 222
+    # mary
+
+    redis 127.0.0.1:6379> LPUSH uid 4
     (integer) 4
-    redis> SET user_name_222 hacker
-    OK
-    redis> SET user_level_222 9999
+
+    redis 127.0.0.1:6379> SET user_name_4 mary
     OK
 
-如果希望按 ``level`` 从大到小排序 ``user_id`` ，可以使用以下命令：
+    redis 127.0.0.1:6379> SET user_level_4 70
+    OK
+
+BY 选项
+^^^^^^^^^^^
+
+默认情况下， ``SORT uid`` 直接按 ``uid`` 中的值排序：
 
 ::
 
-    redis> SORT user_id BY user_level_* DESC
-    1) "222"    # hacker
-    2) "1"      # admin
-    3) "2"      # huangz    
-    4) "59230"  # jack
+    redis 127.0.0.1:6379> SORT uid
+    1) "1"      # admin 
+    2) "2"      # jack
+    3) "3"      # peter
+    4) "4"      # mary
 
-但是有时候只是返回相应的 ``id`` 没有什么用，你可能更希望排序后返回 ``id`` 对应的用户名，这样更友好一点，使用 ``GET`` 选项可以做到这一点：
+通过使用 ``BY`` 选项，可以让 ``uid`` 按其他键的元素来排序。
+
+比如说，
+以下代码让 ``uid`` 键按照 ``user_level_{uid}`` 的大小来排序：
 
 ::
 
-    redis> SORT user_id BY user_level_* DESC GET user_name_*
-    1) "hacker"
-    2) "admin"
-    3) "huangz"
+    redis 127.0.0.1:6379> SORT uid BY user_level_*
+    1) "2"      # jack , level = 10 
+    2) "3"      # peter, level = 25
+    3) "4"      # mary, level = 70
+    4) "1"      # admin, level = 9999
+
+``user_level_*`` 是一个占位符，
+它先取出 ``uid`` 中的值，
+然后再用这个值来查找相应的键。
+
+比如在对 ``uid`` 列表进行排序时，
+程序就会先取出 ``uid`` 的值 ``1`` 、 ``2`` 、 ``3`` 、 ``4`` ，
+然后使用 ``user_level_1`` 、 ``user_level_2`` 、 ``user_level_3`` 和 ``user_level_4`` 的值作为排序 ``uid`` 的权重。
+
+GET 选项
+^^^^^^^^^^^
+
+使用 ``GET`` 选项，
+可以根据排序的结果来取出相应的键值。
+
+比如说，
+以下代码先排序 ``uid`` ，
+再取出键 ``user_name_{uid}`` 的值：
+
+::
+
+    redis 127.0.0.1:6379> SORT uid GET user_name_*
+    1) "admin"
+    2) "jack"
+    3) "peter"
+    4) "mary"
+
+组合使用 BY 和 GET
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+通过组合使用 ``BY`` 和 ``GET`` ，
+可以让排序结果以更直观的方式显示出来。
+
+比如说，
+以下代码先按 ``user_level_{uid}`` 来排序 ``uid`` 列表，
+再取出相应的 ``user_name_{uid}`` 的值：
+
+::
+
+    redis 127.0.0.1:6379> SORT uid BY user_level_* GET user_name_*
+    1) "jack"       # level = 10
+    2) "peter"      # level = 25
+    3) "mary"       # level = 70
+    4) "admin"      # level = 9999
+
+现在的排序结果要比只使用 ``SORT uid BY user_level_*`` 要直观得多。
+
+获取多个外部键
+^^^^^^^^^^^^^^^^^
+
+可以同时使用多个 ``GET`` 选项，
+获取多个外部键的值。
+
+以下代码就按 ``uid`` 分别获取 ``user_level_{uid}`` 和 ``user_name_{uid}`` ：
+
+::
+
+    redis 127.0.0.1:6379> SORT uid GET user_level_* GET user_name_*
+    1) "9999"       # level
+    2) "admin"      # name
+    3) "10"
     4) "jack"
+    5) "25"
+    6) "peter"
+    7) "70"
+    8) "mary"
 
-可以多次地、有序地使用 ``GET`` 操作来获取更多外部 ``key`` 。
+``GET`` 有一个额外的参数规则，那就是 —— 可以用 ``#`` 获取被排序键的值。
 
-比如你不但希望获取用户名，还希望连用户的密码也一并列出，可以使用以下命令：
-
-::
-
-    # 先添加一些测试数据
-
-    redis> SET user_password_222 "hey,im in"
-    OK
-    redis> SET user_password_1 "a_long_long_password"
-    OK
-    redis> SET user_password_2 "nobodyknows"
-    OK
-    redis> SET user_password_59230 "jack201022"
-    OK
-
-    # 获取name和password
-
-    redis> SORT user_id BY user_level_* DESC GET user_name_* GET user_password_*
-    1) "hacker"       # 用户名
-    2) "hey,im in"    # 密码
-    3) "jack"
-    4) "jack201022"
-    5) "huangz"
-    6) "nobodyknows"
-    7) "admin"
-    8) "a_long_long_password"
-
-    # 注意GET操作是有序的，GET user_name_* GET user_password_* 和 GET user_password_* GET user_name_*返回的结果位置不同
-
-    redis> SORT user_id BY user_level_* DESC GET user_password_* GET user_name_*
-    1) "hey,im in"    # 密码
-    2) "hacker"       # 用户名
-    3) "jack201022"
-    4) "jack"
-    5) "nobodyknows"
-    6) "huangz"
-    7) "a_long_long_password"
-    8) "admin"
-
-``GET`` 还有一个特殊的规则—— ``"GET #"`` ，用于获取被排序对象(我们这里的例子是 ``user_id`` )的当前元素。
-
-比如你希望 ``user_id`` 按 ``level`` 排序，还要列出 ``id`` 、 ``name`` 和 ``password`` ，可以使用以下命令：
+以下代码就将 ``uid`` 的值、及其相应的 ``user_level_*`` 和 ``user_name_*`` 都返回为结果：
 
 ::
 
-    redis> SORT user_id BY user_level_* DESC GET # GET user_name_* GET user_password_*
-    1) "222"          # id
-    2) "hacker"       # name
-    3) "hey,im in"    # password
+    redis 127.0.0.1:6379> SORT uid GET # GET user_level_* GET user_name_*
+    1) "1"          # uid
+    2) "9999"       # level
+    3) "admin"      # name
+    4) "2"
+    5) "10"
+    6) "jack"
+    7) "3"
+    8) "25"
+    9) "peter"
+    10) "4"
+    11) "70"
+    12) "mary"
+
+获取外部键，但不进行排序
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+通过将一个不存在的键作为参数传给 ``BY`` 选项，
+可以让 ``SORT`` 跳过排序操作，
+直接返回结果：
+
+::
+
+    redis 127.0.0.1:6379> SORT uid BY not-exists-key
+    1) "4"
+    2) "3"
+    3) "2"
     4) "1"
-    5) "admin"
-    6) "a_long_long_password"
-    7) "2"
-    8) "huangz"
-    9) "nobodyknows"
-    10) "59230"
-    11) "jack"
-    12) "jack201022"
 
+这种用法在单独使用时，没什么实际用处。
 
-只获取对象而不排序
-----------------------
-    
-``BY`` 修饰符可以将一个不存在的 ``key`` 当作权重，让 `SORT`_ 跳过排序操作。
+不过，通过将这种用法和 ``GET`` 选项配合，
+就可以在不排序的情况下，
+获取多个外部键，
+相当于执行一个整合的获取操作（类似于 SQL 数据库的 ``join`` 关键字）。
 
-该方法用于你希望获取外部对象而又不希望引起排序开销时使用。
+以下代码演示了，如何在不引起排序的情况下，使用 ``SORT`` 、 ``BY`` 和 ``GET`` 获取多个外部键：
 
 ::
 
-    # 确保fake_key不存在
-
-    redis> EXISTS fake_key
-    (integer) 0
-
-    # 以fake_key作BY参数，不排序，只GET name 和 GET password
-
-    redis> SORT user_id BY fake_key GET # GET user_name_* GET user_password_*
-    1) "222"        # id
-    2) "hacker"     # user_name
-    3) "hey,im in"  # password
-    4) "59230"
-    5) "jack"
-    6) "jack201022"
+    redis 127.0.0.1:6379> SORT uid BY not-exists-key GET # GET user_level_* GET user_name_*
+    1) "4"      # id
+    2) "70"     # level
+    3) "mary"   # name
+    4) "3"
+    5) "25"
+    6) "peter"
     7) "2"
-    8) "huangz"
-    9) "nobodyknows"
+    8) "10"
+    9) "jack"
     10) "1"
-    11) "admin"
-    12) "a_long_long_password"
+    11) "9999"
+    12) "admin"
+
+将哈希表作为 GET 或 BY 的参数
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+除了可以将字符串键之外，
+哈希表也可以作为 ``GET`` 或 ``BY`` 选项的参数来使用。
+
+比如说，对于前面给出的用户信息表：
+
+.. include:: _user_info_table.include
+
+我们可以不将用户的名字和级别保存在 ``user_name_{uid}`` 和 ``user_level_{uid}`` 两个字符串键中，
+而是用一个带有 ``name`` 域和 ``level`` 域的哈希表 ``user_info_{uid}`` 来保存用户的名字和级别信息：
+
+::
+
+    redis 127.0.0.1:6379> HMSET user_info_1 name admin level 9999
+    OK
+
+    redis 127.0.0.1:6379> HMSET user_info_2 name jack level 10
+    OK
+
+    redis 127.0.0.1:6379> HMSET user_info_3 name peter level 25
+    OK
+
+    redis 127.0.0.1:6379> HMSET user_info_4 name mary level 70
+    OK
+
+之后， ``BY`` 和 ``GET`` 选项都可以用 ``key->field`` 的格式来获取哈希表中的域的值，
+其中 ``key`` 表示哈希表键，
+而 ``field`` 则表示哈希表的域：
+
+::
+
+    redis 127.0.0.1:6379> SORT uid BY user_info_*->level
+    1) "2"
+    2) "3"
+    3) "4"
+    4) "1"
+
+    redis 127.0.0.1:6379> SORT uid BY user_info_*->level GET user_info_*->name
+    1) "jack"
+    2) "peter"
+    3) "mary"
+    4) "admin"
 
 
 保存排序结果
 ----------------
 
-默认情况下， `SORT`_ 操作只是简单地返回排序结果，如果你希望保存排序结果，可以给 ``STORE`` 选项指定一个 ``key`` 作为参数，排序结果将以列表的形式被保存到这个 ``key`` 上。(若指定 ``key`` 已存在，则覆盖。)
+默认情况下， `SORT`_ 操作只是简单地返回排序结果，并不进行任何保存操作。
+
+通过给 ``STORE`` 选项指定一个 ``key`` 参数，可以将排序结果保存到给定的键上。
+
+如果被指定的 ``key`` 已存在，那么原有的值将被排序结果覆盖。
 
 ::
 
-    redis> EXISTS user_info_sorted_by_level  # 确保指定key不存在
-    (integer) 0
+    # 测试数据
 
-    redis> SORT user_id BY user_level_* GET # GET user_name_* GET user_password_* STORE user_info_sorted_by_level    # 排序
-    (integer) 12  # 显示有12条结果被保存了
+    redis 127.0.0.1:6379> RPUSH numbers 1 3 5 7 9
+    (integer) 5
 
-    redis> LRANGE user_info_sorted_by_level 0 11  # 查看排序结果
-    1) "59230"
-    2) "jack"
-    3) "jack201022"
-    4) "2"
-    5) "huangz"
-    6) "nobodyknows"
-    7) "222"
-    8) "hacker"
-    9) "hey,im in"
-    10) "1"
-    11) "admin"
-    12) "a_long_long_password"
+    redis 127.0.0.1:6379> RPUSH numbers 2 4 6 8 10
+    (integer) 10
 
-一个有趣的用法是将 `SORT`_ 结果保存，用 :ref:`EXPIRE` 为结果集设置生存时间，这样结果集就成了 `SORT`_ 操作的一个缓存。
+    redis 127.0.0.1:6379> LRANGE numbers 0 -1
+    1) "1"
+    2) "3"
+    3) "5"
+    4) "7"
+    5) "9"
+    6) "2"
+    7) "4"
+    8) "6"
+    9) "8"
+    10) "10"
+    
+    redis 127.0.0.1:6379> SORT numbers STORE sorted-numbers
+    (integer) 10
 
-这样就不必频繁地调用 `SORT`_ 操作了，只有当结果集过期时，才需要再调用一次 `SORT`_ 操作。
+    # 排序后的结果
 
-有时候为了正确实现这一用法，你可能需要加锁以避免多个客户端同时进行缓存重建(也就是多个客户端，同一时间进行 `SORT`_ 操作，并保存为结果集)，具体参见 :ref:`setnx` 命令。
+    redis 127.0.0.1:6379> LRANGE sorted-numbers 0 -1
+    1) "1"
+    2) "2"
+    3) "3"
+    4) "4"
+    5) "5"
+    6) "6"
+    7) "7"
+    8) "8"
+    9) "9"
+    10) "10"
 
+可以通过将 `SORT`_ 命令的执行结果保存，并用 :ref:`EXPIRE` 为结果设置生存时间，以此来产生一个 `SORT`_ 操作的结果缓存。
 
-在GET和BY中使用哈希表
-------------------------
+这样就可以避免对 `SORT`_ 操作的频繁调用：只有当结果集过期时，才需要再调用一次 `SORT`_ 操作。
 
-可以使用哈希表特有的语法，在 `SORT`_ 命令中进行 ``GET`` 和 ``BY`` 操作。
+另外，为了正确实现这一用法，你可能需要加锁以避免多个客户端同时进行缓存重建(也就是多个客户端，同一时间进行 `SORT`_ 操作，并保存为结果集)，具体参见 :ref:`setnx` 命令。
 
-::
-
-    # 假设现在我们的用户表新增了一个 serial 项来为作为每个用户的序列号
-    # 序列号以哈希表的形式保存在 serial 哈希域内。
-
-    redis> HMSET serial 1 23131283 2 23810573 222 502342349 59230 2435829758
-    OK
-
-    # 用 serial 中值的大小为根据，对 user_id 进行排序
-
-    redis> SORT user_id BY *->serial
-    1) "59230"
-    2) "222"
-    3) "2"
-    4) "1"
-
-符号 ``"->"`` 用于分割哈希表的键名(key name)和索引域(hash field)，格式为 ``"key->field"`` 。
-
-除此之外，哈希表的 ``BY`` 和 ``GET`` 操作和上面介绍的其他数据结构(列表、集合、有序集合)没有什么不同。
 
 **可用版本：**
     >= 1.0.0
