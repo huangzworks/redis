@@ -351,14 +351,6 @@ em {
     font-style: normal;
 }
 
-/*
- * 隐藏除主页外的所有 h1 大标题
- */
-
-div.body div.section h1 {
-    display: none;
-}
-
 div.body div#redis.section h1 {
     display: block;
 }
