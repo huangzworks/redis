@@ -173,8 +173,21 @@ SET
 
 可以通过以下修改，让这个锁实现更健壮：
 
-- 不是生成一个随机字符串作为键的值，而是设置一个不可猜测（non-guessable）的长随机字符串作为键的值。
+- 不使用固定的字符串作为键的值，而是设置一个不可猜测（non-guessable）的长随机字符串，作为口令串（token）。
 
-- 不是使用 :ref:`DEL` 命令来释放锁，而是发送一个 Lua 脚本，这个脚本只在客户端传入的值和字符串的值相匹配时，才对键进行删除。
+- 不使用 :ref:`DEL` 命令来释放锁，而是发送一个 Lua 脚本，这个脚本只在客户端传入的值和键的口令串相匹配时，才对键进行删除。
 
 这两个改动可以防止持有过期锁的客户端误删现有锁的情况出现。
+
+以下是一个简单的解锁脚本示例：
+
+.. code-block:: lua
+
+    if redis.call("get",KEYS[1]) == ARGV[1]
+    then
+        return redis.call("del",KEYS[1])
+    else
+        return 0
+    end
+
+这个脚本可以通过 ``EVAL ...script... 1 resource-name token-value`` 命令来调用。
