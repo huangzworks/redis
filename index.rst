@@ -112,4 +112,9 @@ Redis 命令参考
 关于
 -------
 
-查看最新工作进度、加入本项目或联系译者，请阅读\ :doc:`readme`\ 页面。
+本文档由 `huangz <http://huangz.me>`_ 翻译，版权归 Redis 官方所有。
+
+关注 `文档的 github 项目 <https://github.com/huangz1990/redis>`_ 可以随时追踪文档的最新更新，
+而 :doc:`change_log` 则记录了文档各个版本的主要更新信息。
+
+有任何问题、意见或建议，可以在文档配套的 disqus 论坛里留言，或者直接联系译者。
