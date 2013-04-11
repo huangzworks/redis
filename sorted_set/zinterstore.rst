@@ -12,7 +12,7 @@ ZINTERSTORE
 关于 ``WEIGHTS`` 和 ``AGGREGATE`` 选项的描述，参见 :ref:`ZUNIONSTORE` 命令。
 
 **可用版本：**
-    2.0.0
+    >= 2.0.0
 
 **时间复杂度:**
     O(N*K)+O(M*log(M))， ``N`` 为给定 ``key`` 中基数最小的有序集， ``K`` 为给定有序集的数量， ``M`` 为结果集的基数。
@@ -39,7 +39,7 @@ ZINTERSTORE
     redis > ZINTERSTORE sum_point 2 mid_test fin_test
     (integer) 3
 
-    redis > ZRANGE sum_point 0 -1 WITHSCORES     # 显式有序集内所有成员及其 score 值
+    redis > ZRANGE sum_point 0 -1 WITHSCORES     # 显示有序集内所有成员及其 score 值
     1) "Han Meimei"
     2) "145"
     3) "Li Lei"
