@@ -98,7 +98,11 @@ Redis 命令参考
 
 以下文章翻译自 `redis.io/documentation <http://redis.io/documentation>`_ 页面中的文档。
 
-- :doc:`topic/protocol`
+.. toctree::
+   :maxdepth: 2
+
+   topic/protocol
+   topic/notification
    
 
 下载离线版本
