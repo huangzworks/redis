@@ -104,6 +104,7 @@ Redis 命令参考
    topic/protocol
    topic/notification
    topic/transaction
+   topic/persistence
    
 
 下载离线版本
