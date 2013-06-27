@@ -50,7 +50,7 @@ Redis 命令参考
 |   - :doc:`set/smembers`           |   - :doc:`sorted_set/zcard`               |   - :doc:`pub_sub/psubscribe`         |   - :doc:`transaction/multi`      |
 |   - :doc:`set/sismember`          |   - :doc:`sorted_set/zcount`              |   - :doc:`pub_sub/unsubscribe`        |   - :doc:`transaction/discard`    | 
 |   - :doc:`set/scard`              |   - :doc:`sorted_set/zscore`              |   - :doc:`pub_sub/punsubscribe`       |   - :doc:`transaction/exec`       |
-|   - :doc:`set/smove`              |   - :doc:`sorted_set/zincrby`             |                                       |                                   |
+|   - :doc:`set/smove`              |   - :doc:`sorted_set/zincrby`             |   - :doc:`pub_sub/pubsub`             |                                   |
 |   - :doc:`set/spop`               |   - :doc:`sorted_set/zrange`              |                                       |                                   |
 |   - :doc:`set/srandmember`        |   - :doc:`sorted_set/zrevrange`           |                                       |                                   |
 |   - :doc:`set/sinter`             |   - :doc:`sorted_set/zrangebyscore`       |                                       |                                   |
