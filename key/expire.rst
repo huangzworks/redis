@@ -7,7 +7,7 @@ EXPIRE
 
 为给定 ``key`` 设置生存时间，当 ``key`` 过期时(生存时间为 ``0`` )，它会被自动删除。
 
-在 Redis 中，带有生存时间的 ``key`` 被称为『可挥发』(volatile)的。
+在 Redis 中，带有生存时间的 ``key`` 被称为『易失的』(volatile)。
 
 生存时间可以通过使用 :ref:`DEL` 命令来删除整个 ``key`` 来移除，或者被 :ref:`SET` 和 :ref:`GETSET` 命令覆写(overwrite)，这意味着，如果一个命令只是修改(alter)一个带生存时间的 ``key`` 的值而不是用一个新的 ``key`` 值来代替(replace)它的话，那么生存时间不会被改变。
 
@@ -17,7 +17,7 @@ EXPIRE
 
 :doc:`rename` 命令的另一种可能是，尝试将一个带生存时间的 ``key`` 改名成另一个带生存时间的 ``another_key`` ，这时旧的 ``another_key`` (以及它的生存时间)会被删除，然后旧的 ``key`` 会改名为 ``another_key`` ，因此，新的 ``another_key`` 的生存时间也和原本的 ``key`` 一样。
 
-使用 :doc:`persist` 命令可以在不删除 ``key`` 的情况下，移除 ``key`` 的生存时间，让 ``key`` 重新成为一个『持久化』(persistent) ``key`` 。
+使用 :doc:`persist` 命令可以在不删除 ``key`` 的情况下，移除 ``key`` 的生存时间，让 ``key`` 重新成为一个『持久的』(persistent) ``key`` 。
 
 **更新生存时间**
 
