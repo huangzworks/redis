@@ -3,7 +3,7 @@
 MIGRATE
 ============
 
-**MIGRATE host port key destination-db timeout**
+**MIGRATE host port key destination-db timeout [COPY] [REPLACE]**
 
 将 ``key`` 原子性地从当前实例传送到目标实例的指定数据库上，一旦传送成功， ``key`` 保证会出现在目标实例上，而当前实例上的 ``key`` 会被删除。 
 
@@ -23,6 +23,12 @@ MIGRATE
 唯一不可能发生的情况就是丢失 ``key`` ，因此，如果一个客户端执行 `MIGRATE`_ 命令，并且不幸遇上 ``IOERR`` 错误，那么这个客户端唯一要做的就是检查自己数据库上的 ``key`` 是否已经被正确地删除。
 
 如果有其他错误发生，那么 `MIGRATE`_  保证 ``key`` 只会出现在当前实例中。（当然，目标实例的给定数据库上可能有和 ``key`` 同名的键，不过这和 `MIGRATE`_ 命令没有关系）。
+
+**可选项：**
+
+- ``COPY`` ：不移除源实例上的 ``key`` 。
+
+- ``REPLACE`` ：替换目标实例上已存在的 ``key`` 。
 
 **可用版本：**
     >= 2.6.0
