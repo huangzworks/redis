@@ -80,6 +80,7 @@ Redis 命令参考
 |                                   |                                           |   - :doc:`server/info`                                                    |
 |                                   |                                           |   - :doc:`server/config_get`                                              |
 |                                   |                                           |   - :doc:`server/config_set`                                              |
+|                                   |                                           |   - :doc:`server/config_rewrite`                                          |
 |                                   |                                           |   - :doc:`server/config_resetstat`                                        |
 |                                   |                                           |   - :doc:`server/debug_object`                                            |
 |                                   |                                           |   - :doc:`server/debug_segfault`                                          |
