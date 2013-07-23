@@ -86,6 +86,7 @@ Redis 命令参考
 |                                   |                                           |   - :doc:`server/debug_segfault`                                          |
 |                                   |                                           |   - :doc:`server/monitor`                                                 |
 |                                   |                                           |   - :doc:`server/sync`                                                    |
+|                                   |                                           |   - :doc:`server/psync`                                                   |
 |                                   |                                           |   - :doc:`server/client_list`                                             |
 |                                   |                                           |   - :doc:`server/client_kill`                                             |
 |                                   |                                           |   - :doc:`server/client_setname`                                          |
