@@ -1,3 +1,5 @@
+.. _replication_topic:
+
 复制（Replication）
 =======================
 
