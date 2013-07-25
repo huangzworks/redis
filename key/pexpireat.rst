@@ -3,7 +3,7 @@
 PEXPIREAT
 ============
 
-**key milliseconds timestamp**
+**PEXPIREAT key milliseconds-timestamp**
 
 这个命令和 :doc:`expireat` 命令类似，但它以毫秒为单位设置 ``key`` 的过期 unix 时间戳，而不是像 :doc:`expireat` 那样，以秒为单位。
 
