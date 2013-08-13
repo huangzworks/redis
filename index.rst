@@ -95,29 +95,31 @@ Redis 命令参考
 +-----------------------------------+-------------------------------------------+---------------------------------------------------------------------------+
 
 
-议题文档(topics)
+文档
 -------------------
 
-以下文章翻译自 `redis.io/documentation <http://redis.io/documentation>`_ 页面中的文档。
+以下文章翻译自 `redis.io/documentation <http://redis.io/documentation>`_ 文档。
 
-.. toctree::
-   :maxdepth: 2
++-----------------------+-----------------------+-----------------------+
+| .. toctree::          | .. toctree::          | .. toctree::          |
+|    :maxdepth: 2       |    :maxdepth: 2       |    :maxdepth: 2       |
+|                       |                       |                       |
+|    topic/notification |    topic/transaction  |    topic/pubsub       |
++-----------------------+-----------------------+-----------------------+
+| .. toctree::          | .. toctree::          | .. toctree::          |
+|    :maxdepth: 2       |    :maxdepth: 2       |    :maxdepth: 2       |
+|                       |                       |                       |
+|    topic/replication  |    topic/protocol     |    topic/persistence  |
++-----------------------+-----------------------+-----------------------+
 
-   topic/protocol
-   topic/notification
-   topic/transaction
-   topic/persistence
-   topic/pubsub
-   topic/replication
-   
 
 下载离线版本
 ------------------
 
+下载： `HTML 格式 <http://media.readthedocs.org/htmlzip/redis/latest/redis.zip>`_
 
-`HTML 格式 <http://media.readthedocs.org/htmlzip/redis/latest/redis.zip>`_ ， PDF 格式(因为中文编码问题，暂不支持)。
+注意，因为文档总是在不断地更新和修正当中，请定期下载最新的离线文档，确保文档的有效性。
 
-注意，因为文档总是在不断地更新和修正当中，请定期下载最新的离线文档，确保获得最好的阅读体验。
 
 关于
 -------
