@@ -12,87 +12,26 @@ Redis 命令参考
 所有示例代码均经过 Redis 2.8 版本测试，质量保证。
 （\ `查看 Redis 2.8 版本更新内容 <https://redis.readthedocs.org/en/latest/change_log.html#redis-2-8>`_\ ）
 
+
 命令目录(使用 CTRL + F 快速查找)：
 --------------------------------------
 
-+-----------------------------------+-------------------------------------------+---------------------------------------+-----------------------------------+
-| - Key(键)                         | - String(字符串)                          | - Hash(哈希表)                        | - List(列表)                      |
-|                                   |                                           |                                       |                                   |
-|   - :doc:`key/del`                |   - :doc:`string/set`                     |   - :doc:`hash/hset`                  |   - :doc:`list/lpush`             |
-|   - :doc:`key/keys`               |   - :doc:`string/setnx`                   |   - :doc:`hash/hsetnx`                |   - :doc:`list/lpushx`            |
-|   - :doc:`key/randomkey`          |   - :doc:`string/setex`                   |   - :doc:`hash/hmset`                 |   - :doc:`list/rpush`             |
-|   - :doc:`key/ttl`                |   - :doc:`string/psetex`                  |   - :doc:`hash/hget`                  |   - :doc:`list/rpushx`            |
-|   - :doc:`key/pttl`               |   - :doc:`string/setrange`                |   - :doc:`hash/hmget`                 |   - :doc:`list/lpop`              |
-|   - :doc:`key/exists`             |   - :doc:`string/mset`                    |   - :doc:`hash/hgetall`               |   - :doc:`list/rpop`              |
-|   - :doc:`key/move`               |   - :doc:`string/msetnx`                  |   - :doc:`hash/hdel`                  |   - :doc:`list/blpop`             |
-|   - :doc:`key/rename`             |   - :doc:`string/append`                  |   - :doc:`hash/hlen`                  |   - :doc:`list/brpop`             |
-|   - :doc:`key/renamenx`           |   - :doc:`string/get`                     |   - :doc:`hash/hexists`               |   - :doc:`list/llen`              |
-|   - :doc:`key/type`               |   - :doc:`string/mget`                    |   - :doc:`hash/hincrby`               |   - :doc:`list/lrange`            |
-|   - :doc:`key/expire`             |   - :doc:`string/getrange`                |   - :doc:`hash/hincrbyfloat`          |   - :doc:`list/lrem`              |
-|   - :doc:`key/pexpire`            |   - :doc:`string/getset`                  |   - :doc:`hash/hkeys`                 |   - :doc:`list/lset`              |
-|   - :doc:`key/expireat`           |   - :doc:`string/strlen`                  |   - :doc:`hash/hvals`                 |   - :doc:`list/ltrim`             |
-|   - :doc:`key/pexpireat`          |   - :doc:`string/decr`                    |                                       |   - :doc:`list/lindex`            |
-|   - :doc:`key/persist`            |   - :doc:`string/decrby`                  |                                       |   - :doc:`list/linsert`           |
-|   - :doc:`key/sort`               |   - :doc:`string/incr`                    |                                       |   - :doc:`list/rpoplpush`         |
-|   - :doc:`key/object`             |   - :doc:`string/incrby`                  |                                       |   - :doc:`list/brpoplpush`        |
-|   - :doc:`key/migrate`            |   - :doc:`string/incrbyfloat`             |                                       |                                   |
-|   - :doc:`key/dump`               |   - :doc:`string/setbit`                  |                                       |                                   |
-|   - :doc:`key/restore`            |   - :doc:`string/getbit`                  |                                       |                                   |
-|                                   |   - :doc:`string/bitop`                   |                                       |                                   |
-|                                   |   - :doc:`string/bitcount`                |                                       |                                   |
-|                                   |                                           |                                       |                                   |
-+-----------------------------------+-------------------------------------------+---------------------------------------+-----------------------------------+
-| |                                 | |                                         | |                                     | |                                 |
-| - Set(集合)                       | - 有序集(Sorted set)                      | - Pub/Sub(发布/订阅)                  | - Transaction(事务)               |
-|                                   |                                           |                                       |                                   |
-|   - :doc:`set/sadd`               |   - :doc:`sorted_set/zadd`                |   - :doc:`pub_sub/publish`            |   - :doc:`transaction/watch`      |
-|   - :doc:`set/srem`               |   - :doc:`sorted_set/zrem`                |   - :doc:`pub_sub/subscribe`          |   - :doc:`transaction/unwatch`    |
-|   - :doc:`set/smembers`           |   - :doc:`sorted_set/zcard`               |   - :doc:`pub_sub/psubscribe`         |   - :doc:`transaction/multi`      |
-|   - :doc:`set/sismember`          |   - :doc:`sorted_set/zcount`              |   - :doc:`pub_sub/unsubscribe`        |   - :doc:`transaction/discard`    | 
-|   - :doc:`set/scard`              |   - :doc:`sorted_set/zscore`              |   - :doc:`pub_sub/punsubscribe`       |   - :doc:`transaction/exec`       |
-|   - :doc:`set/smove`              |   - :doc:`sorted_set/zincrby`             |   - :doc:`pub_sub/pubsub`             |                                   |
-|   - :doc:`set/spop`               |   - :doc:`sorted_set/zrange`              |                                       |                                   |
-|   - :doc:`set/srandmember`        |   - :doc:`sorted_set/zrevrange`           |                                       |                                   |
-|   - :doc:`set/sinter`             |   - :doc:`sorted_set/zrangebyscore`       |                                       |                                   |
-|   - :doc:`set/sinterstore`        |   - :doc:`sorted_set/zrevrangebyscore`    |                                       |                                   |
-|   - :doc:`set/sunion`             |   - :doc:`sorted_set/zrank`               |                                       |                                   |
-|   - :doc:`set/sunionstore`        |   - :doc:`sorted_set/zrevrank`            |                                       |                                   |
-|   - :doc:`set/sdiff`              |   - :doc:`sorted_set/zremrangebyrank`     |                                       |                                   |
-|   - :doc:`set/sdiffstore`         |   - :doc:`sorted_set/zremrangebyscore`    |                                       |                                   |
-|                                   |   - :doc:`sorted_set/zinterstore`         |                                       |                                   |
-|                                   |   - :doc:`sorted_set/zunionstore`         |                                       |                                   |
-|                                   |                                           |                                       |                                   |
-+-----------------------------------+-------------------------------------------+---------------------------------------+-----------------------------------+
-| |                                 | |                                         | |                                                                         |
-| - Script(脚本)                    | - Connection(连接)                        | - Server(服务器)                                                          |
-|                                   |                                           |                                                                           |
-|   - :doc:`script/eval`            |   - :doc:`connection/auth`                |   - :doc:`server/time`                                                    |
-|   - :doc:`script/evalsha`         |   - :doc:`connection/ping`                |   - :doc:`server/dbsize`                                                  |
-|   - :doc:`script/script_load`     |   - :doc:`connection/select`              |   - :doc:`server/bgrewriteaof`                                            |
-|   - :doc:`script/script_exists`   |   - :doc:`connection/echo`                |   - :doc:`server/bgsave`                                                  |
-|   - :doc:`script/script_kill`     |   - :doc:`connection/quit`                |   - :doc:`server/save`                                                    |
-|   - :doc:`script/script_flush`    |                                           |   - :doc:`server/lastsave`                                                |
-|                                   |                                           |   - :doc:`server/slaveof`                                                 |
-|                                   |                                           |   - :doc:`server/flushall`                                                |
-|                                   |                                           |   - :doc:`server/flushdb`                                                 |
-|                                   |                                           |   - :doc:`server/shutdown`                                                |
-|                                   |                                           |   - :doc:`server/slowlog`                                                 |
-|                                   |                                           |   - :doc:`server/info`                                                    |
-|                                   |                                           |   - :doc:`server/config_get`                                              |
-|                                   |                                           |   - :doc:`server/config_set`                                              |
-|                                   |                                           |   - :doc:`server/config_rewrite`                                          |
-|                                   |                                           |   - :doc:`server/config_resetstat`                                        |
-|                                   |                                           |   - :doc:`server/debug_object`                                            |
-|                                   |                                           |   - :doc:`server/debug_segfault`                                          |
-|                                   |                                           |   - :doc:`server/monitor`                                                 |
-|                                   |                                           |   - :doc:`server/sync`                                                    |
-|                                   |                                           |   - :doc:`server/psync`                                                   |
-|                                   |                                           |   - :doc:`server/client_list`                                             |
-|                                   |                                           |   - :doc:`server/client_kill`                                             |
-|                                   |                                           |   - :doc:`server/client_setname`                                          |
-|                                   |                                           |   - :doc:`server/client_getname`                                          |
-|                                   |                                           |                                                                           |
-+-----------------------------------+-------------------------------------------+---------------------------------------------------------------------------+
++-------------------+-----------------------+-------------------+-----------------------+
+| .. toctree::      | .. toctree::          | .. toctree::      | .. toctree::          |
+|   :maxdepth: 2    |    :maxdepth: 2       |    :maxdepth: 2   |    :maxdepth: 2       |
+|                   |                       |                   |                       |
+|   key/index       |    string/index       |    hash/index     |    list/index         |
++-------------------+-----------------------+-------------------+-----------------------+
+| .. toctree::      | .. toctree::          | .. toctree::      | .. toctree::          |
+|   :maxdepth: 2    |    :maxdepth: 2       |    :maxdepth: 2   |    :maxdepth: 2       |
+|                   |                       |                   |                       |
+|   set/index       |    sorted_set/index   |    pub_sub/index  |    transaction/index  |
++-------------------+-----------------------+-------------------+-----------------------+
+| .. toctree::      | .. toctree::          | .. toctree::                              |
+|   :maxdepth: 2    |    :maxdepth: 2       |    :maxdepth: 2                           |
+|                   |                       |                                           |
+|   script/index    |    connection/index   |    server/index                           |
++-------------------+-----------------------+-------------------+-----------------------+
 
 
 文档
