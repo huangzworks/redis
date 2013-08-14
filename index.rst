@@ -12,6 +12,7 @@ Redis 命令参考
 所有示例代码均经过 Redis 2.8 版本测试，质量保证。
 （\ `查看 Redis 2.8 版本更新内容 <https://redis.readthedocs.org/en/latest/change_log.html#redis-2-8>`_\ ）
 
+.. warning:: 注意，现在可以通过域名 `www.RedisDoc.com <http://www.redisdoc.com>`_ 来访问本文档了！
 
 命令目录(使用 CTRL + F 快速查找)：
 --------------------------------------
