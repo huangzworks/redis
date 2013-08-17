@@ -2,7 +2,7 @@
 ==================
 
 本文档是 Redis 命令参考手册的中文翻译版，
-可以在 `redis.readthedocs.org <http://redis.readthedocs.org>`_ 在线阅读本文档。
+可以在 `www.RedisDoc.com <http://www.redisdoc.com>`_ 在线阅读本文档。
 
 
 版权声明
