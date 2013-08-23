@@ -1,5 +1,7 @@
 .. _object:
 
+.. _object_idletime:
+
 OBJECT
 ======
 
