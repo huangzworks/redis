@@ -168,10 +168,10 @@ Redis 的 Sentinel 中关于下线（down）有两个不同的概念：
   查看被询问的 Sentinel 是否认为给定服务器已经下线。
 
 从 Sentinel 的角度来看，
-当一个服务器没有在 ``master-down-after-milliseconds`` 选项所指定的时间内对 Sentinel 所发送的 :ref:`PING` 命令做出正确的（valid）回复时，
+当一个服务器没有在 ``master-down-after-milliseconds`` 选项所指定的时间内对 Sentinel 所发送的 :ref:`PING` 命令做出有效的（valid）回复时，
 该服务器就会被标记为主观下线。
 
-以下列举的是 :ref:`PING` 命令的正确回复：
+以下列举的是 :ref:`PING` 命令的有效回复：
 
 - 服务器返回 ``+PONG`` 。
 
@@ -181,14 +181,14 @@ Redis 的 Sentinel 中关于下线（down）有两个不同的概念：
 
 如果服务器返回其他回复，
 或者服务器不回复 :ref:`PING` 命令，
-都会被认为是不正确的回复。
+都会被认为是无效回复。
 
 一个服务器必须在给定的时间间隔内，
-一直返回不正确回复才会被 Sentinel 标记为主观下线。
+一直返回无效回复才会被 Sentinel 标记为主观下线。
 
 举个例子，
 如果 ``master-down-after-milliseconds`` 选项的值为 ``30000`` 毫秒（\ ``30`` 秒），
-那么只要服务器能在每 ``29`` 秒之内返回至少一次正确回复，
+那么只要服务器能在每 ``29`` 秒之内返回至少一次有效回复，
 这个服务器就仍然会被认为是处于正常状态的。
 
 客观下线条件\ **只适用于主服务器**\ ：
@@ -205,7 +205,7 @@ Redis Sentinel 的行为可以用一集所有 Sentinel 都遵循的规则来描�
 
 **Sentinel 规则 #1**\ ：每个 Sentinel 每秒都向它所知的主服务器、从服务器以及其他 Sentinel 实例发送一个 :ref:`PING` 命令。
 
-**Sentinel 规则 #2**\ ：如果一个实例（instance）距离最后一次正确回复 :ref:`PING` 命令的时间超过 ``down-after-milliseconds`` 选项所指定的值，
+**Sentinel 规则 #2**\ ：如果一个实例（instance）距离最后一次有效回复 :ref:`PING` 命令的时间超过 ``down-after-milliseconds`` 选项所指定的值，
 那么这个实例会被 Sentinel 标记为主观下线。
 一个正确的回复可以是： ``+PONG`` 、 ``-LOADING`` 或者 ``-MASTERDOWN`` 。
 
