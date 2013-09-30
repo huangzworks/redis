@@ -51,10 +51,10 @@ Redis 命令参考
 |                       |                       |                       |
 |    topic/replication  |    topic/protocol     |    topic/persistence  |
 +-----------------------+-----------------------+-----------------------+
-| .. toctree::          |                                               |
-|    :maxdepth: 2       |                                               |
+| .. toctree::          | .. toctree::                                  |
+|    :maxdepth: 2       |    :maxdepth: 2                               |
 |                       |                                               |
-|    topic/sentinel     |                                               |
+|    topic/sentinel     |    topic/cluster-spec                         |
 +-----------------------+-----------------------------------------------+
 
 
