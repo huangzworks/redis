@@ -24,3 +24,4 @@ Key（键）
    sort
    ttl
    type
+   scan
