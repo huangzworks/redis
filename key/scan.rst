@@ -131,7 +131,7 @@ SCAN 命令的保证（guarantees）
       and is never added back to the collection for all the time an iteration lasts,
       SCAN ensures that this element will never be returned.
 
-然而因为增量式命令仅仅使用浮标来记录迭代状态，
+然而因为增量式命令仅仅使用游标来记录迭代状态，
 所以这些命令带有以下缺点：
 
 - 同一个元素可能会被返回多次。
