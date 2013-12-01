@@ -17,3 +17,4 @@ Hash（哈希表）
    hset
    hsetnx
    hvals
+   hscan
