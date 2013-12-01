@@ -20,3 +20,4 @@ SortedSet（有序集合）
    zscore
    zunionstore
    zinterstore
+   zscan
