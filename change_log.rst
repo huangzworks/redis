@@ -6,6 +6,8 @@
 进行中(Redis 2.8)
 -------------------
 
+- 添加 :ref:`SCAN` 命令、 :ref:`SSCAN` 命令、 :ref:`HSCAN` 命令和 :ref:`ZSCAN` 命令。
+
 - 添加 :ref:`config_rewrite` 命令。
 
 - 添加 :ref:`pubsub` 命令。
