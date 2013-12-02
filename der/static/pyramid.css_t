@@ -14,7 +14,7 @@
 /* -- page layout ----------------------------------------------------------- */
  
 body {
-    font-family: "Nobile", sans-serif;
+    font-family: sans-serif;
     font-size: 100%;
     color: #ffffff;
     margin: 0;
@@ -118,7 +118,7 @@ div.sphinxsidebarwrapper{
  
 div.sphinxsidebar h3,
 div.sphinxsidebar h4 {
-    font-family: "Neuton", sans-serif;
+    font-family: sans-serif;
     color: #373839;
     font-size: 1.4em;
     font-weight: normal;
@@ -194,7 +194,7 @@ div.body h3,
 div.body h4,
 div.body h5,
 div.body h6 {
-    font-family: "Neuton", sans-serif;
+    font-family: sans-serif;
     background-color: #ffffff;
     font-weight: normal;
     color: #373839;
@@ -292,7 +292,7 @@ tt {
 }
 
 .viewcode-back {
-    font-family: "Nobile", sans-serif;
+    font-family: sans-serif;
 }
 
 div.viewcode-block:target {
@@ -320,7 +320,7 @@ a:hover em.std-term {
 }
 
 .download {
-    font-family: "Nobile", sans-serif;
+    font-family: sans-serif;
     font-weight: normal;
     font-style: normal;
 }
