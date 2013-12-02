@@ -16,7 +16,6 @@
 body {
     font-family: "Nobile", sans-serif;
     font-size: 100%;
-    background-color: #EDEDE5;
     color: #ffffff;
     margin: 0;
     padding: 0;
@@ -29,7 +28,7 @@ div.documentwrapper {
 
 div.bodywrapper {
     /* margin: 0 0 0 {{ theme_sidebarwidth }}px; */
-    width: 1037px;
+    width: 960px;
     margin: 0 auto;
 }
 
@@ -55,9 +54,7 @@ div.logo {
 div.body {
     background-color: #ffffff;
     color: #3E4349;
-    padding: 0 30px 30px 30px;
     font-size: 1em;
-    border: 2px solid #ddd;
     overflow: auto;
 }
  
@@ -94,10 +91,22 @@ div.related a {
 
 div.related ul {
     /* padding-left: {{ theme_sidebarwidth|toint + 10 }}px; */
-    width: 1037px;
+    background-color: #C52F24;
+    color: white;
+    width: 960px;
     margin: 0 auto;
 }
- 
+
+div.related ul a {
+    color: white;
+    font-weight: bold;
+}
+
+div.related ul a:hover {
+    color:#C52F24;
+    background-color: white;
+}
+
 div.sphinxsidebar {
     font-size: 0.75em;
     line-height: 1.5em;
@@ -179,10 +188,6 @@ a, a .pre {
     text-decoration: none;
 }
  
-a:hover, a:hover .pre {
-    text-decoration: underline;
-}
- 
 div.body h1,
 div.body h2,
 div.body h3,
@@ -231,32 +236,32 @@ div.note {
     border: 2px solid #7a9eec;
     border-right-style: none;
     border-left-style: none;
-    padding: 10px 20px 10px 60px;
-    background: #e1ecfe url(dialog-note.png) no-repeat 10px 8px;
+    padding: 10px;
+    background-color: #e1ecfe;
 }
  
 div.seealso {
-    background: #fff6bf url(dialog-seealso.png) no-repeat 10px 8px;
+    background-color: #fff6bf;
     border: 2px solid #ffd324;
     border-left-style: none;
     border-right-style: none;
-    padding: 10px 20px 10px 60px;
+    padding: 10px;
 }
  
 div.topic {
     background: #eeeeee;
     border: 2px solid #C6C9CB;
-    padding: 10px 20px;
+    padding: 10px;
     border-right-style: none;
     border-left-style: none;
 }
  
 div.warning {
-    background: #fbe3e4 url(dialog-warning.png) no-repeat 10px 8px;
+    background-color: #fbe3e4;
     border: 2px solid #fbc2c4;
     border-right-style: none;
     border-left-style: none;
-    padding: 10px 20px 10px 60px;
+    padding: 10px;
 }
  
 p.admonition-title {
@@ -328,14 +333,20 @@ tt.xref {
 
 #sponsor {
     float: right;
-    width: 320px;
+    width: 39%;
 }
 
 #discuss {
     float: left;
-    width: 648px;
+    width: 60%;
 }
 
 em {
     font-style: normal;
+}
+
+body a:hover {
+    color: white;
+    background-color: #C52F24;
+
 }
