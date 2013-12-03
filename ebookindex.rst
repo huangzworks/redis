@@ -22,4 +22,5 @@ Redis 命令参考
    topic/protocol
    topic/persistence
    topic/sentinel
+   topic/cluster-tutorial
    topic/cluster-spec

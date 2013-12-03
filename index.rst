@@ -40,22 +40,22 @@ Redis 命令参考
 
 以下文章翻译自 `redis.io/documentation <http://redis.io/documentation>`_ 文档。
 
-+-----------------------+-----------------------+-----------------------+
-| .. toctree::          | .. toctree::          | .. toctree::          |
-|    :maxdepth: 2       |    :maxdepth: 2       |    :maxdepth: 2       |
-|                       |                       |                       |
-|    topic/notification |    topic/transaction  |    topic/pubsub       |
-+-----------------------+-----------------------+-----------------------+
-| .. toctree::          | .. toctree::          | .. toctree::          |
-|    :maxdepth: 2       |    :maxdepth: 2       |    :maxdepth: 2       |
-|                       |                       |                       |
-|    topic/replication  |    topic/protocol     |    topic/persistence  |
-+-----------------------+-----------------------+-----------------------+
-| .. toctree::          | .. toctree::                                  |
-|    :maxdepth: 2       |    :maxdepth: 2                               |
-|                       |                                               |
-|    topic/sentinel     |    topic/cluster-spec                         |
-+-----------------------+-----------------------------------------------+
++-----------------------+---------------------------+-----------------------+
+| .. toctree::          | .. toctree::              | .. toctree::          |
+|    :maxdepth: 2       |    :maxdepth: 2           |    :maxdepth: 2       |
+|                       |                           |                       |
+|    topic/notification |    topic/transaction      |    topic/pubsub       |
++-----------------------+---------------------------+-----------------------+
+| .. toctree::          | .. toctree::              | .. toctree::          |
+|    :maxdepth: 2       |    :maxdepth: 2           |    :maxdepth: 2       |
+|                       |                           |                       |
+|    topic/replication  |    topic/protocol         |    topic/persistence  |
++-----------------------+---------------------------+-----------------------+
+| .. toctree::          | .. toctree::              | .. toctree::          |
+|    :maxdepth: 2       |    :maxdepth: 2           |    :maxdepth: 2       |
+|                       |                           |                       |
+|    topic/sentinel     |    topic/cluster-tutorial |    topic/cluster-spec |
++-----------------------+---------------------------+-----------------------+
 
 
 下载离线版本
