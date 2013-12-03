@@ -203,7 +203,7 @@ div.body h6 {
 }
  
 div.body h1 { border-top: 20px solid white; margin-top: 0; font-size: 400%; font-weight: bold; margin-bottom: 30px; }
-div.body h2 { font-size: 180%; background-color: #ffffff; margin-top: 60px; font-weight: bold; background-color: #C52F24; color: #fff; }
+div.body h2 { background-color: #ffffff; margin-top: 60px; background-color: #C52F24; color: #fff; }
 div.body h3 { font-size: 120%; background-color: #ffffff; color: #C52F24; margin-top: 40px; }
 div.body h4 { font-size: 110%; background-color: #ffffff; }
 div.body h5 { font-size: 100%; background-color: #ffffff; }
