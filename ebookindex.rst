@@ -1,12 +1,6 @@
 Redis 命令参考
 ===================
 
-.. include:: intro.include
-
-.. include:: about.include
-
-.. include:: donation.include
-
 .. toctree::
    :maxdepth: 2
 
@@ -30,3 +24,9 @@ Redis 命令参考
    topic/sentinel
    topic/cluster-tutorial
    topic/cluster-spec
+
+.. include:: about.include
+
+.. include:: intro.include
+
+.. include:: donation.include
