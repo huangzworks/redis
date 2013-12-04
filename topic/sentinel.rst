@@ -1,3 +1,5 @@
+.. _sentinel:
+
 Sentinel
 ============
 
