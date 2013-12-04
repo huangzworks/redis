@@ -1,6 +1,12 @@
 Redis 命令参考
 ===================
 
+.. include:: intro.include
+
+.. include:: about.include
+
+.. include:: donation.include
+
 .. toctree::
    :maxdepth: 2
 
