@@ -3,8 +3,10 @@
 更新日志(change log)
 =========================
 
-进行中(Redis 2.8)
--------------------
+2013 年 12 月(Redis 2.8)
+-----------------------------
+
+Redis 2.8 带来的更新：
 
 - 添加 :ref:`SCAN` 命令、 :ref:`SSCAN` 命令、 :ref:`HSCAN` 命令和 :ref:`ZSCAN` 命令。
 
@@ -15,6 +17,16 @@
 - 添加 :ref:`client_setname` 命令和 :ref:`client_getname` 命令。 
 
 - 修改 :ref:`ttl` 和 :ref:`pttl` 命令的返回值。
+
+文档本身的更新：
+
+- 开始翻译 Redis 的主题（topic）文档：
+  目前已经完成了 :ref:`cluster_tutorial` 、 :ref:`sentinel` 、 :ref:`replication_topic` 、 :ref:`persistence` 等主要文档，
+  未来还会翻译更多主题文档。
+
+- 支持 PDF 格式的离线文档下载。
+
+- 添加捐款连接。
 
 2012 年 4 月(Redis 2.6)
 --------------------------
