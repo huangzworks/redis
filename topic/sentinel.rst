@@ -1,6 +1,10 @@
 Sentinel
 ============
 
+.. note::
+
+    本文档翻译自： http://redis.io/topics/sentinel 。
+
 Redis 的 Sentinel 系统用于管理多个 Redis 服务器（instance），
 该系统执行以下三个任务：
 

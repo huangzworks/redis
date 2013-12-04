@@ -1,7 +1,9 @@
 事务（transaction）
 =========================
 
-.. note:: 本译文的原文为 http://redis.io/topics/transactions
+.. note:: 
+    
+    本文档翻译自： http://redis.io/topics/transactions 。
 
 :ref:`MULTI` 、 :ref:`EXEC` 、 :ref:`DISCARD` 和 :ref:`WATCH` 是 Redis 事务的基础。
 

@@ -3,7 +3,7 @@
 
 .. note:: 
 
-    本译文的原文为： http://redis.io/topics/notifications
+    本文档翻译自： http://redis.io/topics/notifications 。
 
 .. warning:: 
 

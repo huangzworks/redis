@@ -3,7 +3,9 @@
 Redis 集群规范
 ===========================
 
-本文是 `redis.io/topics/cluster-spec <http://redis.io/topics/cluster-spec>`_ 一文的翻译。
+.. note::
+
+    本文档翻译自 http://redis.io/topics/cluster-spec 。
 
 引言
 --------------------------------

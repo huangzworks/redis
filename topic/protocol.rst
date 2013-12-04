@@ -1,7 +1,9 @@
 通讯协议（protocol）
 ===========================
 
-.. note:: 本章原文： http://redis.io/topics/protocol
+.. note:: 
+
+    本文档翻译自： http://redis.io/topics/protocol 。
 
 Redis 协议在以下三个目标之间进行折中：
 

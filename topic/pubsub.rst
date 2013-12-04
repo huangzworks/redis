@@ -3,7 +3,7 @@
 
 .. note::
 
-    本文是 `Redis 官网上的 pubsub 文档 <http://redis.io/topics/pubsub>`_ 的翻译。
+    本文档翻译自： http://redis.io/topics/pubsub 。
 
 :ref:`SUBSCRIBE` 、 :ref:`UNSUBSCRIBE` 和 :ref:`PUBLISH` 三个命令实现了\ `发布与订阅信息泛型 <http://en.wikipedia.org/wiki/Publish/subscribe>`_\ （Publish/Subscribe messaging paradigm），
 在这个实现中，

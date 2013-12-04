@@ -1,7 +1,9 @@
 持久化（persistence）
 ============================
 
-.. note:: 本文是 `Redis 持久化文档 <http://redis.io/topics/persistence>`_ 的中文翻译。
+.. note::
+
+    本文档翻译自 http://redis.io/topics/persistence 。
 
 这篇文章提供了 Redis 持久化的技术性描述，
 推荐所有 Redis 用户阅读。
