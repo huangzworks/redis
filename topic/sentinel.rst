@@ -418,7 +418,7 @@ Sentinel 命令
 
 - ``failover-end <instance details>`` ：故障转移操作顺利完成。所有从服务器都开始复制新的主服务器了。
 
-- ``switch-master <master name> <oldip> <oldport> <newip> <newport>`` ：配置变更，主服务器的 IP 和地址已经改变。 **这是绝大多数外部用户都关心的信息。**
+- ``+switch-master <master name> <oldip> <oldport> <newip> <newport>`` ：配置变更，主服务器的 IP 和地址已经改变。 **这是绝大多数外部用户都关心的信息。**
 
 - ``+tilt`` ：进入 tilt 模式。
 
