@@ -344,8 +344,11 @@ em {
     font-style: normal;
 }
 
-body a:hover {
-    color: white;
-    background-color: {{ theme_color }};
+a, a .pre {
+    color: {{ theme_color }};
+}
 
+body a:hover, body a:hover .pre, a .pre:hover{
+    color:white;
+    background-color: {{ theme_color }};
 }
