@@ -69,7 +69,7 @@ div.footer {
 }
  
 div.footer a {
-    color: #C52F24;
+    color: {{ theme_color }};
     text-decoration: none;
 }
 
@@ -91,7 +91,7 @@ div.related a {
 
 div.related ul {
     /* padding-left: {{ theme_sidebarwidth|toint + 10 }}px; */
-    background-color: #C52F24;
+    background-color: {{ theme_color }};
     color: white;
     width: 960px;
     margin: 0 auto;
@@ -103,7 +103,7 @@ div.related ul a {
 }
 
 div.related ul a:hover {
-    color:#C52F24;
+    color:{{ theme_color }};
     background-color: white;
 }
 
@@ -203,8 +203,8 @@ div.body h6 {
 }
  
 div.body h1 { border-top: 20px solid white; margin-top: 0; font-size: 400%; font-weight: bold; margin-bottom: 30px; }
-div.body h2 { background-color: #ffffff; margin-top: 60px; background-color: #C52F24; color: #fff; }
-div.body h3 { font-size: 120%; background-color: #ffffff; color: #C52F24; margin-top: 40px; }
+div.body h2 { background-color: #ffffff; margin-top: 60px; background-color: {{ theme_color }}; color: #fff; }
+div.body h3 { font-size: 120%; background-color: #ffffff; color: {{ theme_color }}; margin-top: 40px; }
 div.body h4 { font-size: 110%; background-color: #ffffff; }
 div.body h5 { font-size: 100%; background-color: #ffffff; }
 div.body h6 { font-size: 100%; background-color: #ffffff; }
@@ -346,6 +346,6 @@ em {
 
 body a:hover {
     color: white;
-    background-color: #C52F24;
+    background-color: {{ theme_color }};
 
 }
