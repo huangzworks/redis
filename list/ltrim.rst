@@ -47,55 +47,60 @@ LTRIM
 
 ::
 
-    # 一般情况下标
+    # 情况 1： 常见情况， start 和 stop 都在列表的索引范围之内
 
-    redis> LRANGE alpha 0 -1    # 建立一个 5 元素的列表
+    redis> LRANGE alpha 0 -1       # alpha 是一个包含 5 个字符串的列表
     1) "h"
     2) "e"
     3) "l"
     4) "l"
     5) "o"
 
-    redis> LTRIM alpha 1 -1     # 删除索引为 0 的元素
+    redis> LTRIM alpha 1 -1        # 删除 alpha 列表索引为 0 的元素
     OK
 
-    redis> LRANGE alpha 0 -1    # "h" 被删除
+    redis> LRANGE alpha 0 -1       # "h" 被删除了
     1) "e"
     2) "l"
     3) "l"
     4) "o"
 
-    
-    # stop 下标比元素的最大下标要大
 
-    redis> LTRIM alpha 1 10086 
+    # 情况 2： stop 比列表的最大下标还要大
+
+
+    redis> LTRIM alpha 1 10086     # 删除 alpha 列表索引 1 至索引 10086 上的位置
     OK
-    redis> LRANGE alpha 0 -1
+
+    redis> LRANGE alpha 0 -1       # 只有索引 1 上的元素被删除了，其他元素还在
     1) "l"
     2) "l"
     3) "o"
 
     
-    # start 和 stop 下标都比最大下标要大，且 start < sotp
+    # 情况 3： start 和 stop 都比列表的最大下标要大，并且 start < stop
 
-    redis> LTRIM alpha 10086 200000  
+    redis> LTRIM alpha 10086 123321
     OK
-    redis> LRANGE alpha 0 -1         # 整个列表被清空，等同于 DEL alpha
+
+    redis> LRANGE alpha 0 -1        # 列表被清空
     (empty list or set)
 
+   
+    # 情况 4： start 和 stop 都比列表的最大下标要大，并且 start > stop
 
-    # start > stop
+    redis> RPUSH new-alpha "h" "e" "l" "l" "o"     # 重新建立一个新列表
+    (integer) 5
 
-    redis> LRANGE alpha 0 -1        # 在新建一个列表
+    redis> LRANGE new-alpha 0 -1
     1) "h"
-    2) "u"
-    3) "a"
-    4) "n"
-    5) "g"
-    6) "z"
+    2) "e"
+    3) "l"
+    4) "l"
+    5) "o"
 
-    redis> LTRIM alpha 10086 4
+    redis> LTRIM new-alpha 123321 10086    # 执行 LTRIM
     OK
 
-    redis> LRANGE alpha 0 -1        # 列表同样被清空
+    redis> LRANGE new-alpha 0 -1           # 同样被清空
     (empty list or set)
