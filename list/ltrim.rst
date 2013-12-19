@@ -69,10 +69,10 @@ LTRIM
     # 情况 2： stop 比列表的最大下标还要大
 
 
-    redis> LTRIM alpha 1 10086     # 删除 alpha 列表索引 1 至索引 10086 上的位置
+    redis> LTRIM alpha 1 10086     # 保留 alpha 列表索引 1 至索引 10086 上的元素
     OK
 
-    redis> LRANGE alpha 0 -1       # 只有索引 1 上的元素被删除了，其他元素还在
+    redis> LRANGE alpha 0 -1       # 只有索引 0 上的元素 "e" 被删除了，其他元素还在
     1) "l"
     2) "l"
     3) "o"
