@@ -19,7 +19,7 @@ LRANGE
 
 超出范围的下标值不会引起错误。
 
-如果 ``start`` 下标比列表的最大下标 ``end`` ( ``LLEN list`` 减去 ``1`` )还要大，或者 ``start > stop`` ， `LRANGE`_ 返回一个空列表。
+如果 ``start`` 下标比列表的最大下标 ``end`` ( ``LLEN list`` 减去 ``1`` )还要大，那么 `LRANGE`_ 返回一个空列表。
 
 如果 ``stop`` 下标比 ``end`` 下标还要大，Redis将 ``stop`` 的值设置为 ``end`` 。
 
