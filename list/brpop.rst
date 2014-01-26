@@ -35,5 +35,5 @@ BRPOP
     (integer) 2
 
     redis> BRPOP course 30
-    1) "course"             # 弹出元素的 key
-    2) "c++101"             # 弹出元素的值
+    1) "course"             # 被弹出元素所属的列表键
+    2) "c++101"             # 被弹出的元素
