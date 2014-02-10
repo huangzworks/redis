@@ -14,7 +14,7 @@ OBJECT 命令有多个子命令：
 
 *  ``OBJECT REFCOUNT <key>`` 返回给定 ``key`` 引用所储存的值的次数。此命令主要用于除错。
 *  ``OBJECT ENCODING <key>`` 返回给定 ``key`` 锁储存的值所使用的内部表示(representation)。
-*  ``OBJECT IDLETIME <key>`` 返回给定 ``key`` 自储存以来的空转时间(idle， 没有被读取也没有被写入)，以秒为单位。
+*  ``OBJECT IDLETIME <key>`` 返回给定 ``key`` 自储存以来的空闲时间(idle， 没有被读取也没有被写入)，以秒为单位。
 
 | 对象可以以多种方式编码：
 
@@ -44,13 +44,13 @@ OBJECT 命令有多个子命令：
     redis> OBJECT REFCOUNT game     # 只有一个引用
     (integer) 1
     
-    redis> OBJECT IDLETIME game     # 等待一阵。。。然后查看空转时间
+    redis> OBJECT IDLETIME game     # 等待一阵。。。然后查看空闲时间
     (integer) 90
     
     redis> GET game                 # 提取game， 让它处于活跃(active)状态
     "COD"
 
-    redis> OBJECT IDLETIME game     # 不再处于空转
+    redis> OBJECT IDLETIME game     # 不再处于空闲状态
     (integer) 0
 
     redis> OBJECT ENCODING game     # 字符串的编码方式
