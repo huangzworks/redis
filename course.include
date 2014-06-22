@@ -1,0 +1,12 @@
+.. note::
+
+    .. image:: redis-logo.jpg
+       :align: left
+       :scale: 50
+
+    由本文档翻译者 huangz 主讲的 Redis 课程 —— 《Redis 从入门到精通》现正接受报名： http://www.chinahadoop.cn/course/53 。
+    
+    课程的内容由浅入深，
+    覆盖了 Redis 的应用、配置、管理和运行原理等各个方面，
+    旨在帮助 Redis 的初、中级使用者全面地了解 Redis ，
+    欢迎各位踊跃报名。

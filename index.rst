@@ -30,6 +30,7 @@ Redis 命令参考
 |   script/index    |    connection/index   |    server/index                           |
 +-------------------+-----------------------+-------------------+-----------------------+
 
+.. include:: course.include
 
 文档
 -------------------
