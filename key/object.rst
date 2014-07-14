@@ -56,14 +56,15 @@ OBJECT 命令有多个子命令：
     redis> OBJECT ENCODING game     # 字符串的编码方式
     "raw"
 
-    redis> SET phone 15820123123    # 大的数字也被编码为字符串
+    redis> SET big-number 23102930128301091820391092019203810281029831092  # 非常长的数字会被编码为字符串
     OK
 
-    redis> OBJECT ENCODING phone
+    redis> OBJECT ENCODING big-number
     "raw"
 
-    redis> SET age 20               # 短数字被编码为 int
+    redis> SET small-number 12345  # 而短的数字则会被编码为整数
     OK
-    
-    redis> OBJECT ENCODING age
+
+    redis> OBJECT ENCODING small-number
     "int"
+
