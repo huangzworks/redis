@@ -21,6 +21,6 @@ SortedSet（有序集合）
    zunionstore
    zinterstore
    zscan
-   zlexcount
    zrangebylex
+   zlexcount
    zremrangebylex
