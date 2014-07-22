@@ -11,8 +11,8 @@ ZLEXCOUNT
     this command returns the number of elements in the sorted set 
     at key with a value between min and max.
 
-对于一个所有成员的分值都相同的有序集合来说，
-这个命令会返回给定有序集合键 ``key`` 中，
+对于一个所有成员的分值都相同的有序集合键 ``key`` 来说，
+这个命令会返回该集合中，
 成员介于 ``min`` 和 ``max`` 范围内的元素数量。
 
 ..  

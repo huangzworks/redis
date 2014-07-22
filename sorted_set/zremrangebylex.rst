@@ -11,8 +11,8 @@ ZREMRANGEBYLEX
     this command removes all elements in the sorted set stored at key 
     between the lexicographical range specified by min and max.
 
-对于一个所有成员的分值都相同的有序集合来说，
-这个命令会移除给定有序集合键 ``key`` 中，
+对于一个所有成员的分值都相同的有序集合键 ``key`` 来说，
+这个命令会移除该集合中，
 成员介于 ``min`` 和 ``max`` 范围内的所有元素。
 
 ..
