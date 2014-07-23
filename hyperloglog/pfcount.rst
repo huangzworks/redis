@@ -40,8 +40,8 @@ PFCOUNT
     The returned cardinality of the observed set is not exact, 
     but approximated with a standard error of 0.81%.
 
-命令返回的可见集合（observed set）的基数并不是精确的，
-它是一个带有 0.81% 标准错误（standard error）的近似值。
+命令返回的可见集合（observed set）基数并不是精确值，
+而是一个带有 0.81% 标准错误（standard error）的近似值。
 
 ..
     For example 
