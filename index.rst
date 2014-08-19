@@ -8,7 +8,7 @@ Redis 命令参考
 
 .. include:: intro.include
 
-.. include:: course.include
+.. include:: tdir.include
 
 命令目录(使用 CTRL + F 快速查找)：
 --------------------------------------
@@ -30,7 +30,7 @@ Redis 命令参考
 |    transaction/index  |   script/index        |    connection/index   |    server/index       |
 +-----------------------+-----------------------+-----------------------+-----------------------+
 
-.. include:: tdir.include
+.. include:: course.include
 
 文档
 -------------------
