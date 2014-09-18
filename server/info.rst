@@ -169,19 +169,23 @@ INFO
 
     redis> INFO
     # Server
-    redis_version:2.5.9
-    redis_git_sha1:473f3090
+    redis_version:2.9.11
+    redis_git_sha1:937384d0
     redis_git_dirty:0
-    os:Linux 3.3.7-1-ARCH i686
-    arch_bits:32
+    redis_build_id:8e9509442863f22
+    redis_mode:standalone
+    os:Linux 3.13.0-35-generic x86_64
+    arch_bits:64
     multiplexing_api:epoll
-    gcc_version:4.7.0
-    process_id:8104
-    run_id:bc9e20c6f0aac67d0d396ab950940ae4d1479ad1
+    gcc_version:4.8.2
+    process_id:4716
+    run_id:26186aac3f2380aaee9eef21cc50aecd542d97dc
     tcp_port:6379
-    uptime_in_seconds:7
+    uptime_in_seconds:362
     uptime_in_days:0
-    lru_clock:1680564
+    hz:10
+    lru_clock:1725349
+    config_file:
 
     # Clients
     connected_clients:1
@@ -190,20 +194,20 @@ INFO
     blocked_clients:0
 
     # Memory
-    used_memory:439304
-    used_memory_human:429.01K
-    used_memory_rss:13897728
-    used_memory_peak:401776
-    used_memory_peak_human:392.36K
-    used_memory_lua:20480
-    mem_fragmentation_ratio:31.64
-    mem_allocator:jemalloc-3.0.0
+    used_memory:508536
+    used_memory_human:496.62K
+    used_memory_rss:7974912
+    used_memory_peak:508536
+    used_memory_peak_human:496.62K
+    used_memory_lua:33792
+    mem_fragmentation_ratio:15.68
+    mem_allocator:jemalloc-3.2.0
 
     # Persistence
     loading:0
-    rdb_changes_since_last_save:0
+    rdb_changes_since_last_save:6
     rdb_bgsave_in_progress:0
-    rdb_last_save_time:1338011402
+    rdb_last_save_time:1411011131
     rdb_last_bgsave_status:ok
     rdb_last_bgsave_time_sec:-1
     rdb_current_bgsave_time_sec:-1
@@ -212,12 +216,17 @@ INFO
     aof_rewrite_scheduled:0
     aof_last_rewrite_time_sec:-1
     aof_current_rewrite_time_sec:-1
+    aof_last_bgrewrite_status:ok
+    aof_last_write_status:ok
 
     # Stats
-    total_connections_received:1
-    total_commands_processed:0
+    total_connections_received:2
+    total_commands_processed:4
     instantaneous_ops_per_sec:0
     rejected_connections:0
+    sync_full:0
+    sync_partial_ok:0
+    sync_partial_err:0
     expired_keys:0
     evicted_keys:0
     keyspace_hits:0
@@ -225,15 +234,25 @@ INFO
     pubsub_channels:0
     pubsub_patterns:0
     latest_fork_usec:0
+    migrate_cached_sockets:0
 
     # Replication
     role:master
     connected_slaves:0
+    master_repl_offset:0
+    repl_backlog_active:0
+    repl_backlog_size:1048576
+    repl_backlog_first_byte_offset:0
+    repl_backlog_histlen:0
 
     # CPU
-    used_cpu_sys:0.03
-    used_cpu_user:0.01
+    used_cpu_sys:0.21
+    used_cpu_user:0.17
     used_cpu_sys_children:0.00
     used_cpu_user_children:0.00
 
+    # Cluster
+    cluster_enabled:0
+
     # Keyspace
+    db0:keys=2,expires=0,avg_ttl=0
