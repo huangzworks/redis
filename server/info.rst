@@ -9,7 +9,7 @@ INFO
 
 通过给定可选的参数 ``section`` ，可以让命令只返回某一部分的信息：
 
-- ``server`` : 一般 Redis 服务器信息，包含以下域：
+- ``server`` 部分记录了 Redis 服务器的信息，它包含以下域：
 
     - ``redis_version`` : Redis 服务器版本
     - ``redis_git_sha1`` : Git SHA1
@@ -25,14 +25,14 @@ INFO
     - ``uptime_in_days`` : 自 Redis 服务器启动以来，经过的天数
     - ``lru_clock`` : 以分钟为单位进行自增的时钟，用于 LRU 管理
 
-- ``clients`` : 已连接客户端信息，包含以下域：
+- ``clients`` 部分记录了已连接客户端的信息，它包含以下域：
 
     - ``connected_clients`` : 已连接客户端的数量（不包括通过从属服务器连接的客户端）
     - ``client_longest_output_list`` : 当前连接的客户端当中，最长的输出列表
     - ``client_longest_input_buf`` : 当前连接的客户端当中，最大输入缓存
     - ``blocked_clients`` : 正在等待阻塞命令（BLPOP、BRPOP、BRPOPLPUSH）的客户端的数量
 
-- ``memory`` : 内存信息，包含以下域：
+- ``memory`` 部分记录了服务器的内存信息，它包含以下域：
 
     - ``used_memory`` : 由 Redis 分配器分配的内存总量，以字节（byte）为单位
     - ``used_memory_human`` : 以人类可读的格式返回 Redis 分配的内存总量
@@ -55,15 +55,95 @@ INFO
     | 查看 ``used_memory_peak`` 的值可以验证这种情况是否发生。
 
 
-- ``persistence`` : ``RDB`` 和 ``AOF`` 的相关信息
-- ``stats`` : 一般统计信息
-- ``replication`` : 主/从复制信息
-- ``cpu`` : CPU 计算量统计信息
-- ``commandstats`` : Redis 命令统计信息
-- ``cluster`` : Redis 集群信息
-- ``keyspace`` : 数据库相关的统计信息
+- ``persistence`` 部分记录了跟 ``RDB`` 持久化和 ``AOF`` 持久化有关的信息，它包含以下域：
 
-除上面给出的这些值以外，参数还可以是下面这两个：
+    - ``loading`` : 一个标志值，记录了服务器是否正在载入持久化文件。
+    - ``rdb_changes_since_last_save`` : 距离最近一次成功创建持久化文件之后，经过了多少秒。
+    - ``rdb_bgsave_in_progress`` : 一个标志值，记录了服务器是否正在创建 RDB 文件。
+    - ``rdb_last_save_time`` : 最近一次成功创建 RDB 文件的 UNIX 时间戳。
+    - ``rdb_last_bgsave_status`` : 一个标志值，记录了最近一次创建 RDB 文件的结果是成功还是失败。
+    - ``rdb_last_bgsave_time_sec`` : 记录了最近一次创建 RDB 文件耗费的秒数。
+    - ``rdb_current_bgsave_time_sec`` : 如果服务器正在创建 RDB 文件，那么这个域记录的就是当前的创建操作已经耗费的秒数。
+    - ``aof_enabled`` : 一个标志值，记录了 AOF 是否处于打开状态。
+    - ``aof_rewrite_in_progress`` : 一个标志值，记录了服务器是否正在创建 AOF 文件。
+    - ``aof_rewrite_scheduled`` : 一个标志值，记录了在 RDB 文件创建完毕之后，是否需要执行预约的 AOF 重写操作。
+    - ``aof_last_rewrite_time_sec`` : 最近一次创建 AOF 文件耗费的时长。
+    - ``aof_current_rewrite_time_sec`` : 如果服务器正在创建 AOF 文件，那么这个域记录的就是当前的创建操作已经耗费的秒数。
+    - ``aof_last_bgrewrite_status`` : 一个标志值，记录了最近一次创建 AOF 文件的结果是成功还是失败。
+
+  如果 AOF 持久化功能处于开启状态，那么这个部分还会加上以下域：
+
+    - ``aof_current_size`` : AOF 文件目前的大小。
+    - ``aof_base_size`` : 服务器启动时或者 AOF 重写最近一次执行之后，AOF 文件的大小。
+    - ``aof_pending_rewrite`` : 一个标志值，记录了是否有 AOF 重写操作在等待 RDB 文件创建完毕之后执行。
+    - ``aof_buffer_length`` : AOF 缓冲区的大小。
+    - ``aof_rewrite_buffer_length`` : AOF 重写缓冲区的大小。
+    - ``aof_pending_bio_fsync`` : 后台 I/O 队列里面，等待执行的 ``fsync`` 调用数量。
+    - ``aof_delayed_fsync`` : 被延迟的 ``fsync`` 调用数量。
+
+- ``stats`` 部分记录了一般统计信息，它包含以下域：
+
+    - ``total_connections_received`` : 服务器已接受的连接请求数量。
+    - ``total_commands_processed`` : 服务器已执行的命令数量。
+    - ``instantaneous_ops_per_sec`` : 服务器每秒钟执行的命令数量。
+    - ``rejected_connections`` : 因为最大客户端数量限制而被拒绝的连接请求数量。
+    - ``expired_keys`` : 因为过期而被自动删除的数据库键数量。
+    - ``evicted_keys`` : 因为最大内存容量限制而被驱逐（evict）的键数量。
+    - ``keyspace_hits`` : 查找数据库键成功的次数。
+    - ``keyspace_misses`` : 查找数据库键失败的次数。
+    - ``pubsub_channels`` : 目前被订阅的频道数量。
+    - ``pubsub_patterns`` : 目前被订阅的模式数量。
+    - ``latest_fork_usec`` : 最近一次 ``fork()`` 操作耗费的毫秒数。
+
+- ``replication`` : 主/从复制信息
+
+    - ``role`` : 如果当前服务器没有在复制任何其他服务器，那么这个域的值就是 ``master`` ；否则的话，这个域的值就是 ``slave`` 。注意，在创建复制链的时候，一个从服务器也可能是另一个服务器的主服务器。
+
+  如果当前服务器是一个从服务器的话，那么这个部分还会加上以下域：
+
+    - ``master_host`` : 主服务器的 IP 地址。
+    - ``master_port`` : 主服务器的 TCP 监听端口号。
+    - ``master_link_status`` : 复制连接当前的状态， ``up`` 表示连接正常， ``down`` 表示连接断开。
+    - ``master_last_io_seconds_ago`` : 距离最近一次与主服务器进行通信已经过去了多少秒钟。
+    - ``master_sync_in_progress`` : 一个标志值，记录了主服务器是否正在与这个从服务器进行同步。
+
+  如果同步操作正在进行，那么这个部分还会加上以下域：
+
+    - ``master_sync_left_bytes`` : 距离同步完成还缺少多少字节数据。
+    - ``master_sync_last_io_seconds_ago`` : 距离最近一次因为 SYNC 操作而进行 I/O 已经过去了多少秒。
+    
+  如果主从服务器之间的连接处于断线状态，那么这个部分还会加上以下域：
+
+    - ``master_link_down_since_seconds`` : 主从服务器连接断开了多少秒。
+
+  以下是一些总会出现的域：
+
+    - ``connected_slaves`` : 已连接的从服务器数量。
+
+  对于每个从服务器，都会添加以下一行信息：
+
+    - ``slaveXXX`` : ID、IP 地址、端口号、连接状态
+
+- ``cpu`` 部分记录了 CPU 的计算量统计信息，它包含以下域：
+
+    - ``used_cpu_sys`` : Redis 服务器耗费的系统 CPU 。
+    - ``used_cpu_user`` : Redis 服务器耗费的用户 CPU 。
+    - ``used_cpu_sys_children`` : 后台进程耗费的系统 CPU 。
+    - ``used_cpu_user_children`` : 后台进程耗费的用户 CPU 。
+
+- ``commandstats`` 部分记录了各种不同类型的命令的执行统计信息，比如命令执行的次数、命令耗费的 CPU 时间、执行每个命令耗费的平均 CPU 时间等等。对于每种类型的命令，这个部分都会添加一行以下格式的信息：
+
+    - ``cmdstat_XXX:calls=XXX,usec=XXX,usecpercall=XXX``
+
+- ``cluster`` 部分记录了和集群有关的信息，它包含以下域：
+
+    - ``cluster_enabled`` : 一个标志值，记录集群功能是否已经开启。
+
+- ``keyspace`` 部分记录了数据库相关的统计信息，比如数据库的键数量、数据库已经被删除的过期键数量等。对于每个数据库，这个部分都会添加一行以下格式的信息：
+
+    - ``dbXXX:keys=XXX,expires=XXX``
+
+除上面给出的这些值以外， ``section`` 参数的值还可以是下面这两个：
 
 - ``all`` : 返回所有信息
 - ``default`` : 返回默认选择的信息
