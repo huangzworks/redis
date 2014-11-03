@@ -1,0 +1,331 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>键空间通知（keyspace notification） &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="next" title="事务（transaction）" href="transaction.html" />
+    <link rel="prev" title="TIME" href="../server/time.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="transaction.html" title="事务（transaction）"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../server/time.html" title="TIME"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="keyspace-notification">
+<h1>键空间通知（keyspace notification）<a class="headerlink" href="#keyspace-notification" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">本文档翻译自： <a class="reference external" href="http://redis.io/topics/notifications">http://redis.io/topics/notifications</a> 。</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">键空间通知功能目前仍在开发中，这个文档所描述的内容，以及功能的具体实现，可能会在未来数周内改变，敬请知悉。</p>
+</div>
+<div class="section" id="id1">
+<h2>功能概览<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>键空间通知使得客户端可以通过订阅频道或模式，
+来接收那些以某种方式改动了 Redis 数据集的事件。</p>
+<p>以下是一些键空间通知发送的事件的例子：</p>
+<ul class="simple">
+<li>所有修改键的命令。</li>
+<li>所有接收到 <a class="reference internal" href="../list/lpush.html#lpush"><em>LPUSH</em></a> 命令的键。</li>
+<li><code class="docutils literal"><span class="pre">0</span></code> 号数据库中所有已过期的键。</li>
+</ul>
+<p>事件通过 Redis 的订阅与发布功能（pub/sub）来进行分发，
+因此所有支持订阅与发布功能的客户端都可以在无须做任何修改的情况下，
+直接使用键空间通知功能。</p>
+<p>因为 Redis 目前的订阅与发布功能采取的是发送即忘（fire and forget）策略，
+所以如果你的程序需要可靠事件通知（reliable notification of events），
+那么目前的键空间通知可能并不适合你：
+当订阅事件的客户端断线时，
+它会丢失所有在断线期间分发给它的事件。</p>
+<p>未来将会支持更可靠的事件分发，
+这种支持可能会通过让订阅与发布功能本身变得更可靠来实现，
+也可能会在 Lua 脚本中对消息（message）的订阅与发布进行监听，
+从而实现类似将事件推入到列表这样的操作。</p>
+</div>
+<div class="section" id="id2">
+<h2>事件的类型<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>对于每个修改数据库的操作，键空间通知都会发送两种不同类型的事件。</p>
+<p>比如说，对 <code class="docutils literal"><span class="pre">0</span></code> 号数据库的键 <code class="docutils literal"><span class="pre">mykey</span></code> 执行 <a class="reference internal" href="../key/del.html#del"><em>DEL</em></a> 命令时，
+系统将分发两条消息，
+相当于执行以下两个 <a class="reference internal" href="../pub_sub/publish.html#publish"><em>PUBLISH</em></a> 命令：</p>
+<div class="highlight-python"><div class="highlight"><pre>PUBLISH __keyspace@0__:mykey del
+PUBLISH __keyevent@0__:del mykey
+</pre></div>
+</div>
+<p>订阅第一个频道 <code class="docutils literal"><span class="pre">__keyspace&#64;0__:mykey</span></code> 可以接收 <code class="docutils literal"><span class="pre">0</span></code> 号数据库中所有修改键 <code class="docutils literal"><span class="pre">mykey</span></code> 的事件，
+而订阅第二个频道 <code class="docutils literal"><span class="pre">__keyevent&#64;0__:del</span></code> 则可以接收 <code class="docutils literal"><span class="pre">0</span></code> 号数据库中所有执行 <code class="docutils literal"><span class="pre">del</span></code> 命令的键。</p>
+<p>以 <code class="docutils literal"><span class="pre">keyspace</span></code> 为前缀的频道被称为键空间通知（key-space notification），
+而以 <code class="docutils literal"><span class="pre">keyevent</span></code> 为前缀的频道则被称为键事件通知（key-event notification）。</p>
+<p>当 <code class="docutils literal"><span class="pre">del</span> <span class="pre">mykey</span></code> 命令执行时：</p>
+<ul class="simple">
+<li>键空间频道的订阅者将接收到被执行的事件的名字，在这个例子中，就是 <code class="docutils literal"><span class="pre">del</span></code> 。</li>
+<li>键事件频道的订阅者将接收到被执行事件的键的名字，在这个例子中，就是 <code class="docutils literal"><span class="pre">mykey</span></code> 。</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>配置<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>因为开启键空间通知功能需要消耗一些 CPU ，
+所以在默认配置下，
+该功能处于关闭状态。</p>
+<p>可以通过修改 <code class="docutils literal"><span class="pre">redis.conf</span></code> 文件，
+或者直接使用 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">SET</span></code> 命令来开启或关闭键空间通知功能：</p>
+<ul class="simple">
+<li>当 <code class="docutils literal"><span class="pre">notify-keyspace-events</span></code> 选项的参数为空字符串时，功能关闭。</li>
+<li>另一方面，当参数不是空字符串时，功能开启。</li>
+</ul>
+<p><code class="docutils literal"><span class="pre">notify-keyspace-events</span></code> 的参数可以是以下字符的任意组合，
+它指定了服务器该发送哪些类型的通知：</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">字符</th>
+<th class="head">发送的通知</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">K</span></code></td>
+<td>键空间通知，所有通知以 <code class="docutils literal"><span class="pre">__keyspace&#64;&lt;db&gt;__</span></code> 为前缀</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">E</span></code></td>
+<td>键事件通知，所有通知以 <code class="docutils literal"><span class="pre">__keyevent&#64;&lt;db&gt;__</span></code> 为前缀</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">g</span></code></td>
+<td><code class="docutils literal"><span class="pre">DEL</span></code> 、 <code class="docutils literal"><span class="pre">EXPIRE</span></code> 、 <code class="docutils literal"><span class="pre">RENAME</span></code> 等类型无关的通用命令的通知</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">$</span></code></td>
+<td>字符串命令的通知</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">l</span></code></td>
+<td>列表命令的通知</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">s</span></code></td>
+<td>集合命令的通知</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">h</span></code></td>
+<td>哈希命令的通知</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">z</span></code></td>
+<td>有序集合命令的通知</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">x</span></code></td>
+<td>过期事件：每当有过期键被删除时发送</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">e</span></code></td>
+<td>驱逐(evict)事件：每当有键因为 <code class="docutils literal"><span class="pre">maxmemory</span></code> 政策而被删除时发送</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">A</span></code></td>
+<td>参数 <code class="docutils literal"><span class="pre">g$lshzxe</span></code> 的别名</td>
+</tr>
+</tbody>
+</table>
+<p>输入的参数中至少要有一个 <code class="docutils literal"><span class="pre">K</span></code> 或者 <code class="docutils literal"><span class="pre">E</span></code> ，
+否则的话，
+不管其余的参数是什么，
+都不会有任何通知被分发。</p>
+<p>举个例子，
+如果只想订阅键空间中和列表相关的通知，
+那么参数就应该设为 <code class="docutils literal"><span class="pre">Kl</span></code> ，
+诸如此类。</p>
+<p>将参数设为字符串 <code class="docutils literal"><span class="pre">&quot;AKE&quot;</span></code> 表示发送所有类型的通知。</p>
+</div>
+<div class="section" id="id4">
+<h2>命令产生的通知<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>以下列表记录了不同命令所产生的不同通知：</p>
+<ul class="simple">
+<li><a class="reference internal" href="../key/del.html#del"><em>DEL</em></a> 命令为每个被删除的键产生一个 <code class="docutils literal"><span class="pre">del</span></code> 通知。</li>
+<li><a class="reference internal" href="../key/rename.html#rename"><em>RENAME</em></a> 产生两个通知：为来源键（source key）产生一个 <code class="docutils literal"><span class="pre">rename_from</span></code> 通知，并为目标键（destination key）产生一个 <code class="docutils literal"><span class="pre">rename_to</span></code> 通知。</li>
+<li><a class="reference internal" href="../key/expire.html#expire"><em>EXPIRE</em></a> 和 <a class="reference internal" href="../key/expireat.html#expireat"><em>EXPIREAT</em></a> 在键被正确设置过期时间时产生一个 <code class="docutils literal"><span class="pre">expire</span></code> 通知。当 <a class="reference internal" href="../key/expireat.html#expireat"><em>EXPIREAT</em></a> 设置的时间已经过期，或者 <a class="reference internal" href="../key/expire.html#expire"><em>EXPIRE</em></a> 传入的时间为负数值时，键被删除，并产生一个 <code class="docutils literal"><span class="pre">del</span></code> 通知。</li>
+<li><a class="reference internal" href="../key/sort.html#sort"><em>SORT</em></a> 在命令带有 <code class="docutils literal"><span class="pre">STORE</span></code> 参数时产生一个 <code class="docutils literal"><span class="pre">sortstore</span></code> 事件。如果 <code class="docutils literal"><span class="pre">STORE</span></code> 指示的用于保存排序结果的键已经存在，那么程序还会发送一个 <code class="docutils literal"><span class="pre">del</span></code> 事件。</li>
+<li><a class="reference internal" href="../string/set.html#set"><em>SET</em></a> 以及它的所有变种（<a class="reference internal" href="../string/setex.html#setex"><em>SETEX</em></a> 、 <a class="reference internal" href="../string/setnx.html#setnx"><em>SETNX</em></a> 和 <a class="reference internal" href="../string/getset.html#getset"><em>GETSET</em></a>）都产生 <code class="docutils literal"><span class="pre">set</span></code> 通知。其中 <a class="reference internal" href="../string/setex.html#setex"><em>SETEX</em></a> 还会产生 <code class="docutils literal"><span class="pre">expire</span></code> 通知。</li>
+<li><a class="reference internal" href="../string/mset.html#mset"><em>MSET</em></a> 为每个键产生一个 <code class="docutils literal"><span class="pre">set</span></code> 通知。</li>
+<li><a class="reference internal" href="../string/setrange.html#setrange"><em>SETRANGE</em></a> 产生一个 <code class="docutils literal"><span class="pre">setrange</span></code> 通知。</li>
+<li><a class="reference internal" href="../string/incr.html#incr"><em>INCR</em></a> 、 <a class="reference internal" href="../string/decr.html#decr"><em>DECR</em></a> 、 <a class="reference internal" href="../string/incrby.html#incrby"><em>INCRBY</em></a> 和 <a class="reference internal" href="../string/decrby.html#decrby"><em>DECRBY</em></a> 都产生 <code class="docutils literal"><span class="pre">incrby</span></code> 通知。</li>
+<li><a class="reference internal" href="../string/incrbyfloat.html#incrbyfloat"><em>INCRBYFLOAT</em></a> 产生 <code class="docutils literal"><span class="pre">incrbyfloat</span></code> 通知。</li>
+<li><a class="reference internal" href="../string/append.html#append"><em>APPEND</em></a> 产生 <code class="docutils literal"><span class="pre">append</span></code> 通知。</li>
+<li><a class="reference internal" href="../list/lpush.html#lpush"><em>LPUSH</em></a> 和 <a class="reference internal" href="../list/lpushx.html#lpushx"><em>LPUSHX</em></a> 都产生单个 <code class="docutils literal"><span class="pre">lpush</span></code> 通知，即使有多个输入元素时，也是如此。</li>
+<li><a class="reference internal" href="../list/rpush.html#rpush"><em>RPUSH</em></a> 和 <a class="reference internal" href="../list/rpushx.html#rpushx"><em>RPUSHX</em></a> 都产生单个 <code class="docutils literal"><span class="pre">rpush</span></code> 通知，即使有多个输入元素时，也是如此。</li>
+<li><a class="reference internal" href="../list/rpop.html#rpop"><em>RPOP</em></a> 产生 <code class="docutils literal"><span class="pre">rpop</span></code> 通知。如果被弹出的元素是列表的最后一个元素，那么还会产生一个 <code class="docutils literal"><span class="pre">del</span></code> 通知。</li>
+<li><a class="reference internal" href="../list/lpop.html#lpop"><em>LPOP</em></a> 产生 <code class="docutils literal"><span class="pre">lpop</span></code> 通知。如果被弹出的元素是列表的最后一个元素，那么还会产生一个 <code class="docutils literal"><span class="pre">del</span></code> 通知。</li>
+<li><a class="reference internal" href="../list/linsert.html#linsert"><em>LINSERT</em></a> 产生一个 <code class="docutils literal"><span class="pre">linsert</span></code> 通知。</li>
+<li><a class="reference internal" href="../list/lset.html#lset"><em>LSET</em></a> 产生一个 <code class="docutils literal"><span class="pre">lset</span></code> 通知。</li>
+<li><a class="reference internal" href="../list/ltrim.html#ltrim"><em>LTRIM</em></a> 产生一个 <code class="docutils literal"><span class="pre">ltrim</span></code> 通知。如果 <a class="reference internal" href="../list/ltrim.html#ltrim"><em>LTRIM</em></a> 执行之后，列表键被清空，那么还会产生一个 <code class="docutils literal"><span class="pre">del</span></code> 通知。</li>
+<li><a class="reference internal" href="../list/rpoplpush.html#rpoplpush"><em>RPOPLPUSH</em></a> 和 <a class="reference internal" href="../list/brpoplpush.html#brpoplpush"><em>BRPOPLPUSH</em></a> 产生一个 <code class="docutils literal"><span class="pre">rpop</span></code> 通知，以及一个 <code class="docutils literal"><span class="pre">lpush</span></code> 通知。两个命令都会保证 <code class="docutils literal"><span class="pre">rpop</span></code> 的通知在 <code class="docutils literal"><span class="pre">lpush</span></code> 的通知之前分发。如果从键弹出元素之后，被弹出的列表键被清空，那么还会产生一个 <code class="docutils literal"><span class="pre">del</span></code> 通知。</li>
+<li><a class="reference internal" href="../hash/hset.html#hset"><em>HSET</em></a> 、 <a class="reference internal" href="../hash/hsetnx.html#hsetnx"><em>HSETNX</em></a> 和 <a class="reference internal" href="../hash/hmset.html#hmset"><em>HMSET</em></a> 都只产生一个 <code class="docutils literal"><span class="pre">hset</span></code> 通知。</li>
+<li><a class="reference internal" href="../hash/hincrby.html#hincrby"><em>HINCRBY</em></a> 产生一个 <code class="docutils literal"><span class="pre">hincrby</span></code> 通知。</li>
+<li><a class="reference internal" href="../hash/hincrbyfloat.html#hincrbyfloat"><em>HINCRBYFLOAT</em></a> 产生一个 <code class="docutils literal"><span class="pre">hincrbyfloat</span></code> 通知。</li>
+<li><a class="reference internal" href="../hash/hdel.html#hdel"><em>HDEL</em></a> 产生一个 <code class="docutils literal"><span class="pre">hdel</span></code> 通知。如果执行 <a class="reference internal" href="../hash/hdel.html#hdel"><em>HDEL</em></a> 之后，哈希键被清空，那么还会产生一个 <code class="docutils literal"><span class="pre">del</span></code> 通知。</li>
+<li><a class="reference internal" href="../set/sadd.html#sadd"><em>SADD</em></a> 产生一个 <code class="docutils literal"><span class="pre">sadd</span></code> 通知，即使有多个输入元素时，也是如此。</li>
+<li><a class="reference internal" href="../set/srem.html#srem"><em>SREM</em></a> 产生一个 <code class="docutils literal"><span class="pre">srem</span></code> 通知，如果执行 <a class="reference internal" href="../set/srem.html#srem"><em>SREM</em></a> 之后，集合键被清空，那么还会产生一个 <code class="docutils literal"><span class="pre">del</span></code> 通知。</li>
+<li><a class="reference internal" href="../set/smove.html#smove"><em>SMOVE</em></a> 为来源键（source key）产生一个 <code class="docutils literal"><span class="pre">srem</span></code> 通知，并为目标键（destination key）产生一个 <code class="docutils literal"><span class="pre">sadd</span></code> 事件。</li>
+<li><a class="reference internal" href="../set/spop.html#spop"><em>SPOP</em></a> 产生一个 <code class="docutils literal"><span class="pre">spop</span></code> 事件。如果执行 <a class="reference internal" href="../set/spop.html#spop"><em>SPOP</em></a> 之后，集合键被清空，那么还会产生一个 <code class="docutils literal"><span class="pre">del</span></code> 通知。</li>
+<li><a class="reference internal" href="../set/sinterstore.html#sinterstore"><em>SINTERSTORE</em></a> 、 <a class="reference internal" href="../set/sunionstore.html#sunionstore"><em>SUNIONSTORE</em></a> 和 <a class="reference internal" href="../set/sdiffstore.html#sdiffstore"><em>SDIFFSTORE</em></a> 分别产生 <code class="docutils literal"><span class="pre">sinterstore</span></code> 、 <code class="docutils literal"><span class="pre">sunionostore</span></code> 和 <code class="docutils literal"><span class="pre">sdiffstore</span></code> 三种通知。如果用于保存结果的键已经存在，那么还会产生一个 <code class="docutils literal"><span class="pre">del</span></code> 通知。</li>
+<li><a class="reference internal" href="../sorted_set/zincrby.html#zincrby"><em>ZINCRBY</em></a> 产生一个 <code class="docutils literal"><span class="pre">zincr</span></code> 通知。（译注：非对称，请注意。）</li>
+<li><a class="reference internal" href="../sorted_set/zadd.html#zadd"><em>ZADD</em></a> 产生一个 <code class="docutils literal"><span class="pre">zadd</span></code> 通知，即使有多个输入元素时，也是如此。</li>
+<li><a class="reference internal" href="../sorted_set/zrem.html#zrem"><em>ZREM</em></a> 产生一个 <code class="docutils literal"><span class="pre">zrem</span></code> 通知，即使有多个输入元素时，也是如此。如果执行 <a class="reference internal" href="../sorted_set/zrem.html#zrem"><em>ZREM</em></a> 之后，有序集合键被清空，那么还会产生一个 <code class="docutils literal"><span class="pre">del</span></code> 通知。</li>
+<li><a class="reference internal" href="../sorted_set/zremrangebyscore.html#zremrangebyscore"><em>ZREMRANGEBYSCORE</em></a> 产生一个 <code class="docutils literal"><span class="pre">zrembyscore</span></code> 通知。（译注：非对称，请注意。）如果用于保存结果的键已经存在，那么还会产生一个 <code class="docutils literal"><span class="pre">del</span></code> 通知。</li>
+<li><a class="reference internal" href="../sorted_set/zremrangebyrank.html#zremrangebyrank"><em>ZREMRANGEBYRANK</em></a> 产生一个 <code class="docutils literal"><span class="pre">zrembyrank</span></code> 通知。（译注：非对称，请注意。）如果用于保存结果的键已经存在，那么还会产生一个 <code class="docutils literal"><span class="pre">del</span></code> 通知。</li>
+<li><a class="reference internal" href="../sorted_set/zinterstore.html#zinterstore"><em>ZINTERSTORE</em></a> 和 <a class="reference internal" href="../sorted_set/zunionstore.html#zunionstore"><em>ZUNIONSTORE</em></a> 分别产生 <code class="docutils literal"><span class="pre">zinterstore</span></code> 和 <code class="docutils literal"><span class="pre">zunionstore</span></code> 两种通知。如果用于保存结果的键已经存在，那么还会产生一个 <code class="docutils literal"><span class="pre">del</span></code> 通知。</li>
+<li>每当一个键因为过期而被删除时，产生一个 <code class="docutils literal"><span class="pre">expired</span></code> 通知。</li>
+<li>每当一个键因为 <code class="docutils literal"><span class="pre">maxmemory</span></code> 政策而被删除以回收内存时，产生一个 <code class="docutils literal"><span class="pre">evicted</span></code> 通知。</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>所有命令都只在键<strong>真的</strong>被改动了之后，才会产生通知。</p>
+<p class="last">比如说，当 <a class="reference internal" href="../set/srem.html#srem"><em>SREM</em></a> 试图删除不存在于集合的元素时，删除操作会执行失败，因为没有真正的改动键，所以这一操作不会发送通知。</p>
+</div>
+<p>如果对命令所产生的通知有疑问，
+最好还是使用以下命令，
+自己来验证一下：</p>
+<div class="highlight-python"><div class="highlight"><pre>$ redis-cli config set notify-keyspace-events KEA
+$ redis-cli --csv psubscribe &#39;__key*__:*&#39;
+Reading messages... (press Ctrl-C to quit)
+&quot;psubscribe&quot;,&quot;__key*__:*&quot;,1
+</pre></div>
+</div>
+<p>然后，
+只要在其他终端里用 Redis 客户端发送命令，
+就可以看到产生的通知了：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;pmessage&quot;</span><span class="p">,</span><span class="s">&quot;__key*__:*&quot;</span><span class="p">,</span><span class="s">&quot;__keyspace@0__:foo&quot;</span><span class="p">,</span><span class="s">&quot;set&quot;</span>
+<span class="s">&quot;pmessage&quot;</span><span class="p">,</span><span class="s">&quot;__key*__:*&quot;</span><span class="p">,</span><span class="s">&quot;__keyevent@0__:set&quot;</span><span class="p">,</span><span class="s">&quot;foo&quot;</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>过期通知的发送时间<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>Redis 使用以下两种方式删除过期的键：</p>
+<ul class="simple">
+<li>当一个键被访问时，程序会对这个键进行检查，如果键已经过期，那么该键将被删除。</li>
+<li>底层系统会在后台渐进地查找并删除那些过期的键，从而处理那些已经过期、但是不会被访问到的键。</li>
+</ul>
+<p>当过期键被以上两个程序的任意一个发现、
+并且将键从数据库中删除时，
+Redis 会产生一个 <code class="docutils literal"><span class="pre">expired</span></code> 通知。</p>
+<p>Redis 并不保证生存时间（TTL）变为 <code class="docutils literal"><span class="pre">0</span></code> 的键会立即被删除：
+如果程序没有访问这个过期键，
+或者带有生存时间的键非常多的话，
+那么在键的生存时间变为 <code class="docutils literal"><span class="pre">0</span></code> ，
+直到键真正被删除这中间，
+可能会有一段比较显著的时间间隔。</p>
+<p>因此，
+Redis 产生 <code class="docutils literal"><span class="pre">expired</span></code> 通知的时间为过期键被删除的时候，
+而不是键的生存时间变为 <code class="docutils literal"><span class="pre">0</span></code> 的时候。</p>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="transaction.html" title="事务（transaction）"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../server/time.html" title="TIME"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

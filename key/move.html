@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MOVE &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="up" title="Key（键）" href="index.html" />
+    <link rel="next" title="OBJECT" href="object.html" />
+    <link rel="prev" title="MIGRATE" href="migrate.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="object.html" title="OBJECT"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="migrate.html" title="MIGRATE"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Key（键）</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="move">
+<span id="id1"></span><h1>MOVE<a class="headerlink" href="#move" title="Permalink to this headline">¶</a></h1>
+<p><strong>MOVE key db</strong></p>
+<p>将当前数据库的 <code class="docutils literal"><span class="pre">key</span></code> 移动到给定的数据库 <code class="docutils literal"><span class="pre">db</span></code> 当中。</p>
+<p>如果当前数据库(源数据库)和给定数据库(目标数据库)有相同名字的给定 <code class="docutils literal"><span class="pre">key</span></code> ，或者 <code class="docutils literal"><span class="pre">key</span></code> 不存在于当前数据库，那么 <code class="docutils literal"><span class="pre">MOVE</span></code> 没有任何效果。</p>
+<p>因此，也可以利用这一特性，将 <a class="reference internal" href="#move">MOVE</a> 当作锁(locking)原语(primitive)。</p>
+<dl class="docutils">
+<dt><strong>可用版本：</strong></dt>
+<dd>&gt;= 1.0.0</dd>
+<dt><strong>时间复杂度：</strong></dt>
+<dd>O(1)</dd>
+<dt><strong>返回值：</strong></dt>
+<dd>移动成功返回 <code class="docutils literal"><span class="pre">1</span></code> ，失败则返回 <code class="docutils literal"><span class="pre">0</span></code> 。</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre># key 存在于当前数据库
+
+redis&gt; SELECT 0                             # redis默认使用数据库 0，为了清晰起见，这里再显式指定一次。
+OK
+
+redis&gt; SET song &quot;secret base - Zone&quot;
+OK
+
+redis&gt; MOVE song 1                          # 将 song 移动到数据库 1
+(integer) 1
+
+redis&gt; EXISTS song                          # song 已经被移走
+(integer) 0
+
+redis&gt; SELECT 1                             # 使用数据库 1
+OK
+
+redis:1&gt; EXISTS song                        # 证实 song 被移到了数据库 1 (注意命令提示符变成了&quot;redis:1&quot;，表明正在使用数据库 1)
+(integer) 1
+
+
+# 当 key 不存在的时候
+
+redis:1&gt; EXISTS fake_key
+(integer) 0
+
+redis:1&gt; MOVE fake_key 0                    # 试图从数据库 1 移动一个不存在的 key 到数据库 0，失败
+(integer) 0
+
+redis:1&gt; select 0                           # 使用数据库0
+OK
+
+redis&gt; EXISTS fake_key                      # 证实 fake_key 不存在
+(integer) 0
+
+
+# 当源数据库和目标数据库有相同的 key 时
+
+redis&gt; SELECT 0                             # 使用数据库0
+OK
+redis&gt; SET favorite_fruit &quot;banana&quot;
+OK
+
+redis&gt; SELECT 1                             # 使用数据库1
+OK
+redis:1&gt; SET favorite_fruit &quot;apple&quot;
+OK
+
+redis:1&gt; SELECT 0                           # 使用数据库0，并试图将 favorite_fruit 移动到数据库 1
+OK
+
+redis&gt; MOVE favorite_fruit 1                # 因为两个数据库有相同的 key，MOVE 失败
+(integer) 0
+
+redis&gt; GET favorite_fruit                   # 数据库 0 的 favorite_fruit 没变
+&quot;banana&quot;
+
+redis&gt; SELECT 1
+OK
+
+redis:1&gt; GET favorite_fruit                 # 数据库 1 的 favorite_fruit 也是
+&quot;apple&quot;
+</pre></div>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="object.html" title="OBJECT"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="migrate.html" title="MIGRATE"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >Key（键）</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>BITCOUNT &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="up" title="String（字符串）" href="index.html" />
+    <link rel="next" title="BITOP" href="bitop.html" />
+    <link rel="prev" title="APPEND" href="append.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="bitop.html" title="BITOP"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="append.html" title="APPEND"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">String（字符串）</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bitcount">
+<span id="id1"></span><h1>BITCOUNT<a class="headerlink" href="#bitcount" title="Permalink to this headline">¶</a></h1>
+<p><strong>BITCOUNT key [start] [end]</strong></p>
+<p>计算给定字符串中，被设置为 <code class="docutils literal"><span class="pre">1</span></code> 的比特位的数量。</p>
+<p>一般情况下，给定的整个字符串都会被进行计数，通过指定额外的 <code class="docutils literal"><span class="pre">start</span></code> 或 <code class="docutils literal"><span class="pre">end</span></code> 参数，可以让计数只在特定的位上进行。</p>
+<p><code class="docutils literal"><span class="pre">start</span></code> 和 <code class="docutils literal"><span class="pre">end</span></code> 参数的设置和 <a class="reference internal" href="getrange.html#getrange"><em>GETRANGE</em></a> 命令类似，都可以使用负数值：
+比如 <code class="docutils literal"><span class="pre">-1</span></code> 表示最后一个字节， <code class="docutils literal"><span class="pre">-2</span></code> 表示倒数第二个字节，以此类推。</p>
+<p>不存在的 <code class="docutils literal"><span class="pre">key</span></code> 被当成是空字符串来处理，因此对一个不存在的 <code class="docutils literal"><span class="pre">key</span></code> 进行 <code class="docutils literal"><span class="pre">BITCOUNT</span></code> 操作，结果为 <code class="docutils literal"><span class="pre">0</span></code> 。</p>
+<dl class="docutils">
+<dt><strong>可用版本：</strong></dt>
+<dd>&gt;= 2.6.0</dd>
+<dt><strong>时间复杂度：</strong></dt>
+<dd>O(N)</dd>
+<dt><strong>返回值：</strong></dt>
+<dd>被设置为 <code class="docutils literal"><span class="pre">1</span></code> 的位的数量。</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre>redis&gt; BITCOUNT bits
+(integer) 0
+
+redis&gt; SETBIT bits 0 1          # 0001
+(integer) 0
+
+redis&gt; BITCOUNT bits
+(integer) 1
+
+redis&gt; SETBIT bits 3 1          # 1001
+(integer) 0
+
+redis&gt; BITCOUNT bits
+(integer) 2
+</pre></div>
+</div>
+<div class="section" id="bitmap">
+<h2>模式：使用 bitmap 实现用户上线次数统计<a class="headerlink" href="#bitmap" title="Permalink to this headline">¶</a></h2>
+<p>Bitmap 对于一些特定类型的计算非常有效。</p>
+<p>假设现在我们希望记录自己网站上的用户的上线频率，比如说，计算用户 A 上线了多少天，用户 B 上线了多少天，诸如此类，以此作为数据，从而决定让哪些用户参加 beta 测试等活动 —— 这个模式可以使用 <a class="reference internal" href="setbit.html#setbit"><em>SETBIT</em></a> 和 <a class="reference internal" href="#bitcount"><em>BITCOUNT</em></a> 来实现。</p>
+<p>比如说，每当用户在某一天上线的时候，我们就使用 <a class="reference internal" href="setbit.html#setbit"><em>SETBIT</em></a> ，以用户名作为 <code class="docutils literal"><span class="pre">key</span></code> ，将那天所代表的网站的上线日作为 <code class="docutils literal"><span class="pre">offset</span></code> 参数，并将这个 <code class="docutils literal"><span class="pre">offset</span></code> 上的为设置为 <code class="docutils literal"><span class="pre">1</span></code> 。</p>
+<p>举个例子，如果今天是网站上线的第 100 天，而用户 peter 在今天阅览过网站，那么执行命令 <code class="docutils literal"><span class="pre">SETBIT</span> <span class="pre">peter</span> <span class="pre">100</span> <span class="pre">1</span></code> ；如果明天 peter 也继续阅览网站，那么执行命令 <code class="docutils literal"><span class="pre">SETBIT</span> <span class="pre">peter</span> <span class="pre">101</span> <span class="pre">1</span></code> ，以此类推。</p>
+<p>当要计算 peter 总共以来的上线次数时，就使用 <a class="reference internal" href="#bitcount"><em>BITCOUNT</em></a> 命令：执行 <code class="docutils literal"><span class="pre">BITCOUNT</span> <span class="pre">peter</span></code> ，得出的结果就是 peter 上线的总天数。</p>
+<p>更详细的实现可以参考博文(墙外) <a class="reference external" href="http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps/">Fast, easy, realtime metrics using Redis bitmaps</a> 。</p>
+</div>
+<div class="section" id="id2">
+<h2>性能<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>前面的上线次数统计例子，即使运行 10 年，占用的空间也只是每个用户 10*365 比特位(bit)，也即是每个用户 456 字节。对于这种大小的数据来说， <a class="reference internal" href="#bitcount"><em>BITCOUNT</em></a> 的处理速度就像 <a class="reference internal" href="get.html#get"><em>GET</em></a> 和 <a class="reference internal" href="incr.html#incr"><em>INCR</em></a> 这种 O(1) 复杂度的操作一样快。</p>
+<p>如果你的 bitmap 数据非常大，那么可以考虑使用以下两种方法：</p>
+<ol class="arabic simple">
+<li>将一个大的 bitmap 分散到不同的 key 中，作为小的 bitmap 来处理。使用 Lua 脚本可以很方便地完成这一工作。</li>
+<li>使用 <a class="reference internal" href="#bitcount"><em>BITCOUNT</em></a> 的 <code class="docutils literal"><span class="pre">start</span></code> 和 <code class="docutils literal"><span class="pre">end</span></code> 参数，每次只对所需的部分位进行计算，将位的累积工作(accumulating)放到客户端进行，并且对结果进行缓存 (caching)。</li>
+</ol>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="bitop.html" title="BITOP"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="append.html" title="APPEND"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >String（字符串）</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

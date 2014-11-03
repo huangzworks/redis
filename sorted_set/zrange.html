@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ZRANGE &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="up" title="SortedSet（有序集合）" href="index.html" />
+    <link rel="next" title="ZRANGEBYSCORE" href="zrangebyscore.html" />
+    <link rel="prev" title="ZINCRBY" href="zincrby.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="zrangebyscore.html" title="ZRANGEBYSCORE"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="zincrby.html" title="ZINCRBY"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">SortedSet（有序集合）</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="zrange">
+<span id="id1"></span><h1>ZRANGE<a class="headerlink" href="#zrange" title="Permalink to this headline">¶</a></h1>
+<p><strong>ZRANGE key start stop [WITHSCORES]</strong></p>
+<p>返回有序集 <code class="docutils literal"><span class="pre">key</span></code> 中，指定区间内的成员。</p>
+<p>其中成员的位置按 <code class="docutils literal"><span class="pre">score</span></code> 值递增(从小到大)来排序。</p>
+<p>具有相同 <code class="docutils literal"><span class="pre">score</span></code> 值的成员按字典序(<a class="reference external" href="http://en.wikipedia.org/wiki/Lexicographical_order">lexicographical order</a> )来排列。</p>
+<p>如果你需要成员按 <code class="docutils literal"><span class="pre">score</span></code> 值递减(从大到小)来排列，请使用 <a class="reference internal" href="zrevrange.html#zrevrange"><em>ZREVRANGE</em></a> 命令。</p>
+<div class="line-block">
+<div class="line">下标参数 <code class="docutils literal"><span class="pre">start</span></code> 和 <code class="docutils literal"><span class="pre">stop</span></code> 都以 <code class="docutils literal"><span class="pre">0</span></code> 为底，也就是说，以 <code class="docutils literal"><span class="pre">0</span></code> 表示有序集第一个成员，以 <code class="docutils literal"><span class="pre">1</span></code> 表示有序集第二个成员，以此类推。</div>
+<div class="line">你也可以使用负数下标，以 <code class="docutils literal"><span class="pre">-1</span></code> 表示最后一个成员， <code class="docutils literal"><span class="pre">-2</span></code> 表示倒数第二个成员，以此类推。</div>
+</div>
+<div class="line-block">
+<div class="line">超出范围的下标并不会引起错误。</div>
+<div class="line">比如说，当 <code class="docutils literal"><span class="pre">start</span></code> 的值比有序集的最大下标还要大，或是 <code class="docutils literal"><span class="pre">start</span> <span class="pre">&gt;</span> <span class="pre">stop</span></code> 时， <a class="reference internal" href="#zrange">ZRANGE</a> 命令只是简单地返回一个空列表。</div>
+<div class="line">另一方面，假如 <code class="docutils literal"><span class="pre">stop</span></code> 参数的值比有序集的最大下标还要大，那么 Redis 将 <code class="docutils literal"><span class="pre">stop</span></code> 当作最大下标来处理。</div>
+</div>
+<div class="line-block">
+<div class="line">可以通过使用 <code class="docutils literal"><span class="pre">WITHSCORES</span></code> 选项，来让成员和它的 <code class="docutils literal"><span class="pre">score</span></code> 值一并返回，返回列表以 <code class="docutils literal"><span class="pre">value1,score1,</span> <span class="pre">...,</span> <span class="pre">valueN,scoreN</span></code> 的格式表示。</div>
+<div class="line">客户端库可能会返回一些更复杂的数据类型，比如数组、元组等。</div>
+</div>
+<dl class="docutils">
+<dt><strong>可用版本：</strong></dt>
+<dd>&gt;= 1.2.0</dd>
+<dt><strong>时间复杂度:</strong></dt>
+<dd>O(log(N)+M)， <code class="docutils literal"><span class="pre">N</span></code> 为有序集的基数，而 <code class="docutils literal"><span class="pre">M</span></code> 为结果集的基数。</dd>
+<dt><strong>返回值:</strong></dt>
+<dd>指定区间内，带有 <code class="docutils literal"><span class="pre">score</span></code> 值(可选)的有序集成员的列表。</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre>redis &gt; ZRANGE salary 0 -1 WITHSCORES             # 显示整个有序集成员
+1) &quot;jack&quot;
+2) &quot;3500&quot;
+3) &quot;tom&quot;
+4) &quot;5000&quot;
+5) &quot;boss&quot;
+6) &quot;10086&quot;
+
+redis &gt; ZRANGE salary 1 2 WITHSCORES              # 显示有序集下标区间 1 至 2 的成员
+1) &quot;tom&quot;
+2) &quot;5000&quot;
+3) &quot;boss&quot;
+4) &quot;10086&quot;
+
+redis &gt; ZRANGE salary 0 200000 WITHSCORES         # 测试 end 下标超出最大下标时的情况
+1) &quot;jack&quot;
+2) &quot;3500&quot;
+3) &quot;tom&quot;
+4) &quot;5000&quot;
+5) &quot;boss&quot;
+6) &quot;10086&quot;
+
+redis &gt; ZRANGE salary 200000 3000000 WITHSCORES   # 测试当给定区间不存在于有序集时的情况
+(empty list or set)
+</pre></div>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="zrangebyscore.html" title="ZRANGEBYSCORE"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="zincrby.html" title="ZINCRBY"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >SortedSet（有序集合）</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

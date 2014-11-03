@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>SET &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="up" title="String（字符串）" href="index.html" />
+    <link rel="next" title="SETBIT" href="setbit.html" />
+    <link rel="prev" title="PSETEX" href="psetex.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="setbit.html" title="SETBIT"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="psetex.html" title="PSETEX"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">String（字符串）</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="set">
+<span id="id1"></span><h1>SET<a class="headerlink" href="#set" title="Permalink to this headline">¶</a></h1>
+<p><strong>SET key value [EX seconds] [PX milliseconds] [NX|XX]</strong></p>
+<p>将字符串值 <code class="docutils literal"><span class="pre">value</span></code> 关联到 <code class="docutils literal"><span class="pre">key</span></code> 。</p>
+<p>如果 <code class="docutils literal"><span class="pre">key</span></code> 已经持有其他值， <a class="reference internal" href="#set">SET</a> 就覆写旧值，无视类型。</p>
+<p>对于某个原本带有生存时间（TTL）的键来说，
+当 <a class="reference internal" href="#set"><em>SET</em></a> 命令成功在这个键上执行时，
+这个键原有的 TTL 将被清除。</p>
+<p><strong>可选参数</strong></p>
+<p>从 Redis 2.6.12 版本开始， <a class="reference internal" href="#set"><em>SET</em></a> 命令的行为可以通过一系列参数来修改：</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">EX</span> <span class="pre">second</span></code> ：设置键的过期时间为 <code class="docutils literal"><span class="pre">second</span></code> 秒。 <code class="docutils literal"><span class="pre">SET</span> <span class="pre">key</span> <span class="pre">value</span> <span class="pre">EX</span> <span class="pre">second</span></code> 效果等同于 <code class="docutils literal"><span class="pre">SETEX</span> <span class="pre">key</span> <span class="pre">second</span> <span class="pre">value</span></code> 。</li>
+<li><code class="docutils literal"><span class="pre">PX</span> <span class="pre">millisecond</span></code> ：设置键的过期时间为 <code class="docutils literal"><span class="pre">millisecond</span></code> 毫秒。 <code class="docutils literal"><span class="pre">SET</span> <span class="pre">key</span> <span class="pre">value</span> <span class="pre">PX</span> <span class="pre">millisecond</span></code> 效果等同于 <code class="docutils literal"><span class="pre">PSETEX</span> <span class="pre">key</span> <span class="pre">millisecond</span> <span class="pre">value</span></code> 。</li>
+<li><code class="docutils literal"><span class="pre">NX</span></code> ：只在键不存在时，才对键进行设置操作。 <code class="docutils literal"><span class="pre">SET</span> <span class="pre">key</span> <span class="pre">value</span> <span class="pre">NX</span></code> 效果等同于 <code class="docutils literal"><span class="pre">SETNX</span> <span class="pre">key</span> <span class="pre">value</span></code> 。</li>
+<li><code class="docutils literal"><span class="pre">XX</span></code> ：只在键已经存在时，才对键进行设置操作。</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">因为 <a class="reference internal" href="#set"><em>SET</em></a> 命令可以通过参数来实现和 <a class="reference internal" href="setnx.html#setnx"><em>SETNX</em></a> 、 <a class="reference internal" href="setex.html#setex"><em>SETEX</em></a> 和 <a class="reference internal" href="psetex.html#psetex"><em>PSETEX</em></a> 三个命令的效果，所以将来的 Redis 版本可能会废弃并最终移除 <a class="reference internal" href="setnx.html#setnx"><em>SETNX</em></a> 、 <a class="reference internal" href="setex.html#setex"><em>SETEX</em></a> 和 <a class="reference internal" href="psetex.html#psetex"><em>PSETEX</em></a> 这三个命令。</p>
+</div>
+<dl class="docutils">
+<dt><strong>可用版本：</strong></dt>
+<dd>&gt;= 1.0.0</dd>
+<dt><strong>时间复杂度：</strong></dt>
+<dd>O(1)</dd>
+<dt><strong>返回值：</strong></dt>
+<dd><p class="first">在 Redis 2.6.12 版本以前， <a class="reference internal" href="#set"><em>SET</em></a> 命令总是返回 <code class="docutils literal"><span class="pre">OK</span></code> 。</p>
+<div class="last line-block">
+<div class="line">从 Redis 2.6.12 版本开始， <a class="reference internal" href="#set"><em>SET</em></a> 在设置操作成功完成时，才返回 <code class="docutils literal"><span class="pre">OK</span></code> 。</div>
+<div class="line">如果设置了 <code class="docutils literal"><span class="pre">NX</span></code> 或者 <code class="docutils literal"><span class="pre">XX</span></code> ，但因为条件没达到而造成设置操作未执行，那么命令返回空批量回复（NULL Bulk Reply）。</div>
+</div>
+</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre># 对不存在的键进行设置
+
+redis 127.0.0.1:6379&gt; SET key &quot;value&quot;
+OK
+
+redis 127.0.0.1:6379&gt; GET key
+&quot;value&quot;
+
+
+# 对已存在的键进行设置
+
+redis 127.0.0.1:6379&gt; SET key &quot;new-value&quot;
+OK
+
+redis 127.0.0.1:6379&gt; GET key
+&quot;new-value&quot;
+
+
+# 使用 EX 选项
+
+redis 127.0.0.1:6379&gt; SET key-with-expire-time &quot;hello&quot; EX 10086
+OK
+
+redis 127.0.0.1:6379&gt; GET key-with-expire-time
+&quot;hello&quot;
+
+redis 127.0.0.1:6379&gt; TTL key-with-expire-time
+(integer) 10069
+
+
+# 使用 PX 选项
+
+redis 127.0.0.1:6379&gt; SET key-with-pexpire-time &quot;moto&quot; PX 123321
+OK
+
+redis 127.0.0.1:6379&gt; GET key-with-pexpire-time
+&quot;moto&quot;
+
+redis 127.0.0.1:6379&gt; PTTL key-with-pexpire-time
+(integer) 111939
+
+
+# 使用 NX 选项
+
+redis 127.0.0.1:6379&gt; SET not-exists-key &quot;value&quot; NX
+OK      # 键不存在，设置成功
+
+redis 127.0.0.1:6379&gt; GET not-exists-key
+&quot;value&quot;
+
+redis 127.0.0.1:6379&gt; SET not-exists-key &quot;new-value&quot; NX
+(nil)   # 键已经存在，设置失败
+
+redis 127.0.0.1:6379&gt; GEt not-exists-key
+&quot;value&quot; # 维持原值不变
+
+
+# 使用 XX 选项
+
+redis 127.0.0.1:6379&gt; EXISTS exists-key
+(integer) 0
+
+redis 127.0.0.1:6379&gt; SET exists-key &quot;value&quot; XX
+(nil)   # 因为键不存在，设置失败
+
+redis 127.0.0.1:6379&gt; SET exists-key &quot;value&quot;
+OK      # 先给键设置一个值
+
+redis 127.0.0.1:6379&gt; SET exists-key &quot;new-value&quot; XX
+OK      # 设置新值成功
+
+redis 127.0.0.1:6379&gt; GET exists-key
+&quot;new-value&quot;
+
+
+# NX 或 XX 可以和 EX 或者 PX 组合使用
+
+redis 127.0.0.1:6379&gt; SET key-with-expire-and-NX &quot;hello&quot; EX 10086 NX
+OK
+
+redis 127.0.0.1:6379&gt; GET key-with-expire-and-NX
+&quot;hello&quot;
+
+redis 127.0.0.1:6379&gt; TTL key-with-expire-and-NX
+(integer) 10063
+
+redis 127.0.0.1:6379&gt; SET key-with-pexpire-and-XX &quot;old value&quot;
+OK
+
+redis 127.0.0.1:6379&gt; SET key-with-pexpire-and-XX &quot;new value&quot; PX 123321
+OK
+
+redis 127.0.0.1:6379&gt; GET key-with-pexpire-and-XX
+&quot;new value&quot;
+
+redis 127.0.0.1:6379&gt; PTTL key-with-pexpire-and-XX
+(integer) 112999
+
+
+# EX 和 PX 可以同时出现，但后面给出的选项会覆盖前面给出的选项
+
+redis 127.0.0.1:6379&gt; SET key &quot;value&quot; EX 1000 PX 5000000
+OK
+
+redis 127.0.0.1:6379&gt; TTL key
+(integer) 4993  # 这是 PX 参数设置的值
+
+redis 127.0.0.1:6379&gt; SET another-key &quot;value&quot; PX 5000000 EX 1000
+OK
+
+redis 127.0.0.1:6379&gt; TTL another-key
+(integer) 997   # 这是 EX 参数设置的值
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h2>使用模式<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>命令 <code class="docutils literal"><span class="pre">SET</span> <span class="pre">resource-name</span> <span class="pre">anystring</span> <span class="pre">NX</span> <span class="pre">EX</span> <span class="pre">max-lock-time</span></code> 是一种在 Redis 中实现锁的简单方法。</p>
+<p>客户端执行以上的命令：</p>
+<ul class="simple">
+<li>如果服务器返回 <code class="docutils literal"><span class="pre">OK</span></code> ，那么这个客户端获得锁。</li>
+<li>如果服务器返回 <code class="docutils literal"><span class="pre">NIL</span></code> ，那么客户端获取锁失败，可以在稍后再重试。</li>
+</ul>
+<p>设置的过期时间到达之后，锁将自动释放。</p>
+<p>可以通过以下修改，让这个锁实现更健壮：</p>
+<ul class="simple">
+<li>不使用固定的字符串作为键的值，而是设置一个不可猜测（non-guessable）的长随机字符串，作为口令串（token）。</li>
+<li>不使用 <a class="reference internal" href="../key/del.html#del"><em>DEL</em></a> 命令来释放锁，而是发送一个 Lua 脚本，这个脚本只在客户端传入的值和键的口令串相匹配时，才对键进行删除。</li>
+</ul>
+<p>这两个改动可以防止持有过期锁的客户端误删现有锁的情况出现。</p>
+<p>以下是一个简单的解锁脚本示例：</p>
+<div class="highlight-lua"><div class="highlight"><pre><span class="k">if</span> <span class="n">redis</span><span class="p">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">get&quot;</span><span class="p">,</span><span class="n">KEYS</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="n">ARGV</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">then</span>
+    <span class="k">return</span> <span class="n">redis</span><span class="p">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">del&quot;</span><span class="p">,</span><span class="n">KEYS</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">else</span>
+    <span class="k">return</span> <span class="mi">0</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>这个脚本可以通过 <code class="docutils literal"><span class="pre">EVAL</span> <span class="pre">...script...</span> <span class="pre">1</span> <span class="pre">resource-name</span> <span class="pre">token-value</span></code> 命令来调用。</p>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="setbit.html" title="SETBIT"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="psetex.html" title="PSETEX"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >String（字符串）</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

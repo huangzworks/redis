@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Key（键） &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="next" title="DEL" href="del.html" />
+    <link rel="prev" title="Redis 命令参考" href="../index.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="del.html" title="DEL"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Redis 命令参考"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="key">
+<h1>Key（键）<a class="headerlink" href="#key" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="del.html">DEL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dump.html">DUMP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exists.html">EXISTS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expire.html">EXPIRE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="expire.html#id2">模式：导航会话</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="expireat.html">EXPIREAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keys.html">KEYS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migrate.html">MIGRATE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="migrate.html#id2">示例</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="move.html">MOVE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object.html">OBJECT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persist.html">PERSIST</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pexpire.html">PEXPIRE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pexpireat.html">PEXPIREAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pttl.html">PTTL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="randomkey.html">RANDOMKEY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rename.html">RENAME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="renamenx.html">RENAMENX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="restore.html">RESTORE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sort.html">SORT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sort.html#id2">一般 SORT 用法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sort.html#alpha">使用 ALPHA 修饰符对字符串进行排序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sort.html#limit">使用 LIMIT 修饰符限制返回结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sort.html#key">使用外部 key 进行排序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sort.html#id5">保存排序结果</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ttl.html">TTL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="type.html">TYPE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scan.html">SCAN</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scan.html#id2">SCAN 命令的基本用法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scan.html#scan-guarantees">SCAN 命令的保证（guarantees）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scan.html#id3">SCAN 命令每次执行返回的元素数量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scan.html#count">COUNT 选项</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scan.html#match">MATCH 选项</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scan.html#id4">并发执行多个迭代</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scan.html#id5">中途停止迭代</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scan.html#id6">使用错误的游标进行增量式迭代</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scan.html#id7">迭代终结的保证</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="del.html" title="DEL"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Redis 命令参考"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

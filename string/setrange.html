@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>SETRANGE &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="up" title="String（字符串）" href="index.html" />
+    <link rel="next" title="STRLEN" href="strlen.html" />
+    <link rel="prev" title="SETNX" href="setnx.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="strlen.html" title="STRLEN"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="setnx.html" title="SETNX"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">String（字符串）</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="setrange">
+<span id="id1"></span><h1>SETRANGE<a class="headerlink" href="#setrange" title="Permalink to this headline">¶</a></h1>
+<p><strong>SETRANGE key offset value</strong></p>
+<p>用 <code class="docutils literal"><span class="pre">value</span></code> 参数覆写(overwrite)给定 <code class="docutils literal"><span class="pre">key</span></code> 所储存的字符串值，从偏移量 <code class="docutils literal"><span class="pre">offset</span></code> 开始。</p>
+<p>不存在的 <code class="docutils literal"><span class="pre">key</span></code> 当作空白字符串处理。</p>
+<p><a class="reference internal" href="#setrange">SETRANGE</a> 命令会确保字符串足够长以便将 <code class="docutils literal"><span class="pre">value</span></code> 设置在指定的偏移量上，如果给定 <code class="docutils literal"><span class="pre">key</span></code> 原来储存的字符串长度比偏移量小(比如字符串只有 <code class="docutils literal"><span class="pre">5</span></code> 个字符长，但你设置的 <code class="docutils literal"><span class="pre">offset</span></code> 是 <code class="docutils literal"><span class="pre">10</span></code> )，那么原字符和偏移量之间的空白将用零字节(zerobytes, <code class="docutils literal"><span class="pre">&quot;\x00&quot;</span></code> )来填充。</p>
+<p>注意你能使用的最大偏移量是 2^29-1(536870911) ，因为 Redis 字符串的大小被限制在 512 兆(megabytes)以内。如果你需要使用比这更大的空间，你可以使用多个 <code class="docutils literal"><span class="pre">key</span></code> 。</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">当生成一个很长的字符串时，Redis 需要分配内存空间，该操作有时候可能会造成服务器阻塞(block)。在2010年的Macbook Pro上，设置偏移量为 536870911(512MB 内存分配)，耗费约 300 毫秒，
+设置偏移量为 134217728(128MB 内存分配)，耗费约 80 毫秒，设置偏移量 33554432(32MB 内存分配)，耗费约 30 毫秒，设置偏移量为 8388608(8MB 内存分配)，耗费约 8 毫秒。
+注意若首次内存分配成功之后，再对同一个 <code class="docutils literal"><span class="pre">key</span></code> 调用 <a class="reference internal" href="#setrange">SETRANGE</a> 操作，无须再重新内存。</p>
+</div>
+<dl class="docutils">
+<dt><strong>可用版本：</strong></dt>
+<dd>&gt;= 2.2.0</dd>
+<dt><strong>时间复杂度：</strong></dt>
+<dd><div class="first last line-block">
+<div class="line">对小(small)的字符串，平摊复杂度O(1)。(关于什么字符串是&#8221;小&#8221;的，请参考 <a class="reference internal" href="append.html#append"><em>APPEND</em></a> 命令)</div>
+<div class="line">否则为O(M)， <code class="docutils literal"><span class="pre">M</span></code> 为 <code class="docutils literal"><span class="pre">value</span></code> 参数的长度。</div>
+</div>
+</dd>
+<dt><strong>返回值：</strong></dt>
+<dd>被 <a class="reference internal" href="#setrange">SETRANGE</a> 修改之后，字符串的长度。</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre># 对非空字符串进行 SETRANGE
+
+redis&gt; SET greeting &quot;hello world&quot;
+OK
+
+redis&gt; SETRANGE greeting 6 &quot;Redis&quot;
+(integer) 11
+
+redis&gt; GET greeting
+&quot;hello Redis&quot;
+
+
+# 对空字符串/不存在的 key 进行 SETRANGE
+
+redis&gt; EXISTS empty_string
+(integer) 0
+
+redis&gt; SETRANGE empty_string 5 &quot;Redis!&quot;   # 对不存在的 key 使用 SETRANGE
+(integer) 11
+
+redis&gt; GET empty_string                   # 空白处被&quot;\x00&quot;填充
+&quot;\x00\x00\x00\x00\x00Redis!&quot;
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h2>模式<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>因为有了 <a class="reference internal" href="#setrange">SETRANGE</a> 和 <a class="reference internal" href="getrange.html#getrange"><em>GETRANGE</em></a> 命令，你可以将 Redis 字符串用作具有O(1)随机访问时间的线性数组，这在很多真实用例中都是非常快速且高效的储存方式，具体请参考 <a class="reference internal" href="append.html#append"><em>APPEND</em></a> 命令的『模式：时间序列』部分。</p>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="strlen.html" title="STRLEN"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="setnx.html" title="SETNX"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >String（字符串）</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>CLIENT SETNAME &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="up" title="Server（服务器）" href="index.html" />
+    <link rel="next" title="CONFIG GET" href="config_get.html" />
+    <link rel="prev" title="CLIENT LIST" href="client_list.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="config_get.html" title="CONFIG GET"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="client_list.html" title="CLIENT LIST"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Server（服务器）</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="client-setname">
+<span id="id1"></span><h1>CLIENT SETNAME<a class="headerlink" href="#client-setname" title="Permalink to this headline">¶</a></h1>
+<p><strong>CLIENT SETNAME connection-name</strong></p>
+<p>为当前连接分配一个名字。</p>
+<p>这个名字会显示在 <a class="reference internal" href="client_list.html#client-list"><em>CLIENT LIST</em></a> 命令的结果中，
+用于识别当前正在与服务器进行连接的客户端。</p>
+<p>举个例子，
+在使用 Redis 构建队列（queue）时，
+可以根据连接负责的任务（role），
+为信息生产者（producer）和信息消费者（consumer）分别设置不同的名字。</p>
+<p>名字使用 Redis 的字符串类型来保存，
+最大可以占用 512 MB 。
+另外，
+为了避免和 <a class="reference internal" href="client_list.html#client-list"><em>CLIENT LIST</em></a> 命令的输出格式发生冲突，
+名字里不允许使用空格。</p>
+<p>要移除一个连接的名字，
+可以将连接的名字设为空字符串 <code class="docutils literal"><span class="pre">&quot;&quot;</span></code> 。</p>
+<p>使用 <a class="reference internal" href="client_getname.html#client-getname"><em>CLIENT GETNAME</em></a> 命令可以取出连接的名字。</p>
+<p>新创建的连接默认是没有名字的。</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">在 Redis 应用程序发生连接泄漏时，为连接设置名字是一种很好的 debug 手段。</p>
+</div>
+<dl class="docutils">
+<dt><strong>可用版本</strong></dt>
+<dd>&gt;= 2.6.9</dd>
+<dt><strong>时间复杂度</strong></dt>
+<dd>O(1)</dd>
+<dt><strong>返回值</strong></dt>
+<dd>设置成功时返回 <code class="docutils literal"><span class="pre">OK</span></code> 。</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre># 新连接默认没有名字
+
+redis 127.0.0.1:6379&gt; CLIENT GETNAME
+(nil)
+
+# 设置名字
+
+redis 127.0.0.1:6379&gt; CLIENT SETNAME hello-world-connection
+OK
+
+# 返回名字
+
+redis 127.0.0.1:6379&gt; CLIENT GETNAME
+&quot;hello-world-connection&quot;
+
+# 在客户端列表中查看
+
+redis 127.0.0.1:6379&gt; CLIENT LIST
+addr=127.0.0.1:36851
+fd=5
+name=hello-world-connection     # &lt;- 名字
+age=51
+...
+
+# 清除名字
+
+redis 127.0.0.1:6379&gt; CLIENT SETNAME        # 只用空格是不行的！
+(error) ERR Syntax error, try CLIENT (LIST | KILL ip:port)
+
+redis 127.0.0.1:6379&gt; CLIENT SETNAME &quot;&quot;     # 必须双引号显示包围
+OK
+
+redis 127.0.0.1:6379&gt; CLIENT GETNAME        # 清除完毕
+(nil)
+</pre></div>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="config_get.html" title="CONFIG GET"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="client_list.html" title="CLIENT LIST"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >Server（服务器）</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>BGREWRITEAOF &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="up" title="Server（服务器）" href="index.html" />
+    <link rel="next" title="BGSAVE" href="bgsave.html" />
+    <link rel="prev" title="Server（服务器）" href="index.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="bgsave.html" title="BGSAVE"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Server（服务器）"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Server（服务器）</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bgrewriteaof">
+<span id="id1"></span><h1>BGREWRITEAOF<a class="headerlink" href="#bgrewriteaof" title="Permalink to this headline">¶</a></h1>
+<p><strong>BGREWRITEAOF</strong></p>
+<p>执行一个 <a class="reference external" href="http://redis.io/topics/persistence#append-only-file">AOF文件</a> 重写操作。重写会创建一个当前 AOF 文件的体积优化版本。</p>
+<p>即使 <a class="reference internal" href="#bgrewriteaof">BGREWRITEAOF</a> 执行失败，也不会有任何数据丢失，因为旧的 AOF 文件在 <a class="reference internal" href="#bgrewriteaof">BGREWRITEAOF</a> 成功之前不会被修改。</p>
+<p>重写操作只会在没有其他持久化工作在后台执行时被触发，也就是说：</p>
+<ul class="simple">
+<li>如果 Redis 的子进程正在执行快照的保存工作，那么 AOF 重写的操作会被预定(scheduled)，等到保存工作完成之后再执行 AOF 重写。在这种情况下， <a class="reference internal" href="#bgrewriteaof">BGREWRITEAOF</a> 的返回值仍然是 <code class="docutils literal"><span class="pre">OK</span></code> ，但还会加上一条额外的信息，说明 <a class="reference internal" href="#bgrewriteaof">BGREWRITEAOF</a> 要等到保存操作完成之后才能执行。在 Redis 2.6 或以上的版本，可以使用 <a class="reference internal" href="info.html#info"><em>INFO</em></a> 命令查看 <a class="reference internal" href="#bgrewriteaof">BGREWRITEAOF</a> 是否被预定。</li>
+<li>如果已经有别的 AOF 文件重写在执行，那么 <a class="reference internal" href="#bgrewriteaof">BGREWRITEAOF</a> 返回一个错误，并且这个新的 <a class="reference internal" href="#bgrewriteaof">BGREWRITEAOF</a> 请求也不会被预定到下次执行。</li>
+</ul>
+<p>从 Redis 2.4 开始， AOF 重写由 Redis 自行触发， <a class="reference internal" href="#bgrewriteaof">BGREWRITEAOF</a> 仅仅用于手动触发重写操作。</p>
+<p>请移步 <a class="reference external" href="http://redis.io/topics/persistence">持久化文档(英文)</a> 查看更多相关细节。</p>
+<dl class="docutils">
+<dt><strong>可用版本：</strong></dt>
+<dd>&gt;= 1.0.0</dd>
+<dt><strong>时间复杂度：</strong></dt>
+<dd>O(N)， <code class="docutils literal"><span class="pre">N</span></code> 为要追加到 AOF 文件中的数据数量。</dd>
+<dt><strong>返回值：</strong></dt>
+<dd>反馈信息。</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre>redis&gt; BGREWRITEAOF
+Background append only file rewriting started
+</pre></div>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="bgsave.html" title="BGSAVE"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Server（服务器）"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >Server（服务器）</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

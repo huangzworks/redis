@@ -1,0 +1,296 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>INFO &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="up" title="Server（服务器）" href="index.html" />
+    <link rel="next" title="LASTSAVE" href="lastsave.html" />
+    <link rel="prev" title="FLUSHDB" href="flushdb.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="lastsave.html" title="LASTSAVE"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="flushdb.html" title="FLUSHDB"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Server（服务器）</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="info">
+<span id="id1"></span><h1>INFO<a class="headerlink" href="#info" title="Permalink to this headline">¶</a></h1>
+<p><strong>INFO [section]</strong></p>
+<p>以一种易于解释（parse）且易于阅读的格式，返回关于 Redis 服务器的各种信息和统计数值。</p>
+<p>通过给定可选的参数 <code class="docutils literal"><span class="pre">section</span></code> ，可以让命令只返回某一部分的信息：</p>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">server</span></code> : 一般 Redis 服务器信息，包含以下域：</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">redis_version</span></code> : Redis 服务器版本</li>
+<li><code class="docutils literal"><span class="pre">redis_git_sha1</span></code> : Git SHA1</li>
+<li><code class="docutils literal"><span class="pre">redis_git_dirty</span></code> : Git dirty flag</li>
+<li><code class="docutils literal"><span class="pre">os</span></code> : Redis 服务器的宿主操作系统</li>
+<li><code class="docutils literal"><span class="pre">arch_bits</span></code> : 架构（32 或 64 位）</li>
+<li><code class="docutils literal"><span class="pre">multiplexing_api</span></code> : Redis 所使用的事件处理机制</li>
+<li><code class="docutils literal"><span class="pre">gcc_version</span></code> : 编译 Redis 时所使用的 GCC 版本</li>
+<li><code class="docutils literal"><span class="pre">process_id</span></code> : 服务器进程的 PID</li>
+<li><code class="docutils literal"><span class="pre">run_id</span></code> : Redis 服务器的随机标识符（用于 Sentinel 和集群）</li>
+<li><code class="docutils literal"><span class="pre">tcp_port</span></code> : TCP/IP 监听端口</li>
+<li><code class="docutils literal"><span class="pre">uptime_in_seconds</span></code> : 自 Redis 服务器启动以来，经过的秒数</li>
+<li><code class="docutils literal"><span class="pre">uptime_in_days</span></code> : 自 Redis 服务器启动以来，经过的天数</li>
+<li><code class="docutils literal"><span class="pre">lru_clock</span></code> : 以分钟为单位进行自增的时钟，用于 LRU 管理</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">clients</span></code> : 已连接客户端信息，包含以下域：</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">connected_clients</span></code> : 已连接客户端的数量（不包括通过从属服务器连接的客户端）</li>
+<li><code class="docutils literal"><span class="pre">client_longest_output_list</span></code> : 当前连接的客户端当中，最长的输出列表</li>
+<li><code class="docutils literal"><span class="pre">client_longest_input_buf</span></code> : 当前连接的客户端当中，最大输入缓存</li>
+<li><code class="docutils literal"><span class="pre">blocked_clients</span></code> : 正在等待阻塞命令（BLPOP、BRPOP、BRPOPLPUSH）的客户端的数量</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">memory</span></code> : 内存信息，包含以下域：</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">used_memory</span></code> : 由 Redis 分配器分配的内存总量，以字节（byte）为单位</li>
+<li><code class="docutils literal"><span class="pre">used_memory_human</span></code> : 以人类可读的格式返回 Redis 分配的内存总量</li>
+<li><code class="docutils literal"><span class="pre">used_memory_rss</span></code> : 从操作系统的角度，返回 Redis 已分配的内存总量（俗称常驻集大小）。这个值和 <code class="docutils literal"><span class="pre">top</span></code> 、 <code class="docutils literal"><span class="pre">ps</span></code> 等命令的输出一致。</li>
+<li><code class="docutils literal"><span class="pre">used_memory_peak</span></code> : Redis 的内存消耗峰值（以字节为单位）</li>
+<li><code class="docutils literal"><span class="pre">used_memory_peak_human</span></code> : 以人类可读的格式返回 Redis 的内存消耗峰值</li>
+<li><code class="docutils literal"><span class="pre">used_memory_lua</span></code> : Lua 引擎所使用的内存大小（以字节为单位）</li>
+<li><code class="docutils literal"><span class="pre">mem_fragmentation_ratio</span></code> : <code class="docutils literal"><span class="pre">used_memory_rss</span></code> 和 <code class="docutils literal"><span class="pre">used_memory</span></code> 之间的比率</li>
+<li><code class="docutils literal"><span class="pre">mem_allocator</span></code> : 在编译时指定的， Redis 所使用的内存分配器。可以是 libc 、 jemalloc 或者 tcmalloc 。</li>
+</ul>
+<div class="line-block">
+<div class="line">在理想情况下， <code class="docutils literal"><span class="pre">used_memory_rss</span></code> 的值应该只比 <code class="docutils literal"><span class="pre">used_memory</span></code> 稍微高一点儿。</div>
+<div class="line">当 <code class="docutils literal"><span class="pre">rss</span> <span class="pre">&gt;</span> <span class="pre">used</span></code> ，且两者的值相差较大时，表示存在（内部或外部的）内存碎片。</div>
+<div class="line">内存碎片的比率可以通过 <code class="docutils literal"><span class="pre">mem_fragmentation_ratio</span></code> 的值看出。</div>
+<div class="line">当 <code class="docutils literal"><span class="pre">used</span> <span class="pre">&gt;</span> <span class="pre">rss</span></code> 时，表示 Redis 的部分内存被操作系统换出到交换空间了，在这种情况下，操作可能会产生明显的延迟。</div>
+</div>
+<p>Because Redis does not have control over how its allocations are mapped to memory pages, high <code class="docutils literal"><span class="pre">used_memory_rss</span></code> is often the result of a spike in memory usage.</p>
+<div class="line-block">
+<div class="line">当 Redis 释放内存时，分配器可能会，也可能不会，将内存返还给操作系统。</div>
+<div class="line">如果 Redis 释放了内存，却没有将内存返还给操作系统，那么 <code class="docutils literal"><span class="pre">used_memory</span></code> 的值可能和操作系统显示的 Redis 内存占用并不一致。</div>
+<div class="line">查看 <code class="docutils literal"><span class="pre">used_memory_peak</span></code> 的值可以验证这种情况是否发生。</div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">persistence</span></code> : <code class="docutils literal"><span class="pre">RDB</span></code> 和 <code class="docutils literal"><span class="pre">AOF</span></code> 的相关信息</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">stats</span></code> : 一般统计信息</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">replication</span></code> : 主/从复制信息</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">cpu</span></code> : CPU 计算量统计信息</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">commandstats</span></code> : Redis 命令统计信息</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">cluster</span></code> : Redis 集群信息</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">keyspace</span></code> : 数据库相关的统计信息</p>
+</li>
+</ul>
+<p>除上面给出的这些值以外，参数还可以是下面这两个：</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">all</span></code> : 返回所有信息</li>
+<li><code class="docutils literal"><span class="pre">default</span></code> : 返回默认选择的信息</li>
+</ul>
+<p>当不带参数直接调用 <a class="reference internal" href="#info">INFO</a> 命令时，使用 <code class="docutils literal"><span class="pre">default</span></code> 作为默认参数。</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>不同版本的 Redis 可能对返回的一些域进行了增加或删减。</p>
+<p class="last">因此，一个健壮的客户端程序在对 <a class="reference internal" href="#info"><em>INFO</em></a> 命令的输出进行分析时，应该能够跳过不认识的域，并且妥善地处理丢失不见的域。</p>
+</div>
+<dl class="docutils">
+<dt><strong>可用版本：</strong></dt>
+<dd>&gt;= 1.0.0</dd>
+<dt><strong>时间复杂度：</strong></dt>
+<dd>O(1)</dd>
+<dt><strong>返回值：</strong></dt>
+<dd>具体请参见下面的测试代码。</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre>redis&gt; INFO
+# Server
+redis_version:2.5.9
+redis_git_sha1:473f3090
+redis_git_dirty:0
+os:Linux 3.3.7-1-ARCH i686
+arch_bits:32
+multiplexing_api:epoll
+gcc_version:4.7.0
+process_id:8104
+run_id:bc9e20c6f0aac67d0d396ab950940ae4d1479ad1
+tcp_port:6379
+uptime_in_seconds:7
+uptime_in_days:0
+lru_clock:1680564
+
+# Clients
+connected_clients:1
+client_longest_output_list:0
+client_biggest_input_buf:0
+blocked_clients:0
+
+# Memory
+used_memory:439304
+used_memory_human:429.01K
+used_memory_rss:13897728
+used_memory_peak:401776
+used_memory_peak_human:392.36K
+used_memory_lua:20480
+mem_fragmentation_ratio:31.64
+mem_allocator:jemalloc-3.0.0
+
+# Persistence
+loading:0
+rdb_changes_since_last_save:0
+rdb_bgsave_in_progress:0
+rdb_last_save_time:1338011402
+rdb_last_bgsave_status:ok
+rdb_last_bgsave_time_sec:-1
+rdb_current_bgsave_time_sec:-1
+aof_enabled:0
+aof_rewrite_in_progress:0
+aof_rewrite_scheduled:0
+aof_last_rewrite_time_sec:-1
+aof_current_rewrite_time_sec:-1
+
+# Stats
+total_connections_received:1
+total_commands_processed:0
+instantaneous_ops_per_sec:0
+rejected_connections:0
+expired_keys:0
+evicted_keys:0
+keyspace_hits:0
+keyspace_misses:0
+pubsub_channels:0
+pubsub_patterns:0
+latest_fork_usec:0
+
+# Replication
+role:master
+connected_slaves:0
+
+# CPU
+used_cpu_sys:0.03
+used_cpu_user:0.01
+used_cpu_sys_children:0.00
+used_cpu_user_children:0.00
+
+# Keyspace
+</pre></div>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="lastsave.html" title="LASTSAVE"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="flushdb.html" title="FLUSHDB"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >Server（服务器）</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

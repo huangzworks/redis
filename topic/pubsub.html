@@ -1,0 +1,304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>发布与订阅（pub/sub） &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="next" title="复制（Replication）" href="replication.html" />
+    <link rel="prev" title="事务（transaction）" href="transaction.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="replication.html" title="复制（Replication）"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="transaction.html" title="事务（transaction）"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pub-sub">
+<h1>发布与订阅（pub/sub）<a class="headerlink" href="#pub-sub" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">本文档翻译自： <a class="reference external" href="http://redis.io/topics/pubsub">http://redis.io/topics/pubsub</a> 。</p>
+</div>
+<p><a class="reference internal" href="../pub_sub/subscribe.html#subscribe"><em>SUBSCRIBE</em></a> 、 <a class="reference internal" href="../pub_sub/unsubscribe.html#unsubscribe"><em>UNSUBSCRIBE</em></a> 和 <a class="reference internal" href="../pub_sub/publish.html#publish"><em>PUBLISH</em></a> 三个命令实现了<a class="reference external" href="http://en.wikipedia.org/wiki/Publish/subscribe">发布与订阅信息泛型</a>（Publish/Subscribe messaging paradigm），
+在这个实现中，
+发送者（发送信息的客户端）不是将信息直接发送给特定的接收者（接收信息的客户端），
+而是将信息发送给频道（channel），
+然后由频道将信息转发给所有对这个频道感兴趣的订阅者。</p>
+<p>发送者无须知道任何关于订阅者的信息，
+而订阅者也无须知道是那个客户端给它发送信息，
+它只要关注自己感兴趣的频道即可。</p>
+<p>对发布者和订阅者进行解构（decoupling），
+可以极大地提高系统的扩展性（scalability），
+并得到一个更动态的网络拓扑（network topology）。</p>
+<p>比如说，
+要订阅频道 <code class="docutils literal"><span class="pre">foo</span></code> 和 <code class="docutils literal"><span class="pre">bar</span></code> ，
+客户端可以使用频道名字作为参数来调用 <a class="reference internal" href="../pub_sub/subscribe.html#subscribe"><em>SUBSCRIBE</em></a> 命令：</p>
+<div class="highlight-python"><div class="highlight"><pre>redis&gt; SUBSCRIBE foo bar
+</pre></div>
+</div>
+<p>当有客户端发送信息到这些频道时，
+Redis 会将传入的信息推送到所有订阅这些频道的客户端里面。</p>
+<p>正在订阅频道的客户端不应该发送除 <a class="reference internal" href="../pub_sub/subscribe.html#subscribe"><em>SUBSCRIBE</em></a> 和 <a class="reference internal" href="../pub_sub/unsubscribe.html#unsubscribe"><em>UNSUBSCRIBE</em></a> 之外的其他命令。
+其中，
+<a class="reference internal" href="../pub_sub/subscribe.html#subscribe"><em>SUBSCRIBE</em></a> 可以用于订阅更多频道，
+而 <a class="reference internal" href="../pub_sub/unsubscribe.html#unsubscribe"><em>UNSUBSCRIBE</em></a> 则可以用于退订已订阅的一个或多个频道。</p>
+<p><a class="reference internal" href="../pub_sub/subscribe.html#subscribe"><em>SUBSCRIBE</em></a> 和 <a class="reference internal" href="../pub_sub/unsubscribe.html#unsubscribe"><em>UNSUBSCRIBE</em></a> 的执行结果会以信息的形式返回，
+客户端可以通过分析所接收信息的第一个元素，
+从而判断所收到的内容是一条真正的信息，
+还是 <a class="reference internal" href="../pub_sub/subscribe.html#subscribe"><em>SUBSCRIBE</em></a> 或 <a class="reference internal" href="../pub_sub/unsubscribe.html#unsubscribe"><em>UNSUBSCRIBE</em></a> 命令的操作结果。</p>
+<div class="section" id="id2">
+<h2>信息的格式<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>频道转发的每条信息都是一条带有三个元素的多条批量回复（multi-bulk reply）。</p>
+<p>信息的第一个元素标识了信息的类型：</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">subscribe</span></code> ：
+表示当前客户端成功地订阅了信息第二个元素所指示的频道。
+而信息的第三个元素则记录了目前客户端已订阅频道的总数。</li>
+<li><code class="docutils literal"><span class="pre">unsubscribe</span></code> ：
+表示当前客户端成功地退订了信息第二个元素所指示的频道。
+信息的第三个元素记录了客户端目前仍在订阅的频道数量。
+当客户端订阅的频道数量降为 <code class="docutils literal"><span class="pre">0</span></code> 时，
+客户端不再订阅任何频道，
+它可以像往常一样，
+执行任何 Redis 命令。</li>
+<li><code class="docutils literal"><span class="pre">message</span></code> ：
+表示这条信息是由某个客户端执行 <a class="reference internal" href="../pub_sub/publish.html#publish"><em>PUBLISH</em></a> 命令所发送的，
+真正的信息。
+信息的第二个元素是信息来源的频道，
+而第三个元素则是信息的内容。</li>
+</ul>
+<p>举个例子，
+如果客户端执行以下命令：</p>
+<div class="highlight-python"><div class="highlight"><pre>redis&gt; SUBSCRIBE first second
+</pre></div>
+</div>
+<p>那么它将收到以下回复：</p>
+<div class="highlight-python"><div class="highlight"><pre>1) &quot;subscribe&quot;
+2) &quot;first&quot;
+3) (integer) 1
+
+1) &quot;subscribe&quot;
+2) &quot;second&quot;
+3) (integer) 2
+</pre></div>
+</div>
+<p>如果在这时，
+另一个客户端执行以下 <a class="reference internal" href="../pub_sub/publish.html#publish"><em>PUBLISH</em></a> 命令：</p>
+<div class="highlight-python"><div class="highlight"><pre>redis&gt; PUBLISH second Hello
+</pre></div>
+</div>
+<p>那么之前订阅了 <code class="docutils literal"><span class="pre">second</span></code> 频道的客户端将收到以下信息：</p>
+<div class="highlight-python"><div class="highlight"><pre>1) &quot;message&quot;
+2) &quot;second&quot;
+3) &quot;hello&quot;
+</pre></div>
+</div>
+<p>当订阅者决定退订所有频道时，
+它可以执行一个无参数的 <a class="reference internal" href="../pub_sub/unsubscribe.html#unsubscribe"><em>UNSUBSCRIBE</em></a> 命令：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">redis</span><span class="o">&gt;</span> <span class="n">UNSUBSCRIBE</span>
+</pre></div>
+</div>
+<p>这个命令将接到以下回复：</p>
+<div class="highlight-python"><div class="highlight"><pre>1) &quot;unsubscribe&quot;
+2) &quot;second&quot;
+3) (integer) 1
+
+1) &quot;unsubscribe&quot;
+2) &quot;first&quot;
+3) (integer) 0
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>订阅模式<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>Redis 的发布与订阅实现支持模式匹配（pattern matching）：
+客户端可以订阅一个带 <code class="docutils literal"><span class="pre">*</span></code> 号的模式，
+如果某个/某些频道的名字和这个模式匹配，
+那么当有信息发送给这个/这些频道的时候，
+客户端也会收到这个/这些频道的信息。</p>
+<p>比如说，执行命令</p>
+<div class="highlight-python"><div class="highlight"><pre>redis&gt; PSUBSCRIBE news.*
+</pre></div>
+</div>
+<p>的客户端将收到来自 <code class="docutils literal"><span class="pre">news.art.figurative</span></code> 、 <code class="docutils literal"><span class="pre">news.music.jazz</span></code> 等频道的信息。</p>
+<p>客户端订阅的模式里面可以包含多个 glob 风格的通配符，
+比如 <code class="docutils literal"><span class="pre">*</span></code> 、 <code class="docutils literal"><span class="pre">?</span></code> 和 <code class="docutils literal"><span class="pre">[...]</span></code> ，
+等等。</p>
+<p>执行命令</p>
+<div class="highlight-python"><div class="highlight"><pre>redis&gt; PUNSUBSCRIBE news.*
+</pre></div>
+</div>
+<p>将退订 <code class="docutils literal"><span class="pre">news.*</span></code> 模式，
+其他已订阅的模式不会被影响。</p>
+<p>通过订阅模式接收到的信息，
+和通过订阅频道接收到的信息，
+这两者的格式不太一样：</p>
+<ul class="simple">
+<li>通过订阅模式而接收到的信息的类型为 <code class="docutils literal"><span class="pre">pmessage</span></code> ：
+这代表有某个客户端通过 <a class="reference internal" href="../pub_sub/publish.html#publish"><em>PUBLISH</em></a> 向某个频道发送了信息，
+而这个频道刚好匹配了当前客户端所订阅的某个模式。
+信息的第二个元素记录了被匹配的模式，
+第三个元素记录了被匹配的频道的名字，
+最后一个元素则记录了信息的实际内容。</li>
+</ul>
+<p>客户端处理 <a class="reference internal" href="../pub_sub/psubscribe.html#psubscribe"><em>PSUBSCRIBE</em></a> 和 <a class="reference internal" href="../pub_sub/punsubscribe.html#punsubscribe"><em>PUNSUBSCRIBE</em></a> 返回值的方式，
+和客户端处理 <a class="reference internal" href="../pub_sub/subscribe.html#subscribe"><em>SUBSCRIBE</em></a> 和 <a class="reference internal" href="../pub_sub/unsubscribe.html#unsubscribe"><em>UNSUBSCRIBE</em></a> 的方式类似：
+通过对信息的第一个元素进行分析，
+客户端可以判断接收到的信息是一个真正的信息，
+还是 <a class="reference internal" href="../pub_sub/psubscribe.html#psubscribe"><em>PSUBSCRIBE</em></a> 或 <a class="reference internal" href="../pub_sub/punsubscribe.html#punsubscribe"><em>PUNSUBSCRIBE</em></a> 命令的返回值。</p>
+</div>
+<div class="section" id="id4">
+<h2>通过频道和模式接收同一条信息<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>如果客户端订阅的多个模式匹配了同一个频道，
+或者客户端同时订阅了某个频道、以及匹配这个频道的某个模式，
+那么它可能会多次接收到同一条信息。</p>
+<p>举个例子，
+如果客户端执行了以下命令：</p>
+<div class="highlight-python"><div class="highlight"><pre>SUBSCRIBE foo
+PSUBSCRIBE f*
+</pre></div>
+</div>
+<p>那么当有信息发送到频道 <code class="docutils literal"><span class="pre">foo</span></code> 时，
+客户端将收到两条信息：
+一条来自频道 <code class="docutils literal"><span class="pre">foo</span></code> ，信息类型为 <code class="docutils literal"><span class="pre">message</span></code> ；
+另一条来自模式 <code class="docutils literal"><span class="pre">f*</span></code> ，信息类型为 <code class="docutils literal"><span class="pre">pmessage</span></code> 。</p>
+</div>
+<div class="section" id="id5">
+<h2>订阅总数<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>在执行 <a class="reference internal" href="../pub_sub/subscribe.html#subscribe"><em>SUBSCRIBE</em></a> 、 <a class="reference internal" href="../pub_sub/unsubscribe.html#unsubscribe"><em>UNSUBSCRIBE</em></a> 、 <a class="reference internal" href="../pub_sub/psubscribe.html#psubscribe"><em>PSUBSCRIBE</em></a> 和 <a class="reference internal" href="../pub_sub/punsubscribe.html#punsubscribe"><em>PUNSUBSCRIBE</em></a> 命令时，
+返回结果的最后一个元素是客户端目前仍在订阅的频道和模式总数。</p>
+<p>当客户端退订所有频道和模式，
+也即是这个总数值下降为 <code class="docutils literal"><span class="pre">0</span></code> 的时候，
+客户端将退出订阅与发布状态。</p>
+</div>
+<div class="section" id="id6">
+<h2>编程示例<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>Pieter Noordhuis 提供了一个使用 EventMachine 和 Redis 编写的 <a class="reference external" href="https://gist.github.com/348262">高性能多用户网页聊天软件</a> ，
+这个软件很好地展示了发布与订阅功能的用法。</p>
+</div>
+<div class="section" id="id8">
+<h2>客户端库实现提示<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>因为所有接收到的信息都会包含一个信息来源：</p>
+<ul class="simple">
+<li>当信息来自频道时，来源是某个频道；</li>
+<li>当信息来自模式时，来源是某个模式。</li>
+</ul>
+<p>因此，
+客户端可以用一个哈希表，
+将特定来源和处理该来源的回调函数关联起来。
+当有新信息到达时，
+程序就可以根据信息的来源，
+在 O(1) 复杂度内，
+将信息交给正确的回调函数来处理。</p>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="replication.html" title="复制（Replication）"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="transaction.html" title="事务（transaction）"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

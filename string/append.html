@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>APPEND &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="up" title="String（字符串）" href="index.html" />
+    <link rel="next" title="BITCOUNT" href="bitcount.html" />
+    <link rel="prev" title="String（字符串）" href="index.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="bitcount.html" title="BITCOUNT"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="String（字符串）"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">String（字符串）</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="append">
+<span id="id1"></span><h1>APPEND<a class="headerlink" href="#append" title="Permalink to this headline">¶</a></h1>
+<p><strong>APPEND key value</strong></p>
+<p>如果 <code class="docutils literal"><span class="pre">key</span></code> 已经存在并且是一个字符串， <a class="reference internal" href="#append">APPEND</a> 命令将 <code class="docutils literal"><span class="pre">value</span></code> 追加到 <code class="docutils literal"><span class="pre">key</span></code> 原来的值的末尾。</p>
+<p>如果 <code class="docutils literal"><span class="pre">key</span></code> 不存在， <a class="reference internal" href="#append">APPEND</a> 就简单地将给定 <code class="docutils literal"><span class="pre">key</span></code> 设为 <code class="docutils literal"><span class="pre">value</span></code> ，就像执行 <code class="docutils literal"><span class="pre">SET</span> <span class="pre">key</span> <span class="pre">value</span></code> 一样。</p>
+<dl class="docutils">
+<dt><strong>可用版本：</strong></dt>
+<dd>&gt;= 2.0.0</dd>
+<dt><strong>时间复杂度：</strong></dt>
+<dd>平摊O(1)</dd>
+<dt><strong>返回值：</strong></dt>
+<dd>追加 <code class="docutils literal"><span class="pre">value</span></code> 之后， <code class="docutils literal"><span class="pre">key</span></code> 中字符串的长度。</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre># 对不存在的 key 执行 APPEND
+
+redis&gt; EXISTS myphone               # 确保 myphone 不存在
+(integer) 0
+
+redis&gt; APPEND myphone &quot;nokia&quot;       # 对不存在的 key 进行 APPEND ，等同于 SET myphone &quot;nokia&quot;
+(integer) 5                         # 字符长度
+
+
+# 对已存在的字符串进行 APPEND
+
+redis&gt; APPEND myphone &quot; - 1110&quot;     # 长度从 5 个字符增加到 12 个字符
+(integer) 12
+
+redis&gt; GET myphone
+&quot;nokia - 1110&quot;
+</pre></div>
+</div>
+<div class="section" id="time-series">
+<h2>模式：时间序列(Time series)<a class="headerlink" href="#time-series" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="#append">APPEND</a> 可以为一系列定长(fixed-size)数据(sample)提供一种紧凑的表示方式，通常称之为时间序列。</p>
+<p>每当一个新数据到达的时候，执行以下命令：</p>
+<div class="highlight-python"><div class="highlight"><pre>APPEND timeseries &quot;fixed-size sample&quot;
+</pre></div>
+</div>
+<p>然后可以通过以下的方式访问时间序列的各项属性：</p>
+<ul class="simple">
+<li><a class="reference internal" href="strlen.html#strlen"><em>STRLEN</em></a> 给出时间序列中数据的数量</li>
+<li><a class="reference internal" href="getrange.html#getrange"><em>GETRANGE</em></a> 可以用于随机访问。只要有相关的时间信息的话，我们就可以在 Redis 2.6 中使用 Lua 脚本和 <a class="reference internal" href="getrange.html#getrange"><em>GETRANGE</em></a> 命令实现二分查找。</li>
+<li><a class="reference internal" href="setrange.html#setrange"><em>SETRANGE</em></a> 可以用于覆盖或修改已存在的的时间序列。</li>
+</ul>
+<p>这个模式的唯一缺陷是我们只能增长时间序列，而不能对时间序列进行缩短，因为 Redis 目前还没有对字符串进行修剪(tirm)的命令，但是，不管怎么说，这个模式的储存方式还是可以节省下大量的空间。</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">可以考虑使用 UNIX 时间戳作为时间序列的键名，这样一来，可以避免单个 <code class="docutils literal"><span class="pre">key</span></code> 因为保存过大的时间序列而占用大量内存，另一方面，也可以节省下大量命名空间。</p>
+</div>
+<p>下面是一个时间序列的例子：</p>
+<div class="highlight-python"><div class="highlight"><pre>redis&gt; APPEND ts &quot;0043&quot;
+(integer) 4
+
+redis&gt; APPEND ts &quot;0035&quot;
+(integer) 8
+
+redis&gt; GETRANGE ts 0 3
+&quot;0043&quot;
+
+redis&gt; GETRANGE ts 4 7
+&quot;0035&quot;
+</pre></div>
+</div>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="bitcount.html" title="BITCOUNT"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="String（字符串）"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >String（字符串）</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

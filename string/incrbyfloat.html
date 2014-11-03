@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>INCRBYFLOAT &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="up" title="String（字符串）" href="index.html" />
+    <link rel="next" title="MGET" href="mget.html" />
+    <link rel="prev" title="INCRBY" href="incrby.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="mget.html" title="MGET"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="incrby.html" title="INCRBY"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">String（字符串）</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="incrbyfloat">
+<span id="id1"></span><h1>INCRBYFLOAT<a class="headerlink" href="#incrbyfloat" title="Permalink to this headline">¶</a></h1>
+<p><strong>INCRBYFLOAT key increment</strong></p>
+<p>为 <code class="docutils literal"><span class="pre">key</span></code> 中所储存的值加上浮点数增量 <code class="docutils literal"><span class="pre">increment</span></code> 。</p>
+<p>如果 <code class="docutils literal"><span class="pre">key</span></code> 不存在，那么 <a class="reference internal" href="#incrbyfloat">INCRBYFLOAT</a> 会先将 <code class="docutils literal"><span class="pre">key</span></code> 的值设为 <code class="docutils literal"><span class="pre">0</span></code> ，再执行加法操作。</p>
+<p>如果命令执行成功，那么 <code class="docutils literal"><span class="pre">key</span></code> 的值会被更新为（执行加法之后的）新值，并且新值会以字符串的形式返回给调用者。</p>
+<p>无论是 <code class="docutils literal"><span class="pre">key</span></code> 的值，还是增量 <code class="docutils literal"><span class="pre">increment</span></code> ，都可以使用像 <code class="docutils literal"><span class="pre">2.0e7</span></code> 、 <code class="docutils literal"><span class="pre">3e5</span></code> 、 <code class="docutils literal"><span class="pre">90e-2</span></code> 那样的指数符号(exponential notation)来表示，但是，<strong>执行 INCRBYFLOAT 命令之后的值</strong>总是以同样的形式储存，也即是，它们总是由一个数字，一个（可选的）小数点和一个任意位的小数部分组成（比如 <code class="docutils literal"><span class="pre">3.14</span></code> 、 <code class="docutils literal"><span class="pre">69.768</span></code> ，诸如此类)，小数部分尾随的 <code class="docutils literal"><span class="pre">0</span></code> 会被移除，如果有需要的话，还会将浮点数改为整数（比如 <code class="docutils literal"><span class="pre">3.0</span></code> 会被保存成 <code class="docutils literal"><span class="pre">3</span></code> ）。</p>
+<p>除此之外，无论加法计算所得的浮点数的实际精度有多长， <a class="reference internal" href="#incrbyfloat">INCRBYFLOAT</a> 的计算结果也最多只能表示小数点的后十七位。</p>
+<p>当以下任意一个条件发生时，返回一个错误：</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">key</span></code> 的值不是字符串类型(因为 Redis 中的数字和浮点数都以字符串的形式保存，所以它们都属于字符串类型）</li>
+<li><code class="docutils literal"><span class="pre">key</span></code> 当前的值或者给定的增量 <code class="docutils literal"><span class="pre">increment</span></code> 不能解释(parse)为双精度浮点数(double precision floating point number）</li>
+</ul>
+<dl class="docutils">
+<dt><strong>可用版本：</strong></dt>
+<dd>&gt;= 2.6.0</dd>
+<dt><strong>时间复杂度：</strong></dt>
+<dd>O(1)</dd>
+<dt><strong>返回值：</strong></dt>
+<dd>执行命令之后 <code class="docutils literal"><span class="pre">key</span></code> 的值。</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre># 值和增量都不是指数符号
+
+redis&gt; SET mykey 10.50
+OK
+
+redis&gt; INCRBYFLOAT mykey 0.1
+&quot;10.6&quot;
+
+
+# 值和增量都是指数符号
+
+redis&gt; SET mykey 314e-2
+OK
+
+redis&gt; GET mykey                # 用 SET 设置的值可以是指数符号
+&quot;314e-2&quot;
+
+redis&gt; INCRBYFLOAT mykey 0      # 但执行 INCRBYFLOAT 之后格式会被改成非指数符号
+&quot;3.14&quot;
+
+
+# 可以对整数类型执行
+
+redis&gt; SET mykey 3
+OK
+
+redis&gt; INCRBYFLOAT mykey 1.1
+&quot;4.1&quot;
+
+
+# 后跟的 0 会被移除
+
+redis&gt; SET mykey 3.0
+OK
+
+redis&gt; GET mykey                                    # SET 设置的值小数部分可以是 0
+&quot;3.0&quot;
+
+redis&gt; INCRBYFLOAT mykey 1.000000000000000000000    # 但 INCRBYFLOAT 会将无用的 0 忽略掉，有需要的话，将浮点变为整数
+&quot;4&quot;
+
+redis&gt; GET mykey
+&quot;4&quot;
+</pre></div>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="mget.html" title="MGET"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="incrby.html" title="INCRBY"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >String（字符串）</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

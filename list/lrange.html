@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>LRANGE &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="up" title="List（列表）" href="index.html" />
+    <link rel="next" title="LREM" href="lrem.html" />
+    <link rel="prev" title="LPUSHX" href="lpushx.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="lrem.html" title="LREM"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lpushx.html" title="LPUSHX"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">List（列表）</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="lrange">
+<span id="id1"></span><h1>LRANGE<a class="headerlink" href="#lrange" title="Permalink to this headline">¶</a></h1>
+<p><strong>LRANGE key start stop</strong></p>
+<p>返回列表 <code class="docutils literal"><span class="pre">key</span></code> 中指定区间内的元素，区间以偏移量 <code class="docutils literal"><span class="pre">start</span></code> 和 <code class="docutils literal"><span class="pre">stop</span></code> 指定。</p>
+<p>下标(index)参数 <code class="docutils literal"><span class="pre">start</span></code> 和 <code class="docutils literal"><span class="pre">stop</span></code> 都以 <code class="docutils literal"><span class="pre">0</span></code> 为底，也就是说，以 <code class="docutils literal"><span class="pre">0</span></code> 表示列表的第一个元素，以 <code class="docutils literal"><span class="pre">1</span></code> 表示列表的第二个元素，以此类推。</p>
+<p>你也可以使用负数下标，以 <code class="docutils literal"><span class="pre">-1</span></code> 表示列表的最后一个元素， <code class="docutils literal"><span class="pre">-2</span></code> 表示列表的倒数第二个元素，以此类推。</p>
+<p><strong>注意LRANGE命令和编程语言区间函数的区别</strong></p>
+<p>假如你有一个包含一百个元素的列表，对该列表执行 <code class="docutils literal"><span class="pre">LRANGE</span> <span class="pre">list</span> <span class="pre">0</span> <span class="pre">10</span></code> ，结果是一个包含11个元素的列表，这表明 <code class="docutils literal"><span class="pre">stop</span></code> 下标也在 <a class="reference internal" href="#lrange">LRANGE</a> 命令的取值范围之内(闭区间)，这和某些语言的区间函数可能不一致，比如Ruby的 <code class="docutils literal"><span class="pre">Range.new</span></code> 、 <code class="docutils literal"><span class="pre">Array#slice</span></code> 和Python的 <code class="docutils literal"><span class="pre">range()</span></code> 函数。</p>
+<p><strong>超出范围的下标</strong></p>
+<p>超出范围的下标值不会引起错误。</p>
+<p>如果 <code class="docutils literal"><span class="pre">start</span></code> 下标比列表的最大下标 <code class="docutils literal"><span class="pre">end</span></code> ( <code class="docutils literal"><span class="pre">LLEN</span> <span class="pre">list</span></code> 减去 <code class="docutils literal"><span class="pre">1</span></code> )还要大，那么 <a class="reference internal" href="#lrange">LRANGE</a> 返回一个空列表。</p>
+<p>如果 <code class="docutils literal"><span class="pre">stop</span></code> 下标比 <code class="docutils literal"><span class="pre">end</span></code> 下标还要大，Redis将 <code class="docutils literal"><span class="pre">stop</span></code> 的值设置为 <code class="docutils literal"><span class="pre">end</span></code> 。</p>
+<dl class="docutils">
+<dt><strong>可用版本：</strong></dt>
+<dd>&gt;= 1.0.0</dd>
+<dt><strong>时间复杂度:</strong></dt>
+<dd>O(S+N)， <code class="docutils literal"><span class="pre">S</span></code> 为偏移量 <code class="docutils literal"><span class="pre">start</span></code> ， <code class="docutils literal"><span class="pre">N</span></code> 为指定区间内元素的数量。</dd>
+<dt><strong>返回值:</strong></dt>
+<dd>一个列表，包含指定区间内的元素。</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre>redis&gt; RPUSH fp-language lisp
+(integer) 1
+
+redis&gt; LRANGE fp-language 0 0
+1) &quot;lisp&quot;
+
+redis&gt; RPUSH fp-language scheme
+(integer) 2
+
+redis&gt; LRANGE fp-language 0 1
+1) &quot;lisp&quot;
+2) &quot;scheme&quot;
+</pre></div>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="lrem.html" title="LREM"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lpushx.html" title="LPUSHX"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >List（列表）</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

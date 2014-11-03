@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ZADD &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="up" title="SortedSet（有序集合）" href="index.html" />
+    <link rel="next" title="ZCARD" href="zcard.html" />
+    <link rel="prev" title="SortedSet（有序集合）" href="index.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="zcard.html" title="ZCARD"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="SortedSet（有序集合）"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">SortedSet（有序集合）</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="zadd">
+<span id="id1"></span><h1>ZADD<a class="headerlink" href="#zadd" title="Permalink to this headline">¶</a></h1>
+<p><strong>ZADD key score member [[score member] [score member] ...]</strong></p>
+<p>将一个或多个 <code class="docutils literal"><span class="pre">member</span></code> 元素及其 <code class="docutils literal"><span class="pre">score</span></code> 值加入到有序集 <code class="docutils literal"><span class="pre">key</span></code> 当中。</p>
+<p>如果某个 <code class="docutils literal"><span class="pre">member</span></code> 已经是有序集的成员，那么更新这个 <code class="docutils literal"><span class="pre">member</span></code> 的 <code class="docutils literal"><span class="pre">score</span></code> 值，并通过重新插入这个 <code class="docutils literal"><span class="pre">member</span></code> 元素，来保证该 <code class="docutils literal"><span class="pre">member</span></code> 在正确的位置上。</p>
+<p><code class="docutils literal"><span class="pre">score</span></code> 值可以是整数值或双精度浮点数。</p>
+<p>如果 <code class="docutils literal"><span class="pre">key</span></code> 不存在，则创建一个空的有序集并执行 <a class="reference internal" href="#zadd">ZADD</a> 操作。</p>
+<p>当 <code class="docutils literal"><span class="pre">key</span></code> 存在但不是有序集类型时，返回一个错误。</p>
+<p>对有序集的更多介绍请参见 <a class="reference external" href="http://redis.io/topics/data-types#sorted-sets">sorted set</a> 。</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">在 Redis 2.4 版本以前， <a class="reference internal" href="#zadd">ZADD</a> 每次只能添加一个元素。</p>
+</div>
+<dl class="docutils">
+<dt><strong>可用版本：</strong></dt>
+<dd>&gt;= 1.2.0</dd>
+<dt><strong>时间复杂度:</strong></dt>
+<dd>O(M*log(N))， <code class="docutils literal"><span class="pre">N</span></code> 是有序集的基数， <code class="docutils literal"><span class="pre">M</span></code> 为成功添加的新成员的数量。</dd>
+<dt><strong>返回值:</strong></dt>
+<dd>被成功添加的新成员的数量，不包括那些被更新的、已经存在的成员。</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre># 添加单个元素
+
+redis&gt; ZADD page_rank 10 google.com
+(integer) 1
+
+
+# 添加多个元素
+
+redis&gt; ZADD page_rank 9 baidu.com 8 bing.com
+(integer) 2
+
+redis&gt; ZRANGE page_rank 0 -1 WITHSCORES
+1) &quot;bing.com&quot;
+2) &quot;8&quot;
+3) &quot;baidu.com&quot;
+4) &quot;9&quot;
+5) &quot;google.com&quot;
+6) &quot;10&quot;
+
+
+# 添加已存在元素，且 score 值不变
+
+redis&gt; ZADD page_rank 10 google.com
+(integer) 0
+
+redis&gt; ZRANGE page_rank 0 -1 WITHSCORES  # 没有改变
+1) &quot;bing.com&quot;
+2) &quot;8&quot;
+3) &quot;baidu.com&quot;
+4) &quot;9&quot;
+5) &quot;google.com&quot;
+6) &quot;10&quot;
+
+
+# 添加已存在元素，但是改变 score 值
+
+redis&gt; ZADD page_rank 6 bing.com
+(integer) 0
+
+redis&gt; ZRANGE page_rank 0 -1 WITHSCORES  # bing.com 元素的 score 值被改变
+1) &quot;bing.com&quot;
+2) &quot;6&quot;
+3) &quot;baidu.com&quot;
+4) &quot;9&quot;
+5) &quot;google.com&quot;
+6) &quot;10&quot;
+</pre></div>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="zcard.html" title="ZCARD"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="SortedSet（有序集合）"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >SortedSet（有序集合）</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

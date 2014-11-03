@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>SLOWLOG &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="up" title="Server（服务器）" href="index.html" />
+    <link rel="next" title="SYNC" href="sync.html" />
+    <link rel="prev" title="SLAVEOF" href="slaveof.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="sync.html" title="SYNC"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="slaveof.html" title="SLAVEOF"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Server（服务器）</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="slowlog">
+<span id="id1"></span><h1>SLOWLOG<a class="headerlink" href="#slowlog" title="Permalink to this headline">¶</a></h1>
+<p><strong>SLOWLOG subcommand [argument]</strong></p>
+<p><strong>什么是 SLOWLOG</strong></p>
+<p>Slow log 是 Redis 用来记录查询执行时间的日志系统。</p>
+<p>查询执行时间指的是不包括像客户端响应(talking)、发送回复等 IO 操作，而单单是执行一个查询命令所耗费的时间。</p>
+<p>另外，slow log 保存在内存里面，读写速度非常快，因此你可以放心地使用它，不必担心因为开启 slow log 而损害 Redis 的速度。</p>
+<p><strong>设置 SLOWLOG</strong></p>
+<p>Slow log 的行为由两个配置参数(configuration parameter)指定，可以通过改写 redis.conf 文件或者用 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 和 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">SET</span></code> 命令对它们动态地进行修改。</p>
+<p>第一个选项是 <code class="docutils literal"><span class="pre">slowlog-log-slower-than</span></code> ，它决定要对执行时间大于多少微秒(microsecond，1秒 = 1,000,000 微秒)的查询进行记录。</p>
+<p>比如执行以下命令将让 slow log 记录所有查询时间大于等于 100 微秒的查询：</p>
+<p><code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">SET</span> <span class="pre">slowlog-log-slower-than</span> <span class="pre">100</span></code></p>
+<p>而以下命令记录所有查询时间大于 1000 微秒的查询：</p>
+<p><code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">SET</span> <span class="pre">slowlog-log-slower-than</span> <span class="pre">1000</span></code></p>
+<p>另一个选项是 <code class="docutils literal"><span class="pre">slowlog-max-len</span></code> ，它决定 slow log <em>最多</em>能保存多少条日志， slow log 本身是一个 FIFO 队列，当队列大小超过 <code class="docutils literal"><span class="pre">slowlog-max-len</span></code> 时，最旧的一条日志将被删除，而最新的一条日志加入到 slow log ，以此类推。</p>
+<p>以下命令让 slow log 最多保存 1000 条日志：</p>
+<p><code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">SET</span> <span class="pre">slowlog-max-len</span> <span class="pre">1000</span></code></p>
+<p>使用 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 命令可以查询两个选项的当前值：</p>
+<div class="highlight-python"><div class="highlight"><pre>redis&gt; CONFIG GET slowlog-log-slower-than
+1) &quot;slowlog-log-slower-than&quot;
+2) &quot;1000&quot;
+
+redis&gt; CONFIG GET slowlog-max-len
+1) &quot;slowlog-max-len&quot;
+2) &quot;1000&quot;
+</pre></div>
+</div>
+<p><strong>查看 slow log</strong></p>
+<p>要查看 slow log ，可以使用 <code class="docutils literal"><span class="pre">SLOWLOG</span> <span class="pre">GET</span></code> 或者 <code class="docutils literal"><span class="pre">SLOWLOG</span> <span class="pre">GET</span> <span class="pre">number</span></code> 命令，前者打印所有 slow log ，最大长度取决于 <code class="docutils literal"><span class="pre">slowlog-max-len</span></code> 选项的值，而 <code class="docutils literal"><span class="pre">SLOWLOG</span> <span class="pre">GET</span> <span class="pre">number</span></code> 则只打印指定数量的日志。</p>
+<p>最新的日志会最先被打印：</p>
+<div class="highlight-python"><div class="highlight"><pre># 为测试需要，将 slowlog-log-slower-than 设成了 10 微秒
+
+redis&gt; SLOWLOG GET
+1) 1) (integer) 12                      # 唯一性(unique)的日志标识符
+   2) (integer) 1324097834              # 被记录命令的执行时间点，以 UNIX 时间戳格式表示
+   3) (integer) 16                      # 查询执行时间，以微秒为单位
+   4) 1) &quot;CONFIG&quot;                       # 执行的命令，以数组的形式排列
+      2) &quot;GET&quot;                          # 这里完整的命令是 CONFIG GET slowlog-log-slower-than
+      3) &quot;slowlog-log-slower-than&quot;
+
+2) 1) (integer) 11
+   2) (integer) 1324097825
+   3) (integer) 42
+   4) 1) &quot;CONFIG&quot;
+      2) &quot;GET&quot;
+      3) &quot;*&quot;
+
+3) 1) (integer) 10
+   2) (integer) 1324097820
+   3) (integer) 11
+   4) 1) &quot;CONFIG&quot;
+      2) &quot;GET&quot;
+      3) &quot;slowlog-log-slower-than&quot;
+
+# ...
+</pre></div>
+</div>
+<p>日志的唯一 id 只有在 Redis 服务器重启的时候才会重置，这样可以避免对日志的重复处理(比如你可能会想在每次发现新的慢查询时发邮件通知你)。</p>
+<p><strong>查看当前日志的数量</strong></p>
+<p>使用命令 <code class="docutils literal"><span class="pre">SLOWLOG</span> <span class="pre">LEN</span></code> 可以查看当前日志的数量。</p>
+<p>请注意这个值和 <code class="docutils literal"><span class="pre">slower-max-len</span></code> 的区别，它们一个是当前日志的数量，一个是允许记录的最大日志的数量。</p>
+<div class="highlight-python"><div class="highlight"><pre>redis&gt; SLOWLOG LEN
+(integer) 14
+</pre></div>
+</div>
+<p><strong>清空日志</strong></p>
+<p>使用命令 <code class="docutils literal"><span class="pre">SLOWLOG</span> <span class="pre">RESET</span></code> 可以清空 slow log 。</p>
+<div class="highlight-python"><div class="highlight"><pre>redis&gt; SLOWLOG LEN
+(integer) 14
+
+redis&gt; SLOWLOG RESET
+OK
+
+redis&gt; SLOWLOG LEN
+(integer) 0
+</pre></div>
+</div>
+<dl class="docutils">
+<dt><strong>可用版本：</strong></dt>
+<dd>&gt;= 2.2.12</dd>
+<dt><strong>时间复杂度：</strong></dt>
+<dd>O(1)</dd>
+<dt><strong>返回值：</strong></dt>
+<dd>取决于不同命令，返回不同的值。</dd>
+</dl>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="sync.html" title="SYNC"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="slaveof.html" title="SLAVEOF"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >Server（服务器）</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

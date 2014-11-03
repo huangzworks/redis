@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>RPOPLPUSH &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="up" title="List（列表）" href="index.html" />
+    <link rel="next" title="RPUSH" href="rpush.html" />
+    <link rel="prev" title="RPOP" href="rpop.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="rpush.html" title="RPUSH"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="rpop.html" title="RPOP"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">List（列表）</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="rpoplpush">
+<span id="id1"></span><h1>RPOPLPUSH<a class="headerlink" href="#rpoplpush" title="Permalink to this headline">¶</a></h1>
+<p><strong>RPOPLPUSH source destination</strong></p>
+<p>命令 <a class="reference internal" href="#rpoplpush">RPOPLPUSH</a> 在一个原子时间内，执行以下两个动作：</p>
+<ul class="simple">
+<li>将列表 <code class="docutils literal"><span class="pre">source</span></code> 中的最后一个元素(尾元素)弹出，并返回给客户端。</li>
+<li>将 <code class="docutils literal"><span class="pre">source</span></code> 弹出的元素插入到列表 <code class="docutils literal"><span class="pre">destination</span></code> ，作为 <code class="docutils literal"><span class="pre">destination</span></code> 列表的的头元素。</li>
+</ul>
+<p>举个例子，你有两个列表 <code class="docutils literal"><span class="pre">source</span></code> 和 <code class="docutils literal"><span class="pre">destination</span></code> ， <code class="docutils literal"><span class="pre">source</span></code> 列表有元素 <code class="docutils literal"><span class="pre">a,</span> <span class="pre">b,</span> <span class="pre">c</span></code> ， <code class="docutils literal"><span class="pre">destination</span></code> 列表有元素 <code class="docutils literal"><span class="pre">x,</span> <span class="pre">y,</span> <span class="pre">z</span></code> ，执行 <code class="docutils literal"><span class="pre">RPOPLPUSH</span> <span class="pre">source</span> <span class="pre">destination</span></code> 之后， <code class="docutils literal"><span class="pre">source</span></code> 列表包含元素 <code class="docutils literal"><span class="pre">a,</span> <span class="pre">b</span></code> ， <code class="docutils literal"><span class="pre">destination</span></code> 列表包含元素 <code class="docutils literal"><span class="pre">c,</span> <span class="pre">x,</span> <span class="pre">y,</span> <span class="pre">z</span></code>  ，并且元素 <code class="docutils literal"><span class="pre">c</span></code> 会被返回给客户端。</p>
+<p>如果 <code class="docutils literal"><span class="pre">source</span></code> 不存在，值 <code class="docutils literal"><span class="pre">nil</span></code> 被返回，并且不执行其他动作。</p>
+<p>如果 <code class="docutils literal"><span class="pre">source</span></code> 和 <code class="docutils literal"><span class="pre">destination</span></code> 相同，则列表中的表尾元素被移动到表头，并返回该元素，可以把这种特殊情况视作列表的旋转(rotation)操作。</p>
+<dl class="docutils">
+<dt><strong>可用版本：</strong></dt>
+<dd>&gt;= 1.2.0</dd>
+<dt><strong>时间复杂度：</strong></dt>
+<dd>O(1)</dd>
+<dt><strong>返回值：</strong></dt>
+<dd>被弹出的元素。</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre># source 和 destination 不同
+
+redis&gt; LRANGE alpha 0 -1         # 查看所有元素
+1) &quot;a&quot;
+2) &quot;b&quot;
+3) &quot;c&quot;
+4) &quot;d&quot;
+
+redis&gt; RPOPLPUSH alpha reciver   # 执行一次 RPOPLPUSH 看看
+&quot;d&quot;
+
+redis&gt; LRANGE alpha 0 -1
+1) &quot;a&quot;
+2) &quot;b&quot;
+3) &quot;c&quot;
+
+redis&gt; LRANGE reciver 0 -1
+1) &quot;d&quot;
+
+redis&gt; RPOPLPUSH alpha reciver   # 再执行一次，证实 RPOP 和 LPUSH 的位置正确
+&quot;c&quot;
+
+redis&gt; LRANGE alpha 0 -1
+1) &quot;a&quot;
+2) &quot;b&quot;
+
+redis&gt; LRANGE reciver 0 -1
+1) &quot;c&quot;
+2) &quot;d&quot;
+
+
+# source 和 destination 相同
+
+redis&gt; LRANGE number 0 -1
+1) &quot;1&quot;
+2) &quot;2&quot;
+3) &quot;3&quot;
+4) &quot;4&quot;
+
+redis&gt; RPOPLPUSH number number
+&quot;4&quot;
+
+redis&gt; LRANGE number 0 -1           # 4 被旋转到了表头
+1) &quot;4&quot;
+2) &quot;1&quot;
+3) &quot;2&quot;
+4) &quot;3&quot;
+
+redis&gt; RPOPLPUSH number number
+&quot;3&quot;
+
+redis&gt; LRANGE number 0 -1           # 这次是 3 被旋转到了表头
+1) &quot;3&quot;
+2) &quot;4&quot;
+3) &quot;1&quot;
+4) &quot;2&quot;
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h2>模式： 安全的队列<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Redis的列表经常被用作队列(queue)，用于在不同程序之间有序地交换消息(message)。一个客户端通过 <a class="reference internal" href="lpush.html#lpush"><em>LPUSH</em></a> 命令将消息放入队列中，而另一个客户端通过 <a class="reference internal" href="rpop.html#rpop"><em>RPOP</em></a> 或者 <a class="reference internal" href="brpop.html#brpop"><em>BRPOP</em></a> 命令取出队列中等待时间最长的消息。</p>
+<p>不幸的是，上面的队列方法是『不安全』的，因为在这个过程中，一个客户端可能在取出一个消息之后崩溃，而未处理完的消息也就因此丢失。</p>
+<p>使用 <a class="reference internal" href="#rpoplpush">RPOPLPUSH</a> 命令(或者它的阻塞版本 <a class="reference internal" href="brpoplpush.html#brpoplpush"><em>BRPOPLPUSH</em></a> )可以解决这个问题：因为它不仅返回一个消息，同时还将这个消息添加到另一个备份列表当中，如果一切正常的话，当一个客户端完成某个消息的处理之后，可以用 <a class="reference internal" href="lrem.html#lrem"><em>LREM</em></a> 命令将这个消息从备份表删除。</p>
+<p>最后，还可以添加一个客户端专门用于监视备份表，它自动地将超过一定处理时限的消息重新放入队列中去(负责处理该消息的客户端可能已经崩溃)，这样就不会丢失任何消息了。</p>
+</div>
+<div class="section" id="id3">
+<h2>模式：循环列表<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>通过使用相同的 <code class="docutils literal"><span class="pre">key</span></code> 作为 <a class="reference internal" href="#rpoplpush">RPOPLPUSH</a> 命令的两个参数，客户端可以用一个接一个地获取列表元素的方式，取得列表的所有元素，而不必像 <a class="reference internal" href="lrange.html#lrange"><em>LRANGE</em></a> 命令那样一下子将所有列表元素都从服务器传送到客户端中(两种方式的总复杂度都是 O(N))。</p>
+<p>以上的模式甚至在以下的两个情况下也能正常工作：</p>
+<ul class="simple">
+<li>有多个客户端同时对同一个列表进行旋转(rotating)，它们获取不同的元素，直到所有元素都被读取完，之后又从头开始。</li>
+<li>有客户端在向列表尾部(右边)添加新元素。</li>
+</ul>
+<p>这个模式使得我们可以很容易实现这样一类系统：有 N 个客户端，需要连续不断地对一些元素进行处理，而且处理的过程必须尽可能地快。一个典型的例子就是服务器的监控程序：它们需要在尽可能短的时间内，并行地检查一组网站，确保它们的可访问性。</p>
+<p>注意，使用这个模式的客户端是易于扩展(scala)且安全(reliable)的，因为就算接收到元素的客户端失败，元素还是保存在列表里面，不会丢失，等到下个迭代来临的时候，别的客户端又可以继续处理这些元素了。</p>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="rpush.html" title="RPUSH"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="rpop.html" title="RPOP"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >List（列表）</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

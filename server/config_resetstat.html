@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>CONFIG RESETSTAT &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="up" title="Server（服务器）" href="index.html" />
+    <link rel="next" title="CONFIG REWRITE" href="config_rewrite.html" />
+    <link rel="prev" title="CONFIG GET" href="config_get.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="config_rewrite.html" title="CONFIG REWRITE"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="config_get.html" title="CONFIG GET"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Server（服务器）</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="config-resetstat">
+<span id="id1"></span><h1>CONFIG RESETSTAT<a class="headerlink" href="#config-resetstat" title="Permalink to this headline">¶</a></h1>
+<p><strong>CONFIG RESETSTAT</strong></p>
+<p>重置 <a class="reference internal" href="info.html#info"><em>INFO</em></a> 命令中的某些统计数据，包括：</p>
+<ul class="simple">
+<li>Keyspace hits (键空间命中次数)</li>
+<li>Keyspace misses (键空间不命中次数)</li>
+<li>Number of commands processed (执行命令的次数)</li>
+<li>Number of connections received (连接服务器的次数)</li>
+<li>Number of expired keys (过期key的数量)</li>
+<li>Number of rejected connections (被拒绝的连接数量)</li>
+<li>Latest fork(2) time(最后执行 fork(2) 的时间)</li>
+<li>The <code class="docutils literal"><span class="pre">aof_delayed_fsync</span></code> counter(<code class="docutils literal"><span class="pre">aof_delayed_fsync</span></code> 计数器的值)</li>
+</ul>
+<dl class="docutils">
+<dt><strong>可用版本：</strong></dt>
+<dd>&gt;= 2.0.0</dd>
+<dt><strong>时间复杂度：</strong></dt>
+<dd>O(1)</dd>
+<dt><strong>返回值：</strong></dt>
+<dd>总是返回 <code class="docutils literal"><span class="pre">OK</span></code> 。</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre># 重置前
+
+redis 127.0.0.1:6379&gt; INFO
+# Server
+redis_version:2.5.3
+redis_git_sha1:d0407c2d
+redis_git_dirty:0
+arch_bits:32
+multiplexing_api:epoll
+gcc_version:4.6.3
+process_id:11095
+run_id:ef1f6b6c7392e52d6001eaf777acbe547d1192e2
+tcp_port:6379
+uptime_in_seconds:6
+uptime_in_days:0
+lru_clock:1205426
+
+# Clients
+connected_clients:1
+client_longest_output_list:0
+client_biggest_input_buf:0
+blocked_clients:0
+
+# Memory
+used_memory:331076
+used_memory_human:323.32K
+used_memory_rss:1568768
+used_memory_peak:293424
+used_memory_peak_human:286.55K
+used_memory_lua:16384
+mem_fragmentation_ratio:4.74
+mem_allocator:jemalloc-2.2.5
+
+# Persistence
+loading:0
+aof_enabled:0
+changes_since_last_save:0
+bgsave_in_progress:0
+last_save_time:1333260015
+last_bgsave_status:ok
+bgrewriteaof_in_progress:0
+
+# Stats
+total_connections_received:1
+total_commands_processed:0
+instantaneous_ops_per_sec:0
+rejected_connections:0
+expired_keys:0
+evicted_keys:0
+keyspace_hits:0
+keyspace_misses:0
+pubsub_channels:0
+pubsub_patterns:0
+latest_fork_usec:0
+
+# Replication
+role:master
+connected_slaves:0
+
+# CPU
+used_cpu_sys:0.01
+used_cpu_user:0.00
+used_cpu_sys_children:0.00
+used_cpu_user_children:0.00
+
+# Keyspace
+db0:keys=20,expires=0
+
+
+# 重置
+
+redis 127.0.0.1:6379&gt; CONFIG RESETSTAT
+OK
+
+
+# 重置后
+
+redis 127.0.0.1:6379&gt; INFO
+# Server
+redis_version:2.5.3
+redis_git_sha1:d0407c2d
+redis_git_dirty:0
+arch_bits:32
+multiplexing_api:epoll
+gcc_version:4.6.3
+process_id:11095
+run_id:ef1f6b6c7392e52d6001eaf777acbe547d1192e2
+tcp_port:6379
+uptime_in_seconds:134
+uptime_in_days:0
+lru_clock:1205438
+
+# Clients
+connected_clients:1
+client_longest_output_list:0
+client_biggest_input_buf:0
+blocked_clients:0
+
+# Memory
+used_memory:331076
+used_memory_human:323.32K
+used_memory_rss:1568768
+used_memory_peak:330280
+used_memory_peak_human:322.54K
+used_memory_lua:16384
+mem_fragmentation_ratio:4.74
+mem_allocator:jemalloc-2.2.5
+
+# Persistence
+loading:0
+aof_enabled:0
+changes_since_last_save:0
+bgsave_in_progress:0
+last_save_time:1333260015
+last_bgsave_status:ok
+bgrewriteaof_in_progress:0
+
+# Stats
+total_connections_received:0
+total_commands_processed:1
+instantaneous_ops_per_sec:0
+rejected_connections:0
+expired_keys:0
+evicted_keys:0
+keyspace_hits:0
+keyspace_misses:0
+pubsub_channels:0
+pubsub_patterns:0
+latest_fork_usec:0
+
+# Replication
+role:master
+connected_slaves:0
+
+# CPU
+used_cpu_sys:0.05
+used_cpu_user:0.02
+used_cpu_sys_children:0.00
+used_cpu_user_children:0.00
+
+# Keyspace
+db0:keys=20,expires=0
+</pre></div>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="config_rewrite.html" title="CONFIG REWRITE"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="config_get.html" title="CONFIG GET"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >Server（服务器）</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>BLPOP &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="up" title="List（列表）" href="index.html" />
+    <link rel="next" title="BRPOP" href="brpop.html" />
+    <link rel="prev" title="List（列表）" href="index.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="brpop.html" title="BRPOP"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="List（列表）"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">List（列表）</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="blpop">
+<span id="id1"></span><h1>BLPOP<a class="headerlink" href="#blpop" title="Permalink to this headline">¶</a></h1>
+<p><strong>BLPOP key [key ...] timeout</strong></p>
+<p><a class="reference internal" href="#blpop">BLPOP</a> 是列表的阻塞式(blocking)弹出原语。</p>
+<p>它是 <a class="reference internal" href="lpop.html#lpop"><em>LPOP</em></a> 命令的阻塞版本，当给定列表内没有任何元素可供弹出的时候，连接将被 <a class="reference internal" href="#blpop">BLPOP</a> 命令阻塞，直到等待超时或发现可弹出元素为止。</p>
+<p>当给定多个 <code class="docutils literal"><span class="pre">key</span></code> 参数时，按参数 <code class="docutils literal"><span class="pre">key</span></code> 的先后顺序依次检查各个列表，弹出第一个非空列表的头元素。</p>
+<p><strong>非阻塞行为</strong></p>
+<p>当 <a class="reference internal" href="#blpop">BLPOP</a> 被调用时，如果给定 <code class="docutils literal"><span class="pre">key</span></code> 内至少有一个非空列表，那么弹出遇到的第一个非空列表的头元素，并和被弹出元素所属的列表的名字一起，组成结果返回给调用者。</p>
+<p>当存在多个给定 <code class="docutils literal"><span class="pre">key</span></code> 时， <a class="reference internal" href="#blpop">BLPOP</a> 按给定 <code class="docutils literal"><span class="pre">key</span></code> 参数排列的先后顺序，依次检查各个列表。</p>
+<p>假设现在有 <code class="docutils literal"><span class="pre">job</span></code> 、  <code class="docutils literal"><span class="pre">command</span></code> 和 <code class="docutils literal"><span class="pre">request</span></code> 三个列表，其中 <code class="docutils literal"><span class="pre">job</span></code> 不存在， <code class="docutils literal"><span class="pre">command</span></code> 和 <code class="docutils literal"><span class="pre">request</span></code> 都持有非空列表。考虑以下命令：</p>
+<p><code class="docutils literal"><span class="pre">BLPOP</span> <span class="pre">job</span> <span class="pre">command</span> <span class="pre">request</span> <span class="pre">0</span></code></p>
+<p><a class="reference internal" href="#blpop">BLPOP</a> 保证返回的元素来自 <code class="docutils literal"><span class="pre">command</span></code> ，因为它是按&#8221;查找 <code class="docutils literal"><span class="pre">job</span></code>  -&gt; 查找 <code class="docutils literal"><span class="pre">command</span></code>  -&gt; 查找 <code class="docutils literal"><span class="pre">request</span></code> &#8220;这样的顺序，第一个找到的非空列表。</p>
+<div class="highlight-python"><div class="highlight"><pre>redis&gt; DEL job command request           # 确保key都被删除
+(integer) 0
+
+redis&gt; LPUSH command &quot;update system...&quot;  # 为command列表增加一个值
+(integer) 1
+
+redis&gt; LPUSH request &quot;visit page&quot;        # 为request列表增加一个值
+(integer) 1
+
+redis&gt; BLPOP job command request 0       # job 列表为空，被跳过，紧接着 command 列表的第一个元素被弹出。
+1) &quot;command&quot;                             # 弹出元素所属的列表
+2) &quot;update system...&quot;                    # 弹出元素所属的值
+</pre></div>
+</div>
+<p><strong>阻塞行为</strong></p>
+<p>如果所有给定 <code class="docutils literal"><span class="pre">key</span></code> 都不存在或包含空列表，那么 <a class="reference internal" href="#blpop">BLPOP</a> 命令将阻塞连接，直到等待超时，或有另一个客户端对给定 <code class="docutils literal"><span class="pre">key</span></code> 的任意一个执行 <a class="reference internal" href="lpush.html#lpush"><em>LPUSH</em></a> 或 <a class="reference internal" href="rpush.html#rpush"><em>RPUSH</em></a> 命令为止。</p>
+<p>超时参数 <code class="docutils literal"><span class="pre">timeout</span></code> 接受一个以秒为单位的数字作为值。超时参数设为 <code class="docutils literal"><span class="pre">0</span></code> 表示阻塞时间可以无限期延长(block indefinitely) 。</p>
+<div class="highlight-python"><div class="highlight"><pre>redis&gt; EXISTS job                # 确保两个 key 都不存在
+(integer) 0
+redis&gt; EXISTS command
+(integer) 0
+
+redis&gt; BLPOP job command 300     # 因为key一开始不存在，所以操作会被阻塞，直到另一客户端对 job 或者 command 列表进行 PUSH 操作。
+1) &quot;job&quot;                         # 这里被 push 的是 job
+2) &quot;do my home work&quot;             # 被弹出的值
+(26.26s)                         # 等待的秒数
+
+redis&gt; BLPOP job command 5       # 等待超时的情况
+(nil)
+(5.66s)                          # 等待的秒数
+</pre></div>
+</div>
+<p><strong>相同的key被多个客户端同时阻塞</strong></p>
+<p>相同的 <code class="docutils literal"><span class="pre">key</span></code> 可以被多个客户端同时阻塞。</p>
+<p>不同的客户端被放进一个队列中，按『先阻塞先服务』(first-BLPOP，first-served)的顺序为 <code class="docutils literal"><span class="pre">key</span></code> 执行 <a class="reference internal" href="#blpop">BLPOP</a> 命令。</p>
+<p><strong>在MULTI/EXEC事务中的BLPOP</strong></p>
+<p><a class="reference internal" href="#blpop">BLPOP</a> 可以用于流水线(pipline,批量地发送多个命令并读入多个回复)，但把它用在 <a class="reference internal" href="../transaction/multi.html#multi"><em>MULTI</em></a> / <a class="reference internal" href="../transaction/exec.html#exec"><em>EXEC</em></a> 块当中没有意义。因为这要求整个服务器被阻塞以保证块执行时的原子性，该行为阻止了其他客户端执行 <a class="reference internal" href="lpush.html#lpush"><em>LPUSH</em></a> 或 <a class="reference internal" href="rpush.html#rpush"><em>RPUSH</em></a> 命令。</p>
+<p>因此，一个被包裹在 <a class="reference internal" href="../transaction/multi.html#multi"><em>MULTI</em></a> / <a class="reference internal" href="../transaction/exec.html#exec"><em>EXEC</em></a> 块内的 <a class="reference internal" href="#blpop">BLPOP</a> 命令，行为表现得就像 <a class="reference internal" href="lpop.html#lpop"><em>LPOP</em></a> 一样，对空列表返回 <code class="docutils literal"><span class="pre">nil</span></code> ，对非空列表弹出列表元素，不进行任何阻塞操作。</p>
+<div class="highlight-python"><div class="highlight"><pre># 对非空列表进行操作
+
+redis&gt; RPUSH job programming
+(integer) 1
+
+redis&gt; MULTI
+OK
+
+redis&gt; BLPOP job 30
+QUEUED
+
+redis&gt; EXEC           # 不阻塞，立即返回
+1) 1) &quot;job&quot;
+   2) &quot;programming&quot;
+
+
+# 对空列表进行操作
+
+redis&gt; LLEN job      # 空列表
+(integer) 0
+
+redis&gt; MULTI
+OK
+
+redis&gt; BLPOP job 30
+QUEUED
+
+redis&gt; EXEC         # 不阻塞，立即返回
+1) (nil)
+</pre></div>
+</div>
+<dl class="docutils">
+<dt><strong>可用版本：</strong></dt>
+<dd>&gt;= 2.0.0</dd>
+<dt><strong>时间复杂度：</strong></dt>
+<dd>O(1)</dd>
+<dt><strong>返回值：</strong></dt>
+<dd><div class="first last line-block">
+<div class="line">如果列表为空，返回一个 <code class="docutils literal"><span class="pre">nil</span></code> 。</div>
+<div class="line">否则，返回一个含有两个元素的列表，第一个元素是被弹出元素所属的 <code class="docutils literal"><span class="pre">key</span></code> ，第二个元素是被弹出元素的值。</div>
+</div>
+</dd>
+</dl>
+<div class="section" id="id2">
+<h2>模式：事件提醒<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>有时候，为了等待一个新元素到达数据中，需要使用轮询的方式对数据进行探查。</p>
+<p>另一种更好的方式是，使用系统提供的阻塞原语，在新元素到达时立即进行处理，而新元素还没到达时，就一直阻塞住，避免轮询占用资源。</p>
+<p>对于 Redis ，我们似乎需要一个阻塞版的 <a class="reference internal" href="../set/spop.html#spop"><em>SPOP</em></a> 命令，但实际上，使用 <a class="reference internal" href="#blpop">BLPOP</a> 或者 <a class="reference internal" href="brpop.html#brpop"><em>BRPOP</em></a> 就能很好地解决这个问题。</p>
+<p>使用元素的客户端(消费者)可以执行类似以下的代码：</p>
+<div class="highlight-python"><div class="highlight"><pre>LOOP forever
+    WHILE SPOP(key) returns elements
+        ... process elements ...
+    END
+    BRPOP helper_key
+END
+</pre></div>
+</div>
+<p>添加元素的客户端(消费者)则执行以下代码：</p>
+<div class="highlight-python"><div class="highlight"><pre>MULTI
+    SADD key element
+    LPUSH helper_key x
+EXEC
+</pre></div>
+</div>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="brpop.html" title="BRPOP"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="List（列表）"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >List（列表）</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

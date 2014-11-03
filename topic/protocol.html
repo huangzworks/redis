@@ -1,0 +1,479 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>通信协议（protocol） &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="next" title="持久化（persistence）" href="persistence.html" />
+    <link rel="prev" title="复制（Replication）" href="replication.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="persistence.html" title="持久化（persistence）"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="replication.html" title="复制（Replication）"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="protocol">
+<h1>通信协议（protocol）<a class="headerlink" href="#protocol" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">本文档翻译自： <a class="reference external" href="http://redis.io/topics/protocol">http://redis.io/topics/protocol</a> 。</p>
+</div>
+<p>Redis 协议在以下三个目标之间进行折中：</p>
+<ul class="simple">
+<li>易于实现</li>
+<li>可以高效地被计算机分析（parse）</li>
+<li>可以很容易地被人类读懂</li>
+</ul>
+<div class="section" id="id1">
+<h2>网络层<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>客户端和服务器通过 TCP 连接来进行数据交互，
+服务器默认的端口号为 6379 。</p>
+<p>客户端和服务器发送的命令或数据一律以 <code class="docutils literal"><span class="pre">\r\n</span></code> （CRLF）结尾。</p>
+</div>
+<div class="section" id="id2">
+<h2>请求<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Redis 服务器接受命令以及命令的参数。</p>
+<p>服务器会在接到命令之后，对命令进行处理，并将命令的回复传送回客户端。</p>
+</div>
+<div class="section" id="id3">
+<h2>新版统一请求协议<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>新版统一请求协议在 Redis 1.2 版本中引入，
+并最终在 Redis 2.0 版本成为 Redis 服务器通信的标准方式。</p>
+<p>你的 Redis 客户端应该按照这个新版协议来进行实现。</p>
+<p>在这个协议中，
+所有发送至 Redis 服务器的参数都是二进制安全（binary safe）的。</p>
+<p>以下是这个协议的一般形式：</p>
+<div class="highlight-python"><div class="highlight"><pre>*&lt;参数数量&gt; CR LF
+$&lt;参数 1 的字节数量&gt; CR LF
+&lt;参数 1 的数据&gt; CR LF
+...
+$&lt;参数 N 的字节数量&gt; CR LF
+&lt;参数 N 的数据&gt; CR LF
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">译注：命令本身也作为协议的其中一个参数来发送。</p>
+</div>
+<p>举个例子，
+以下是一个命令协议的打印版本：</p>
+<div class="highlight-python"><div class="highlight"><pre>*3
+$3
+SET
+$5
+mykey
+$7
+myvalue
+</pre></div>
+</div>
+<p>这个命令的实际协议值如下：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;*3</span><span class="se">\r\n</span><span class="s">$3</span><span class="se">\r\n</span><span class="s">SET</span><span class="se">\r\n</span><span class="s">$5</span><span class="se">\r\n</span><span class="s">mykey</span><span class="se">\r\n</span><span class="s">$7</span><span class="se">\r\n</span><span class="s">myvalue</span><span class="se">\r\n</span><span class="s">&quot;</span>
+</pre></div>
+</div>
+<p>稍后我们会看到，
+这种格式除了用作命令请求协议之外，
+也用在命令的回复协议中：
+这种只有一个参数的回复格式被称为<strong>批量回复（Bulk Reply）</strong>。</p>
+<p>统一协议请求原本是用在回复协议中，
+用于将列表的多个项返回给客户端的，
+这种回复格式被称为<strong>多条批量回复（Multi Bulk Reply）</strong>。</p>
+<p>一个多条批量回复以 <code class="docutils literal"><span class="pre">*&lt;argc&gt;\r\n</span></code> 为前缀，
+后跟多条不同的批量回复，
+其中 <code class="docutils literal"><span class="pre">argc</span></code> 为这些批量回复的数量。</p>
+</div>
+<div class="section" id="id4">
+<h2>回复<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>Redis 命令会返回多种不同类型的回复。</p>
+<p>通过检查服务器发回数据的第一个字节，
+可以确定这个回复是什么类型：</p>
+<ul class="simple">
+<li>状态回复（status reply）的第一个字节是 <code class="docutils literal"><span class="pre">&quot;+&quot;</span></code></li>
+<li>错误回复（error reply）的第一个字节是 <code class="docutils literal"><span class="pre">&quot;-&quot;</span></code></li>
+<li>整数回复（integer reply）的第一个字节是 <code class="docutils literal"><span class="pre">&quot;:&quot;</span></code></li>
+<li>批量回复（bulk reply）的第一个字节是 <code class="docutils literal"><span class="pre">&quot;$&quot;</span></code></li>
+<li>多条批量回复（multi bulk reply）的第一个字节是 <code class="docutils literal"><span class="pre">&quot;*&quot;</span></code></li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2>状态回复<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>一个状态回复（或者单行回复，single line reply）是一段以 <code class="docutils literal"><span class="pre">&quot;+&quot;</span></code> 开始、 <code class="docutils literal"><span class="pre">&quot;\r\n&quot;</span></code> 结尾的单行字符串。</p>
+<p>以下是一个状态回复的例子：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="o">+</span><span class="n">OK</span>
+</pre></div>
+</div>
+<p>客户端库应该返回 <code class="docutils literal"><span class="pre">&quot;+&quot;</span></code> 号之后的所有内容。
+比如在在上面的这个例子中，
+客户端就应该返回字符串 <code class="docutils literal"><span class="pre">&quot;OK&quot;</span></code> 。</p>
+<p>状态回复通常由那些不需要返回数据的命令返回，这种回复不是二进制安全的，它也不能包含新行。</p>
+<p>状态回复的额外开销非常少，只需要三个字节（开头的 <code class="docutils literal"><span class="pre">&quot;+&quot;</span></code> 和结尾的 CRLF）。</p>
+</div>
+<div class="section" id="id6">
+<h2>错误回复<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>错误回复和状态回复非常相似，
+它们之间的唯一区别是，
+错误回复的第一个字节是 <code class="docutils literal"><span class="pre">&quot;-&quot;</span></code> ，
+而状态回复的第一个字节是 <code class="docutils literal"><span class="pre">&quot;+&quot;</span></code> 。</p>
+<p>错误回复只在某些地方出现问题时发送：
+比如说，
+当用户对不正确的数据类型执行命令，
+或者执行一个不存在的命令，
+等等。</p>
+<p>一个客户端库应该在收到错误回复时产生一个异常。</p>
+<p>以下是两个错误回复的例子：</p>
+<div class="highlight-python"><div class="highlight"><pre>-ERR unknown command &#39;foobar&#39;
+-WRONGTYPE Operation against a key holding the wrong kind of value
+</pre></div>
+</div>
+<p>在 <code class="docutils literal"><span class="pre">&quot;-&quot;</span></code> 之后，直到遇到第一个空格或新行为止，这中间的内容表示所返回错误的类型。</p>
+<p><code class="docutils literal"><span class="pre">ERR</span></code> 是一个通用错误，而 <code class="docutils literal"><span class="pre">WRONGTYPE</span></code> 则是一个更特定的错误。
+一个客户端实现可以为不同类型的错误产生不同类型的异常，
+或者提供一种通用的方式，
+让调用者可以通过提供字符串形式的错误名来捕捉（trap）不同的错误。</p>
+<p>不过这些特性用得并不多，
+所以并不是特别重要，
+一个受限的（limited）客户端可以通过简单地返回一个逻辑假（false）来表示一个通用的错误条件。</p>
+</div>
+<div class="section" id="id7">
+<h2>整数回复<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>整数回复就是一个以 <code class="docutils literal"><span class="pre">&quot;:&quot;</span></code> 开头， CRLF 结尾的字符串表示的整数。</p>
+<p>比如说，
+<code class="docutils literal"><span class="pre">&quot;:0\r\n&quot;</span></code> 和 <code class="docutils literal"><span class="pre">&quot;:1000\r\n&quot;</span></code> 都是整数回复。</p>
+<p>返回整数回复的其中两个命令是 <a class="reference internal" href="../string/incr.html#incr"><em>INCR</em></a> 和 <a class="reference internal" href="../server/lastsave.html#lastsave"><em>LASTSAVE</em></a> 。
+被返回的整数没有什么特殊的含义，
+<a class="reference internal" href="../string/incr.html#incr"><em>INCR</em></a> 返回键的一个自增后的整数值，
+而 <a class="reference internal" href="../server/lastsave.html#lastsave"><em>LASTSAVE</em></a> 则返回一个 UNIX 时间戳，
+返回值的唯一限制是这些数必须能够用 64 位有符号整数表示。</p>
+<p>整数回复也被广泛地用于表示逻辑真和逻辑假：
+比如 <a class="reference internal" href="../key/exists.html#exists"><em>EXISTS</em></a> 和 <a class="reference internal" href="../set/sismember.html#sismember"><em>SISMEMBER</em></a> 都用返回值 <code class="docutils literal"><span class="pre">1</span></code> 表示真，
+<code class="docutils literal"><span class="pre">0</span></code> 表示假。</p>
+<p>其他一些命令，
+比如 <a class="reference internal" href="../set/sadd.html#sadd"><em>SADD</em></a> 、 <a class="reference internal" href="../set/srem.html#srem"><em>SREM</em></a> 和 <a class="reference internal" href="../string/setnx.html#setnx"><em>SETNX</em></a> ，
+只在操作真正被执行了的时候，
+才返回 <code class="docutils literal"><span class="pre">1</span></code> ，
+否则返回 <code class="docutils literal"><span class="pre">0</span></code> 。</p>
+<p>以下命令都返回整数回复：
+<a class="reference internal" href="../string/setnx.html#setnx"><em>SETNX</em></a> 、
+<a class="reference internal" href="../key/del.html#del"><em>DEL</em></a> 、
+<a class="reference internal" href="../key/exists.html#exists"><em>EXISTS</em></a> 、
+<a class="reference internal" href="../string/incr.html#incr"><em>INCR</em></a> 、
+<a class="reference internal" href="../string/incrby.html#incrby"><em>INCRBY</em></a> 、
+<a class="reference internal" href="../string/decr.html#decr"><em>DECR</em></a> 、
+<a class="reference internal" href="../string/decrby.html#decrby"><em>DECRBY</em></a> 、
+<a class="reference internal" href="../server/dbsize.html#dbsize"><em>DBSIZE</em></a> 、
+<a class="reference internal" href="../server/lastsave.html#lastsave"><em>LASTSAVE</em></a> 、
+<a class="reference internal" href="../key/renamenx.html#renamenx"><em>RENAMENX</em></a> 、
+<a class="reference internal" href="../key/move.html#move"><em>MOVE</em></a> 、
+<a class="reference internal" href="../list/llen.html#llen"><em>LLEN</em></a> 、
+<a class="reference internal" href="../set/sadd.html#sadd"><em>SADD</em></a> 、
+<a class="reference internal" href="../set/srem.html#srem"><em>SREM</em></a> 、
+<a class="reference internal" href="../set/sismember.html#sismember"><em>SISMEMBER</em></a> 、
+<a class="reference internal" href="../set/scard.html#scard"><em>SCARD</em></a> 。</p>
+</div>
+<div class="section" id="id8">
+<h2>批量回复<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>服务器使用批量回复来返回二进制安全的字符串，字符串的最大长度为 512 MB 。</p>
+<div class="highlight-python"><div class="highlight"><pre>客户端：GET mykey
+服务器：foobar
+</pre></div>
+</div>
+<p>服务器发送的内容中：</p>
+<ul class="simple">
+<li>第一字节为 <code class="docutils literal"><span class="pre">&quot;$&quot;</span></code> 符号</li>
+<li>接下来跟着的是表示实际回复长度的数字值</li>
+<li>之后跟着一个 CRLF</li>
+<li>再后面跟着的是实际回复数据</li>
+<li>最末尾是另一个 CRLF</li>
+</ul>
+<p>对于前面的 <a class="reference internal" href="../string/get.html#get"><em>GET</em></a> 命令，服务器实际发送的内容为：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;$6</span><span class="se">\r\n</span><span class="s">foobar</span><span class="se">\r\n</span><span class="s">&quot;</span>
+</pre></div>
+</div>
+<p>如果被请求的值不存在，
+那么批量回复会将特殊值 <code class="docutils literal"><span class="pre">-1</span></code> 用作回复的长度值，
+就像这样：</p>
+<div class="highlight-python"><div class="highlight"><pre>客户端：GET non-existing-key
+服务器：$-1
+</pre></div>
+</div>
+<p>这种回复称为空批量回复（NULL Bulk Reply）。</p>
+<p>当请求对象不存在时，客户端应该返回空对象，而不是空字符串：
+比如 Ruby 库应该返回 <code class="docutils literal"><span class="pre">nil</span></code> ，
+而 C 库应该返回 <code class="docutils literal"><span class="pre">NULL</span></code> （或者在回复对象中设置一个特殊标志），
+诸如此类。</p>
+</div>
+<div class="section" id="id9">
+<h2>多条批量回复<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>像 <a class="reference internal" href="../list/lrange.html#lrange"><em>LRANGE</em></a> 这样的命令需要返回多个值，
+这一目标可以通过多条批量回复来完成。</p>
+<p>多条批量回复是由多个回复组成的数组，
+数组中的每个元素都可以是任意类型的回复，
+包括多条批量回复本身。</p>
+<p>多条批量回复的第一个字节为 <code class="docutils literal"><span class="pre">&quot;*&quot;</span></code> ，
+后跟一个字符串表示的整数值，
+这个值记录了多条批量回复所包含的回复数量，
+再后面是一个 CRLF 。</p>
+<div class="highlight-python"><div class="highlight"><pre>客户端： LRANGE mylist 0 3
+服务器： *4
+服务器： $3
+服务器： foo
+服务器： $3
+服务器： bar
+服务器： $5
+服务器： Hello
+服务器： $5
+服务器： World
+</pre></div>
+</div>
+<p>在上面的示例中，服务器发送的所有字符串都由 CRLF 结尾。</p>
+<p>正如你所见到的那样，
+多条批量回复所使用的格式，
+和客户端发送命令时使用的统一请求协议的格式一模一样。
+它们之间的唯一区别是：</p>
+<ul class="simple">
+<li>统一请求协议只发送批量回复。</li>
+<li>而服务器应答命令时所发送的多条批量回复，则可以包含任意类型的回复。</li>
+</ul>
+<p>以下例子展示了一个多条批量回复，
+回复中包含四个整数值，
+以及一个二进制安全字符串：</p>
+<div class="highlight-python"><div class="highlight"><pre>*5\r\n
+:1\r\n
+:2\r\n
+:3\r\n
+:4\r\n
+$6\r\n
+foobar\r\n
+</pre></div>
+</div>
+<p>在回复的第一行，
+服务器发送 <code class="docutils literal"><span class="pre">*5\r\n</span></code> ，
+表示这个多条批量回复包含 5 条回复，
+再后面跟着的则是 5 条回复的正文。</p>
+<p>多条批量回复也可以是空白的（empty），
+就像这样：</p>
+<div class="highlight-python"><div class="highlight"><pre>客户端： LRANGE nokey 0 1
+服务器： *0\r\n
+</pre></div>
+</div>
+<p>无内容的多条批量回复（null multi bulk reply）也是存在的，
+比如当 <a class="reference internal" href="../list/blpop.html#blpop"><em>BLPOP</em></a> 命令的阻塞时间超过最大时限时，
+它就返回一个无内容的多条批量回复，
+这个回复的计数值为 <code class="docutils literal"><span class="pre">-1</span></code> ：</p>
+<div class="highlight-python"><div class="highlight"><pre>客户端： BLPOP key 1
+服务器： *-1\r\n
+</pre></div>
+</div>
+<p>客户端库应该区别对待空白多条回复和无内容多条回复：
+当 Redis 返回一个无内容多条回复时，
+客户端库应该返回一个 null 对象，
+而不是一个空数组。</p>
+</div>
+<div class="section" id="id10">
+<h2>多条批量回复中的空元素<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>多条批量回复中的元素可以将自身的长度设置为 <code class="docutils literal"><span class="pre">-1</span></code> ，
+从而表示该元素不存在，
+并且也不是一个空白字符串（empty string）。</p>
+<p>当 <a class="reference internal" href="../key/sort.html#sort"><em>SORT</em></a> 命令使用 <code class="docutils literal"><span class="pre">GET</span> <span class="pre">pattern</span></code> 选项对一个不存在的键进行操作时，
+就会发生多条批量回复中带有空白元素的情况。</p>
+<p>以下例子展示了一个包含空元素的多重批量回复：</p>
+<div class="highlight-python"><div class="highlight"><pre>服务器： *3
+服务器： $3
+服务器： foo
+服务器： $-1
+服务器： $3
+服务器： bar
+</pre></div>
+</div>
+<p>其中，
+回复中的第二个元素为空。</p>
+<p>对于这个回复，
+客户端库应该返回类似于这样的回复：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="s">&quot;foo&quot;</span><span class="p">,</span> <span class="n">nil</span><span class="p">,</span> <span class="s">&quot;bar&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>多命令和流水线<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>客户端可以通过流水线，
+在一次写入操作中发送多个命令：</p>
+<ul class="simple">
+<li>在发送新命令之前， 无须阅读前一个命令的回复。</li>
+<li>多个命令的回复会在最后一并返回。</li>
+</ul>
+</div>
+<div class="section" id="id12">
+<h2>内联命令<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p>当你需要和 Redis 服务器进行沟通，
+但又找不到 <code class="docutils literal"><span class="pre">redis-cli</span></code> ，
+而手上只有 <code class="docutils literal"><span class="pre">telnet</span></code> 的时候，
+你可以通过 Redis 特别为这种情形而设的内联命令格式来发送命令。</p>
+<p>以下是一个客户端和服务器使用内联命令来进行交互的例子：</p>
+<div class="highlight-python"><div class="highlight"><pre>客户端： PING
+服务器： +PONG
+</pre></div>
+</div>
+<p>以下另一个返回整数值的内联命令的例子：</p>
+<div class="highlight-python"><div class="highlight"><pre>客户端： EXISTS somekey
+服务器： :0
+</pre></div>
+</div>
+<p>因为没有了统一请求协议中的 <code class="docutils literal"><span class="pre">&quot;*&quot;</span></code> 项来声明参数的数量，
+所以在 <code class="docutils literal"><span class="pre">telnet</span></code> 会话输入命令的时候，
+必须使用空格来分割各个参数，
+服务器在接收到数据之后，
+会按空格对用户的输入进行分析（parse），
+并获取其中的命令参数。</p>
+</div>
+<div class="section" id="redis">
+<h2>高性能 Redis 协议分析器<a class="headerlink" href="#redis" title="Permalink to this headline">¶</a></h2>
+<p>尽管 Redis 的协议非常利于人类阅读，
+定义也很简单，
+但这个协议的实现性能仍然可以和二进制协议一样快。</p>
+<p>因为 Redis 协议将数据的长度放在数据正文之前，
+所以程序无须像 JSON 那样，
+为了寻找某个特殊字符而扫描整个 payload ，
+也无须对发送至服务器的 payload 进行转义（quote）。</p>
+<p>程序可以在对协议文本中的各个字符进行处理的同时，
+查找 CR 字符，
+并计算出批量回复或多条批量回复的长度，
+就像这样：</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="s">&quot;$123</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="n">p</span><span class="o">++</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="o">*</span><span class="n">p</span> <span class="o">!=</span> <span class="sc">&#39;\r&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">len</span> <span class="o">=</span> <span class="p">(</span><span class="n">len</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="o">*</span><span class="n">p</span> <span class="o">-</span> <span class="sc">&#39;0&#39;</span><span class="p">);</span>
+        <span class="n">p</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="cm">/* Now p points at &#39;\r&#39;, and the len is in bulk_len. */</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>得到了批量回复或多条批量回复的长度之后，
+程序只需调用一次 <code class="docutils literal"><span class="pre">read</span></code> 函数，
+就可以将回复的正文数据全部读入到内存中，
+而无须对这些数据做任何的处理。</p>
+<p>在回复最末尾的 CR 和 LF 不作处理，丢弃它们。</p>
+<p>Redis 协议的实现性能可以和二进制协议的实现性能相媲美，
+并且由于 Redis 协议的简单性，
+大部分高级语言都可以轻易地实现这个协议，
+这使得客户端软件的 bug 数量大大减少。</p>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="persistence.html" title="持久化（persistence）"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="replication.html" title="复制（Replication）"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

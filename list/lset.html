@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>LSET &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="up" title="List（列表）" href="index.html" />
+    <link rel="next" title="LTRIM" href="ltrim.html" />
+    <link rel="prev" title="LREM" href="lrem.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ltrim.html" title="LTRIM"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lrem.html" title="LREM"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">List（列表）</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="lset">
+<span id="id1"></span><h1>LSET<a class="headerlink" href="#lset" title="Permalink to this headline">¶</a></h1>
+<p><strong>LSET key index value</strong></p>
+<p>将列表 <code class="docutils literal"><span class="pre">key</span></code> 下标为 <code class="docutils literal"><span class="pre">index</span></code> 的元素的值设置为 <code class="docutils literal"><span class="pre">value</span></code> 。</p>
+<p>当 <code class="docutils literal"><span class="pre">index</span></code> 参数超出范围，或对一个空列表( <code class="docutils literal"><span class="pre">key</span></code> 不存在)进行 <a class="reference internal" href="#lset">LSET</a> 时，返回一个错误。</p>
+<p>关于列表下标的更多信息，请参考 <a class="reference internal" href="lindex.html#lindex"><em>LINDEX</em></a> 命令。</p>
+<dl class="docutils">
+<dt><strong>可用版本：</strong></dt>
+<dd>&gt;= 1.0.0</dd>
+<dt><strong>时间复杂度：</strong></dt>
+<dd><div class="first last line-block">
+<div class="line">对头元素或尾元素进行 <a class="reference internal" href="#lset">LSET</a> 操作，复杂度为 O(1)。</div>
+<div class="line">其他情况下，为 O(N)， <code class="docutils literal"><span class="pre">N</span></code> 为列表的长度。</div>
+</div>
+</dd>
+<dt><strong>返回值：</strong></dt>
+<dd>操作成功返回 <code class="docutils literal"><span class="pre">ok</span></code> ，否则返回错误信息。</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre># 对空列表(key 不存在)进行 LSET
+
+redis&gt; EXISTS list
+(integer) 0
+
+redis&gt; LSET list 0 item
+(error) ERR no such key
+
+
+# 对非空列表进行 LSET
+
+redis&gt; LPUSH job &quot;cook food&quot;
+(integer) 1
+
+redis&gt; LRANGE job 0 0
+1) &quot;cook food&quot;
+
+redis&gt; LSET job 0 &quot;play game&quot;
+OK
+
+redis&gt; LRANGE job  0 0
+1) &quot;play game&quot;
+
+
+# index 超出范围
+
+redis&gt; LLEN list                    # 列表长度为 1
+(integer) 1
+
+redis&gt; LSET list 3 &#39;out of range&#39;
+(error) ERR index out of range
+</pre></div>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ltrim.html" title="LTRIM"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lrem.html" title="LREM"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >List（列表）</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

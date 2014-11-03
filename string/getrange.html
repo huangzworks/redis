@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>GETRANGE &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="up" title="String（字符串）" href="index.html" />
+    <link rel="next" title="GETSET" href="getset.html" />
+    <link rel="prev" title="GETBIT" href="getbit.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="getset.html" title="GETSET"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="getbit.html" title="GETBIT"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">String（字符串）</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="getrange">
+<span id="id1"></span><h1>GETRANGE<a class="headerlink" href="#getrange" title="Permalink to this headline">¶</a></h1>
+<p><strong>GETRANGE key start end</strong></p>
+<p>返回 <code class="docutils literal"><span class="pre">key</span></code> 中字符串值的子字符串，字符串的截取范围由 <code class="docutils literal"><span class="pre">start</span></code> 和 <code class="docutils literal"><span class="pre">end</span></code> 两个偏移量决定(包括 <code class="docutils literal"><span class="pre">start</span></code> 和 <code class="docutils literal"><span class="pre">end</span></code> 在内)。</p>
+<p>负数偏移量表示从字符串最后开始计数， <code class="docutils literal"><span class="pre">-1</span></code> 表示最后一个字符， <code class="docutils literal"><span class="pre">-2</span></code> 表示倒数第二个，以此类推。</p>
+<p><a class="reference internal" href="#getrange">GETRANGE</a> 通过保证子字符串的值域(range)不超过实际字符串的值域来处理超出范围的值域请求。</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">在 &lt;= 2.0 的版本里，GETRANGE 被叫作 SUBSTR。</p>
+</div>
+<dl class="docutils">
+<dt><strong>可用版本：</strong></dt>
+<dd>&gt;= 2.4.0</dd>
+<dt><strong>时间复杂度：</strong></dt>
+<dd><div class="first last line-block">
+<div class="line">O(N)， <code class="docutils literal"><span class="pre">N</span></code> 为要返回的字符串的长度。</div>
+<div class="line">复杂度最终由字符串的返回值长度决定，但因为从已有字符串中取出子字符串的操作非常廉价(cheap)，所以对于长度不大的字符串，该操作的复杂度也可看作O(1)。</div>
+</div>
+</dd>
+<dt><strong>返回值：</strong></dt>
+<dd>截取得出的子字符串。</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre>redis&gt; SET greeting &quot;hello, my friend&quot;
+OK
+
+redis&gt; GETRANGE greeting 0 4          # 返回索引0-4的字符，包括4。
+&quot;hello&quot;
+
+redis&gt; GETRANGE greeting -1 -5        # 不支持回绕操作
+&quot;&quot;
+
+redis&gt; GETRANGE greeting -3 -1        # 负数索引
+&quot;end&quot;
+
+redis&gt; GETRANGE greeting 0 -1         # 从第一个到最后一个
+&quot;hello, my friend&quot;
+
+redis&gt; GETRANGE greeting 0 1008611    # 值域范围不超过实际字符串，超过部分自动被符略
+&quot;hello, my friend&quot;
+</pre></div>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="getset.html" title="GETSET"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="getbit.html" title="GETBIT"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >String（字符串）</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>

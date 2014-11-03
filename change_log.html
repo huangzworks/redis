@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>更新日志(change log) &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="index.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="index.html">Redis 命令参考</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="change-log">
+<span id="id1"></span><h1>更新日志(change log)<a class="headerlink" href="#change-log" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="redis-2-8">
+<h2>2013 年 12 月(Redis 2.8)<a class="headerlink" href="#redis-2-8" title="Permalink to this headline">¶</a></h2>
+<p>Redis 2.8 带来的更新：</p>
+<ul class="simple">
+<li>添加 <a class="reference internal" href="key/scan.html#scan"><em>SCAN</em></a> 命令、 <a class="reference internal" href="set/sscan.html#sscan"><em>SSCAN</em></a> 命令、 <a class="reference internal" href="hash/hscan.html#hscan"><em>HSCAN</em></a> 命令和 <a class="reference internal" href="sorted_set/zscan.html#zscan"><em>ZSCAN</em></a> 命令。</li>
+<li>添加 <a class="reference internal" href="server/config_rewrite.html#config-rewrite"><em>CONFIG REWRITE</em></a> 命令。</li>
+<li>添加 <a class="reference internal" href="pub_sub/pubsub.html#pubsub"><em>PUBSUB</em></a> 命令。</li>
+<li>添加 <a class="reference internal" href="server/client_setname.html#client-setname"><em>CLIENT SETNAME</em></a> 命令和 <a class="reference internal" href="server/client_getname.html#client-getname"><em>CLIENT GETNAME</em></a> 命令。</li>
+<li>修改 <a class="reference internal" href="key/ttl.html#ttl"><em>TTL</em></a> 和 <a class="reference internal" href="key/pttl.html#pttl"><em>PTTL</em></a> 命令的返回值。</li>
+</ul>
+<p>文档本身的更新：</p>
+<ul class="simple">
+<li>开始翻译 Redis 的主题（topic）文档：
+目前已经完成了 <a class="reference internal" href="topic/cluster-tutorial.html#cluster-tutorial"><em>集群教程</em></a> 、 <a class="reference internal" href="topic/sentinel.html#sentinel"><em>Sentinel</em></a> 、 <a class="reference internal" href="topic/replication.html#replication-topic"><em>复制（Replication）</em></a> 、 <a class="reference internal" href="topic/persistence.html#persistence"><em>持久化（persistence）</em></a> 等主要文档，
+未来还会翻译更多主题文档。</li>
+<li>支持 PDF 格式的离线文档下载。</li>
+<li>添加捐款连接。</li>
+</ul>
+</div>
+<div class="section" id="redis-2-6">
+<h2>2012 年 4 月(Redis 2.6)<a class="headerlink" href="#redis-2-6" title="Permalink to this headline">¶</a></h2>
+<p>此次更新的主要内容来自于 Redis 2.6 版本：</p>
+<ul class="simple">
+<li>2.6 版本新增的所有命令(EVAL 、 SCRIPT * 、 TIME 、 PTTL 等)的相关文档全部翻译完毕。</li>
+<li>2.6 版本新添加的几个应用模式，比如 INCR 命令的计数器模式和限速器模式、 EXPIRE 命令的导航会话模型等，全部翻译完毕。</li>
+<li>2.6 版本对旧有命令的改进，比如为 SHUTDOWN 添加修饰符、为 INFO 设置新的输出格式 、 CONFIG RESETSTAT 的变动等，这些命令的文档全部翻译/更新完毕。</li>
+<li>对代码示例及其注释进行了很多修改和重排版，让代码示例更直观。</li>
+</ul>
+<p>文档自身的更新：</p>
+<ul class="simple">
+<li>添加 disqus 评论功能。</li>
+<li>命令不再按类型分页，而是每个命令各一页，载入速度更快。</li>
+<li>添加进度表，随时了解项目最新动态。</li>
+</ul>
+</div>
+<div class="section" id="redis-2-4">
+<h2>2011 年 12 月(Redis 2.4)<a class="headerlink" href="#redis-2-4" title="Permalink to this headline">¶</a></h2>
+<p>完成 pub/sub 、 transaction 、 connection 和 server 四个部分的翻译。</p>
+</div>
+<div class="section" id="id2">
+<h2>2011 年 10 月(Redis 2.4)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>更新命令到 Redis 2.4 版本。</p>
+</div>
+<div class="section" id="redis-2-2">
+<h2>2011 年 6 月(Redis 2.2)<a class="headerlink" href="#redis-2-2" title="Permalink to this headline">¶</a></h2>
+<p>完成 keys 、 string 、 list 、 set 和 sorted set 六个部分的翻译。</p>
+</div>
+<div class="section" id="id3">
+<h2>2011 年 4 月(Redis 2.2)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>开始进行 Redis 命令参考的翻译工作。</p>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="index.html">Redis 命令参考</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Nov 03, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>
