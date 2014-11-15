@@ -7,7 +7,7 @@ DEBUG OBJECT
 
 `DEBUG OBJECT`_ 是一个调试命令，它不应被客户端所使用。
 
-查看 :ref:`OBJECT` 命令获取更多信息。
+查看 `OBJECT` 命令获取更多信息。
 
 **可用版本：**
     >= 1.0.0

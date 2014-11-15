@@ -7,7 +7,7 @@ ZREMRANGEBYSCORE
 
 移除有序集 ``key`` 中，所有 ``score`` 值介于 ``min`` 和 ``max`` 之间(包括等于 ``min`` 或 ``max`` )的成员。
 
-自版本2.1.6开始， ``score`` 值等于 ``min`` 或 ``max`` 的成员也可以不包括在内，详情请参见 :ref:`ZRANGEBYSCORE` 命令。
+自版本2.1.6开始， ``score`` 值等于 ``min`` 或 ``max`` 的成员也可以不包括在内，详情请参见 `ZRANGEBYSCORE` 命令。
 
 **可用版本：**
     >= 1.2.0

@@ -138,7 +138,7 @@ Sentinel 是不能执行自动故障迁移的。**
 - ``down-after-milliseconds`` 选项指定了 Sentinel 认为服务器已经断线所需的毫秒数。
 
   如果服务器在给定的毫秒数之内，
-  没有返回 Sentinel 发送的 :ref:`PING` 命令的回复，
+  没有返回 Sentinel 发送的 `PING` 命令的回复，
   或者返回一个错误，
   那么 Sentinel 将这个服务器标记为\ **主观下线**\ （subjectively down，简称 ``SDOWN`` ）。
 
@@ -182,10 +182,10 @@ Redis 的 Sentinel 中关于下线（down）有两个不同的概念：
   （一个 Sentinel 可以通过向另一个 Sentinel 发送 ``SENTINEL is-master-down-by-addr`` 命令来询问对方是否认为给定的服务器已下线。）
 
 如果一个服务器没有在 ``master-down-after-milliseconds`` 选项所指定的时间内，
-对向它发送 :ref:`PING` 命令的 Sentinel 返回一个有效回复（valid reply），
+对向它发送 `PING` 命令的 Sentinel 返回一个有效回复（valid reply），
 那么 Sentinel 就会将这个服务器标记为主观下线。
 
-服务器对 :ref:`PING` 命令的有效回复可以是以下三种回复的其中一种：
+服务器对 `PING` 命令的有效回复可以是以下三种回复的其中一种：
 
 - 返回 ``+PONG`` 。
 
@@ -194,7 +194,7 @@ Redis 的 Sentinel 中关于下线（down）有两个不同的概念：
 - 返回 ``-MASTERDOWN`` 错误。
 
 如果服务器返回除以上三种回复之外的其他回复，
-又或者在指定时间内没有回复 :ref:`PING` 命令，
+又或者在指定时间内没有回复 `PING` 命令，
 那么 Sentinel 认为服务器返回的回复无效（non-valid）。
 
 注意，
@@ -227,9 +227,9 @@ Sentinel 在将它们判断为下线前不需要进行协商，
 每个 Sentinel 都需要定期执行的任务
 ------------------------------------
 
-- 每个 Sentinel 以每秒钟一次的频率向它所知的主服务器、从服务器以及其他 Sentinel 实例发送一个 :ref:`PING` 命令。
+- 每个 Sentinel 以每秒钟一次的频率向它所知的主服务器、从服务器以及其他 Sentinel 实例发送一个 `PING` 命令。
 
-- 如果一个实例（instance）距离最后一次有效回复 :ref:`PING` 命令的时间超过 ``down-after-milliseconds`` 选项所指定的值，
+- 如果一个实例（instance）距离最后一次有效回复 `PING` 命令的时间超过 ``down-after-milliseconds`` 选项所指定的值，
   那么这个实例会被 Sentinel 标记为主观下线。
   一个有效回复可以是： ``+PONG`` 、 ``-LOADING`` 或者 ``-MASTERDOWN`` 。
 
@@ -241,13 +241,13 @@ Sentinel 在将它们判断为下线前不需要进行协商，
   那么这个主服务器被标记为客观下线。
 
 - 在一般情况下，
-  每个 Sentinel 会以每 10 秒一次的频率向它已知的所有主服务器和从服务器发送 :ref:`INFO` 命令。
+  每个 Sentinel 会以每 10 秒一次的频率向它已知的所有主服务器和从服务器发送 `INFO` 命令。
   当一个主服务器被 Sentinel 标记为客观下线时，
-  Sentinel 向下线主服务器的所有从服务器发送 :ref:`INFO` 命令的频率会从 10 秒一次改为每秒一次。
+  Sentinel 向下线主服务器的所有从服务器发送 `INFO` 命令的频率会从 10 秒一次改为每秒一次。
 
 - 当没有足够数量的 Sentinel 同意主服务器已经下线，
   主服务器的客观下线状态就会被移除。
-  当主服务器重新向 Sentinel 的 :ref:`PING` 命令返回有效回复时，
+  当主服务器重新向 Sentinel 的 `PING` 命令返回有效回复时，
   主服务器的主管下线状态就会被移除。
 
 
@@ -317,7 +317,7 @@ Sentinel 命令
 
 以下列出的是 Sentinel 接受的命令：
 
-- :ref:`PING` ：返回 ``PONG`` 。
+- `PING` ：返回 ``PONG`` 。
 
 - ``SENTINEL masters`` ：列出所有被监视的主服务器，以及这些主服务器的当前状态。
 
@@ -348,8 +348,8 @@ Sentinel 命令
 ^^^^^^^^^^^^^^^^^^^^^
 
 客户端可以将 Sentinel 看作是一个只提供了订阅功能的 Redis 服务器：
-你不可以使用 :ref:`PUBLISH` 命令向这个服务器发送信息，
-但你可以用 :ref:`SUBSCRIBE` 命令或者 :ref:`PSUBSCRIBE` 命令，
+你不可以使用 `PUBLISH` 命令向这个服务器发送信息，
+但你可以用 `SUBSCRIBE` 命令或者 `PSUBSCRIBE` 命令，
 通过订阅给定的频道来获取相应的事件提醒。
 
 一个频道能够接收和这个频道的名字相同的事件。
@@ -382,7 +382,7 @@ Sentinel 命令
 
 - ``+failover-detected <instance details>`` ：另一个 Sentinel 开始了一次故障转移操作，或者一个从服务器转换成了主服务器。
 
-- ``+slave-reconf-sent <instance details>`` ：领头（leader）的 Sentinel 向实例发送了 :ref:`SLAVEOF` 命令，为实例设置新的主服务器。
+- ``+slave-reconf-sent <instance details>`` ：领头（leader）的 Sentinel 向实例发送了 `SLAVEOF` 命令，为实例设置新的主服务器。
 
 - ``+slave-reconf-inprog <instance details>`` ：实例正在将自己设置为指定主服务器的从服务器，但相应的同步过程仍未完成。
 
@@ -449,7 +449,7 @@ Sentinel 命令
   将更新后的配置传播给所有其他 Sentinel ，
   其他 Sentinel 对它们自己的配置进行更新。
 
-- 向已下线主服务器的从服务器发送 :ref:`SLAVEOF` 命令，
+- 向已下线主服务器的从服务器发送 `SLAVEOF` 命令，
   让它们去复制新的主服务器。
 
 - 当所有从服务器都已经开始复制新的主服务器时，
@@ -465,7 +465,7 @@ Sentinel 命令
 Sentinel 使用以下规则来选择新的主服务器：
 
 - 在失效主服务器属下的从服务器当中，
-  那些被标记为主观下线、已断线、或者最后一次回复 :ref:`PING` 命令的时间大于五秒钟的从服务器都会被淘汰。
+  那些被标记为主观下线、已断线、或者最后一次回复 `PING` 命令的时间大于五秒钟的从服务器都会被淘汰。
 
 - 在失效主服务器属下的从服务器当中，
   那些与失效主服务器连接断开的时长超过 ``down-after`` 选项指定的时长十倍的从服务器都会被淘汰。
@@ -549,7 +549,7 @@ TILT 模式
 Redis Sentinel 严重依赖计算机的时间功能：
 比如说，
 为了判断一个实例是否可用，
-Sentinel 会记录这个实例最后一次相应 :ref:`PING` 命令的时间，
+Sentinel 会记录这个实例最后一次相应 `PING` 命令的时间，
 并将这个时间和当前时间进行对比，
 从而知道这个实例有多长时间没有和 Sentinel 进行任何成功通讯。
 
@@ -600,7 +600,7 @@ Redis 就会返回 ``-BUSY`` 错误。
 
 当出现这种情况时，
 Sentinel 在尝试执行故障转移操作之前，
-会先向服务器发送一个 :ref:`SCRIPT_KILL` 命令，
+会先向服务器发送一个 `SCRIPT_KILL` 命令，
 如果服务器正在执行的是一个只读脚本的话，
 那么这个脚本就会被杀死，
 服务器就会回到正常状态。

@@ -7,7 +7,7 @@ SCRIPT FLUSH
 
 清除所有 Lua 脚本缓存。
 
-关于使用 Redis 对 Lua 脚本进行求值的更多信息，请参见 :ref:`EVAL` 命令。
+关于使用 Redis 对 Lua 脚本进行求值的更多信息，请参见 `EVAL` 命令。
 
 **可用版本：**
     >= 2.6.0

@@ -5,10 +5,10 @@ CONFIG REWRITE
 
 **CONFIG REWRITE**
 
-:ref:`CONFIG_REWRITE` 命令对启动 Redis 服务器时所指定的 ``redis.conf`` 文件进行改写：
-因为 :ref:`CONFIG_SET` 命令可以对服务器的当前配置进行修改，
+`CONFIG_REWRITE` 命令对启动 Redis 服务器时所指定的 ``redis.conf`` 文件进行改写：
+因为 `CONFIG_SET` 命令可以对服务器的当前配置进行修改，
 而修改后的配置可能和 ``redis.conf`` 文件中所描述的配置不一样，
-:ref:`CONFIG_REWRITE` 的作用就是通过尽可能少的修改，
+`CONFIG_REWRITE` 的作用就是通过尽可能少的修改，
 将服务器当前所使用的配置记录到 ``redis.conf`` 文件中。
 
 重写会以非常保守的方式进行：
@@ -33,11 +33,11 @@ CONFIG REWRITE
   那么这些不再使用的参数原本所在的行就会变成空白的。
 
 即使启动服务器时所指定的 ``redis.conf`` 文件已经不再存在，
-:ref:`CONFIG_REWRITE` 命令也可以重新构建并生成出一个新的 ``redis.conf`` 文件。
+`CONFIG_REWRITE` 命令也可以重新构建并生成出一个新的 ``redis.conf`` 文件。
 
 另一方面，
 如果启动服务器时没有载入 ``redis.conf`` 文件，
-那么执行 :ref:`CONFIG_REWRITE` 命令将引发一个错误。
+那么执行 `CONFIG_REWRITE` 命令将引发一个错误。
 
 
 原子性重写
@@ -67,7 +67,7 @@ CONFIG REWRITE
 测试
 ----------------------
 
-以下是执行 :ref:`CONFIG_REWRITE` 前，
+以下是执行 `CONFIG_REWRITE` 前，
 被载入到 Redis 服务器的 ``redis.conf`` 文件中关于 ``appendonly`` 选项的设置：
 
 ::

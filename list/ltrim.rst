@@ -15,7 +15,7 @@ LTRIM
 
 当 ``key`` 不是列表类型时，返回一个错误。
 
-`LTRIM`_ 命令通常和 :ref:`LPUSH` 命令或 :ref:`RPUSH` 命令配合使用，举个例子：
+`LTRIM`_ 命令通常和 `LPUSH` 命令或 `RPUSH` 命令配合使用，举个例子：
 
 ::
 

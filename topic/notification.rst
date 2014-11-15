@@ -20,7 +20,7 @@
 
 - 所有修改键的命令。
 
-- 所有接收到 :ref:`LPUSH` 命令的键。
+- 所有接收到 `LPUSH` 命令的键。
 
 - ``0`` 号数据库中所有已过期的键。
 
@@ -45,9 +45,9 @@
 
 对于每个修改数据库的操作，键空间通知都会发送两种不同类型的事件。
 
-比如说，对 ``0`` 号数据库的键 ``mykey`` 执行 :ref:`DEL` 命令时，
+比如说，对 ``0`` 号数据库的键 ``mykey`` 执行 `DEL` 命令时，
 系统将分发两条消息，
-相当于执行以下两个 :ref:`PUBLISH` 命令：
+相当于执行以下两个 `PUBLISH` 命令：
 
 ::
 
@@ -118,71 +118,71 @@
 
 以下列表记录了不同命令所产生的不同通知：
 
-- :ref:`DEL` 命令为每个被删除的键产生一个 ``del`` 通知。
+- `DEL` 命令为每个被删除的键产生一个 ``del`` 通知。
 
-- :ref:`RENAME` 产生两个通知：为来源键（source key）产生一个 ``rename_from`` 通知，并为目标键（destination key）产生一个 ``rename_to`` 通知。
+- `RENAME` 产生两个通知：为来源键（source key）产生一个 ``rename_from`` 通知，并为目标键（destination key）产生一个 ``rename_to`` 通知。
 
-- :ref:`EXPIRE` 和 :ref:`EXPIREAT` 在键被正确设置过期时间时产生一个 ``expire`` 通知。当 :ref:`EXPIREAT` 设置的时间已经过期，或者 :ref:`EXPIRE` 传入的时间为负数值时，键被删除，并产生一个 ``del`` 通知。
+- `EXPIRE` 和 `EXPIREAT` 在键被正确设置过期时间时产生一个 ``expire`` 通知。当 `EXPIREAT` 设置的时间已经过期，或者 `EXPIRE` 传入的时间为负数值时，键被删除，并产生一个 ``del`` 通知。
 
-- :ref:`SORT` 在命令带有 ``STORE`` 参数时产生一个 ``sortstore`` 事件。如果 ``STORE`` 指示的用于保存排序结果的键已经存在，那么程序还会发送一个 ``del`` 事件。
+- `SORT` 在命令带有 ``STORE`` 参数时产生一个 ``sortstore`` 事件。如果 ``STORE`` 指示的用于保存排序结果的键已经存在，那么程序还会发送一个 ``del`` 事件。
 
-- :ref:`SET` 以及它的所有变种（\ :ref:`SETEX` 、 :ref:`SETNX` 和 :ref:`GETSET`\ ）都产生 ``set`` 通知。其中 :ref:`SETEX` 还会产生 ``expire`` 通知。
+- `SET` 以及它的所有变种（\ `SETEX` 、 `SETNX` 和 `GETSET`\ ）都产生 ``set`` 通知。其中 `SETEX` 还会产生 ``expire`` 通知。
 
-- :ref:`MSET` 为每个键产生一个 ``set`` 通知。
+- `MSET` 为每个键产生一个 ``set`` 通知。
 
-- :ref:`SETRANGE` 产生一个 ``setrange`` 通知。
+- `SETRANGE` 产生一个 ``setrange`` 通知。
 
-- :ref:`INCR` 、 :ref:`DECR` 、 :ref:`INCRBY` 和 :ref:`DECRBY` 都产生 ``incrby`` 通知。
+- `INCR` 、 `DECR` 、 `INCRBY` 和 `DECRBY` 都产生 ``incrby`` 通知。
 
-- :ref:`INCRBYFLOAT` 产生 ``incrbyfloat`` 通知。
+- `INCRBYFLOAT` 产生 ``incrbyfloat`` 通知。
 
-- :ref:`APPEND` 产生 ``append`` 通知。
+- `APPEND` 产生 ``append`` 通知。
 
-- :ref:`LPUSH` 和 :ref:`LPUSHX` 都产生单个 ``lpush`` 通知，即使有多个输入元素时，也是如此。
+- `LPUSH` 和 `LPUSHX` 都产生单个 ``lpush`` 通知，即使有多个输入元素时，也是如此。
 
-- :ref:`RPUSH` 和 :ref:`RPUSHX` 都产生单个 ``rpush`` 通知，即使有多个输入元素时，也是如此。
+- `RPUSH` 和 `RPUSHX` 都产生单个 ``rpush`` 通知，即使有多个输入元素时，也是如此。
 
-- :ref:`RPOP` 产生 ``rpop`` 通知。如果被弹出的元素是列表的最后一个元素，那么还会产生一个 ``del`` 通知。
+- `RPOP` 产生 ``rpop`` 通知。如果被弹出的元素是列表的最后一个元素，那么还会产生一个 ``del`` 通知。
 
-- :ref:`LPOP` 产生 ``lpop`` 通知。如果被弹出的元素是列表的最后一个元素，那么还会产生一个 ``del`` 通知。
+- `LPOP` 产生 ``lpop`` 通知。如果被弹出的元素是列表的最后一个元素，那么还会产生一个 ``del`` 通知。
 
-- :ref:`LINSERT` 产生一个 ``linsert`` 通知。
+- `LINSERT` 产生一个 ``linsert`` 通知。
 
-- :ref:`LSET` 产生一个 ``lset`` 通知。
+- `LSET` 产生一个 ``lset`` 通知。
 
-- :ref:`LTRIM` 产生一个 ``ltrim`` 通知。如果 :ref:`LTRIM` 执行之后，列表键被清空，那么还会产生一个 ``del`` 通知。
+- `LTRIM` 产生一个 ``ltrim`` 通知。如果 `LTRIM` 执行之后，列表键被清空，那么还会产生一个 ``del`` 通知。
 
-- :ref:`RPOPLPUSH` 和 :ref:`BRPOPLPUSH` 产生一个 ``rpop`` 通知，以及一个 ``lpush`` 通知。两个命令都会保证 ``rpop`` 的通知在 ``lpush`` 的通知之前分发。如果从键弹出元素之后，被弹出的列表键被清空，那么还会产生一个 ``del`` 通知。
+- `RPOPLPUSH` 和 `BRPOPLPUSH` 产生一个 ``rpop`` 通知，以及一个 ``lpush`` 通知。两个命令都会保证 ``rpop`` 的通知在 ``lpush`` 的通知之前分发。如果从键弹出元素之后，被弹出的列表键被清空，那么还会产生一个 ``del`` 通知。
 
-- :ref:`HSET` 、 :ref:`HSETNX` 和 :ref:`HMSET` 都只产生一个 ``hset`` 通知。
+- `HSET` 、 `HSETNX` 和 `HMSET` 都只产生一个 ``hset`` 通知。
 
-- :ref:`HINCRBY` 产生一个 ``hincrby`` 通知。
+- `HINCRBY` 产生一个 ``hincrby`` 通知。
 
-- :ref:`HINCRBYFLOAT` 产生一个 ``hincrbyfloat`` 通知。
+- `HINCRBYFLOAT` 产生一个 ``hincrbyfloat`` 通知。
 
-- :ref:`HDEL` 产生一个 ``hdel`` 通知。如果执行 :ref:`HDEL` 之后，哈希键被清空，那么还会产生一个 ``del`` 通知。
+- `HDEL` 产生一个 ``hdel`` 通知。如果执行 `HDEL` 之后，哈希键被清空，那么还会产生一个 ``del`` 通知。
 
-- :ref:`SADD` 产生一个 ``sadd`` 通知，即使有多个输入元素时，也是如此。
+- `SADD` 产生一个 ``sadd`` 通知，即使有多个输入元素时，也是如此。
 
-- :ref:`SREM` 产生一个 ``srem`` 通知，如果执行 :ref:`SREM` 之后，集合键被清空，那么还会产生一个 ``del`` 通知。
+- `SREM` 产生一个 ``srem`` 通知，如果执行 `SREM` 之后，集合键被清空，那么还会产生一个 ``del`` 通知。
 
-- :ref:`SMOVE` 为来源键（source key）产生一个 ``srem`` 通知，并为目标键（destination key）产生一个 ``sadd`` 事件。
+- `SMOVE` 为来源键（source key）产生一个 ``srem`` 通知，并为目标键（destination key）产生一个 ``sadd`` 事件。
 
-- :ref:`SPOP` 产生一个 ``spop`` 事件。如果执行 :ref:`SPOP` 之后，集合键被清空，那么还会产生一个 ``del`` 通知。
+- `SPOP` 产生一个 ``spop`` 事件。如果执行 `SPOP` 之后，集合键被清空，那么还会产生一个 ``del`` 通知。
 
-- :ref:`SINTERSTORE` 、 :ref:`SUNIONSTORE` 和 :ref:`SDIFFSTORE` 分别产生 ``sinterstore`` 、 ``sunionostore`` 和 ``sdiffstore`` 三种通知。如果用于保存结果的键已经存在，那么还会产生一个 ``del`` 通知。
+- `SINTERSTORE` 、 `SUNIONSTORE` 和 `SDIFFSTORE` 分别产生 ``sinterstore`` 、 ``sunionostore`` 和 ``sdiffstore`` 三种通知。如果用于保存结果的键已经存在，那么还会产生一个 ``del`` 通知。
 
-- :ref:`ZINCRBY` 产生一个 ``zincr`` 通知。（译注：非对称，请注意。）
+- `ZINCRBY` 产生一个 ``zincr`` 通知。（译注：非对称，请注意。）
 
-- :ref:`ZADD` 产生一个 ``zadd`` 通知，即使有多个输入元素时，也是如此。
+- `ZADD` 产生一个 ``zadd`` 通知，即使有多个输入元素时，也是如此。
 
-- :ref:`ZREM` 产生一个 ``zrem`` 通知，即使有多个输入元素时，也是如此。如果执行 :ref:`ZREM` 之后，有序集合键被清空，那么还会产生一个 ``del`` 通知。
+- `ZREM` 产生一个 ``zrem`` 通知，即使有多个输入元素时，也是如此。如果执行 `ZREM` 之后，有序集合键被清空，那么还会产生一个 ``del`` 通知。
 
-- :ref:`ZREMRANGEBYSCORE` 产生一个 ``zrembyscore`` 通知。（译注：非对称，请注意。）如果用于保存结果的键已经存在，那么还会产生一个 ``del`` 通知。
+- `ZREMRANGEBYSCORE` 产生一个 ``zrembyscore`` 通知。（译注：非对称，请注意。）如果用于保存结果的键已经存在，那么还会产生一个 ``del`` 通知。
 
-- :ref:`ZREMRANGEBYRANK` 产生一个 ``zrembyrank`` 通知。（译注：非对称，请注意。）如果用于保存结果的键已经存在，那么还会产生一个 ``del`` 通知。
+- `ZREMRANGEBYRANK` 产生一个 ``zrembyrank`` 通知。（译注：非对称，请注意。）如果用于保存结果的键已经存在，那么还会产生一个 ``del`` 通知。
 
-- :ref:`ZINTERSTORE` 和 :ref:`ZUNIONSTORE` 分别产生 ``zinterstore`` 和 ``zunionstore`` 两种通知。如果用于保存结果的键已经存在，那么还会产生一个 ``del`` 通知。
+- `ZINTERSTORE` 和 `ZUNIONSTORE` 分别产生 ``zinterstore`` 和 ``zunionstore`` 两种通知。如果用于保存结果的键已经存在，那么还会产生一个 ``del`` 通知。
 
 - 每当一个键因为过期而被删除时，产生一个 ``expired`` 通知。
 
@@ -192,7 +192,7 @@
 
     所有命令都只在键\ **真的**\ 被改动了之后，才会产生通知。
     
-    比如说，当 :ref:`SREM` 试图删除不存在于集合的元素时，删除操作会执行失败，因为没有真正的改动键，所以这一操作不会发送通知。
+    比如说，当 `SREM` 试图删除不存在于集合的元素时，删除操作会执行失败，因为没有真正的改动键，所以这一操作不会发送通知。
 
 如果对命令所产生的通知有疑问，
 最好还是使用以下命令，
