@@ -5,7 +5,7 @@ SDIFFSTORE
 
 **SDIFFSTORE destination key [key ...]**
 
-这个命令的作用和 :ref:`SDIFF` 类似，但它将结果保存到 ``destination`` 集合，而不是简单地返回结果集。
+这个命令的作用和 `SDIFF` 类似，但它将结果保存到 ``destination`` 集合，而不是简单地返回结果集。
 
 如果 ``destination`` 集合已经存在，则将其覆盖。
 

@@ -7,7 +7,7 @@ CLIENT KILL
 
 关闭地址为 ``ip:port`` 的客户端。
 
-``ip:port`` 应该和 :ref:`client_list` 命令输出的其中一行匹配。
+``ip:port`` 应该和 `client_list` 命令输出的其中一行匹配。
 
 因为 Redis 使用单线程设计，所以当 Redis 正在执行命令的时候，不会有客户端被断开连接。
 

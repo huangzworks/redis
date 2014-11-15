@@ -11,7 +11,7 @@ BGREWRITEAOF
 
 重写操作只会在没有其他持久化工作在后台执行时被触发，也就是说：
 
-- 如果 Redis 的子进程正在执行快照的保存工作，那么 AOF 重写的操作会被预定(scheduled)，等到保存工作完成之后再执行 AOF 重写。在这种情况下， `BGREWRITEAOF`_ 的返回值仍然是 ``OK`` ，但还会加上一条额外的信息，说明 `BGREWRITEAOF`_ 要等到保存操作完成之后才能执行。在 Redis 2.6 或以上的版本，可以使用 :ref:`INFO` 命令查看 `BGREWRITEAOF`_ 是否被预定。
+- 如果 Redis 的子进程正在执行快照的保存工作，那么 AOF 重写的操作会被预定(scheduled)，等到保存工作完成之后再执行 AOF 重写。在这种情况下， `BGREWRITEAOF`_ 的返回值仍然是 ``OK`` ，但还会加上一条额外的信息，说明 `BGREWRITEAOF`_ 要等到保存操作完成之后才能执行。在 Redis 2.6 或以上的版本，可以使用 `INFO` 命令查看 `BGREWRITEAOF`_ 是否被预定。
 
 - 如果已经有别的 AOF 文件重写在执行，那么 `BGREWRITEAOF`_ 返回一个错误，并且这个新的 `BGREWRITEAOF`_ 请求也不会被预定到下次执行。
 

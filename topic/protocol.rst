@@ -170,39 +170,39 @@ Redis 命令会返回多种不同类型的回复。
 比如说，
 ``":0\r\n"`` 和 ``":1000\r\n"`` 都是整数回复。
 
-返回整数回复的其中两个命令是 :ref:`INCR` 和 :ref:`LASTSAVE` 。
+返回整数回复的其中两个命令是 `INCR` 和 `LASTSAVE` 。
 被返回的整数没有什么特殊的含义，
-:ref:`INCR` 返回键的一个自增后的整数值，
-而 :ref:`LASTSAVE` 则返回一个 UNIX 时间戳，
+`INCR` 返回键的一个自增后的整数值，
+而 `LASTSAVE` 则返回一个 UNIX 时间戳，
 返回值的唯一限制是这些数必须能够用 64 位有符号整数表示。
 
 整数回复也被广泛地用于表示逻辑真和逻辑假：
-比如 :ref:`EXISTS` 和 :ref:`SISMEMBER` 都用返回值 ``1`` 表示真，
+比如 `EXISTS` 和 `SISMEMBER` 都用返回值 ``1`` 表示真，
 ``0`` 表示假。
 
 其他一些命令，
-比如 :ref:`SADD` 、 :ref:`SREM` 和 :ref:`SETNX` ，
+比如 `SADD` 、 `SREM` 和 `SETNX` ，
 只在操作真正被执行了的时候，
 才返回 ``1`` ，
 否则返回 ``0`` 。
 
 以下命令都返回整数回复：
-:ref:`SETNX` 、 
-:ref:`DEL` 、
-:ref:`EXISTS` 、
-:ref:`INCR` 、
-:ref:`INCRBY` 、
-:ref:`DECR` 、
-:ref:`DECRBY` 、
-:ref:`DBSIZE` 、
-:ref:`LASTSAVE` 、
-:ref:`RENAMENX` 、
-:ref:`MOVE` 、
-:ref:`LLEN` 、
-:ref:`SADD` 、
-:ref:`SREM` 、
-:ref:`SISMEMBER` 、
-:ref:`SCARD` 。
+`SETNX` 、 
+`DEL` 、
+`EXISTS` 、
+`INCR` 、
+`INCRBY` 、
+`DECR` 、
+`DECRBY` 、
+`DBSIZE` 、
+`LASTSAVE` 、
+`RENAMENX` 、
+`MOVE` 、
+`LLEN` 、
+`SADD` 、
+`SREM` 、
+`SISMEMBER` 、
+`SCARD` 。
 
 
 批量回复
@@ -227,7 +227,7 @@ Redis 命令会返回多种不同类型的回复。
 
 - 最末尾是另一个 CRLF 
 
-对于前面的 :ref:`GET` 命令，服务器实际发送的内容为：
+对于前面的 `GET` 命令，服务器实际发送的内容为：
 
 ::
 
@@ -253,7 +253,7 @@ Redis 命令会返回多种不同类型的回复。
 多条批量回复
 ----------------------------------
 
-像 :ref:`LRANGE` 这样的命令需要返回多个值，
+像 `LRANGE` 这样的命令需要返回多个值，
 这一目标可以通过多条批量回复来完成。
 
 多条批量回复是由多个回复组成的数组，
@@ -317,7 +317,7 @@ Redis 命令会返回多种不同类型的回复。
     服务器： *0\r\n
 
 无内容的多条批量回复（null multi bulk reply）也是存在的，
-比如当 :ref:`BLPOP` 命令的阻塞时间超过最大时限时，
+比如当 `BLPOP` 命令的阻塞时间超过最大时限时，
 它就返回一个无内容的多条批量回复，
 这个回复的计数值为 ``-1`` ：
 
@@ -339,7 +339,7 @@ Redis 命令会返回多种不同类型的回复。
 从而表示该元素不存在，
 并且也不是一个空白字符串（empty string）。
 
-当 :ref:`SORT` 命令使用 ``GET pattern`` 选项对一个不存在的键进行操作时，
+当 `SORT` 命令使用 ``GET pattern`` 选项对一个不存在的键进行操作时，
 就会发生多条批量回复中带有空白元素的情况。
 
 以下例子展示了一个包含空元素的多重批量回复：

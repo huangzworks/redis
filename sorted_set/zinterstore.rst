@@ -9,7 +9,7 @@ ZINTERSTORE
 
 默认情况下，结果集中某个成员的 ``score`` 值是所有给定集下该成员 ``score`` 值之和.
 
-关于 ``WEIGHTS`` 和 ``AGGREGATE`` 选项的描述，参见 :ref:`ZUNIONSTORE` 命令。
+关于 ``WEIGHTS`` 和 ``AGGREGATE`` 选项的描述，参见 `ZUNIONSTORE` 命令。
 
 **可用版本：**
     >= 2.0.0

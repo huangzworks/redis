@@ -11,7 +11,7 @@ ZRANGE
 
 具有相同 ``score`` 值的成员按字典序(`lexicographical order <http://en.wikipedia.org/wiki/Lexicographical_order>`_ )来排列。
 
-如果你需要成员按 ``score`` 值递减(从大到小)来排列，请使用 :ref:`ZREVRANGE` 命令。
+如果你需要成员按 ``score`` 值递减(从大到小)来排列，请使用 `ZREVRANGE` 命令。
 
 | 下标参数 ``start`` 和 ``stop`` 都以 ``0`` 为底，也就是说，以 ``0`` 表示有序集第一个成员，以 ``1`` 表示有序集第二个成员，以此类推。
 | 你也可以使用负数下标，以 ``-1`` 表示最后一个成员， ``-2`` 表示倒数第二个成员，以此类推。

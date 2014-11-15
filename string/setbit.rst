@@ -15,7 +15,7 @@ SETBIT
 
 ``offset`` 参数必须大于或等于 ``0`` ，小于 2^32 (bit 映射被限制在 512 MB 之内)。
 
-.. warning:: 对使用大的 ``offset`` 的 `SETBIT`_ 操作来说，内存分配可能造成 Redis 服务器被阻塞。具体参考 :ref:`SETRANGE` 命令，warning(警告)部分。
+.. warning:: 对使用大的 ``offset`` 的 `SETBIT`_ 操作来说，内存分配可能造成 Redis 服务器被阻塞。具体参考 `SETRANGE` 命令，warning(警告)部分。
 
 **可用版本：**
     >= 2.2.0

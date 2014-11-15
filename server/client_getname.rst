@@ -5,11 +5,11 @@ CLIENT GETNAME
 
 **CLIENT GETNAME**
 
-返回 :ref:`client_setname` 命令为连接设置的名字。
+返回 `client_setname` 命令为连接设置的名字。
 
 因为新创建的连接默认是没有名字的，
 对于没有名字的连接，
-:ref:`client_getname` 返回空白回复。
+`client_getname` 返回空白回复。
 
 **可用版本**
     >= 2.6.9

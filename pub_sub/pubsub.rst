@@ -5,7 +5,7 @@ PUBSUB
 
 **PUBSUB <subcommand> [argument [argument ...]]**
 
-:ref:`PUBSUB` 是一个查看订阅与发布系统状态的内省命令，
+`PUBSUB` 是一个查看订阅与发布系统状态的内省命令，
 它由数个不同格式的子命令组成，
 以下将分别对这些子命令进行介绍。
 

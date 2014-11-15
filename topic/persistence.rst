@@ -95,12 +95,12 @@ AOF 的优点
   对文件进行分析（parse）也很轻松。
   导出（export） AOF 文件也非常简单：
   举个例子，
-  如果你不小心执行了 :ref:`FLUSHALL` 命令，
+  如果你不小心执行了 `FLUSHALL` 命令，
   但只要 AOF 文件未被重写，
   那么只要停止服务器，
-  移除 AOF 文件末尾的 :ref:`FLUSHALL` 命令，
+  移除 AOF 文件末尾的 `FLUSHALL` 命令，
   并重启 Redis ，
-  就可以将数据集恢复到 :ref:`FLUSHALL` 执行之前的状态。
+  就可以将数据集恢复到 `FLUSHALL` 执行之前的状态。
 
 
 AOF 的缺点
@@ -117,7 +117,7 @@ AOF 的缺点
 
 - AOF 在过去曾经发生过这样的 bug ：
   因为个别命令的原因，导致 AOF 文件在重新载入时，无法将数据集恢复成保存时的原样。
-  （举个例子，阻塞命令 :ref:`BRPOPLPUSH` 就曾经引起过这样的 bug 。）
+  （举个例子，阻塞命令 `BRPOPLPUSH` 就曾经引起过这样的 bug 。）
   测试套件里为这种情况添加了测试：
   它们会自动生成随机的、复杂的数据集，
   并通过重新载入这些数据来确保一切正常。
@@ -163,7 +163,7 @@ Redis 将数据库快照保存在名字为 ``dump.rdb`` 的二进制文件中。
 让它在“  ``N`` 秒内数据集至少有 ``M`` 个改动”这一条件被满足时，
 自动保存一次数据集。
 
-你也可以通过调用 :ref:`SAVE` 或者 :ref:`BGSAVE` ，
+你也可以通过调用 `SAVE` 或者 `BGSAVE` ，
 手动让 Redis 进行数据集保存操作。
 
 比如说，
@@ -215,7 +215,7 @@ AOF 持久化。
     appendonly yes
 
 从现在开始，
-每当 Redis 执行一个改变数据集的命令时（比如 :ref:`SET`\ ），
+每当 Redis 执行一个改变数据集的命令时（比如 `SET`\ ），
 这个命令就会被追加到 AOF 文件的末尾。
 
 这样的话，
@@ -231,12 +231,12 @@ AOF 重写
 AOF 文件的体积也会变得越来越大。
 
 举个例子，
-如果你对一个计数器调用了 100 次 :ref:`INCR` ，
+如果你对一个计数器调用了 100 次 `INCR` ，
 那么仅仅是为了保存这个计数器的当前值，
 AOF 文件就需要使用 100 条记录（entry）。
 
 然而在实际上，
-只使用一条 :ref:`SET` 命令已经足以保存计数器的当前值了，
+只使用一条 `SET` 命令已经足以保存计数器的当前值了，
 其余 99 条记录实际上都是多余的。
 
 为了处理这种情况，
@@ -244,11 +244,11 @@ Redis 支持一种有趣的特性：
 可以在不打断服务客户端的情况下，
 对 AOF 文件进行重建（rebuild）。
 
-执行 :ref:`BGREWRITEAOF` 命令，
+执行 `BGREWRITEAOF` 命令，
 Redis 将生成一个新的 AOF 文件，
 这个文件包含重建当前数据集所需的最少命令。
 
-Redis 2.2 需要自己手动执行 :ref:`BGREWRITEAOF` 命令；
+Redis 2.2 需要自己手动执行 `BGREWRITEAOF` 命令；
 Redis 2.4 则可以自动触发 AOF 重写，
 具体信息请查看 2.4 的示例配置文件。
 
@@ -369,21 +369,21 @@ RDB 和 AOF 之间的相互作用
 -------------------------------
 
 在版本号大于等于 2.4 的 Redis 中，
-:ref:`BGSAVE` 执行的过程中，
-不可以执行 :ref:`BGREWRITEAOF` 。
+`BGSAVE` 执行的过程中，
+不可以执行 `BGREWRITEAOF` 。
 反过来说，
-在 :ref:`BGREWRITEAOF` 执行的过程中，
-也不可以执行 :ref:`BGSAVE` 。
+在 `BGREWRITEAOF` 执行的过程中，
+也不可以执行 `BGSAVE` 。
 
 这可以防止两个 Redis 后台进程同时对磁盘进行大量的 I/O 操作。
 
-如果 :ref:`BGSAVE` 正在执行，
-并且用户显示地调用 :ref:`BGREWRITEAOF` 命令，
+如果 `BGSAVE` 正在执行，
+并且用户显示地调用 `BGREWRITEAOF` 命令，
 那么服务器将向用户回复一个 ``OK`` 状态，
 并告知用户，
-:ref:`BGREWRITEAOF` 已经被预定执行：
-一旦 :ref:`BGSAVE` 执行完毕，
-:ref:`BGREWRITEAOF` 就会正式开始。
+`BGREWRITEAOF` 已经被预定执行：
+一旦 `BGSAVE` 执行完毕，
+`BGREWRITEAOF` 就会正式开始。
 
 当 Redis 启动时，
 如果 RDB 持久化和 AOF 持久化都被打开了，

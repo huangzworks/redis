@@ -7,7 +7,7 @@ PSYNC
 
 用于复制功能(replication)的内部命令。
 
-更多信息请参考 :ref:`replication_topic` 文档。
+更多信息请参考 `replication_topic` 文档。
 
 **可用版本：**
     >= 2.8.0

@@ -5,7 +5,7 @@ SUNIONSTORE
 
 **SUNIONSTORE destination key [key ...]**
 
-这个命令类似于 :ref:`SUNION` 命令，但它将结果保存到 ``destination`` 集合，而不是简单地返回结果集。
+这个命令类似于 `SUNION` 命令，但它将结果保存到 ``destination`` 集合，而不是简单地返回结果集。
 
 如果 ``destination`` 已经存在，则将其覆盖。
 

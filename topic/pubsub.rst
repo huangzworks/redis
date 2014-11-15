@@ -5,7 +5,7 @@
 
     本文档翻译自： http://redis.io/topics/pubsub 。
 
-:ref:`SUBSCRIBE` 、 :ref:`UNSUBSCRIBE` 和 :ref:`PUBLISH` 三个命令实现了\ `发布与订阅信息泛型 <http://en.wikipedia.org/wiki/Publish/subscribe>`_\ （Publish/Subscribe messaging paradigm），
+`SUBSCRIBE` 、 `UNSUBSCRIBE` 和 `PUBLISH` 三个命令实现了\ `发布与订阅信息泛型 <http://en.wikipedia.org/wiki/Publish/subscribe>`_\ （Publish/Subscribe messaging paradigm），
 在这个实现中，
 发送者（发送信息的客户端）不是将信息直接发送给特定的接收者（接收信息的客户端），
 而是将信息发送给频道（channel），
@@ -21,7 +21,7 @@
 
 比如说，
 要订阅频道 ``foo`` 和 ``bar`` ，
-客户端可以使用频道名字作为参数来调用 :ref:`SUBSCRIBE` 命令：
+客户端可以使用频道名字作为参数来调用 `SUBSCRIBE` 命令：
 
 ::
 
@@ -30,15 +30,15 @@
 当有客户端发送信息到这些频道时，
 Redis 会将传入的信息推送到所有订阅这些频道的客户端里面。
 
-正在订阅频道的客户端不应该发送除 :ref:`SUBSCRIBE` 和 :ref:`UNSUBSCRIBE` 之外的其他命令。
+正在订阅频道的客户端不应该发送除 `SUBSCRIBE` 和 `UNSUBSCRIBE` 之外的其他命令。
 其中，
-:ref:`SUBSCRIBE` 可以用于订阅更多频道，
-而 :ref:`UNSUBSCRIBE` 则可以用于退订已订阅的一个或多个频道。
+`SUBSCRIBE` 可以用于订阅更多频道，
+而 `UNSUBSCRIBE` 则可以用于退订已订阅的一个或多个频道。
 
-:ref:`SUBSCRIBE` 和 :ref:`UNSUBSCRIBE` 的执行结果会以信息的形式返回，
+`SUBSCRIBE` 和 `UNSUBSCRIBE` 的执行结果会以信息的形式返回，
 客户端可以通过分析所接收信息的第一个元素，
 从而判断所收到的内容是一条真正的信息，
-还是 :ref:`SUBSCRIBE` 或 :ref:`UNSUBSCRIBE` 命令的操作结果。
+还是 `SUBSCRIBE` 或 `UNSUBSCRIBE` 命令的操作结果。
 
 
 信息的格式
@@ -61,7 +61,7 @@ Redis 会将传入的信息推送到所有订阅这些频道的客户端里面�
   执行任何 Redis 命令。
 
 - ``message`` ：
-  表示这条信息是由某个客户端执行 :ref:`PUBLISH` 命令所发送的，
+  表示这条信息是由某个客户端执行 `PUBLISH` 命令所发送的，
   真正的信息。
   信息的第二个元素是信息来源的频道，
   而第三个元素则是信息的内容。
@@ -86,7 +86,7 @@ Redis 会将传入的信息推送到所有订阅这些频道的客户端里面�
     3) (integer) 2
 
 如果在这时，
-另一个客户端执行以下 :ref:`PUBLISH` 命令：
+另一个客户端执行以下 `PUBLISH` 命令：
 
 ::
 
@@ -101,7 +101,7 @@ Redis 会将传入的信息推送到所有订阅这些频道的客户端里面�
     3) "hello"
 
 当订阅者决定退订所有频道时，
-它可以执行一个无参数的 :ref:`UNSUBSCRIBE` 命令：
+它可以执行一个无参数的 `UNSUBSCRIBE` 命令：
 
 ::
 
@@ -155,17 +155,17 @@ Redis 的发布与订阅实现支持模式匹配（pattern matching）：
 这两者的格式不太一样：
 
 - 通过订阅模式而接收到的信息的类型为 ``pmessage`` ：
-  这代表有某个客户端通过 :ref:`PUBLISH` 向某个频道发送了信息，
+  这代表有某个客户端通过 `PUBLISH` 向某个频道发送了信息，
   而这个频道刚好匹配了当前客户端所订阅的某个模式。
   信息的第二个元素记录了被匹配的模式，
   第三个元素记录了被匹配的频道的名字，
   最后一个元素则记录了信息的实际内容。
 
-客户端处理 :ref:`PSUBSCRIBE` 和 :ref:`PUNSUBSCRIBE` 返回值的方式，
-和客户端处理 :ref:`SUBSCRIBE` 和 :ref:`UNSUBSCRIBE` 的方式类似：
+客户端处理 `PSUBSCRIBE` 和 `PUNSUBSCRIBE` 返回值的方式，
+和客户端处理 `SUBSCRIBE` 和 `UNSUBSCRIBE` 的方式类似：
 通过对信息的第一个元素进行分析，
 客户端可以判断接收到的信息是一个真正的信息，
-还是 :ref:`PSUBSCRIBE` 或 :ref:`PUNSUBSCRIBE` 命令的返回值。 
+还是 `PSUBSCRIBE` 或 `PUNSUBSCRIBE` 命令的返回值。 
 
 
 通过频道和模式接收同一条信息
@@ -192,7 +192,7 @@ Redis 的发布与订阅实现支持模式匹配（pattern matching）：
 订阅总数
 ------------------------------------------------------------------
 
-在执行 :ref:`SUBSCRIBE` 、 :ref:`UNSUBSCRIBE` 、 :ref:`PSUBSCRIBE` 和 :ref:`PUNSUBSCRIBE` 命令时，
+在执行 `SUBSCRIBE` 、 `UNSUBSCRIBE` 、 `PSUBSCRIBE` 和 `PUNSUBSCRIBE` 命令时，
 返回结果的最后一个元素是客户端目前仍在订阅的频道和模式总数。
 
 当客户端退订所有频道和模式，

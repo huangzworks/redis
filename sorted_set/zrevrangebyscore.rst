@@ -9,7 +9,7 @@ ZREVRANGEBYSCORE
 
 具有相同 ``score`` 值的成员按字典序的逆序(`reverse lexicographical order <http://en.wikipedia.org/wiki/Lexicographical_order>`_ )排列。
 
-除了成员按 ``score`` 值递减的次序排列这一点外， `ZREVRANGEBYSCORE`_ 命令的其他方面和 :ref:`ZRANGEBYSCORE` 命令一样。
+除了成员按 ``score`` 值递减的次序排列这一点外， `ZREVRANGEBYSCORE`_ 命令的其他方面和 `ZRANGEBYSCORE` 命令一样。
 
 **可用版本：**
     >= 2.2.0

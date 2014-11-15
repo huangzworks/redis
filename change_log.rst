@@ -8,20 +8,20 @@
 
 Redis 2.8 带来的更新：
 
-- 添加 :ref:`SCAN` 命令、 :ref:`SSCAN` 命令、 :ref:`HSCAN` 命令和 :ref:`ZSCAN` 命令。
+- 添加 `SCAN` 命令、 `SSCAN` 命令、 `HSCAN` 命令和 `ZSCAN` 命令。
 
-- 添加 :ref:`config_rewrite` 命令。
+- 添加 `config_rewrite` 命令。
 
-- 添加 :ref:`pubsub` 命令。
+- 添加 `pubsub` 命令。
 
-- 添加 :ref:`client_setname` 命令和 :ref:`client_getname` 命令。 
+- 添加 `client_setname` 命令和 `client_getname` 命令。 
 
-- 修改 :ref:`ttl` 和 :ref:`pttl` 命令的返回值。
+- 修改 `ttl` 和 `pttl` 命令的返回值。
 
 文档本身的更新：
 
 - 开始翻译 Redis 的主题（topic）文档：
-  目前已经完成了 :ref:`cluster_tutorial` 、 :ref:`sentinel` 、 :ref:`replication_topic` 、 :ref:`persistence` 等主要文档，
+  目前已经完成了 `cluster_tutorial` 、 `sentinel` 、 `replication_topic` 、 `persistence` 等主要文档，
   未来还会翻译更多主题文档。
 
 - 支持 PDF 格式的离线文档下载。

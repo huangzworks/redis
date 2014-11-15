@@ -16,7 +16,7 @@ HINCRBYFLOAT
 - 域 ``field`` 的值不是字符串类型(因为 redis 中的数字和浮点数都以字符串的形式保存，所以它们都属于字符串类型）
 - 域 ``field`` 当前的值或给定的增量 ``increment`` 不能解释(parse)为双精度浮点数(double precision floating point number)
 
-`HINCRBYFLOAT`_ 命令的详细功能和 :ref:`INCRBYFLOAT` 命令类似，请查看 :ref:`INCRBYFLOAT` 命令获取更多相关信息。
+`HINCRBYFLOAT`_ 命令的详细功能和 `INCRBYFLOAT` 命令类似，请查看 `INCRBYFLOAT` 命令获取更多相关信息。
 
 **可用版本：**
     >= 2.6.0
