@@ -3,6 +3,13 @@
 更新日志(change log)
 =========================
 
+2014 年 12 月 31 日（Redis 2.8）
+-----------------------------------
+
+- 添加 :ref:`PFADD` 、 :ref:`PFCOUNT` 和 :ref:`PFMERGE` 三个 HyperLogLog 命令。
+
+- 添加 :ref:`ZRANGEBYLEX` 、 :ref:`ZLEXCOUNT` 和 :ref:`ZREMRANGEBYLEX` 三个有序集合命令。
+
 2013 年 12 月(Redis 2.8)
 -----------------------------
 
