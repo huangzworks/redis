@@ -89,24 +89,24 @@ PFCOUNT
 
 ::
 
-    redis> PFADD hll foo bar zap
+
+    redis> PFADD  databases  "Redis"  "MongoDB"  "MySQL"
     (integer) 1
 
-    redis> PFADD hll zap zap zap
-    (integer) 0
-
-    redis> PFADD hll foo bar
-    (integer) 0
-
-    redis> PFCOUNT hll
+    redis> PFCOUNT  databases
     (integer) 3
 
-    redis> PFADD some-other-hll 1 2 3
+    redis> PFADD  databases  "Redis"    # Redis 已经存在，不必对估计数量进行更新
+    (integer) 0
+
+    redis> PFCOUNT  databases    # 元素估计数量没有变化
+    (integer) 3
+
+    redis> PFADD  databases  "PostgreSQL"    # 添加一个不存在的元素
     (integer) 1
 
-    redis> PFCOUNT hll some-other-hll
-    (integer) 6
-
+    redis> PFCOUNT  databases    # 估计数量增一
+    4
 
 ..
     Performances

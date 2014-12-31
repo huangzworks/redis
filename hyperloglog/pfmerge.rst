@@ -38,14 +38,14 @@ PFMERGE
 
 ::
 
-    redis> PFADD hll1 foo bar zap a
+    redis> PFADD  nosql  "Redis"  "MongoDB"  "Memcached"
     (integer) 1
 
-    redis> PFADD hll2 a b c foo
+    redis> PFADD  RDBMS  "MySQL" "MSSQL" "PostgreSQL"
     (integer) 1
 
-    redis> PFMERGE hll3 hll1 hll2
+    redis> PFMERGE  databases  nosql  RDBMS
     OK
 
-    redis> PFCOUNT hll3
+    redis> PFCOUNT  databases
     (integer) 6
