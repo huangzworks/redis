@@ -10,6 +10,7 @@ Redis 命令参考
    list/index
    set/index
    sorted_set/index
+   hyperloglog/index
    pub_sub/index
    transaction/index
    script/index

@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PFADD &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="up" title="HyperLogLog" href="index.html" />
+    <link rel="next" title="PFCOUNT" href="pfcount.html" />
+    <link rel="prev" title="HyperLogLog" href="index.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="pfcount.html" title="PFCOUNT"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="HyperLogLog"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">HyperLogLog</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pfadd">
+<span id="id1"></span><h1>PFADD<a class="headerlink" href="#pfadd" title="Permalink to this headline">¶</a></h1>
+<p><strong>PFADD key element [element ...]</strong></p>
+<p>将任意数量的元素添加到指定的 HyperLogLog 里面。</p>
+<p>作为这个命令的副作用，
+HyperLogLog 内部可能会被更新，
+以便反映一个不同的唯一元素估计数量（也即是集合的基数）。</p>
+<p>如果 HyperLogLog 估计的近似基数（approximated cardinality）在命令执行之后出现了变化，
+那么命令返回 <code class="docutils literal"><span class="pre">1</span></code> ，
+否则返回 <code class="docutils literal"><span class="pre">0</span></code> 。
+如果命令执行时给定的键不存在，
+那么程序将先创建一个空的 HyperLogLog 结构，
+然后再执行命令。</p>
+<p>调用 <a class="reference internal" href="#pfadd"><em>PFADD</em></a> 命令时可以只给定键名而不给定元素：</p>
+<ul class="simple">
+<li>如果给定键已经是一个 HyperLogLog ，
+那么这种调用不会产生任何效果；</li>
+<li>但如果给定的键不存在，
+那么命令会创建一个空的 HyperLogLog ，
+并向客户端返回 <code class="docutils literal"><span class="pre">1</span></code> 。</li>
+</ul>
+<p>要了解更多关于 HyperLogLog 数据结构的介绍知识，
+请查阅 <a class="reference internal" href="pfcount.html#pfcount"><em>PFCOUNT</em></a> 命令的文档。</p>
+<dl class="docutils">
+<dt><strong>可用版本：</strong></dt>
+<dd>&gt;= 2.8.9</dd>
+<dt><strong>时间复杂度：</strong></dt>
+<dd>每添加一个元素的复杂度为 O(1) 。</dd>
+<dt><strong>返回值：</strong></dt>
+<dd>整数回复：
+如果 HyperLogLog 的内部储存被修改了，
+那么返回 1 ，
+否则返回 0 。</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre>redis&gt; PFADD  databases  &quot;Redis&quot;  &quot;MongoDB&quot;  &quot;MySQL&quot;
+(integer) 1
+
+redis&gt; PFCOUNT  databases
+(integer) 3
+
+redis&gt; PFADD  databases  &quot;Redis&quot;    # Redis 已经存在，不必对估计数量进行更新
+(integer) 0
+
+redis&gt; PFCOUNT  databases    # 元素估计数量没有变化
+(integer) 3
+
+redis&gt; PFADD  databases  &quot;PostgreSQL&quot;    # 添加一个不存在的元素
+(integer) 1
+
+redis&gt; PFCOUNT  databases    # 估计数量增一
+4
+</pre></div>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="ad">
+    <h2>广告</h2>
+    <p>计算关于生命、宇宙以及一切的终极的答案。</p>
+    <a href="http://vps.42qu.com" style="padding: 0px 0px 8px 20px;display: block;"><img src="../_static/42qu.png"/></a>
+    <a href="http://vps.42qu.com" style="font-weight: bold;padding-left: 20px;">42qu.com 主机空间</a>
+    <ul>
+        <li>中国 BGP 七线 / 美国五机房可选</li>
+        <li>独立 IP / root 权限</li>
+        <li><a href="http://www.vpsee.com/">vpsee</a> 专业技术支持</li>
+        <li>XEN 虚拟机，<span style="font-weight: bold;">卖给创业的你</span></li>
+    </ul>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="pfcount.html" title="PFCOUNT"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="HyperLogLog"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >HyperLogLog</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Redis.
+      Last updated on Dec 31, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+    </div>
+  </body>
+</html>
