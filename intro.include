@@ -5,6 +5,3 @@ Redis 最重要的一部分主题（topic）文档，
 
 文档目前描述的内容以 Redis 2.8 版本为准，
 查看\ :ref:`change_log`\ 可以了解本文档对 Redis 2.8 所做的更新。
-
-你可以通过网址 `www.RedisDoc.com <http://www.redisdoc.com>`_ 在线阅览本文档，
-也可以下载 `PDF 格式 <https://raw.github.com/huangz1990/redis/master/download/redis.pdf>`_ 或者 `HTML 格式 <http://media.readthedocs.org/htmlzip/redis/latest/redis.zip>`_ 的离线版本。
