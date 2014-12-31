@@ -1,8 +1,7 @@
 .. note::
 
-    .. image:: cover.jpg
+    .. image:: cover.png
        :align: left
-       :scale: 27%
 
     由本文档的翻译者 huangz 创作的《Redis 设计与实现》一书正在销售中，
     该书详细地介绍了 Redis 内部的运作原理以及各项功能的实现原理，
