@@ -103,7 +103,22 @@
 </li>
 </ul>
 <div class="section" id="id1">
-<h2>复制功能的运作原理<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>关闭主服务器持久化时，复制功能的数据安全<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>当配置Redis复制功能时，强烈建议打开主服务器的持久化功能。
+否则的话，由于延迟等问题，部署的服务应该要避免自动拉起。</p>
+<p>为了帮助理解主服务器关闭持久化时自动拉起的危险性，参考一下以下会导致主从服务器数据全部丢失的例子：</p>
+<p>1. 假设节点A为主服务器，并且关闭了持久化。
+并且节点B和节点C从节点A复制数据</p>
+<p>2. 节点A崩溃，然后由自动拉起服务重启了节点A.
+由于节点A的持久化被关闭了，所以重启之后没有任何数据</p>
+<p>3. 节点B和节点C将从节点A复制数据，但是A的数据是空的，
+于是就把自身保存的数据副本删除。</p>
+<p>在关闭主服务器上的持久化，并同时开启自动拉起进程的情况下，即便使用Sentinel来实现Redis的高可用性，也是非常危险的。
+因为主服务器可能拉起得非常快，以至于Sentinel在配置的心跳时间间隔内没有检测到主服务器已被重启，然后还是会执行上面的数据丢失的流程。</p>
+<p>无论何时，数据安全都是极其重要的，所以应该禁止主服务器关闭持久化的同时自动拉起。</p>
+</div>
+<div class="section" id="id2">
+<h2>复制功能的运作原理<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>无论是初次连接还是重新连接，
 当建立一个从服务器时，
 从服务器都将向主服务器发送一个 <a class="reference internal" href="../server/sync.html#sync"><em>SYNC</em></a> 命令。</p>
@@ -133,8 +148,8 @@
 但是从 Redis 2.8 版本开始，
 从服务器可以根据主服务器的情况来选择执行完整重同步还是部分重同步（partial resynchronization）。</p>
 </div>
-<div class="section" id="id2">
-<h2>部分重同步<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2>部分重同步<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>从 Redis 2.8 开始，
 在网络连接短暂性失效之后，
 主从服务器可以尝试继续执行原有的复制进程（process），
@@ -162,8 +177,8 @@
 <li>如果主服务器是 Redis 2.8 之前的版本，那么从服务器使用 <a class="reference internal" href="../server/sync.html#sync"><em>SYNC</em></a> 命令来进行同步。</li>
 </ul>
 </div>
-<div class="section" id="id3">
-<h2>配置<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2>配置<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>配置一个从服务器非常简单，
 只要在配置文件中增加以下的这一行就可以了：</p>
 <div class="highlight-python"><div class="highlight"><pre>slaveof 192.168.1.1 6379
@@ -179,8 +194,8 @@ OK
 </pre></div>
 </div>
 </div>
-<div class="section" id="id4">
-<h2>只读从服务器<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2>只读从服务器<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>从 Redis 2.6 开始，
 从服务器支持只读模式，
 并且该模式为从服务器的默认模式。</p>
@@ -205,8 +220,8 @@ OK
 客户端可以在从服务器上保存主服务器的可达性（reachability）信息，
 从而实现故障转移（failover）策略。</p>
 </div>
-<div class="section" id="id5">
-<h2>从服务器相关配置<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h2>从服务器相关配置<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>如果主服务器通过 <code class="docutils literal"><span class="pre">requirepass</span></code> 选项设置了密码，
 那么为了让从服务器的同步操作可以顺利进行，
 我们也必须为从服务器进行相应的身份验证设置。</p>
@@ -324,7 +339,7 @@ OK
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 16, 2015.
+      Last updated on Apr 17, 2015.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
     </div>
   </body>
