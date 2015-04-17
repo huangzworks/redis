@@ -930,11 +930,11 @@ a211e242fc6b22a9427fed61285e85892fa04e08 127.0.0.1:7003 slave 97a3a64667477371c4
 <p>接下来，
 执行以下命令，
 将这个新节点添加到集群里面：</p>
-<div class="highlight-python"><div class="highlight"><pre>./redis-trib.rb addnode 127.0.0.1:7006 127.0.0.1:7000
+<div class="highlight-python"><div class="highlight"><pre>./redis-trib.rb add-node 127.0.0.1:7006 127.0.0.1:7000
 </pre></div>
 </div>
-<p>命令中的 <code class="docutils literal"><span class="pre">addnode</span></code> 表示我们要让 <code class="docutils literal"><span class="pre">redis-trib</span></code> 将一个节点添加到集群里面，
-<code class="docutils literal"><span class="pre">addnode</span></code> 之后跟着的是新节点的 IP 地址和端口号，
+<p>命令中的 <code class="docutils literal"><span class="pre">add-node</span></code> 表示我们要让 <code class="docutils literal"><span class="pre">redis-trib</span></code> 将一个节点添加到集群里面，
+<code class="docutils literal"><span class="pre">add-node</span></code> 之后跟着的是新节点的 IP 地址和端口号，
 再之后跟着的是集群中任意一个已存在节点的 IP 地址和端口号，
 这里我们使用的是 <code class="docutils literal"><span class="pre">127.0.0.1:7000</span></code> 。</p>
 <p>通过 <code class="docutils literal"><span class="pre">cluster</span> <span class="pre">nodes</span></code> 命令，
@@ -1056,7 +1056,7 @@ f093c80dde814da99c5cf72a7dd01590792b783b 127.0.0.1:7006 slave 3c3a0c74aae0b56170
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Dec 31, 2014.
+      Last updated on Apr 17, 2015.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
     </div>
   </body>
