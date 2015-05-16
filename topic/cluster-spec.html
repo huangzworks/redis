@@ -105,12 +105,12 @@
 比如集合的并集操作、合集操作没有被实现，
 那些理论上需要使用多个节点的多个数据库键才能完成的命令也没有被实现。</p>
 <p>在将来，
-用户也许可以通过 <a class="reference internal" href="../key/migrate.html#migrate"><em>MIGRATE COPY</em></a> 命令，
+用户也许可以通过 <a class="reference internal" href="../key/migrate.html#migrate"><span>MIGRATE COPY</span></a> 命令，
 在集群的计算节点（computation node）中执行针对多个数据库键的只读操作，
 但集群本身不会去实现那些需要将多个数据库键在多个节点中移来移去的复杂多键命令。</p>
 <p>Redis 集群不像单机 Redis 那样支持多数据库功能，
 集群只使用默认的 <code class="docutils literal"><span class="pre">0</span></code> 号数据库，
-并且不能使用 <a class="reference internal" href="../connection/select.html#select"><em>SELECT</em></a> 命令。</p>
+并且不能使用 <a class="reference internal" href="../connection/select.html#select"><span>SELECT</span></a> 命令。</p>
 </div>
 <div class="section" id="id4">
 <h2>Redis 集群协议中的客户端和服务器<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
@@ -288,13 +288,13 @@ B 认识 C ，
 <p>错误信息包含键 <code class="docutils literal"><span class="pre">x</span></code> 所属的哈希槽 <code class="docutils literal"><span class="pre">3999</span></code> ，
 以及负责处理这个槽的节点的 IP 和端口号 <code class="docutils literal"><span class="pre">127.0.0.1:6381</span></code> 。
 客户端需要根据这个 IP 和端口号，
-向所属的节点重新发送一次 <a class="reference internal" href="../string/get.html#get"><em>GET</em></a> 命令请求。</p>
+向所属的节点重新发送一次 <a class="reference internal" href="../string/get.html#get"><span>GET</span></a> 命令请求。</p>
 <p>注意，
-即使客户端在重新发送 <a class="reference internal" href="../string/get.html#get"><em>GET</em></a> 命令之前，
+即使客户端在重新发送 <a class="reference internal" href="../string/get.html#get"><span>GET</span></a> 命令之前，
 等待了非常久的时间，
 以至于集群又再次更改了配置，
 使得节点 <code class="docutils literal"><span class="pre">127.0.0.1:6381</span></code> 已经不再处理槽 <code class="docutils literal"><span class="pre">3999</span></code> ，
-那么当客户端向节点 <code class="docutils literal"><span class="pre">127.0.0.1:6381</span></code> 发送 <a class="reference internal" href="../string/get.html#get"><em>GET</em></a> 命令的时候，
+那么当客户端向节点 <code class="docutils literal"><span class="pre">127.0.0.1:6381</span></code> 发送 <a class="reference internal" href="../string/get.html#get"><span>GET</span></a> 命令的时候，
 节点将再次向客户端返回 <code class="docutils literal"><span class="pre">MOVED</span></code> 错误，
 指示现在负责处理槽 <code class="docutils literal"><span class="pre">3999</span></code> 的节点。</p>
 <p>虽然我们用 ID 来标识集群中的节点，
@@ -396,14 +396,14 @@ B 认识 C ，
 </div>
 <p>上面的命令会让节点返回 <code class="docutils literal"><span class="pre">count</span></code> 个 <code class="docutils literal"><span class="pre">slot</span></code> 槽中的键，
 对于命令所返回的每个键，
-<code class="docutils literal"><span class="pre">redis-trib</span></code> 都会向节点 A 发送一条 <a class="reference internal" href="../key/migrate.html#migrate"><em>MIGRATE</em></a> 命令，
+<code class="docutils literal"><span class="pre">redis-trib</span></code> 都会向节点 A 发送一条 <a class="reference internal" href="../key/migrate.html#migrate"><span>MIGRATE</span></a> 命令，
 该命令会将所指定的键原子地（atomic）从节点 A 移动到节点 B
 （在移动键期间，两个节点都会处于阻塞状态，以免出现竞争条件）。</p>
-<p>以下为 <a class="reference internal" href="../key/migrate.html#migrate"><em>MIGRATE</em></a> 命令的运作原理：</p>
+<p>以下为 <a class="reference internal" href="../key/migrate.html#migrate"><span>MIGRATE</span></a> 命令的运作原理：</p>
 <div class="highlight-python"><div class="highlight"><pre>MIGRATE target_host target_port key target_database id timeout
 </pre></div>
 </div>
-<p>执行 <a class="reference internal" href="../key/migrate.html#migrate"><em>MIGRATE</em></a> 命令的节点会连接到 <code class="docutils literal"><span class="pre">target</span></code> 节点，
+<p>执行 <a class="reference internal" href="../key/migrate.html#migrate"><span>MIGRATE</span></a> 命令的节点会连接到 <code class="docutils literal"><span class="pre">target</span></code> 节点，
 并将序列化后的 <code class="docutils literal"><span class="pre">key</span></code> 数据发送给 <code class="docutils literal"><span class="pre">target</span></code> ，
 一旦 <code class="docutils literal"><span class="pre">target</span></code> 返回 <code class="docutils literal"><span class="pre">OK</span></code> ，
 节点就将自己的 <code class="docutils literal"><span class="pre">key</span></code> 从数据库中删除。</p>
@@ -413,15 +413,15 @@ B 认识 C ，
 要么存在于节点 B ，
 但不会同时存在于节点 A 和节点 B 。</p>
 <p>因为 Redis 集群只使用 <code class="docutils literal"><span class="pre">0</span></code> 号数据库，
-所以当 <a class="reference internal" href="../key/migrate.html#migrate"><em>MIGRATE</em></a> 命令被用于执行集群操作时，
+所以当 <a class="reference internal" href="../key/migrate.html#migrate"><span>MIGRATE</span></a> 命令被用于执行集群操作时，
 <code class="docutils literal"><span class="pre">target_database</span></code> 的值总是 <code class="docutils literal"><span class="pre">0</span></code> 。</p>
-<p><code class="docutils literal"><span class="pre">target_database</span></code> 参数的存在是为了让 <a class="reference internal" href="../key/migrate.html#migrate"><em>MIGRATE</em></a> 命令成为一个通用命令，
+<p><code class="docutils literal"><span class="pre">target_database</span></code> 参数的存在是为了让 <a class="reference internal" href="../key/migrate.html#migrate"><span>MIGRATE</span></a> 命令成为一个通用命令，
 从而可以作用于集群以外的其他功能。</p>
-<p>我们对 <a class="reference internal" href="../key/migrate.html#migrate"><em>MIGRATE</em></a> 命令做了优化，
+<p>我们对 <a class="reference internal" href="../key/migrate.html#migrate"><span>MIGRATE</span></a> 命令做了优化，
 使得它即使在传输包含多个元素的列表键这样的复杂数据时，
 也可以保持高效。</p>
 <p>不过，
-尽管 <a class="reference internal" href="../key/migrate.html#migrate"><em>MIGRATE</em></a> 非常高效，
+尽管 <a class="reference internal" href="../key/migrate.html#migrate"><span>MIGRATE</span></a> 非常高效，
 对一个键非常多、并且键的数据量非常大的集群来说，
 集群重配置还是会占用大量的时间，
 可能会导致集群没办法适应那些对于响应时间有严格要求的应用程序。</p>
@@ -483,13 +483,13 @@ B 认识 C ，
 <h3>节点失效检测<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>以下是节点失效检查的实现方法：</p>
 <ul>
-<li><p class="first">当一个节点向另一个节点发送 <a class="reference internal" href="../connection/ping.html#ping"><em>PING</em></a> 命令，
-但是目标节点未能在给定的时限内返回 <a class="reference internal" href="../connection/ping.html#ping"><em>PING</em></a> 命令的回复时，
+<li><p class="first">当一个节点向另一个节点发送 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令，
+但是目标节点未能在给定的时限内返回 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令的回复时，
 那么发送命令的节点会将目标节点标记为 <code class="docutils literal"><span class="pre">PFAIL</span></code> （possible failure，可能已失效）。</p>
-<p>等待 <a class="reference internal" href="../connection/ping.html#ping"><em>PING</em></a> 命令回复的时限称为“节点超时时限（node timeout）”，
+<p>等待 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令回复的时限称为“节点超时时限（node timeout）”，
 是一个节点选项（node-wise setting）。</p>
 </li>
-<li><p class="first">每次当节点对其他节点发送 <a class="reference internal" href="../connection/ping.html#ping"><em>PING</em></a> 命令的时候，
+<li><p class="first">每次当节点对其他节点发送 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令的时候，
 它都会随机地广播三个它所知道的节点的信息，
 这些信息里面的其中一项就是说明节点是否已经被标记为 <code class="docutils literal"><span class="pre">PFAIL</span></code> 或者 <code class="docutils literal"><span class="pre">FAIL</span></code> 。</p>
 </li>
@@ -798,8 +798,8 @@ uint16_t crc16(const char *buf, int len) {
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 17, 2015.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+      Last updated on May 16, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

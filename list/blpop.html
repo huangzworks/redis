@@ -63,7 +63,7 @@
 <span id="id1"></span><h1>BLPOP<a class="headerlink" href="#blpop" title="Permalink to this headline">¶</a></h1>
 <p><strong>BLPOP key [key ...] timeout</strong></p>
 <p><a class="reference internal" href="#blpop">BLPOP</a> 是列表的阻塞式(blocking)弹出原语。</p>
-<p>它是 <a class="reference internal" href="lpop.html#lpop"><em>LPOP</em></a> 命令的阻塞版本，当给定列表内没有任何元素可供弹出的时候，连接将被 <a class="reference internal" href="#blpop">BLPOP</a> 命令阻塞，直到等待超时或发现可弹出元素为止。</p>
+<p>它是 <a class="reference internal" href="lpop.html#lpop"><span>LPOP</span></a> 命令的阻塞版本，当给定列表内没有任何元素可供弹出的时候，连接将被 <a class="reference internal" href="#blpop">BLPOP</a> 命令阻塞，直到等待超时或发现可弹出元素为止。</p>
 <p>当给定多个 <code class="docutils literal"><span class="pre">key</span></code> 参数时，按参数 <code class="docutils literal"><span class="pre">key</span></code> 的先后顺序依次检查各个列表，弹出第一个非空列表的头元素。</p>
 <p><strong>非阻塞行为</strong></p>
 <p>当 <a class="reference internal" href="#blpop">BLPOP</a> 被调用时，如果给定 <code class="docutils literal"><span class="pre">key</span></code> 内至少有一个非空列表，那么弹出遇到的第一个非空列表的头元素，并和被弹出元素所属的列表的名字一起，组成结果返回给调用者。</p>
@@ -86,7 +86,7 @@ redis&gt; BLPOP job command request 0       # job 列表为空，被跳过，紧
 </pre></div>
 </div>
 <p><strong>阻塞行为</strong></p>
-<p>如果所有给定 <code class="docutils literal"><span class="pre">key</span></code> 都不存在或包含空列表，那么 <a class="reference internal" href="#blpop">BLPOP</a> 命令将阻塞连接，直到等待超时，或有另一个客户端对给定 <code class="docutils literal"><span class="pre">key</span></code> 的任意一个执行 <a class="reference internal" href="lpush.html#lpush"><em>LPUSH</em></a> 或 <a class="reference internal" href="rpush.html#rpush"><em>RPUSH</em></a> 命令为止。</p>
+<p>如果所有给定 <code class="docutils literal"><span class="pre">key</span></code> 都不存在或包含空列表，那么 <a class="reference internal" href="#blpop">BLPOP</a> 命令将阻塞连接，直到等待超时，或有另一个客户端对给定 <code class="docutils literal"><span class="pre">key</span></code> 的任意一个执行 <a class="reference internal" href="lpush.html#lpush"><span>LPUSH</span></a> 或 <a class="reference internal" href="rpush.html#rpush"><span>RPUSH</span></a> 命令为止。</p>
 <p>超时参数 <code class="docutils literal"><span class="pre">timeout</span></code> 接受一个以秒为单位的数字作为值。超时参数设为 <code class="docutils literal"><span class="pre">0</span></code> 表示阻塞时间可以无限期延长(block indefinitely) 。</p>
 <div class="highlight-python"><div class="highlight"><pre>redis&gt; EXISTS job                # 确保两个 key 都不存在
 (integer) 0
@@ -107,8 +107,8 @@ redis&gt; BLPOP job command 5       # 等待超时的情况
 <p>相同的 <code class="docutils literal"><span class="pre">key</span></code> 可以被多个客户端同时阻塞。</p>
 <p>不同的客户端被放进一个队列中，按『先阻塞先服务』(first-BLPOP，first-served)的顺序为 <code class="docutils literal"><span class="pre">key</span></code> 执行 <a class="reference internal" href="#blpop">BLPOP</a> 命令。</p>
 <p><strong>在MULTI/EXEC事务中的BLPOP</strong></p>
-<p><a class="reference internal" href="#blpop">BLPOP</a> 可以用于流水线(pipline,批量地发送多个命令并读入多个回复)，但把它用在 <a class="reference internal" href="../transaction/multi.html#multi"><em>MULTI</em></a> / <a class="reference internal" href="../transaction/exec.html#exec"><em>EXEC</em></a> 块当中没有意义。因为这要求整个服务器被阻塞以保证块执行时的原子性，该行为阻止了其他客户端执行 <a class="reference internal" href="lpush.html#lpush"><em>LPUSH</em></a> 或 <a class="reference internal" href="rpush.html#rpush"><em>RPUSH</em></a> 命令。</p>
-<p>因此，一个被包裹在 <a class="reference internal" href="../transaction/multi.html#multi"><em>MULTI</em></a> / <a class="reference internal" href="../transaction/exec.html#exec"><em>EXEC</em></a> 块内的 <a class="reference internal" href="#blpop">BLPOP</a> 命令，行为表现得就像 <a class="reference internal" href="lpop.html#lpop"><em>LPOP</em></a> 一样，对空列表返回 <code class="docutils literal"><span class="pre">nil</span></code> ，对非空列表弹出列表元素，不进行任何阻塞操作。</p>
+<p><a class="reference internal" href="#blpop">BLPOP</a> 可以用于流水线(pipline,批量地发送多个命令并读入多个回复)，但把它用在 <a class="reference internal" href="../transaction/multi.html#multi"><span>MULTI</span></a> / <a class="reference internal" href="../transaction/exec.html#exec"><span>EXEC</span></a> 块当中没有意义。因为这要求整个服务器被阻塞以保证块执行时的原子性，该行为阻止了其他客户端执行 <a class="reference internal" href="lpush.html#lpush"><span>LPUSH</span></a> 或 <a class="reference internal" href="rpush.html#rpush"><span>RPUSH</span></a> 命令。</p>
+<p>因此，一个被包裹在 <a class="reference internal" href="../transaction/multi.html#multi"><span>MULTI</span></a> / <a class="reference internal" href="../transaction/exec.html#exec"><span>EXEC</span></a> 块内的 <a class="reference internal" href="#blpop">BLPOP</a> 命令，行为表现得就像 <a class="reference internal" href="lpop.html#lpop"><span>LPOP</span></a> 一样，对空列表返回 <code class="docutils literal"><span class="pre">nil</span></code> ，对非空列表弹出列表元素，不进行任何阻塞操作。</p>
 <div class="highlight-python"><div class="highlight"><pre># 对非空列表进行操作
 
 redis&gt; RPUSH job programming
@@ -156,7 +156,7 @@ redis&gt; EXEC         # 不阻塞，立即返回
 <h2>模式：事件提醒<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>有时候，为了等待一个新元素到达数据中，需要使用轮询的方式对数据进行探查。</p>
 <p>另一种更好的方式是，使用系统提供的阻塞原语，在新元素到达时立即进行处理，而新元素还没到达时，就一直阻塞住，避免轮询占用资源。</p>
-<p>对于 Redis ，我们似乎需要一个阻塞版的 <a class="reference internal" href="../set/spop.html#spop"><em>SPOP</em></a> 命令，但实际上，使用 <a class="reference internal" href="#blpop">BLPOP</a> 或者 <a class="reference internal" href="brpop.html#brpop"><em>BRPOP</em></a> 就能很好地解决这个问题。</p>
+<p>对于 Redis ，我们似乎需要一个阻塞版的 <a class="reference internal" href="../set/spop.html#spop"><span>SPOP</span></a> 命令，但实际上，使用 <a class="reference internal" href="#blpop">BLPOP</a> 或者 <a class="reference internal" href="brpop.html#brpop"><span>BRPOP</span></a> 就能很好地解决这个问题。</p>
 <p>使用元素的客户端(消费者)可以执行类似以下的代码：</p>
 <div class="highlight-python"><div class="highlight"><pre>LOOP forever
     WHILE SPOP(key) returns elements
@@ -166,7 +166,7 @@ redis&gt; EXEC         # 不阻塞，立即返回
 END
 </pre></div>
 </div>
-<p>添加元素的客户端(消费者)则执行以下代码：</p>
+<p>添加元素的客户端(生产者)则执行以下代码：</p>
 <div class="highlight-python"><div class="highlight"><pre>MULTI
     SADD key element
     LPUSH helper_key x
@@ -237,8 +237,8 @@ EXEC
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 17, 2015.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+      Last updated on May 16, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

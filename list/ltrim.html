@@ -67,7 +67,7 @@
 <p>下标(index)参数 <code class="docutils literal"><span class="pre">start</span></code> 和 <code class="docutils literal"><span class="pre">stop</span></code> 都以 <code class="docutils literal"><span class="pre">0</span></code> 为底，也就是说，以 <code class="docutils literal"><span class="pre">0</span></code> 表示列表的第一个元素，以 <code class="docutils literal"><span class="pre">1</span></code> 表示列表的第二个元素，以此类推。</p>
 <p>你也可以使用负数下标，以 <code class="docutils literal"><span class="pre">-1</span></code> 表示列表的最后一个元素， <code class="docutils literal"><span class="pre">-2</span></code> 表示列表的倒数第二个元素，以此类推。</p>
 <p>当 <code class="docutils literal"><span class="pre">key</span></code> 不是列表类型时，返回一个错误。</p>
-<p><a class="reference internal" href="#ltrim">LTRIM</a> 命令通常和 <a class="reference internal" href="lpush.html#lpush"><em>LPUSH</em></a> 命令或 <a class="reference internal" href="rpush.html#rpush"><em>RPUSH</em></a> 命令配合使用，举个例子：</p>
+<p><a class="reference internal" href="#ltrim">LTRIM</a> 命令通常和 <a class="reference internal" href="lpush.html#lpush"><span>LPUSH</span></a> 命令或 <a class="reference internal" href="rpush.html#rpush"><span>RPUSH</span></a> 命令配合使用，举个例子：</p>
 <div class="highlight-python"><div class="highlight"><pre>LPUSH log newest_log
 LTRIM log 0 99
 </pre></div>
@@ -212,8 +212,8 @@ redis&gt; LRANGE new-alpha 0 -1           # 同样被清空
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 17, 2015.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+      Last updated on May 16, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

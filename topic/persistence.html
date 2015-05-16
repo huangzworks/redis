@@ -136,12 +136,12 @@ AOF 的默认策略为每秒钟 <code class="docutils literal"><span class="pre"
 对文件进行分析（parse）也很轻松。
 导出（export） AOF 文件也非常简单：
 举个例子，
-如果你不小心执行了 <a class="reference internal" href="../server/flushall.html#flushall"><em>FLUSHALL</em></a> 命令，
+如果你不小心执行了 <a class="reference internal" href="../server/flushall.html#flushall"><span>FLUSHALL</span></a> 命令，
 但只要 AOF 文件未被重写，
 那么只要停止服务器，
-移除 AOF 文件末尾的 <a class="reference internal" href="../server/flushall.html#flushall"><em>FLUSHALL</em></a> 命令，
+移除 AOF 文件末尾的 <a class="reference internal" href="../server/flushall.html#flushall"><span>FLUSHALL</span></a> 命令，
 并重启 Redis ，
-就可以将数据集恢复到 <a class="reference internal" href="../server/flushall.html#flushall"><em>FLUSHALL</em></a> 执行之前的状态。</li>
+就可以将数据集恢复到 <a class="reference internal" href="../server/flushall.html#flushall"><span>FLUSHALL</span></a> 执行之前的状态。</li>
 </ul>
 </div>
 <div class="section" id="id4">
@@ -156,7 +156,7 @@ AOF 的默认策略为每秒钟 <code class="docutils literal"><span class="pre"
 不过在处理巨大的写入载入时，RDB 可以提供更有保证的最大延迟时间（latency）。</li>
 <li>AOF 在过去曾经发生过这样的 bug ：
 因为个别命令的原因，导致 AOF 文件在重新载入时，无法将数据集恢复成保存时的原样。
-（举个例子，阻塞命令 <a class="reference internal" href="../list/brpoplpush.html#brpoplpush"><em>BRPOPLPUSH</em></a> 就曾经引起过这样的 bug 。）
+（举个例子，阻塞命令 <a class="reference internal" href="../list/brpoplpush.html#brpoplpush"><span>BRPOPLPUSH</span></a> 就曾经引起过这样的 bug 。）
 测试套件里为这种情况添加了测试：
 它们会自动生成随机的、复杂的数据集，
 并通过重新载入这些数据来确保一切正常。
@@ -194,7 +194,7 @@ Redis 将数据库快照保存在名字为 <code class="docutils literal"><span 
 <p>你可以对 Redis 进行设置，
 让它在“  <code class="docutils literal"><span class="pre">N</span></code> 秒内数据集至少有 <code class="docutils literal"><span class="pre">M</span></code> 个改动”这一条件被满足时，
 自动保存一次数据集。</p>
-<p>你也可以通过调用 <a class="reference internal" href="../server/save.html#save"><em>SAVE</em></a> 或者 <a class="reference internal" href="../server/bgsave.html#bgsave"><em>BGSAVE</em></a> ，
+<p>你也可以通过调用 <a class="reference internal" href="../server/save.html#save"><span>SAVE</span></a> 或者 <a class="reference internal" href="../server/bgsave.html#bgsave"><span>BGSAVE</span></a> ，
 手动让 Redis 进行数据集保存操作。</p>
 <p>比如说，
 以下设置会让 Redis 在满足“ <code class="docutils literal"><span class="pre">60</span></code> 秒内有至少有 <code class="docutils literal"><span class="pre">1000</span></code> 个键被改动”这一条件时，
@@ -232,7 +232,7 @@ AOF 持久化。</p>
 </pre></div>
 </div>
 <p>从现在开始，
-每当 Redis 执行一个改变数据集的命令时（比如 <a class="reference internal" href="../string/set.html#set"><em>SET</em></a>），
+每当 Redis 执行一个改变数据集的命令时（比如 <a class="reference internal" href="../string/set.html#set"><span>SET</span></a>），
 这个命令就会被追加到 AOF 文件的末尾。</p>
 <p>这样的话，
 当 Redis 重新启时，
@@ -244,20 +244,20 @@ AOF 持久化。</p>
 所以随着写入命令的不断增加，
 AOF 文件的体积也会变得越来越大。</p>
 <p>举个例子，
-如果你对一个计数器调用了 100 次 <a class="reference internal" href="../string/incr.html#incr"><em>INCR</em></a> ，
+如果你对一个计数器调用了 100 次 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> ，
 那么仅仅是为了保存这个计数器的当前值，
 AOF 文件就需要使用 100 条记录（entry）。</p>
 <p>然而在实际上，
-只使用一条 <a class="reference internal" href="../string/set.html#set"><em>SET</em></a> 命令已经足以保存计数器的当前值了，
+只使用一条 <a class="reference internal" href="../string/set.html#set"><span>SET</span></a> 命令已经足以保存计数器的当前值了，
 其余 99 条记录实际上都是多余的。</p>
 <p>为了处理这种情况，
 Redis 支持一种有趣的特性：
 可以在不打断服务客户端的情况下，
 对 AOF 文件进行重建（rebuild）。</p>
-<p>执行 <a class="reference internal" href="../server/bgrewriteaof.html#bgrewriteaof"><em>BGREWRITEAOF</em></a> 命令，
+<p>执行 <a class="reference internal" href="../server/bgrewriteaof.html#bgrewriteaof"><span>BGREWRITEAOF</span></a> 命令，
 Redis 将生成一个新的 AOF 文件，
 这个文件包含重建当前数据集所需的最少命令。</p>
-<p>Redis 2.2 需要自己手动执行 <a class="reference internal" href="../server/bgrewriteaof.html#bgrewriteaof"><em>BGREWRITEAOF</em></a> 命令；
+<p>Redis 2.2 需要自己手动执行 <a class="reference internal" href="../server/bgrewriteaof.html#bgrewriteaof"><span>BGREWRITEAOF</span></a> 命令；
 Redis 2.4 则可以自动触发 AOF 重写，
 具体信息请查看 2.4 的示例配置文件。</p>
 </div>
@@ -358,19 +358,19 @@ Redis 会阻塞直到初始 AOF 文件创建完成为止，
 <div class="section" id="id12">
 <h2>RDB 和 AOF 之间的相互作用<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
 <p>在版本号大于等于 2.4 的 Redis 中，
-<a class="reference internal" href="../server/bgsave.html#bgsave"><em>BGSAVE</em></a> 执行的过程中，
-不可以执行 <a class="reference internal" href="../server/bgrewriteaof.html#bgrewriteaof"><em>BGREWRITEAOF</em></a> 。
+<a class="reference internal" href="../server/bgsave.html#bgsave"><span>BGSAVE</span></a> 执行的过程中，
+不可以执行 <a class="reference internal" href="../server/bgrewriteaof.html#bgrewriteaof"><span>BGREWRITEAOF</span></a> 。
 反过来说，
-在 <a class="reference internal" href="../server/bgrewriteaof.html#bgrewriteaof"><em>BGREWRITEAOF</em></a> 执行的过程中，
-也不可以执行 <a class="reference internal" href="../server/bgsave.html#bgsave"><em>BGSAVE</em></a> 。</p>
+在 <a class="reference internal" href="../server/bgrewriteaof.html#bgrewriteaof"><span>BGREWRITEAOF</span></a> 执行的过程中，
+也不可以执行 <a class="reference internal" href="../server/bgsave.html#bgsave"><span>BGSAVE</span></a> 。</p>
 <p>这可以防止两个 Redis 后台进程同时对磁盘进行大量的 I/O 操作。</p>
-<p>如果 <a class="reference internal" href="../server/bgsave.html#bgsave"><em>BGSAVE</em></a> 正在执行，
-并且用户显示地调用 <a class="reference internal" href="../server/bgrewriteaof.html#bgrewriteaof"><em>BGREWRITEAOF</em></a> 命令，
+<p>如果 <a class="reference internal" href="../server/bgsave.html#bgsave"><span>BGSAVE</span></a> 正在执行，
+并且用户显示地调用 <a class="reference internal" href="../server/bgrewriteaof.html#bgrewriteaof"><span>BGREWRITEAOF</span></a> 命令，
 那么服务器将向用户回复一个 <code class="docutils literal"><span class="pre">OK</span></code> 状态，
 并告知用户，
-<a class="reference internal" href="../server/bgrewriteaof.html#bgrewriteaof"><em>BGREWRITEAOF</em></a> 已经被预定执行：
-一旦 <a class="reference internal" href="../server/bgsave.html#bgsave"><em>BGSAVE</em></a> 执行完毕，
-<a class="reference internal" href="../server/bgrewriteaof.html#bgrewriteaof"><em>BGREWRITEAOF</em></a> 就会正式开始。</p>
+<a class="reference internal" href="../server/bgrewriteaof.html#bgrewriteaof"><span>BGREWRITEAOF</span></a> 已经被预定执行：
+一旦 <a class="reference internal" href="../server/bgsave.html#bgsave"><span>BGSAVE</span></a> 执行完毕，
+<a class="reference internal" href="../server/bgrewriteaof.html#bgrewriteaof"><span>BGREWRITEAOF</span></a> 就会正式开始。</p>
 <p>当 Redis 启动时，
 如果 RDB 持久化和 AOF 持久化都被打开了，
 那么程序会优先使用 AOF 文件来恢复数据集，
@@ -510,8 +510,8 @@ RDB 文件一旦被创建，
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 17, 2015.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+      Last updated on May 16, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

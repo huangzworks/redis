@@ -140,7 +140,7 @@ OK
 </div>
 <div class="section" id="id2">
 <h2>脚本的原子性<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>Redis 使用单个 Lua 解释器去运行所有脚本，并且， Redis 也保证脚本会以原子性(atomic)的方式执行：当某个脚本正在运行的时候，不会有其他脚本或 Redis 命令被执行。这和使用 <a class="reference internal" href="../transaction/multi.html#multi"><em>MULTI</em></a> / <a class="reference internal" href="../transaction/exec.html#exec"><em>EXEC</em></a> 包围的事务很类似。在其他别的客户端看来，脚本的效果(effect)要么是不可见的(not visible)，要么就是已完成的(already completed)。</p>
+<p>Redis 使用单个 Lua 解释器去运行所有脚本，并且， Redis 也保证脚本会以原子性(atomic)的方式执行：当某个脚本正在运行的时候，不会有其他脚本或 Redis 命令被执行。这和使用 <a class="reference internal" href="../transaction/multi.html#multi"><span>MULTI</span></a> / <a class="reference internal" href="../transaction/exec.html#exec"><span>EXEC</span></a> 包围的事务很类似。在其他别的客户端看来，脚本的效果(effect)要么是不可见的(not visible)，要么就是已完成的(already completed)。</p>
 <p>另一方面，这也意味着，执行一个运行缓慢的脚本并不是一个好主意。写一个跑得很快很顺溜的脚本并不难，因为脚本的运行开销(overhead)非常少，但是当你不得不使用一些跑得比较慢的脚本时，请小心，因为当这些蜗牛脚本在慢吞吞地运行的时候，其他客户端会因为服务器正忙而无法执行命令。</p>
 </div>
 <div class="section" id="id3">
@@ -197,10 +197,10 @@ OK
 <h2>SCRIPT 命令<a class="headerlink" href="#script" title="Permalink to this headline">¶</a></h2>
 <p>Redis 提供了以下几个 SCRIPT 命令，用于对脚本子系统(scripting subsystem)进行控制：</p>
 <ul class="simple">
-<li><a class="reference internal" href="script_flush.html#script-flush"><em>SCRIPT FLUSH</em></a> ：清除所有脚本缓存</li>
-<li><a class="reference internal" href="script_exists.html#script-exists"><em>SCRIPT EXISTS</em></a> ：根据给定的脚本校验和，检查指定的脚本是否存在于脚本缓存</li>
-<li><a class="reference internal" href="script_load.html#script-load"><em>SCRIPT LOAD</em></a> ：将一个脚本装入脚本缓存，但并不立即运行它</li>
-<li><a class="reference internal" href="script_kill.html#script-kill"><em>SCRIPT KILL</em></a> ：杀死当前正在运行的脚本</li>
+<li><a class="reference internal" href="script_flush.html#script-flush"><span>SCRIPT FLUSH</span></a> ：清除所有脚本缓存</li>
+<li><a class="reference internal" href="script_exists.html#script-exists"><span>SCRIPT EXISTS</span></a> ：根据给定的脚本校验和，检查指定的脚本是否存在于脚本缓存</li>
+<li><a class="reference internal" href="script_load.html#script-load"><span>SCRIPT LOAD</span></a> ：将一个脚本装入脚本缓存，但并不立即运行它</li>
+<li><a class="reference internal" href="script_kill.html#script-kill"><span>SCRIPT KILL</span></a> ：杀死当前正在运行的脚本</li>
 </ul>
 </div>
 <div class="section" id="id5">
@@ -210,12 +210,12 @@ OK
 <ul class="simple">
 <li>对于同样的数据集输入，给定相同的参数，脚本执行的 Redis 写命令总是相同的。脚本执行的操作不能依赖于任何隐藏(非显式)数据，不能依赖于脚本在执行过程中、或脚本在不同执行时期之间可能变更的状态，并且它也不能依赖于任何来自 I/O 设备的外部输入。</li>
 </ul>
-<p>使用系统时间(system time)，调用像 <a class="reference internal" href="../key/randomkey.html#randomkey"><em>RANDOMKEY</em></a> 那样的随机命令，或者使用 Lua 的随机数生成器，类似以上的这些操作，都会造成脚本的求值无法每次都得出同样的结果。</p>
+<p>使用系统时间(system time)，调用像 <a class="reference internal" href="../key/randomkey.html#randomkey"><span>RANDOMKEY</span></a> 那样的随机命令，或者使用 Lua 的随机数生成器，类似以上的这些操作，都会造成脚本的求值无法每次都得出同样的结果。</p>
 <p>为了确保脚本符合上面所说的属性， Redis 做了以下工作：</p>
 <ul class="simple">
 <li>Lua 没有访问系统时间或者其他内部状态的命令</li>
-<li>Redis 会返回一个错误，阻止这样的脚本运行： 这些脚本在执行随机命令之后(比如 <a class="reference internal" href="../key/randomkey.html#randomkey"><em>RANDOMKEY</em></a> 、 <a class="reference internal" href="../set/srandmember.html#srandmember"><em>SRANDMEMBER</em></a> 或 <a class="reference internal" href="../server/time.html#time"><em>TIME</em></a> 等)，还会执行可以修改数据集的 Redis 命令。如果脚本只是执行只读操作，那么就没有这一限制。注意，随机命令并不一定就指那些带 RAND 字眼的命令，任何带有非确定性的命令都会被认为是随机命令，比如 <a class="reference internal" href="../server/time.html#time"><em>TIME</em></a> 命令就是这方面的一个很好的例子。</li>
-<li>每当从 Lua 脚本中调用那些返回无序元素的命令时，执行命令所得的数据在返回给 Lua 之前会先执行一个静默(slient)的字典序排序(<a class="reference external" href="http://en.wikipedia.org/wiki/Lexicographical_order">lexicographical sorting</a>)。举个例子，因为 Redis 的 Set 保存的是无序的元素，所以在 Redis 命令行客户端中直接执行 <a class="reference internal" href="../set/smembers.html#smembers"><em>SMEMBERS</em></a> ，返回的元素是无序的，但是，假如在脚本中执行 <code class="docutils literal"><span class="pre">redis.call(&quot;smembers&quot;,</span> <span class="pre">KEYS[1])</span></code> ，那么返回的总是排过序的元素。</li>
+<li>Redis 会返回一个错误，阻止这样的脚本运行： 这些脚本在执行随机命令之后(比如 <a class="reference internal" href="../key/randomkey.html#randomkey"><span>RANDOMKEY</span></a> 、 <a class="reference internal" href="../set/srandmember.html#srandmember"><span>SRANDMEMBER</span></a> 或 <a class="reference internal" href="../server/time.html#time"><span>TIME</span></a> 等)，还会执行可以修改数据集的 Redis 命令。如果脚本只是执行只读操作，那么就没有这一限制。注意，随机命令并不一定就指那些带 RAND 字眼的命令，任何带有非确定性的命令都会被认为是随机命令，比如 <a class="reference internal" href="../server/time.html#time"><span>TIME</span></a> 命令就是这方面的一个很好的例子。</li>
+<li>每当从 Lua 脚本中调用那些返回无序元素的命令时，执行命令所得的数据在返回给 Lua 之前会先执行一个静默(slient)的字典序排序(<a class="reference external" href="http://en.wikipedia.org/wiki/Lexicographical_order">lexicographical sorting</a>)。举个例子，因为 Redis 的 Set 保存的是无序的元素，所以在 Redis 命令行客户端中直接执行 <a class="reference internal" href="../set/smembers.html#smembers"><span>SMEMBERS</span></a> ，返回的元素是无序的，但是，假如在脚本中执行 <code class="docutils literal"><span class="pre">redis.call(&quot;smembers&quot;,</span> <span class="pre">KEYS[1])</span></code> ，那么返回的总是排过序的元素。</li>
 <li>对 Lua 的伪随机数生成函数 <code class="docutils literal"><span class="pre">math.random</span></code> 和 <code class="docutils literal"><span class="pre">math.randomseed</span></code> 进行修改，使得每次在运行新脚本的时候，总是拥有同样的 seed 值。这意味着，每次运行脚本时，只要不使用 <code class="docutils literal"><span class="pre">math.randomseed</span></code> ，那么 <code class="docutils literal"><span class="pre">math.random</span></code> 产生的随机数序列总是相同的。</li>
 </ul>
 <p>尽管有那么多的限制，但用户还是可以用一个简单的技巧写出带随机行为的脚本(如果他们需要的话)。</p>
@@ -324,7 +324,7 @@ puts r.eval(RandomPushScript,1,:mylist,10,rand(2**32))
 <h2>沙箱(sandbox)和最大执行时间<a class="headerlink" href="#sandbox" title="Permalink to this headline">¶</a></h2>
 <p>脚本应该仅仅用于传递参数和对 Redis 数据进行处理，它不应该尝试去访问外部系统(比如文件系统)，或者执行任何系统调用。</p>
 <p>除此之外，脚本还有一个最大执行时间限制，它的默认值是 5 秒钟，一般正常运作的脚本通常可以在几分之几毫秒之内完成，花不了那么多时间，这个限制主要是为了防止因编程错误而造成的无限循环而设置的。</p>
-<p>最大执行时间的长短由 <code class="docutils literal"><span class="pre">lua-time-limit</span></code> 选项来控制(以毫秒为单位)，可以通过编辑 <code class="docutils literal"><span class="pre">redis.conf</span></code> 文件或者使用 <a class="reference internal" href="../server/config_get.html#config-get"><em>CONFIG GET</em></a> 和 <a class="reference internal" href="../server/config_set.html#config-set"><em>CONFIG SET</em></a> 命令来修改它。</p>
+<p>最大执行时间的长短由 <code class="docutils literal"><span class="pre">lua-time-limit</span></code> 选项来控制(以毫秒为单位)，可以通过编辑 <code class="docutils literal"><span class="pre">redis.conf</span></code> 文件或者使用 <a class="reference internal" href="../server/config_get.html#config-get"><span>CONFIG GET</span></a> 和 <a class="reference internal" href="../server/config_set.html#config-set"><span>CONFIG SET</span></a> 命令来修改它。</p>
 <p>当一个脚本达到最大执行时间的时候，它并不会自动被 Redis 结束，因为 Redis 必须保证脚本执行的原子性，而中途停止脚本的运行意味着可能会留下未处理完的数据在数据集(data set)里面。</p>
 <p>因此，当脚本运行的时间超过最大执行时间后，以下动作会被执行：</p>
 <ul class="simple">
@@ -341,7 +341,7 @@ puts r.eval(RandomPushScript,1,:mylist,10,rand(2**32))
 <p>为了防止出现以上所说的问题，客户端库实现应该实施以下的其中一项措施：</p>
 <ul class="simple">
 <li>总是在流水线中使用 <a class="reference internal" href="#eval">EVAL</a> 命令</li>
-<li>检查流水线中要用到的所有命令，找到其中的 <a class="reference internal" href="#eval">EVAL</a> 命令，并使用 <a class="reference internal" href="script_exists.html#script-exists"><em>SCRIPT EXISTS</em></a> 命令检查要用到的脚本是不是全都已经保存在缓存里面了。如果所需的全部脚本都可以在缓存里找到，那么就可以放心地将所有 <a class="reference internal" href="#eval">EVAL</a> 命令改成 EVALSHA 命令，否则的话，就要在流水线的顶端(top)将缺少的脚本用 <a class="reference internal" href="script_load.html#script-load"><em>SCRIPT LOAD</em></a> 命令加上去。</li>
+<li>检查流水线中要用到的所有命令，找到其中的 <a class="reference internal" href="#eval">EVAL</a> 命令，并使用 <a class="reference internal" href="script_exists.html#script-exists"><span>SCRIPT EXISTS</span></a> 命令检查要用到的脚本是不是全都已经保存在缓存里面了。如果所需的全部脚本都可以在缓存里找到，那么就可以放心地将所有 <a class="reference internal" href="#eval">EVAL</a> 命令改成 EVALSHA 命令，否则的话，就要在流水线的顶端(top)将缺少的脚本用 <a class="reference internal" href="script_load.html#script-load"><span>SCRIPT LOAD</span></a> 命令加上去。</li>
 </ul>
 <dl class="docutils">
 <dt><strong>可用版本：</strong></dt>
@@ -413,8 +413,8 @@ puts r.eval(RandomPushScript,1,:mylist,10,rand(2**32))
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 17, 2015.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+      Last updated on May 16, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

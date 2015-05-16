@@ -183,36 +183,36 @@ myvalue
 <p>整数回复就是一个以 <code class="docutils literal"><span class="pre">&quot;:&quot;</span></code> 开头， CRLF 结尾的字符串表示的整数。</p>
 <p>比如说，
 <code class="docutils literal"><span class="pre">&quot;:0\r\n&quot;</span></code> 和 <code class="docutils literal"><span class="pre">&quot;:1000\r\n&quot;</span></code> 都是整数回复。</p>
-<p>返回整数回复的其中两个命令是 <a class="reference internal" href="../string/incr.html#incr"><em>INCR</em></a> 和 <a class="reference internal" href="../server/lastsave.html#lastsave"><em>LASTSAVE</em></a> 。
+<p>返回整数回复的其中两个命令是 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 和 <a class="reference internal" href="../server/lastsave.html#lastsave"><span>LASTSAVE</span></a> 。
 被返回的整数没有什么特殊的含义，
-<a class="reference internal" href="../string/incr.html#incr"><em>INCR</em></a> 返回键的一个自增后的整数值，
-而 <a class="reference internal" href="../server/lastsave.html#lastsave"><em>LASTSAVE</em></a> 则返回一个 UNIX 时间戳，
+<a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 返回键的一个自增后的整数值，
+而 <a class="reference internal" href="../server/lastsave.html#lastsave"><span>LASTSAVE</span></a> 则返回一个 UNIX 时间戳，
 返回值的唯一限制是这些数必须能够用 64 位有符号整数表示。</p>
 <p>整数回复也被广泛地用于表示逻辑真和逻辑假：
-比如 <a class="reference internal" href="../key/exists.html#exists"><em>EXISTS</em></a> 和 <a class="reference internal" href="../set/sismember.html#sismember"><em>SISMEMBER</em></a> 都用返回值 <code class="docutils literal"><span class="pre">1</span></code> 表示真，
+比如 <a class="reference internal" href="../key/exists.html#exists"><span>EXISTS</span></a> 和 <a class="reference internal" href="../set/sismember.html#sismember"><span>SISMEMBER</span></a> 都用返回值 <code class="docutils literal"><span class="pre">1</span></code> 表示真，
 <code class="docutils literal"><span class="pre">0</span></code> 表示假。</p>
 <p>其他一些命令，
-比如 <a class="reference internal" href="../set/sadd.html#sadd"><em>SADD</em></a> 、 <a class="reference internal" href="../set/srem.html#srem"><em>SREM</em></a> 和 <a class="reference internal" href="../string/setnx.html#setnx"><em>SETNX</em></a> ，
+比如 <a class="reference internal" href="../set/sadd.html#sadd"><span>SADD</span></a> 、 <a class="reference internal" href="../set/srem.html#srem"><span>SREM</span></a> 和 <a class="reference internal" href="../string/setnx.html#setnx"><span>SETNX</span></a> ，
 只在操作真正被执行了的时候，
 才返回 <code class="docutils literal"><span class="pre">1</span></code> ，
 否则返回 <code class="docutils literal"><span class="pre">0</span></code> 。</p>
 <p>以下命令都返回整数回复：
-<a class="reference internal" href="../string/setnx.html#setnx"><em>SETNX</em></a> 、
-<a class="reference internal" href="../key/del.html#del"><em>DEL</em></a> 、
-<a class="reference internal" href="../key/exists.html#exists"><em>EXISTS</em></a> 、
-<a class="reference internal" href="../string/incr.html#incr"><em>INCR</em></a> 、
-<a class="reference internal" href="../string/incrby.html#incrby"><em>INCRBY</em></a> 、
-<a class="reference internal" href="../string/decr.html#decr"><em>DECR</em></a> 、
-<a class="reference internal" href="../string/decrby.html#decrby"><em>DECRBY</em></a> 、
-<a class="reference internal" href="../server/dbsize.html#dbsize"><em>DBSIZE</em></a> 、
-<a class="reference internal" href="../server/lastsave.html#lastsave"><em>LASTSAVE</em></a> 、
-<a class="reference internal" href="../key/renamenx.html#renamenx"><em>RENAMENX</em></a> 、
-<a class="reference internal" href="../key/move.html#move"><em>MOVE</em></a> 、
-<a class="reference internal" href="../list/llen.html#llen"><em>LLEN</em></a> 、
-<a class="reference internal" href="../set/sadd.html#sadd"><em>SADD</em></a> 、
-<a class="reference internal" href="../set/srem.html#srem"><em>SREM</em></a> 、
-<a class="reference internal" href="../set/sismember.html#sismember"><em>SISMEMBER</em></a> 、
-<a class="reference internal" href="../set/scard.html#scard"><em>SCARD</em></a> 。</p>
+<a class="reference internal" href="../string/setnx.html#setnx"><span>SETNX</span></a> 、
+<a class="reference internal" href="../key/del.html#del"><span>DEL</span></a> 、
+<a class="reference internal" href="../key/exists.html#exists"><span>EXISTS</span></a> 、
+<a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 、
+<a class="reference internal" href="../string/incrby.html#incrby"><span>INCRBY</span></a> 、
+<a class="reference internal" href="../string/decr.html#decr"><span>DECR</span></a> 、
+<a class="reference internal" href="../string/decrby.html#decrby"><span>DECRBY</span></a> 、
+<a class="reference internal" href="../server/dbsize.html#dbsize"><span>DBSIZE</span></a> 、
+<a class="reference internal" href="../server/lastsave.html#lastsave"><span>LASTSAVE</span></a> 、
+<a class="reference internal" href="../key/renamenx.html#renamenx"><span>RENAMENX</span></a> 、
+<a class="reference internal" href="../key/move.html#move"><span>MOVE</span></a> 、
+<a class="reference internal" href="../list/llen.html#llen"><span>LLEN</span></a> 、
+<a class="reference internal" href="../set/sadd.html#sadd"><span>SADD</span></a> 、
+<a class="reference internal" href="../set/srem.html#srem"><span>SREM</span></a> 、
+<a class="reference internal" href="../set/sismember.html#sismember"><span>SISMEMBER</span></a> 、
+<a class="reference internal" href="../set/scard.html#scard"><span>SCARD</span></a> 。</p>
 </div>
 <div class="section" id="id8">
 <h2>批量回复<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
@@ -229,7 +229,7 @@ myvalue
 <li>再后面跟着的是实际回复数据</li>
 <li>最末尾是另一个 CRLF</li>
 </ul>
-<p>对于前面的 <a class="reference internal" href="../string/get.html#get"><em>GET</em></a> 命令，服务器实际发送的内容为：</p>
+<p>对于前面的 <a class="reference internal" href="../string/get.html#get"><span>GET</span></a> 命令，服务器实际发送的内容为：</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;$6</span><span class="se">\r\n</span><span class="s">foobar</span><span class="se">\r\n</span><span class="s">&quot;</span>
 </pre></div>
 </div>
@@ -248,7 +248,7 @@ myvalue
 </div>
 <div class="section" id="id9">
 <h2>多条批量回复<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
-<p>像 <a class="reference internal" href="../list/lrange.html#lrange"><em>LRANGE</em></a> 这样的命令需要返回多个值，
+<p>像 <a class="reference internal" href="../list/lrange.html#lrange"><span>LRANGE</span></a> 这样的命令需要返回多个值，
 这一目标可以通过多条批量回复来完成。</p>
 <p>多条批量回复是由多个回复组成的数组，
 数组中的每个元素都可以是任意类型的回复，
@@ -301,7 +301,7 @@ foobar\r\n
 </pre></div>
 </div>
 <p>无内容的多条批量回复（null multi bulk reply）也是存在的，
-比如当 <a class="reference internal" href="../list/blpop.html#blpop"><em>BLPOP</em></a> 命令的阻塞时间超过最大时限时，
+比如当 <a class="reference internal" href="../list/blpop.html#blpop"><span>BLPOP</span></a> 命令的阻塞时间超过最大时限时，
 它就返回一个无内容的多条批量回复，
 这个回复的计数值为 <code class="docutils literal"><span class="pre">-1</span></code> ：</p>
 <div class="highlight-python"><div class="highlight"><pre>客户端： BLPOP key 1
@@ -318,7 +318,7 @@ foobar\r\n
 <p>多条批量回复中的元素可以将自身的长度设置为 <code class="docutils literal"><span class="pre">-1</span></code> ，
 从而表示该元素不存在，
 并且也不是一个空白字符串（empty string）。</p>
-<p>当 <a class="reference internal" href="../key/sort.html#sort"><em>SORT</em></a> 命令使用 <code class="docutils literal"><span class="pre">GET</span> <span class="pre">pattern</span></code> 选项对一个不存在的键进行操作时，
+<p>当 <a class="reference internal" href="../key/sort.html#sort"><span>SORT</span></a> 命令使用 <code class="docutils literal"><span class="pre">GET</span> <span class="pre">pattern</span></code> 选项对一个不存在的键进行操作时，
 就会发生多条批量回复中带有空白元素的情况。</p>
 <p>以下例子展示了一个包含空元素的多重批量回复：</p>
 <div class="highlight-python"><div class="highlight"><pre>服务器： *3
@@ -472,8 +472,8 @@ foobar\r\n
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 17, 2015.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+      Last updated on May 16, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

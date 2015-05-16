@@ -63,7 +63,7 @@
 <span id="id1"></span><h1>BGSAVE<a class="headerlink" href="#bgsave" title="Permalink to this headline">¶</a></h1>
 <p>在后台异步(Asynchronously)保存当前数据库的数据到磁盘。</p>
 <p><a class="reference internal" href="#bgsave">BGSAVE</a> 命令执行之后立即返回 <code class="docutils literal"><span class="pre">OK</span></code> ，然后 Redis fork 出一个新子进程，原来的 Redis 进程(父进程)继续处理客户端请求，而子进程则负责将数据保存到磁盘，然后退出。</p>
-<p>客户端可以通过 <a class="reference internal" href="lastsave.html#lastsave"><em>LASTSAVE</em></a> 命令查看相关信息，判断 <a class="reference internal" href="#bgsave">BGSAVE</a> 命令是否执行成功。</p>
+<p>客户端可以通过 <a class="reference internal" href="lastsave.html#lastsave"><span>LASTSAVE</span></a> 命令查看相关信息，判断 <a class="reference internal" href="#bgsave">BGSAVE</a> 命令是否执行成功。</p>
 <p>请移步 <a class="reference external" href="http://redis.io/topics/persistence">持久化文档</a> 查看更多相关细节。</p>
 <dl class="docutils">
 <dt><strong>可用版本：</strong></dt>
@@ -140,8 +140,8 @@ Background saving started
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 17, 2015.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+      Last updated on May 16, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

@@ -63,9 +63,9 @@
 <span id="id1"></span><h1>BRPOP<a class="headerlink" href="#brpop" title="Permalink to this headline">¶</a></h1>
 <p><strong>BRPOP key [key ...] timeout</strong></p>
 <p><a class="reference internal" href="#brpop">BRPOP</a> 是列表的阻塞式(blocking)弹出原语。</p>
-<p>它是 <a class="reference internal" href="rpop.html#rpop"><em>RPOP</em></a> 命令的阻塞版本，当给定列表内没有任何元素可供弹出的时候，连接将被 <a class="reference internal" href="#brpop">BRPOP</a> 命令阻塞，直到等待超时或发现可弹出元素为止。</p>
+<p>它是 <a class="reference internal" href="rpop.html#rpop"><span>RPOP</span></a> 命令的阻塞版本，当给定列表内没有任何元素可供弹出的时候，连接将被 <a class="reference internal" href="#brpop">BRPOP</a> 命令阻塞，直到等待超时或发现可弹出元素为止。</p>
 <p>当给定多个 <code class="docutils literal"><span class="pre">key</span></code> 参数时，按参数 <code class="docutils literal"><span class="pre">key</span></code> 的先后顺序依次检查各个列表，弹出第一个非空列表的尾部元素。</p>
-<p>关于阻塞操作的更多信息，请查看 <a class="reference internal" href="blpop.html#blpop"><em>BLPOP</em></a> 命令， <a class="reference internal" href="#brpop">BRPOP</a> 除了弹出元素的位置和 <a class="reference internal" href="blpop.html#blpop"><em>BLPOP</em></a> 不同之外，其他表现一致。</p>
+<p>关于阻塞操作的更多信息，请查看 <a class="reference internal" href="blpop.html#blpop"><span>BLPOP</span></a> 命令， <a class="reference internal" href="#brpop">BRPOP</a> 除了弹出元素的位置和 <a class="reference internal" href="blpop.html#blpop"><span>BLPOP</span></a> 不同之外，其他表现一致。</p>
 <dl class="docutils">
 <dt><strong>可用版本：</strong></dt>
 <dd>&gt;= 2.0.0</dd>
@@ -155,8 +155,8 @@ redis&gt; BRPOP course 30
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 17, 2015.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+      Last updated on May 16, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

@@ -95,7 +95,7 @@
 <li><p class="first">复制功能可以单纯地用于数据冗余（data redundancy），
 也可以通过让多个从服务器处理只读命令请求来提升扩展性（scalability）：
 比如说，
-繁重的 <a class="reference internal" href="../key/sort.html#sort"><em>SORT</em></a> 命令可以交给附属节点去运行。</p>
+繁重的 <a class="reference internal" href="../key/sort.html#sort"><span>SORT</span></a> 命令可以交给附属节点去运行。</p>
 </li>
 <li><p class="first">可以通过复制功能来让主服务器免于执行持久化操作：
 只要关闭主服务器的持久化功能，
@@ -121,11 +121,11 @@
 <h2>复制功能的运作原理<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>无论是初次连接还是重新连接，
 当建立一个从服务器时，
-从服务器都将向主服务器发送一个 <a class="reference internal" href="../server/sync.html#sync"><em>SYNC</em></a> 命令。</p>
-<p>接到 <a class="reference internal" href="../server/sync.html#sync"><em>SYNC</em></a> 命令的主服务器将开始执行 <a class="reference internal" href="../server/bgsave.html#bgsave"><em>BGSAVE</em></a> ，
+从服务器都将向主服务器发送一个 <a class="reference internal" href="../server/sync.html#sync"><span>SYNC</span></a> 命令。</p>
+<p>接到 <a class="reference internal" href="../server/sync.html#sync"><span>SYNC</span></a> 命令的主服务器将开始执行 <a class="reference internal" href="../server/bgsave.html#bgsave"><span>BGSAVE</span></a> ，
 并在保存操作执行期间，
 将所有新执行的写入命令都保存到一个缓冲区里面。</p>
-<p>当 <a class="reference internal" href="../server/bgsave.html#bgsave"><em>BGSAVE</em></a> 执行完毕后，
+<p>当 <a class="reference internal" href="../server/bgsave.html#bgsave"><span>BGSAVE</span></a> 执行完毕后，
 主服务器将执行保存操作所得的 <code class="docutils literal"><span class="pre">.rdb</span></code> 文件发送给从服务器，
 从服务器接收这个 <code class="docutils literal"><span class="pre">.rdb</span></code> 文件，
 并将文件中的数据载入到内存中。</p>
@@ -133,14 +133,14 @@
 将写命令缓冲区中积累的所有内容都发送给从服务器。</p>
 <p>你可以通过 telnet 命令来亲自验证这个同步过程：
 首先连上一个正在处理命令请求的 Redis 服务器，
-然后向它发送 <a class="reference internal" href="../server/sync.html#sync"><em>SYNC</em></a> 命令，
+然后向它发送 <a class="reference internal" href="../server/sync.html#sync"><span>SYNC</span></a> 命令，
 过一阵子，
 你将看到 telnet 会话（session）接收到服务器发来的大段数据（<code class="docutils literal"><span class="pre">.rdb</span></code> 文件），
 之后还会看到，
 所有在服务器执行过的写命令，
 都会重新发送到 telnet 会话来。</p>
-<p>即使有多个从服务器同时向主服务器发送 <a class="reference internal" href="../server/sync.html#sync"><em>SYNC</em></a> ，
-主服务器也只需执行一次 <a class="reference internal" href="../server/bgsave.html#bgsave"><em>BGSAVE</em></a> 命令，
+<p>即使有多个从服务器同时向主服务器发送 <a class="reference internal" href="../server/sync.html#sync"><span>SYNC</span></a> ，
+主服务器也只需执行一次 <a class="reference internal" href="../server/bgsave.html#bgsave"><span>BGSAVE</span></a> 命令，
 就可以处理所有这些从服务器的同步请求。</p>
 <p>从服务器可以在主从服务器之间的连接断开时进行自动重连，
 在 Redis 2.8 版本之前，
@@ -167,14 +167,14 @@
 <li>否则的话，
 从服务器就要执行完整重同步操作。</li>
 </ul>
-<p>Redis 2.8 的这个部分重同步特性会用到一个新增的 <a class="reference internal" href="../server/psync.html#psync"><em>PSYNC</em></a> 内部命令，
-而 Redis 2.8 以前的旧版本只有 <a class="reference internal" href="../server/sync.html#sync"><em>SYNC</em></a> 命令，
+<p>Redis 2.8 的这个部分重同步特性会用到一个新增的 <a class="reference internal" href="../server/psync.html#psync"><span>PSYNC</span></a> 内部命令，
+而 Redis 2.8 以前的旧版本只有 <a class="reference internal" href="../server/sync.html#sync"><span>SYNC</span></a> 命令，
 不过，
 只要从服务器是 Redis 2.8 或以上的版本，
-它就会根据主服务器的版本来决定到底是使用 <a class="reference internal" href="../server/psync.html#psync"><em>PSYNC</em></a> 还是 <a class="reference internal" href="../server/sync.html#sync"><em>SYNC</em></a> ：</p>
+它就会根据主服务器的版本来决定到底是使用 <a class="reference internal" href="../server/psync.html#psync"><span>PSYNC</span></a> 还是 <a class="reference internal" href="../server/sync.html#sync"><span>SYNC</span></a> ：</p>
 <ul class="simple">
-<li>如果主服务器是 Redis 2.8 或以上版本，那么从服务器使用 <a class="reference internal" href="../server/psync.html#psync"><em>PSYNC</em></a> 命令来进行同步。</li>
-<li>如果主服务器是 Redis 2.8 之前的版本，那么从服务器使用 <a class="reference internal" href="../server/sync.html#sync"><em>SYNC</em></a> 命令来进行同步。</li>
+<li>如果主服务器是 Redis 2.8 或以上版本，那么从服务器使用 <a class="reference internal" href="../server/psync.html#psync"><span>PSYNC</span></a> 命令来进行同步。</li>
+<li>如果主服务器是 Redis 2.8 之前的版本，那么从服务器使用 <a class="reference internal" href="../server/sync.html#sync"><span>SYNC</span></a> 命令来进行同步。</li>
 </ul>
 </div>
 <div class="section" id="id4">
@@ -186,7 +186,7 @@
 </div>
 <p>当然，
 你需要将代码中的 <code class="docutils literal"><span class="pre">192.168.1.1</span></code> 和 <code class="docutils literal"><span class="pre">6379</span></code> 替换成你的主服务器的 IP 和端口号。</p>
-<p>另外一种方法是调用 <a class="reference internal" href="../server/slaveof.html#slaveof"><em>SLAVEOF</em></a> 命令，
+<p>另外一种方法是调用 <a class="reference internal" href="../server/slaveof.html#slaveof"><span>SLAVEOF</span></a> 命令，
 输入主服务器的 IP 和端口，
 然后同步就会开始：</p>
 <div class="highlight-python"><div class="highlight"><pre>127.0.0.1:6379&gt; SLAVEOF 192.168.1.1 10086
@@ -200,7 +200,7 @@ OK
 从服务器支持只读模式，
 并且该模式为从服务器的默认模式。</p>
 <p>只读模式由 <code class="docutils literal"><span class="pre">redis.conf</span></code> 文件中的 <code class="docutils literal"><span class="pre">slave-read-only</span></code> 选项控制，
-也可以通过 <a class="reference internal" href="../server/config_set.html#config-set"><em>CONFIG SET</em></a> 命令来开启或关闭这个模式。</p>
+也可以通过 <a class="reference internal" href="../server/config_set.html#config-set"><span>CONFIG SET</span></a> 命令来开启或关闭这个模式。</p>
 <p>只读从服务器会拒绝执行任何写命令，
 所以不会出现因为操作失误而将数据不小心写入到了从服务器的情况。</p>
 <p>即使从服务器是只读的，
@@ -339,8 +339,8 @@ OK
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 17, 2015.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+      Last updated on May 16, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

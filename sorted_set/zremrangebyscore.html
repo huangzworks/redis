@@ -63,7 +63,7 @@
 <span id="id1"></span><h1>ZREMRANGEBYSCORE<a class="headerlink" href="#zremrangebyscore" title="Permalink to this headline">¶</a></h1>
 <p><strong>ZREMRANGEBYSCORE key min max</strong></p>
 <p>移除有序集 <code class="docutils literal"><span class="pre">key</span></code> 中，所有 <code class="docutils literal"><span class="pre">score</span></code> 值介于 <code class="docutils literal"><span class="pre">min</span></code> 和 <code class="docutils literal"><span class="pre">max</span></code> 之间(包括等于 <code class="docutils literal"><span class="pre">min</span></code> 或 <code class="docutils literal"><span class="pre">max</span></code> )的成员。</p>
-<p>自版本2.1.6开始， <code class="docutils literal"><span class="pre">score</span></code> 值等于 <code class="docutils literal"><span class="pre">min</span></code> 或 <code class="docutils literal"><span class="pre">max</span></code> 的成员也可以不包括在内，详情请参见 <a class="reference internal" href="zrangebyscore.html#zrangebyscore"><em>ZRANGEBYSCORE</em></a> 命令。</p>
+<p>自版本2.1.6开始， <code class="docutils literal"><span class="pre">score</span></code> 值等于 <code class="docutils literal"><span class="pre">min</span></code> 或 <code class="docutils literal"><span class="pre">max</span></code> 的成员也可以不包括在内，详情请参见 <a class="reference internal" href="zrangebyscore.html#zrangebyscore"><span>ZRANGEBYSCORE</span></a> 命令。</p>
 <dl class="docutils">
 <dt><strong>可用版本：</strong></dt>
 <dd>&gt;= 1.2.0</dd>
@@ -151,8 +151,8 @@ redis&gt; ZRANGE salary 0 -1 WITHSCORES          # 剩下的有序集成员
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 17, 2015.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+      Last updated on May 16, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

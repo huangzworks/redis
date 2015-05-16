@@ -62,10 +62,10 @@
   <div class="section" id="brpoplpush">
 <span id="id1"></span><h1>BRPOPLPUSH<a class="headerlink" href="#brpoplpush" title="Permalink to this headline">¶</a></h1>
 <p><strong>BRPOPLPUSH source destination timeout</strong></p>
-<p><a class="reference internal" href="#brpoplpush">BRPOPLPUSH</a> 是 <a class="reference internal" href="rpoplpush.html#rpoplpush"><em>RPOPLPUSH</em></a> 的阻塞版本，当给定列表 <code class="docutils literal"><span class="pre">source</span></code> 不为空时， <a class="reference internal" href="#brpoplpush">BRPOPLPUSH</a> 的表现和 <a class="reference internal" href="rpoplpush.html#rpoplpush"><em>RPOPLPUSH</em></a> 一样。</p>
-<p>当列表 <code class="docutils literal"><span class="pre">source</span></code> 为空时， <a class="reference internal" href="#brpoplpush">BRPOPLPUSH</a> 命令将阻塞连接，直到等待超时，或有另一个客户端对 <code class="docutils literal"><span class="pre">source</span></code> 执行 <a class="reference internal" href="lpush.html#lpush"><em>LPUSH</em></a> 或 <a class="reference internal" href="rpush.html#rpush"><em>RPUSH</em></a> 命令为止。</p>
+<p><a class="reference internal" href="#brpoplpush">BRPOPLPUSH</a> 是 <a class="reference internal" href="rpoplpush.html#rpoplpush"><span>RPOPLPUSH</span></a> 的阻塞版本，当给定列表 <code class="docutils literal"><span class="pre">source</span></code> 不为空时， <a class="reference internal" href="#brpoplpush">BRPOPLPUSH</a> 的表现和 <a class="reference internal" href="rpoplpush.html#rpoplpush"><span>RPOPLPUSH</span></a> 一样。</p>
+<p>当列表 <code class="docutils literal"><span class="pre">source</span></code> 为空时， <a class="reference internal" href="#brpoplpush">BRPOPLPUSH</a> 命令将阻塞连接，直到等待超时，或有另一个客户端对 <code class="docutils literal"><span class="pre">source</span></code> 执行 <a class="reference internal" href="lpush.html#lpush"><span>LPUSH</span></a> 或 <a class="reference internal" href="rpush.html#rpush"><span>RPUSH</span></a> 命令为止。</p>
 <p>超时参数 <code class="docutils literal"><span class="pre">timeout</span></code> 接受一个以秒为单位的数字作为值。超时参数设为 <code class="docutils literal"><span class="pre">0</span></code> 表示阻塞时间可以无限期延长(block indefinitely) 。</p>
-<p>更多相关信息，请参考 <a class="reference internal" href="rpoplpush.html#rpoplpush"><em>RPOPLPUSH</em></a> 命令。</p>
+<p>更多相关信息，请参考 <a class="reference internal" href="rpoplpush.html#rpoplpush"><span>RPOPLPUSH</span></a> 命令。</p>
 <dl class="docutils">
 <dt><strong>可用版本：</strong></dt>
 <dd>&gt;= 2.2.0</dd>
@@ -100,11 +100,11 @@ redis&gt; BRPOPLPUSH msg reciver 1
 </div>
 <div class="section" id="id2">
 <h2>模式：安全队列<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>参考 <a class="reference internal" href="rpoplpush.html#rpoplpush"><em>RPOPLPUSH</em></a> 命令的『安全队列』模式。</p>
+<p>参考 <a class="reference internal" href="rpoplpush.html#rpoplpush"><span>RPOPLPUSH</span></a> 命令的『安全队列』模式。</p>
 </div>
 <div class="section" id="id3">
 <h2>模式：循环列表<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>参考 <a class="reference internal" href="rpoplpush.html#rpoplpush"><em>RPOPLPUSH</em></a> 命令的『循环列表』模式。</p>
+<p>参考 <a class="reference internal" href="rpoplpush.html#rpoplpush"><span>RPOPLPUSH</span></a> 命令的『循环列表』模式。</p>
 </div>
 </div>
 
@@ -169,8 +169,8 @@ redis&gt; BRPOPLPUSH msg reciver 1
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 17, 2015.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+      Last updated on May 16, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

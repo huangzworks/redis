@@ -72,7 +72,7 @@ HyperLogLog 内部可能会被更新，
 如果命令执行时给定的键不存在，
 那么程序将先创建一个空的 HyperLogLog 结构，
 然后再执行命令。</p>
-<p>调用 <a class="reference internal" href="#pfadd"><em>PFADD</em></a> 命令时可以只给定键名而不给定元素：</p>
+<p>调用 <a class="reference internal" href="#pfadd"><span>PFADD</span></a> 命令时可以只给定键名而不给定元素：</p>
 <ul class="simple">
 <li>如果给定键已经是一个 HyperLogLog ，
 那么这种调用不会产生任何效果；</li>
@@ -81,7 +81,7 @@ HyperLogLog 内部可能会被更新，
 并向客户端返回 <code class="docutils literal"><span class="pre">1</span></code> 。</li>
 </ul>
 <p>要了解更多关于 HyperLogLog 数据结构的介绍知识，
-请查阅 <a class="reference internal" href="pfcount.html#pfcount"><em>PFCOUNT</em></a> 命令的文档。</p>
+请查阅 <a class="reference internal" href="pfcount.html#pfcount"><span>PFCOUNT</span></a> 命令的文档。</p>
 <dl class="docutils">
 <dt><strong>可用版本：</strong></dt>
 <dd>&gt;= 2.8.9</dd>
@@ -175,8 +175,8 @@ redis&gt; PFCOUNT  databases    # 估计数量增一
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 17, 2015.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+      Last updated on May 16, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

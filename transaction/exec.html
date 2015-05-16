@@ -63,7 +63,7 @@
 <span id="id1"></span><h1>EXEC<a class="headerlink" href="#exec" title="Permalink to this headline">¶</a></h1>
 <p><strong>EXEC</strong></p>
 <p>执行所有事务块内的命令。</p>
-<p>假如某个(或某些) key 正处于 <a class="reference internal" href="watch.html#watch"><em>WATCH</em></a> 命令的监视之下，且事务块中有和这个(或这些) key 相关的命令，那么 <a class="reference internal" href="#exec">EXEC</a> 命令只在这个(或这些) key 没有被其他命令所改动的情况下执行并生效，否则该事务被打断(abort)。</p>
+<p>假如某个(或某些) key 正处于 <a class="reference internal" href="watch.html#watch"><span>WATCH</span></a> 命令的监视之下，且事务块中有和这个(或这些) key 相关的命令，那么 <a class="reference internal" href="#exec">EXEC</a> 命令只在这个(或这些) key 没有被其他命令所改动的情况下执行并生效，否则该事务被打断(abort)。</p>
 <dl class="docutils">
 <dt><strong>可用版本：</strong></dt>
 <dd>&gt;= 1.2.0</dd>
@@ -200,8 +200,8 @@ redis&gt; EXEC                  # 因为 lock_times 被修改， joe 的事务�
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 17, 2015.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+      Last updated on May 16, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

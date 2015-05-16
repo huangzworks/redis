@@ -91,8 +91,8 @@ redis&gt; GET db
 </div>
 <div class="section" id="id2">
 <h2>模式<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="#getset">GETSET</a> 可以和 <a class="reference internal" href="incr.html#incr"><em>INCR</em></a> 组合使用，实现一个有原子性(atomic)复位操作的计数器(counter)。</p>
-<p>举例来说，每次当某个事件发生时，进程可能对一个名为 <code class="docutils literal"><span class="pre">mycount</span></code> 的 <code class="docutils literal"><span class="pre">key</span></code> 调用 <a class="reference internal" href="incr.html#incr"><em>INCR</em></a> 操作，通常我们还要在一个原子时间内同时完成获得计数器的值和将计数器值复位为 <code class="docutils literal"><span class="pre">0</span></code> 两个操作。</p>
+<p><a class="reference internal" href="#getset">GETSET</a> 可以和 <a class="reference internal" href="incr.html#incr"><span>INCR</span></a> 组合使用，实现一个有原子性(atomic)复位操作的计数器(counter)。</p>
+<p>举例来说，每次当某个事件发生时，进程可能对一个名为 <code class="docutils literal"><span class="pre">mycount</span></code> 的 <code class="docutils literal"><span class="pre">key</span></code> 调用 <a class="reference internal" href="incr.html#incr"><span>INCR</span></a> 操作，通常我们还要在一个原子时间内同时完成获得计数器的值和将计数器值复位为 <code class="docutils literal"><span class="pre">0</span></code> 两个操作。</p>
 <p>可以用命令 <code class="docutils literal"><span class="pre">GETSET</span> <span class="pre">mycounter</span> <span class="pre">0</span></code> 来实现这一目标。</p>
 <div class="highlight-python"><div class="highlight"><pre>redis&gt; INCR mycount
 (integer) 11
@@ -168,8 +168,8 @@ redis&gt; GET mycount       # 计数器被重置
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 17, 2015.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+      Last updated on May 16, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

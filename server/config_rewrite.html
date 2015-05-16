@@ -62,10 +62,10 @@
   <div class="section" id="config-rewrite">
 <span id="id1"></span><h1>CONFIG REWRITE<a class="headerlink" href="#config-rewrite" title="Permalink to this headline">¶</a></h1>
 <p><strong>CONFIG REWRITE</strong></p>
-<p><a class="reference internal" href="#config-rewrite"><em>CONFIG REWRITE</em></a> 命令对启动 Redis 服务器时所指定的 <code class="docutils literal"><span class="pre">redis.conf</span></code> 文件进行改写：
-因为 <a class="reference internal" href="config_set.html#config-set"><em>CONFIG SET</em></a> 命令可以对服务器的当前配置进行修改，
+<p><a class="reference internal" href="#config-rewrite"><span>CONFIG REWRITE</span></a> 命令对启动 Redis 服务器时所指定的 <code class="docutils literal"><span class="pre">redis.conf</span></code> 文件进行改写：
+因为 <a class="reference internal" href="config_set.html#config-set"><span>CONFIG SET</span></a> 命令可以对服务器的当前配置进行修改，
 而修改后的配置可能和 <code class="docutils literal"><span class="pre">redis.conf</span></code> 文件中所描述的配置不一样，
-<a class="reference internal" href="#config-rewrite"><em>CONFIG REWRITE</em></a> 的作用就是通过尽可能少的修改，
+<a class="reference internal" href="#config-rewrite"><span>CONFIG REWRITE</span></a> 的作用就是通过尽可能少的修改，
 将服务器当前所使用的配置记录到 <code class="docutils literal"><span class="pre">redis.conf</span></code> 文件中。</p>
 <p>重写会以非常保守的方式进行：</p>
 <ul class="simple">
@@ -85,10 +85,10 @@
 那么这些不再使用的参数原本所在的行就会变成空白的。</li>
 </ul>
 <p>即使启动服务器时所指定的 <code class="docutils literal"><span class="pre">redis.conf</span></code> 文件已经不再存在，
-<a class="reference internal" href="#config-rewrite"><em>CONFIG REWRITE</em></a> 命令也可以重新构建并生成出一个新的 <code class="docutils literal"><span class="pre">redis.conf</span></code> 文件。</p>
+<a class="reference internal" href="#config-rewrite"><span>CONFIG REWRITE</span></a> 命令也可以重新构建并生成出一个新的 <code class="docutils literal"><span class="pre">redis.conf</span></code> 文件。</p>
 <p>另一方面，
 如果启动服务器时没有载入 <code class="docutils literal"><span class="pre">redis.conf</span></code> 文件，
-那么执行 <a class="reference internal" href="#config-rewrite"><em>CONFIG REWRITE</em></a> 命令将引发一个错误。</p>
+那么执行 <a class="reference internal" href="#config-rewrite"><span>CONFIG REWRITE</span></a> 命令将引发一个错误。</p>
 <div class="section" id="id2">
 <h2>原子性重写<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>对 <code class="docutils literal"><span class="pre">redis.conf</span></code> 文件的重写是原子性的，
@@ -109,7 +109,7 @@
 </div>
 <div class="section" id="id5">
 <h2>测试<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<p>以下是执行 <a class="reference internal" href="#config-rewrite"><em>CONFIG REWRITE</em></a> 前，
+<p>以下是执行 <a class="reference internal" href="#config-rewrite"><span>CONFIG REWRITE</span></a> 前，
 被载入到 Redis 服务器的 <code class="docutils literal"><span class="pre">redis.conf</span></code> 文件中关于 <code class="docutils literal"><span class="pre">appendonly</span></code> 选项的设置：</p>
 <div class="highlight-python"><div class="highlight"><pre># ... 其他选项
 
@@ -206,8 +206,8 @@ appendonly yes
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 17, 2015.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+      Last updated on May 16, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

@@ -63,7 +63,7 @@
 <span id="id1"></span><h1>CLIENT KILL<a class="headerlink" href="#client-kill" title="Permalink to this headline">¶</a></h1>
 <p><strong>CLIENT KILL ip:port</strong></p>
 <p>关闭地址为 <code class="docutils literal"><span class="pre">ip:port</span></code> 的客户端。</p>
-<p><code class="docutils literal"><span class="pre">ip:port</span></code> 应该和 <a class="reference internal" href="client_list.html#client-list"><em>CLIENT LIST</em></a> 命令输出的其中一行匹配。</p>
+<p><code class="docutils literal"><span class="pre">ip:port</span></code> 应该和 <a class="reference internal" href="client_list.html#client-list"><span>CLIENT LIST</span></a> 命令输出的其中一行匹配。</p>
 <p>因为 Redis 使用单线程设计，所以当 Redis 正在执行命令的时候，不会有客户端被断开连接。</p>
 <p>如果要被断开连接的客户端正在执行命令，那么当这个命令执行之后，在发送下一个命令的时候，它就会收到一个网络错误，告知它自身的连接已被关闭。</p>
 <dl class="docutils">
@@ -154,8 +154,8 @@ addr=127.0.0.1:43504 fd=5 age=0 idle=0 flags=N db=0 sub=0 psub=0 multi=-1 qbuf=0
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 17, 2015.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+      Last updated on May 16, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

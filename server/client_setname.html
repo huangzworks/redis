@@ -63,7 +63,7 @@
 <span id="id1"></span><h1>CLIENT SETNAME<a class="headerlink" href="#client-setname" title="Permalink to this headline">¶</a></h1>
 <p><strong>CLIENT SETNAME connection-name</strong></p>
 <p>为当前连接分配一个名字。</p>
-<p>这个名字会显示在 <a class="reference internal" href="client_list.html#client-list"><em>CLIENT LIST</em></a> 命令的结果中，
+<p>这个名字会显示在 <a class="reference internal" href="client_list.html#client-list"><span>CLIENT LIST</span></a> 命令的结果中，
 用于识别当前正在与服务器进行连接的客户端。</p>
 <p>举个例子，
 在使用 Redis 构建队列（queue）时，
@@ -72,11 +72,11 @@
 <p>名字使用 Redis 的字符串类型来保存，
 最大可以占用 512 MB 。
 另外，
-为了避免和 <a class="reference internal" href="client_list.html#client-list"><em>CLIENT LIST</em></a> 命令的输出格式发生冲突，
+为了避免和 <a class="reference internal" href="client_list.html#client-list"><span>CLIENT LIST</span></a> 命令的输出格式发生冲突，
 名字里不允许使用空格。</p>
 <p>要移除一个连接的名字，
 可以将连接的名字设为空字符串 <code class="docutils literal"><span class="pre">&quot;&quot;</span></code> 。</p>
-<p>使用 <a class="reference internal" href="client_getname.html#client-getname"><em>CLIENT GETNAME</em></a> 命令可以取出连接的名字。</p>
+<p>使用 <a class="reference internal" href="client_getname.html#client-getname"><span>CLIENT GETNAME</span></a> 命令可以取出连接的名字。</p>
 <p>新创建的连接默认是没有名字的。</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -189,8 +189,8 @@ redis 127.0.0.1:6379&gt; CLIENT GETNAME        # 清除完毕
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 17, 2015.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+      Last updated on May 16, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

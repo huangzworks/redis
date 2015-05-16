@@ -165,7 +165,7 @@ Sentinel 是不能执行自动故障迁移的。</strong></p>
 <ul>
 <li><p class="first"><code class="docutils literal"><span class="pre">down-after-milliseconds</span></code> 选项指定了 Sentinel 认为服务器已经断线所需的毫秒数。</p>
 <p>如果服务器在给定的毫秒数之内，
-没有返回 Sentinel 发送的 <a class="reference internal" href="../connection/ping.html#ping"><em>PING</em></a> 命令的回复，
+没有返回 Sentinel 发送的 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令的回复，
 或者返回一个错误，
 那么 Sentinel 将这个服务器标记为<strong>主观下线</strong>（subjectively down，简称 <code class="docutils literal"><span class="pre">SDOWN</span></code> ）。</p>
 <p>不过只有一个 Sentinel 将服务器标记为主观下线并不一定会引起服务器的自动故障迁移：
@@ -203,16 +203,16 @@ Redis 的 Sentinel 中关于下线（down）有两个不同的概念：</p>
 （一个 Sentinel 可以通过向另一个 Sentinel 发送 <code class="docutils literal"><span class="pre">SENTINEL</span> <span class="pre">is-master-down-by-addr</span></code> 命令来询问对方是否认为给定的服务器已下线。）</li>
 </ul>
 <p>如果一个服务器没有在 <code class="docutils literal"><span class="pre">master-down-after-milliseconds</span></code> 选项所指定的时间内，
-对向它发送 <a class="reference internal" href="../connection/ping.html#ping"><em>PING</em></a> 命令的 Sentinel 返回一个有效回复（valid reply），
+对向它发送 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令的 Sentinel 返回一个有效回复（valid reply），
 那么 Sentinel 就会将这个服务器标记为主观下线。</p>
-<p>服务器对 <a class="reference internal" href="../connection/ping.html#ping"><em>PING</em></a> 命令的有效回复可以是以下三种回复的其中一种：</p>
+<p>服务器对 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令的有效回复可以是以下三种回复的其中一种：</p>
 <ul class="simple">
 <li>返回 <code class="docutils literal"><span class="pre">+PONG</span></code> 。</li>
 <li>返回 <code class="docutils literal"><span class="pre">-LOADING</span></code> 错误。</li>
 <li>返回 <code class="docutils literal"><span class="pre">-MASTERDOWN</span></code> 错误。</li>
 </ul>
 <p>如果服务器返回除以上三种回复之外的其他回复，
-又或者在指定时间内没有回复 <a class="reference internal" href="../connection/ping.html#ping"><em>PING</em></a> 命令，
+又或者在指定时间内没有回复 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令，
 那么 Sentinel 认为服务器返回的回复无效（non-valid）。</p>
 <p>注意，
 一个服务器必须在 <code class="docutils literal"><span class="pre">master-down-after-milliseconds</span></code> 毫秒内，
@@ -239,8 +239,8 @@ Sentinel 在将它们判断为下线前不需要进行协商，
 <div class="section" id="id6">
 <h2>每个 Sentinel 都需要定期执行的任务<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>每个 Sentinel 以每秒钟一次的频率向它所知的主服务器、从服务器以及其他 Sentinel 实例发送一个 <a class="reference internal" href="../connection/ping.html#ping"><em>PING</em></a> 命令。</li>
-<li>如果一个实例（instance）距离最后一次有效回复 <a class="reference internal" href="../connection/ping.html#ping"><em>PING</em></a> 命令的时间超过 <code class="docutils literal"><span class="pre">down-after-milliseconds</span></code> 选项所指定的值，
+<li>每个 Sentinel 以每秒钟一次的频率向它所知的主服务器、从服务器以及其他 Sentinel 实例发送一个 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令。</li>
+<li>如果一个实例（instance）距离最后一次有效回复 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令的时间超过 <code class="docutils literal"><span class="pre">down-after-milliseconds</span></code> 选项所指定的值，
 那么这个实例会被 Sentinel 标记为主观下线。
 一个有效回复可以是： <code class="docutils literal"><span class="pre">+PONG</span></code> 、 <code class="docutils literal"><span class="pre">-LOADING</span></code> 或者 <code class="docutils literal"><span class="pre">-MASTERDOWN</span></code> 。</li>
 <li>如果一个主服务器被标记为主观下线，
@@ -249,12 +249,12 @@ Sentinel 在将它们判断为下线前不需要进行协商，
 并且有足够数量的 Sentinel （至少要达到配置文件指定的数量）在指定的时间范围内同意这一判断，
 那么这个主服务器被标记为客观下线。</li>
 <li>在一般情况下，
-每个 Sentinel 会以每 10 秒一次的频率向它已知的所有主服务器和从服务器发送 <a class="reference internal" href="../server/info.html#info"><em>INFO</em></a> 命令。
+每个 Sentinel 会以每 10 秒一次的频率向它已知的所有主服务器和从服务器发送 <a class="reference internal" href="../server/info.html#info"><span>INFO</span></a> 命令。
 当一个主服务器被 Sentinel 标记为客观下线时，
-Sentinel 向下线主服务器的所有从服务器发送 <a class="reference internal" href="../server/info.html#info"><em>INFO</em></a> 命令的频率会从 10 秒一次改为每秒一次。</li>
+Sentinel 向下线主服务器的所有从服务器发送 <a class="reference internal" href="../server/info.html#info"><span>INFO</span></a> 命令的频率会从 10 秒一次改为每秒一次。</li>
 <li>当没有足够数量的 Sentinel 同意主服务器已经下线，
 主服务器的客观下线状态就会被移除。
-当主服务器重新向 Sentinel 的 <a class="reference internal" href="../connection/ping.html#ping"><em>PING</em></a> 命令返回有效回复时，
+当主服务器重新向 Sentinel 的 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令返回有效回复时，
 主服务器的主管下线状态就会被移除。</li>
 </ul>
 </div>
@@ -312,7 +312,7 @@ Sentinel 就会发送相应的信息。</li>
 <h3>Sentinel 命令<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>以下列出的是 Sentinel 接受的命令：</p>
 <ul class="simple">
-<li><a class="reference internal" href="../connection/ping.html#ping"><em>PING</em></a> ：返回 <code class="docutils literal"><span class="pre">PONG</span></code> 。</li>
+<li><a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> ：返回 <code class="docutils literal"><span class="pre">PONG</span></code> 。</li>
 <li><code class="docutils literal"><span class="pre">SENTINEL</span> <span class="pre">masters</span></code> ：列出所有被监视的主服务器，以及这些主服务器的当前状态。</li>
 <li><code class="docutils literal"><span class="pre">SENTINEL</span> <span class="pre">slaves</span> <span class="pre">&lt;master</span> <span class="pre">name&gt;</span></code> ：列出给定主服务器的所有从服务器，以及这些从服务器的当前状态。</li>
 <li><code class="docutils literal"><span class="pre">SENTINEL</span> <span class="pre">get-master-addr-by-name</span> <span class="pre">&lt;master</span> <span class="pre">name&gt;</span></code> ：
@@ -337,8 +337,8 @@ Sentinel 就会发送相应的信息。</li>
 <div class="section" id="id9">
 <h3>发布与订阅信息<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>客户端可以将 Sentinel 看作是一个只提供了订阅功能的 Redis 服务器：
-你不可以使用 <a class="reference internal" href="../pub_sub/publish.html#publish"><em>PUBLISH</em></a> 命令向这个服务器发送信息，
-但你可以用 <a class="reference internal" href="../pub_sub/subscribe.html#subscribe"><em>SUBSCRIBE</em></a> 命令或者 <a class="reference internal" href="../pub_sub/psubscribe.html#psubscribe"><em>PSUBSCRIBE</em></a> 命令，
+你不可以使用 <a class="reference internal" href="../pub_sub/publish.html#publish"><span>PUBLISH</span></a> 命令向这个服务器发送信息，
+但你可以用 <a class="reference internal" href="../pub_sub/subscribe.html#subscribe"><span>SUBSCRIBE</span></a> 命令或者 <a class="reference internal" href="../pub_sub/psubscribe.html#psubscribe"><span>PSUBSCRIBE</span></a> 命令，
 通过订阅给定的频道来获取相应的事件提醒。</p>
 <p>一个频道能够接收和这个频道的名字相同的事件。
 比如说，
@@ -361,7 +361,7 @@ Sentinel 就会发送相应的信息。</li>
 <li><code class="docutils literal"><span class="pre">+slave</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：一个新的从服务器已经被 Sentinel 识别并关联。</li>
 <li><code class="docutils literal"><span class="pre">+failover-state-reconf-slaves</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：故障转移状态切换到了 <code class="docutils literal"><span class="pre">reconf-slaves</span></code> 状态。</li>
 <li><code class="docutils literal"><span class="pre">+failover-detected</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：另一个 Sentinel 开始了一次故障转移操作，或者一个从服务器转换成了主服务器。</li>
-<li><code class="docutils literal"><span class="pre">+slave-reconf-sent</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：领头（leader）的 Sentinel 向实例发送了 <a class="reference internal" href="../server/slaveof.html#slaveof"><em>SLAVEOF</em></a> 命令，为实例设置新的主服务器。</li>
+<li><code class="docutils literal"><span class="pre">+slave-reconf-sent</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：领头（leader）的 Sentinel 向实例发送了 <a class="reference internal" href="../server/slaveof.html#slaveof"><span>SLAVEOF</span></a> 命令，为实例设置新的主服务器。</li>
 <li><code class="docutils literal"><span class="pre">+slave-reconf-inprog</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：实例正在将自己设置为指定主服务器的从服务器，但相应的同步过程仍未完成。</li>
 <li><code class="docutils literal"><span class="pre">+slave-reconf-done</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：从服务器已经成功完成对新主服务器的同步。</li>
 <li><code class="docutils literal"><span class="pre">-dup-sentinel</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：对给定主服务器进行监视的一个或多个 Sentinel 已经因为重复出现而被移除 —— 当 Sentinel 实例重启的时候，就会出现这种情况。</li>
@@ -402,7 +402,7 @@ Sentinel 就会发送相应的信息。</li>
 <li>通过发布与订阅功能，
 将更新后的配置传播给所有其他 Sentinel ，
 其他 Sentinel 对它们自己的配置进行更新。</li>
-<li>向已下线主服务器的从服务器发送 <a class="reference internal" href="../server/slaveof.html#slaveof"><em>SLAVEOF</em></a> 命令，
+<li>向已下线主服务器的从服务器发送 <a class="reference internal" href="../server/slaveof.html#slaveof"><span>SLAVEOF</span></a> 命令，
 让它们去复制新的主服务器。</li>
 <li>当所有从服务器都已经开始复制新的主服务器时，
 领头 Sentinel 终止这次故障迁移操作。</li>
@@ -417,7 +417,7 @@ Sentinel 都会向被重新配置的实例发送一个 <code class="docutils lit
 <p>Sentinel 使用以下规则来选择新的主服务器：</p>
 <ul class="simple">
 <li>在失效主服务器属下的从服务器当中，
-那些被标记为主观下线、已断线、或者最后一次回复 <a class="reference internal" href="../connection/ping.html#ping"><em>PING</em></a> 命令的时间大于五秒钟的从服务器都会被淘汰。</li>
+那些被标记为主观下线、已断线、或者最后一次回复 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令的时间大于五秒钟的从服务器都会被淘汰。</li>
 <li>在失效主服务器属下的从服务器当中，
 那些与失效主服务器连接断开的时长超过 <code class="docutils literal"><span class="pre">down-after</span></code> 选项指定的时长十倍的从服务器都会被淘汰。</li>
 <li>在经历了以上两轮淘汰之后剩下来的从服务器中，
@@ -484,7 +484,7 @@ Sentinel 在对实例进行重新配置之前仍然会等待一段足够长的�
 <p>Redis Sentinel 严重依赖计算机的时间功能：
 比如说，
 为了判断一个实例是否可用，
-Sentinel 会记录这个实例最后一次相应 <a class="reference internal" href="../connection/ping.html#ping"><em>PING</em></a> 命令的时间，
+Sentinel 会记录这个实例最后一次相应 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令的时间，
 并将这个时间和当前时间进行对比，
 从而知道这个实例有多长时间没有和 Sentinel 进行任何成功通讯。</p>
 <p>不过，
@@ -529,7 +529,7 @@ Sentinel 返回负值：
 Redis 就会返回 <code class="docutils literal"><span class="pre">-BUSY</span></code> 错误。</p>
 <p>当出现这种情况时，
 Sentinel 在尝试执行故障转移操作之前，
-会先向服务器发送一个 <a class="reference internal" href="../script/script_kill.html#script-kill"><em>SCRIPT KILL</em></a> 命令，
+会先向服务器发送一个 <a class="reference internal" href="../script/script_kill.html#script-kill"><span>SCRIPT KILL</span></a> 命令，
 如果服务器正在执行的是一个只读脚本的话，
 那么这个脚本就会被杀死，
 服务器就会回到正常状态。</p>
@@ -600,8 +600,8 @@ Sentinel 在尝试执行故障转移操作之前，
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 17, 2015.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+      Last updated on May 16, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

@@ -62,9 +62,9 @@
   <div class="section" id="unwatch">
 <span id="id1"></span><h1>UNWATCH<a class="headerlink" href="#unwatch" title="Permalink to this headline">¶</a></h1>
 <p><strong>UNWATCH</strong></p>
-<p>取消 <a class="reference internal" href="watch.html#watch"><em>WATCH</em></a> 命令对所有 key 的监视。</p>
-<p>如果在执行 <a class="reference internal" href="watch.html#watch"><em>WATCH</em></a> 命令之后， <a class="reference internal" href="exec.html#exec"><em>EXEC</em></a> 命令或 <a class="reference internal" href="discard.html#discard"><em>DISCARD</em></a> 命令先被执行了的话，那么就不需要再执行 <a class="reference internal" href="#unwatch">UNWATCH</a> 了。</p>
-<p>因为 <a class="reference internal" href="exec.html#exec"><em>EXEC</em></a> 命令会执行事务，因此 <a class="reference internal" href="watch.html#watch"><em>WATCH</em></a> 命令的效果已经产生了；而 <a class="reference internal" href="discard.html#discard"><em>DISCARD</em></a> 命令在取消事务的同时也会取消所有对 key 的监视，因此这两个命令执行之后，就没有必要执行 <a class="reference internal" href="#unwatch">UNWATCH</a> 了。</p>
+<p>取消 <a class="reference internal" href="watch.html#watch"><span>WATCH</span></a> 命令对所有 key 的监视。</p>
+<p>如果在执行 <a class="reference internal" href="watch.html#watch"><span>WATCH</span></a> 命令之后， <a class="reference internal" href="exec.html#exec"><span>EXEC</span></a> 命令或 <a class="reference internal" href="discard.html#discard"><span>DISCARD</span></a> 命令先被执行了的话，那么就不需要再执行 <a class="reference internal" href="#unwatch">UNWATCH</a> 了。</p>
+<p>因为 <a class="reference internal" href="exec.html#exec"><span>EXEC</span></a> 命令会执行事务，因此 <a class="reference internal" href="watch.html#watch"><span>WATCH</span></a> 命令的效果已经产生了；而 <a class="reference internal" href="discard.html#discard"><span>DISCARD</span></a> 命令在取消事务的同时也会取消所有对 key 的监视，因此这两个命令执行之后，就没有必要执行 <a class="reference internal" href="#unwatch">UNWATCH</a> 了。</p>
 <dl class="docutils">
 <dt><strong>可用版本：</strong></dt>
 <dd>&gt;= 2.2.0</dd>
@@ -143,8 +143,8 @@ OK
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 17, 2015.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+      Last updated on May 16, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

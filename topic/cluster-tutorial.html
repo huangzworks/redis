@@ -66,7 +66,7 @@
 <p>本文档是 Redis 集群的入门教程，
 从用户的角度介绍了设置、测试和操作集群的方法。</p>
 <p>本教程不包含晦涩难懂的分布式概念，
-也没有像 <a class="reference internal" href="cluster-spec.html#cluster-spec"><em>Redis 集群规范</em></a> 那样包含 Redis 集群的实现细节，
+也没有像 <a class="reference internal" href="cluster-spec.html#cluster-spec"><span>Redis 集群规范</span></a> 那样包含 Redis 集群的实现细节，
 如果你打算深入地学习 Redis 集群的部署方法，
 那么推荐你在阅读完这个教程之后，
 再去看一看集群规范。</p>
@@ -489,7 +489,7 @@ redis 127.0.0.1:7000&gt; get hello
 <p>这个应用所做的工作非常简单：
 它不断地以 <code class="docutils literal"><span class="pre">foo&lt;number&gt;</span></code> 为键，
 <code class="docutils literal"><span class="pre">number</span></code> 为值，
-使用 <a class="reference internal" href="../string/set.html#set"><em>SET</em></a> 命令向数据库设置键值对。</p>
+使用 <a class="reference internal" href="../string/set.html#set"><span>SET</span></a> 命令向数据库设置键值对。</p>
 <p>如果我们执行这个应用的话，
 应用将按顺序执行以下命令：</p>
 <ul class="simple">
@@ -732,33 +732,33 @@ slots: (0 slots) slave
 因为它只是不断地对集群进行写入，
 但并不检查写入结果是否正确。
 比如说，
-集群可能会错误地将 <code class="docutils literal"><span class="pre">example.rb</span></code> 发送的所有 <a class="reference internal" href="../string/set.html#set"><em>SET</em></a> 命令都改成了 <code class="docutils literal"><span class="pre">SET</span> <span class="pre">foo</span> <span class="pre">42</span></code> ，
+集群可能会错误地将 <code class="docutils literal"><span class="pre">example.rb</span></code> 发送的所有 <a class="reference internal" href="../string/set.html#set"><span>SET</span></a> 命令都改成了 <code class="docutils literal"><span class="pre">SET</span> <span class="pre">foo</span> <span class="pre">42</span></code> ，
 但因为 <code class="docutils literal"><span class="pre">example.rb</span></code> 并不检查写入后的值，
 所以它不会意识到集群实际上写入的值是错误的。</p>
 <p>因为这个原因，
 <a class="reference external" href="https://github.com/antirez/redis-rb-cluster">redis-rb-cluster 项目</a>包含了一个名为 <a class="reference external" href="https://github.com/antirez/redis-rb-cluster/blob/master/consistency-test.rb">consistency-test.rb</a> 的示例应用，
 这个应用比起 <code class="docutils literal"><span class="pre">example.rb</span></code> 有趣得多：
 它创建了多个计数器（默认为 <code class="docutils literal"><span class="pre">1000</span></code> 个），
-并通过发送 <a class="reference internal" href="../string/incr.html#incr"><em>INCR</em></a> 命令来增加这些计数器的值。</p>
+并通过发送 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 命令来增加这些计数器的值。</p>
 <p>在增加计数器值的同时，
 <code class="docutils literal"><span class="pre">consistency-test.rb</span></code> 还执行以下操作：</p>
 <ul class="simple">
-<li>每次使用 <a class="reference internal" href="../string/incr.html#incr"><em>INCR</em></a> 命令更新一个计数器时，
-应用会记录下计数器执行 <a class="reference internal" href="../string/incr.html#incr"><em>INCR</em></a> 命令之后应该有的值。
+<li>每次使用 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 命令更新一个计数器时，
+应用会记录下计数器执行 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 命令之后应该有的值。
 举个例子，
 如果计数器的起始值为 <code class="docutils literal"><span class="pre">0</span></code> ，
-而这次是程序第 <code class="docutils literal"><span class="pre">50</span></code> 次向它发送 <a class="reference internal" href="../string/incr.html#incr"><em>INCR</em></a> 命令，
+而这次是程序第 <code class="docutils literal"><span class="pre">50</span></code> 次向它发送 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 命令，
 那么计数器的值应该是 <code class="docutils literal"><span class="pre">50</span></code> 。</li>
-<li>在每次发送 <a class="reference internal" href="../string/incr.html#incr"><em>INCR</em></a> 命令之前，
+<li>在每次发送 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 命令之前，
 程序会随机从集群中读取一个计数器的值，
 并将它与自己记录的值进行对比，
 看两个值是否相同。</li>
 </ul>
 <p>换句话说，
 这个程序是一个一致性检查器（consistency checker）：
-如果集群在执行 <a class="reference internal" href="../string/incr.html#incr"><em>INCR</em></a> 命令的过程中，
-丢失了某条 <a class="reference internal" href="../string/incr.html#incr"><em>INCR</em></a> 命令，
-又或者多执行了某条客户端没有确认到的 <a class="reference internal" href="../string/incr.html#incr"><em>INCR</em></a> 命令，
+如果集群在执行 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 命令的过程中，
+丢失了某条 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 命令，
+又或者多执行了某条客户端没有确认到的 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 命令，
 那么检查器将察觉到这一点 ——
 在前一种情况中，
 <code class="docutils literal"><span class="pre">consistency-test.rb</span></code> 记录的计数器值将比集群记录的计数器值要大；
@@ -796,9 +796,9 @@ OK
 </pre></div>
 </div>
 <p>在我们修改计数器值的时候，
-计数器的正确值是 <code class="docutils literal"><span class="pre">114</span></code> （执行了 <code class="docutils literal"><span class="pre">114</span></code> 次 <a class="reference internal" href="../string/incr.html#incr"><em>INCR</em></a> 命令），
+计数器的正确值是 <code class="docutils literal"><span class="pre">114</span></code> （执行了 <code class="docutils literal"><span class="pre">114</span></code> 次 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 命令），
 因为我们将计数器的值设成了 <code class="docutils literal"><span class="pre">0</span></code> ，
-所以 <code class="docutils literal"><span class="pre">consistency-test.rb</span></code> 会向我们报告说丢失了 <code class="docutils literal"><span class="pre">114</span></code> 个 <a class="reference internal" href="../string/incr.html#incr"><em>INCR</em></a> 命令。</p>
+所以 <code class="docutils literal"><span class="pre">consistency-test.rb</span></code> 会向我们报告说丢失了 <code class="docutils literal"><span class="pre">114</span></code> 个 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 命令。</p>
 <p>因为这个示例程序具有一致性检查功能，
 所以我们用它来测试 Redis 集群的故障转移操作。</p>
 </div>
@@ -820,7 +820,7 @@ OK
 </div>
 <p>通过命令输出，
 我们知道端口号为 <code class="docutils literal"><span class="pre">7000</span></code> 、 <code class="docutils literal"><span class="pre">7001</span></code> 和 <code class="docutils literal"><span class="pre">7002</span></code> 的节点都是主节点，
-然后我们可以通过向端口号为 <code class="docutils literal"><span class="pre">7002</span></code> 的主节点发送 <a class="reference internal" href="../server/debug_segfault.html#debug-segfault"><em>DEBUG SEGFAULT</em></a> 命令，
+然后我们可以通过向端口号为 <code class="docutils literal"><span class="pre">7002</span></code> 的主节点发送 <a class="reference internal" href="../server/debug_segfault.html#debug-segfault"><span>DEBUG SEGFAULT</span></a> 命令，
 让这个主节点崩溃：</p>
 <div class="highlight-python"><div class="highlight"><pre>$ redis-cli -p 7002 debug segfault
 Error: Server closed the connection
@@ -888,10 +888,10 @@ a211e242fc6b22a9427fed61285e85892fa04e08 127.0.0.1:7003 slave 97a3a64667477371c4
 <li>如果节点是一个从节点的话，
 那么跟在 <code class="docutils literal"><span class="pre">flags</span></code> 之后的将是主节点的节点 ID ：
 例如 <code class="docutils literal"><span class="pre">127.0.0.1:7002</span></code> 的主节点的节点 ID 就是 <code class="docutils literal"><span class="pre">3c3a0c74aae0b56170ccb03a76b60cfe7dc1912e</span></code> 。</li>
-<li>集群最近一次向节点发送 <a class="reference internal" href="../connection/ping.html#ping"><em>PING</em></a> 命令之后，
+<li>集群最近一次向节点发送 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令之后，
 过去了多长时间还没接到回复。</li>
 <li>节点最近一次返回 <code class="docutils literal"><span class="pre">PONG</span></code> 回复的时间。</li>
-<li>节点的配置纪元（configuration epoch）：详细信息请参考 <a class="reference internal" href="cluster-spec.html#cluster-spec"><em>Redis 集群规范</em></a> 。</li>
+<li>节点的配置纪元（configuration epoch）：详细信息请参考 <a class="reference internal" href="cluster-spec.html#cluster-spec"><span>Redis 集群规范</span></a> 。</li>
 <li>本节点的网络连接情况：例如 <code class="docutils literal"><span class="pre">connected</span></code> 。</li>
 <li>节点目前包含的槽：例如 <code class="docutils literal"><span class="pre">127.0.0.1:7001</span></code> 目前包含号码为 <code class="docutils literal"><span class="pre">5960</span></code> 至 <code class="docutils literal"><span class="pre">10921</span></code> 的哈希槽。</li>
 </ul>
@@ -1056,8 +1056,8 @@ f093c80dde814da99c5cf72a7dd01590792b783b 127.0.0.1:7006 slave 3c3a0c74aae0b56170
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 17, 2015.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+      Last updated on May 16, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

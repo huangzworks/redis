@@ -64,7 +64,7 @@
 <p><strong>ZREVRANK key member</strong></p>
 <p>返回有序集 <code class="docutils literal"><span class="pre">key</span></code> 中成员 <code class="docutils literal"><span class="pre">member</span></code> 的排名。其中有序集成员按 <code class="docutils literal"><span class="pre">score</span></code> 值递减(从大到小)排序。</p>
 <p>排名以 <code class="docutils literal"><span class="pre">0</span></code> 为底，也就是说， <code class="docutils literal"><span class="pre">score</span></code> 值最大的成员排名为 <code class="docutils literal"><span class="pre">0</span></code> 。</p>
-<p>使用 <a class="reference internal" href="zrank.html#zrank"><em>ZRANK</em></a> 命令可以获得成员按 <code class="docutils literal"><span class="pre">score</span></code> 值递增(从小到大)排列的排名。</p>
+<p>使用 <a class="reference internal" href="zrank.html#zrank"><span>ZRANK</span></a> 命令可以获得成员按 <code class="docutils literal"><span class="pre">score</span></code> 值递增(从小到大)排列的排名。</p>
 <dl class="docutils">
 <dt><strong>可用版本：</strong></dt>
 <dd>&gt;= 2.0.0</dd>
@@ -155,8 +155,8 @@ redis&gt; ZREVRANK salary tom       # tom 的工资最高
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 17, 2015.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+      Last updated on May 16, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

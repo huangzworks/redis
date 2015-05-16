@@ -65,7 +65,7 @@
 <p>删除哈希表 <code class="docutils literal"><span class="pre">key</span></code> 中的一个或多个指定域，不存在的域将被忽略。</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">在Redis2.4以下的版本里， <a class="reference internal" href="#hdel">HDEL</a> 每次只能删除单个域，如果你需要在一个原子时间内删除多个域，请将命令包含在 <a class="reference internal" href="../transaction/multi.html#multi"><em>MULTI</em></a> /  <a class="reference internal" href="../transaction/exec.html#exec"><em>EXEC</em></a> 块内。</p>
+<p class="last">在Redis2.4以下的版本里， <a class="reference internal" href="#hdel">HDEL</a> 每次只能删除单个域，如果你需要在一个原子时间内删除多个域，请将命令包含在 <a class="reference internal" href="../transaction/multi.html#multi"><span>MULTI</span></a> /  <a class="reference internal" href="../transaction/exec.html#exec"><span>EXEC</span></a> 块内。</p>
 </div>
 <dl class="docutils">
 <dt><strong>可用版本：</strong></dt>
@@ -173,8 +173,8 @@ redis&gt; HGETALL abbr
     </div>
     <div class="footer">
         &copy; Copyright 2013, Redis.
-      Last updated on Apr 17, 2015.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3b1.
+      Last updated on May 16, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>
