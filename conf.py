@@ -41,7 +41,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Redis 命令参考'
-copyright = u'2013, Redis'
+copyright = u'2015, Redis'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
