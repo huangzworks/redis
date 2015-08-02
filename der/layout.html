@@ -147,9 +147,15 @@
         <div class="bodywrapper">
       {%- endif %}
           <div class="body">
-            {% block body %} {% endblock %}
-
-            {% include "disqus.html" %}
+            
+  <div class="section" id="redis">
+<h1>Redis 命令参考<a class="headerlink" href="file:///Users/huangz/redisref/_build/html/index.html#redis" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">本文档的地址已经发生了变化，
+请访问 <a class="reference external" href="http://redisdoc.com/">RedisDoc.com</a> 阅读最新的文档。</p>
+</div>
+</div>
 
           </div>
       {%- if render_sidebar %}
@@ -182,6 +188,5 @@
     {%- endif %}
     </div>
 {%- endblock %}
-  {% include "google-analytics.html" %}
   </body>
 </html>
