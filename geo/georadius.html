@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>GEORADIUS &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="up" title="GEO（地理位置）" href="index.html" />
+    <link rel="next" title="GEORADIUSBYMEMBER" href="georadiusbymember.html" />
+    <link rel="prev" title="GEODIST" href="geodist.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="georadiusbymember.html" title="GEORADIUSBYMEMBER"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="geodist.html" title="GEODIST"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">GEO（地理位置）</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="georadius">
+<h1>GEORADIUS<a class="headerlink" href="#georadius" title="Permalink to this headline">¶</a></h1>
+<p><strong>GEORADIUS key longitude latitude radius m|km|ft|mi [WITHCOORD] [WITHDIST] [WITHHASH] [ASC|DESC] [COUNT count]</strong></p>
+<p>以给定的经纬度为中心，
+返回键包含的位置元素当中，
+与中心的距离不超过给定最大距离的所有位置元素。</p>
+<p>范围可以使用以下其中一个单位：</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">m</span></code> 表示单位为米。</li>
+<li><code class="docutils literal"><span class="pre">km</span></code> 表示单位为千米。</li>
+<li><code class="docutils literal"><span class="pre">mi</span></code> 表示单位为英里。</li>
+<li><code class="docutils literal"><span class="pre">ft</span></code> 表示单位为英尺。</li>
+</ul>
+<p>在给定以下可选项时，
+命令会返回额外的信息：</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">WITHDIST</span></code> ：
+在返回位置元素的同时，
+将位置元素与中心之间的距离也一并返回。
+距离的单位和用户给定的范围单位保持一致。</li>
+<li><code class="docutils literal"><span class="pre">WITHCOORD</span></code> ：
+将位置元素的经度和维度也一并返回。</li>
+<li><code class="docutils literal"><span class="pre">WITHHASH</span></code> ：
+以 52 位有符号整数的形式，
+返回位置元素经过原始 geohash 编码的有序集合分值。
+这个选项主要用于底层应用或者调试，
+实际中的作用并不带。</li>
+</ul>
+<p>命令默认返回未排序的位置元素。
+通过以下两个参数，
+用户可以指定被返回位置元素的排序方式：</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">ASC</span></code> ：
+根据中心的位置，
+按照从近到远的方式返回位置元素。</li>
+<li><code class="docutils literal"><span class="pre">DESC</span></code> ：
+根据中心的位置，
+按照从远到近的方式返回位置元素。</li>
+</ul>
+<p>在默认情况下，
+<code class="docutils literal"><span class="pre">GEORADIUS</span></code> 命令会返回所有匹配的位置元素。
+虽然用户可以使用 <code class="docutils literal"><span class="pre">COUNT</span> <span class="pre">&lt;count&gt;</span></code> 选项去获取前 N 个匹配元素，
+但是因为命令在内部可能会需要对所有被匹配的元素进行处理，
+所以在对一个非常大的区域进行搜索时，
+即使只使用 <code class="docutils literal"><span class="pre">COUNT</span></code> 选项去获取少量元素，
+命令的执行速度也可能会非常慢。
+但是从另一方面来说，
+使用 <code class="docutils literal"><span class="pre">COUNT</span></code> 选项去减少需要返回的元素数量，
+对于减少带宽来说仍然是非常有用的。</p>
+<dl class="docutils">
+<dt><strong>可用版本：</strong></dt>
+<dd>&gt;= 3.2.0</dd>
+<dt><strong>时间复杂度：</strong></dt>
+<dd>O(log(N)+M)，
+其中 N 为指定范围之内的元素数量，
+而 M 则是被返回的元素数量。</dd>
+<dt><strong>返回值：</strong></dt>
+<dd><p class="first"><code class="docutils literal"><span class="pre">GEORADIUS</span></code> 命令返回一个数组，
+具体来说：</p>
+<ul class="simple">
+<li>在没有给定任何 <code class="docutils literal"><span class="pre">WITH</span></code> 选项的情况下，
+命令只会返回一个像 <code class="docutils literal"><span class="pre">[&quot;New</span> <span class="pre">York&quot;,&quot;Milan&quot;,&quot;Paris&quot;]</span></code> 这样的线性（linear）列表。</li>
+<li>在指定了 <code class="docutils literal"><span class="pre">WITHCOORD</span></code> 、 <code class="docutils literal"><span class="pre">WITHDIST</span></code> 、 <code class="docutils literal"><span class="pre">WITHHASH</span></code> 等选项的情况下，
+命令返回一个二层嵌套数组，
+内层的每个子数组就表示一个元素。</li>
+</ul>
+<p>在返回嵌套数组时，
+子数组的第一个元素总是位置元素的名字。
+至于额外的信息，
+则会作为子数组的后续元素，
+按照以下顺序被返回：</p>
+<ol class="arabic simple">
+<li>以浮点数格式返回的中心与位置元素之间的距离，
+单位与用户指定范围时的单位一致。</li>
+<li>geohash 整数。</li>
+<li>由两个元素组成的坐标，分别为经度和纬度。</li>
+</ol>
+<p>举个例子，
+<code class="docutils literal"><span class="pre">GEORADIUS</span> <span class="pre">Sicily</span> <span class="pre">15</span> <span class="pre">37</span> <span class="pre">200</span> <span class="pre">km</span> <span class="pre">withcoord</span> <span class="pre">withdist</span></code> 这样的命令返回的每个子数组都是类似以下格式的：</p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="s">&quot;Palermo&quot;</span><span class="p">,</span><span class="s">&quot;190.4424&quot;</span><span class="p">,[</span><span class="s">&quot;13.361389338970184&quot;</span><span class="p">,</span><span class="s">&quot;38.115556395496299&quot;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre>redis&gt; GEOADD Sicily 13.361389 38.115556 &quot;Palermo&quot; 15.087269 37.502669 &quot;Catania&quot;
+(integer) 2
+
+redis&gt; GEORADIUS Sicily 15 37 200 km WITHDIST
+1) 1) &quot;Palermo&quot;
+   2) &quot;190.4424&quot;
+2) 1) &quot;Catania&quot;
+   2) &quot;56.4413&quot;
+
+redis&gt; GEORADIUS Sicily 15 37 200 km WITHCOORD
+1) 1) &quot;Palermo&quot;
+   2) 1) &quot;13.361389338970184&quot;
+      2) &quot;38.115556395496299&quot;
+2) 1) &quot;Catania&quot;
+   2) 1) &quot;15.087267458438873&quot;
+      2) &quot;37.50266842333162&quot;
+
+redis&gt; GEORADIUS Sicily 15 37 200 km WITHDIST WITHCOORD
+1) 1) &quot;Palermo&quot;
+   2) &quot;190.4424&quot;
+   3) 1) &quot;13.361389338970184&quot;
+      2) &quot;38.115556395496299&quot;
+2) 1) &quot;Catania&quot;
+   2) &quot;56.4413&quot;
+   3) 1) &quot;15.087267458438873&quot;
+      2) &quot;37.50266842333162&quot;
+</pre></div>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="sponser">
+    <h2>赞助商</h2>
+    <a href="http://yunba.io/"><img src="../_static/yunba-logo.jpg"/></a>
+    <p><a href="http://yunba.io/">云巴（yunba.io）</a>，专业的跨平台跨设备后端云服务提供商。</p>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="georadiusbymember.html" title="GEORADIUSBYMEMBER"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="geodist.html" title="GEODIST"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >GEO（地理位置）</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Redis.
+      Last updated on Aug 10, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+    </div>
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-53959484-7', 'auto');
+    ga('send', 'pageview');
+  </script>
+  </body>
+</html>

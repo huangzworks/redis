@@ -23,12 +23,17 @@ Redis 命令参考
 | .. toctree::          | .. toctree::          | .. toctree::          | .. toctree::          |
 |   :maxdepth: 2        |    :maxdepth: 2       |    :maxdepth: 2       |    :maxdepth: 2       |
 |                       |                       |                       |                       |
-|   set/index           |    sorted_set/index   |    hyperloglog/index  |    pub_sub/index      |
+|   set/index           |    sorted_set/index   |    hyperloglog/index  |    geo/index          |
 +-----------------------+-----------------------+-----------------------+-----------------------+
 | .. toctree::          | .. toctree::          | .. toctree::          | .. toctree::          |
 |    :maxdepth: 2       |   :maxdepth: 2        |    :maxdepth: 2       |    :maxdepth: 2       |
 |                       |                       |                       |                       |
-|    transaction/index  |   script/index        |    connection/index   |    server/index       |
+|    pub_sub/index      |   transaction/index   |    script/index       |    connection/index   |
++-----------------------+-----------------------+-----------------------+-----------------------+
+| .. toctree::          |                       |                       |                       |
+|    :maxdepth: 2       |                       |                       |                       |
+|                       |                       |                       |                       |
+|    server/index       |                       |                       |                       |
 +-----------------------+-----------------------+-----------------------+-----------------------+
 
 文档

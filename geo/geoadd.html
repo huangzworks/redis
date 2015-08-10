@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>GEOADD &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="up" title="GEO（地理位置）" href="index.html" />
+    <link rel="next" title="GEOPOS" href="geopos.html" />
+    <link rel="prev" title="GEO（地理位置）" href="index.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="geopos.html" title="GEOPOS"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="GEO（地理位置）"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">GEO（地理位置）</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="geoadd">
+<h1>GEOADD<a class="headerlink" href="#geoadd" title="Permalink to this headline">¶</a></h1>
+<p><strong>GEOADD key longitude latitude member [longitude latitude member ...]</strong></p>
+<p>将给定的空间元素（纬度、精度、名字）添加到指定的键里面。
+这些数据会以有序集合的形式被储存在键里面，
+从而使得像 <code class="docutils literal"><span class="pre">GEORADIUS</span></code> 和 <code class="docutils literal"><span class="pre">GEORADIUSBYMEMBER</span></code> 这样的命令可以在之后通过位置查询取得这些元素。</p>
+<p><code class="docutils literal"><span class="pre">GEOADD</span></code> 命令以标准的 <code class="docutils literal"><span class="pre">x,y</span></code> 格式接受参数，
+所以用户必须先输入经度，
+然后再输入纬度。
+<code class="docutils literal"><span class="pre">GEOADD</span></code> 能够记录的坐标是有限的：
+非常接近两极的区域是无法被索引的。
+精确的坐标限制由 EPSG:900913 / EPSG:3785 / OSGEO:41001 等坐标系统定义，
+具体如下：</p>
+<ul class="simple">
+<li>有效的经度介于 -180 度至 180 度之间。</li>
+<li>有效的纬度介于 -85.05112878 度至 85.05112878 度之间。</li>
+</ul>
+<p>当用户尝试输入一个超出范围的经度或者纬度时，
+<code class="docutils literal"><span class="pre">GEOADD</span></code> 命令将返回一个错误。</p>
+<dl class="docutils">
+<dt><strong>可用版本：</strong></dt>
+<dd>&gt;= 3.2.0</dd>
+<dt><strong>时间复杂度：</strong></dt>
+<dd>每添加一个元素的复杂度为 O(log(N)) ，
+其中 N 为键里面包含的位置元素数量。</dd>
+<dt><strong>返回值：</strong></dt>
+<dd>新添加到键里面的空间元素数量，
+不包括那些已经存在但是被更新的元素。</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre>redis&gt; GEOADD Sicily 13.361389 38.115556 &quot;Palermo&quot; 15.087269 37.502669 &quot;Catania&quot;
+(integer) 2
+
+redis&gt; GEODIST Sicily Palermo Catania
+&quot;166274.15156960039&quot;
+
+redis&gt; GEORADIUS Sicily 15 37 100 km
+1) &quot;Catania&quot;
+
+redis&gt; GEORADIUS Sicily 15 37 200 km
+1) &quot;Palermo&quot;
+2) &quot;Catania&quot;
+</pre></div>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="sponser">
+    <h2>赞助商</h2>
+    <a href="http://yunba.io/"><img src="../_static/yunba-logo.jpg"/></a>
+    <p><a href="http://yunba.io/">云巴（yunba.io）</a>，专业的跨平台跨设备后端云服务提供商。</p>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="geopos.html" title="GEOPOS"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="GEO（地理位置）"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >GEO（地理位置）</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Redis.
+      Last updated on Aug 10, 2015.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
+    </div>
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-53959484-7', 'auto');
+    ga('send', 'pageview');
+  </script>
+  </body>
+</html>
