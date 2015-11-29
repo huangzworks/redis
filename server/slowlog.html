@@ -62,11 +62,14 @@
   <div class="section" id="slowlog">
 <span id="id1"></span><h1>SLOWLOG<a class="headerlink" href="#slowlog" title="Permalink to this headline">¶</a></h1>
 <p><strong>SLOWLOG subcommand [argument]</strong></p>
-<p><strong>什么是 SLOWLOG</strong></p>
+<div class="section" id="id2">
+<h2>什么是 SLOWLOG<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>Slow log 是 Redis 用来记录查询执行时间的日志系统。</p>
 <p>查询执行时间指的是不包括像客户端响应(talking)、发送回复等 IO 操作，而单单是执行一个查询命令所耗费的时间。</p>
 <p>另外，slow log 保存在内存里面，读写速度非常快，因此你可以放心地使用它，不必担心因为开启 slow log 而损害 Redis 的速度。</p>
-<p><strong>设置 SLOWLOG</strong></p>
+</div>
+<div class="section" id="id3">
+<h2>设置 SLOWLOG<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>Slow log 的行为由两个配置参数(configuration parameter)指定，可以通过改写 redis.conf 文件或者用 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 和 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">SET</span></code> 命令对它们动态地进行修改。</p>
 <p>第一个选项是 <code class="docutils literal"><span class="pre">slowlog-log-slower-than</span></code> ，它决定要对执行时间大于多少微秒(microsecond，1秒 = 1,000,000 微秒)的查询进行记录。</p>
 <p>比如执行以下命令将让 slow log 记录所有查询时间大于等于 100 微秒的查询：</p>
@@ -86,7 +89,9 @@ redis&gt; CONFIG GET slowlog-max-len
 2) &quot;1000&quot;
 </pre></div>
 </div>
-<p><strong>查看 slow log</strong></p>
+</div>
+<div class="section" id="slow-log">
+<h2>查看 slow log<a class="headerlink" href="#slow-log" title="Permalink to this headline">¶</a></h2>
 <p>要查看 slow log ，可以使用 <code class="docutils literal"><span class="pre">SLOWLOG</span> <span class="pre">GET</span></code> 或者 <code class="docutils literal"><span class="pre">SLOWLOG</span> <span class="pre">GET</span> <span class="pre">number</span></code> 命令，前者打印所有 slow log ，最大长度取决于 <code class="docutils literal"><span class="pre">slowlog-max-len</span></code> 选项的值，而 <code class="docutils literal"><span class="pre">SLOWLOG</span> <span class="pre">GET</span> <span class="pre">number</span></code> 则只打印指定数量的日志。</p>
 <p>最新的日志会最先被打印：</p>
 <div class="highlight-python"><div class="highlight"><pre># 为测试需要，将 slowlog-log-slower-than 设成了 10 微秒
@@ -117,14 +122,18 @@ redis&gt; SLOWLOG GET
 </pre></div>
 </div>
 <p>日志的唯一 id 只有在 Redis 服务器重启的时候才会重置，这样可以避免对日志的重复处理(比如你可能会想在每次发现新的慢查询时发邮件通知你)。</p>
-<p><strong>查看当前日志的数量</strong></p>
+</div>
+<div class="section" id="id4">
+<h2>查看当前日志的数量<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>使用命令 <code class="docutils literal"><span class="pre">SLOWLOG</span> <span class="pre">LEN</span></code> 可以查看当前日志的数量。</p>
 <p>请注意这个值和 <code class="docutils literal"><span class="pre">slower-max-len</span></code> 的区别，它们一个是当前日志的数量，一个是允许记录的最大日志的数量。</p>
 <div class="highlight-python"><div class="highlight"><pre>redis&gt; SLOWLOG LEN
 (integer) 14
 </pre></div>
 </div>
-<p><strong>清空日志</strong></p>
+</div>
+<div class="section" id="id5">
+<h2>清空日志<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>使用命令 <code class="docutils literal"><span class="pre">SLOWLOG</span> <span class="pre">RESET</span></code> 可以清空 slow log 。</p>
 <div class="highlight-python"><div class="highlight"><pre>redis&gt; SLOWLOG LEN
 (integer) 14
@@ -144,6 +153,7 @@ redis&gt; SLOWLOG LEN
 <dt><strong>返回值：</strong></dt>
 <dd>取决于不同命令，返回不同的值。</dd>
 </dl>
+</div>
 </div>
 
 
@@ -200,7 +210,7 @@ redis&gt; SLOWLOG LEN
     </div>
     <div class="footer">
         &copy; Copyright 2015, Redis.
-      Last updated on Nov 05, 2015.
+      Last updated on Nov 29, 2015.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.
     </div>
     <script>
