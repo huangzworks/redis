@@ -1,0 +1,320 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>BITFIELD &mdash; Redis 命令参考</title>
+    
+    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Redis 命令参考" href="../index.html" />
+    <link rel="up" title="String（字符串）" href="index.html" />
+    <link rel="next" title="DECR" href="decr.html" />
+    <link rel="prev" title="BITOP" href="bitop.html" /> 
+
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+
+  </head>
+  <body>
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="decr.html" title="DECR"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="bitop.html" title="BITOP"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">String（字符串）</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bitfield">
+<span id="id1"></span><h1>BITFIELD<a class="headerlink" href="#bitfield" title="Permalink to this headline">¶</a></h1>
+<p><strong>BITFIELD key [GET type offset] [SET type offset value] [INCRBY type offset increment] [OVERFLOW WRAP|SAT|FAIL]</strong></p>
+<p><code class="docutils literal"><span class="pre">BITFIELD</span></code> 命令可以将一个 Redis 字符串看作是一个由二进制位组成的数组，
+并对这个数组中储存的长度不同的整数进行访问
+（被储存的整数无需进行对齐）。
+换句话说，
+通过这个命令，
+用户可以执行诸如
+“对偏移量 1234 上的 5 位长有符号整数进行设置”、
+“获取偏移量 4567 上的 31 位长无符号整数”等操作。
+此外，
+<code class="docutils literal"><span class="pre">BITFIELD</span></code> 命令还可以对指定的整数执行加法操作和减法操作，
+并且这些操作可以通过设置妥善地处理计算时出现的溢出情况。</p>
+<p><code class="docutils literal"><span class="pre">BITFIELD</span></code> 命令可以在一次调用中同时对多个位范围进行操作：
+它接受一系列待执行的操作作为参数，
+并返回一个数组作为回复，
+数组中的每个元素就是对应操作的执行结果。</p>
+<p>比如以下命令就展示了如何对位于偏移量 100 的 8 位长有符号整数执行加法操作，
+并获取位于偏移量 0 上的 4 位长无符号整数：</p>
+<div class="highlight-python"><div class="highlight"><pre>&gt; BITFIELD mykey INCRBY i8 100 1 GET u4 0
+1) (integer) 1
+2) (integer) 0
+</pre></div>
+</div>
+<p>注意：</p>
+<ul class="simple">
+<li>使用 <code class="docutils literal"><span class="pre">GET</span></code> 子命令对超出字符串当前范围的二进制位进行访问（包括键不存在的情况），
+超出部分的二进制位的值将被当做是 0 。</li>
+<li>使用 <code class="docutils literal"><span class="pre">SET</span></code> 子命令或者 <code class="docutils literal"><span class="pre">INCRBY</span></code> 子命令对超出字符串当前范围的二进制位进行访问将导致字符串被扩大，
+被扩大的部分会使用值为 0 的二进制位进行填充。
+在对字符串进行扩展时，
+命令会根据字符串目前已有的最远端二进制位，
+计算出执行操作所需的最小长度。</li>
+</ul>
+<div class="section" id="id2">
+<h2>支持的子命令以及数字类型<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>以下是 <code class="docutils literal"><span class="pre">BITFIELD</span></code> 命令支持的子命令：</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">GET</span> <span class="pre">&lt;type&gt;</span> <span class="pre">&lt;offset&gt;</span></code> —— 返回指定的二进制位范围。</li>
+<li><code class="docutils literal"><span class="pre">SET</span> <span class="pre">&lt;type&gt;</span> <span class="pre">&lt;offset&gt;</span> <span class="pre">&lt;value&gt;</span></code> —— 对指定的二进制位范围进行设置，并返回它的旧值。</li>
+<li><code class="docutils literal"><span class="pre">INCRBY</span> <span class="pre">&lt;type&gt;</span> <span class="pre">&lt;offset&gt;</span> <span class="pre">&lt;increment&gt;</span></code> —— 对指定的二进制位范围执行加法操作，并返回它的旧值。用户可以通过向 <code class="docutils literal"><span class="pre">increment</span></code> 参数传入负值来实现相应的减法操作。</li>
+</ul>
+<p>除了以上三个子命令之外，
+还有一个子命令，
+它可以改变之后执行的 <code class="docutils literal"><span class="pre">INCRBY</span></code> 子命令在发生溢出情况时的行为：</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">OVERFLOW</span> <span class="pre">[WRAP|SAT|FAIL]</span></code></li>
+</ul>
+<p>当被设置的二进制位范围值为整数时，
+用户可以在类型参数的前面添加 <code class="docutils literal"><span class="pre">i</span></code> 来表示有符号整数，
+或者使用 <code class="docutils literal"><span class="pre">u</span></code> 来表示无符号整数。
+比如说，
+我们可以使用 <code class="docutils literal"><span class="pre">u8</span></code> 来表示 8 位长的无符号整数，
+也可以使用 <code class="docutils literal"><span class="pre">i16</span></code> 来表示 16 位长的有符号整数。</p>
+<p><code class="docutils literal"><span class="pre">BITFIELD</span></code> 命令最大支持 64 位长的有符号整数以及 63 位长的无符号整数，
+其中无符号整数的 63 位长度限制是由于 Redis 协议目前还无法返回 64 位长的无符号整数而导致的。</p>
+</div>
+<div class="section" id="id3">
+<h2>二进制位和位置偏移量<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>在二进制位范围命令中，
+用户有两种方法来设置偏移量：</p>
+<ul class="simple">
+<li>如果用户给定的是一个没有任何前缀的数字，
+那么这个数字指示的就是字符串以零为开始（zero-base）的偏移量。</li>
+<li>另一方面，
+如果用户给定的是一个带有 <code class="docutils literal"><span class="pre">#</span></code> 前缀的偏移量，
+那么命令将使用这个偏移量与被设置的数字类型的位长度相乘，
+从而计算出真正的偏移量。</li>
+</ul>
+<p>比如说，
+对于以下这个命令来说：</p>
+<div class="highlight-python"><div class="highlight"><pre>BITFIELD mystring SET i8 #0 100 i8 #1 200
+</pre></div>
+</div>
+<p>命令会把 <code class="docutils literal"><span class="pre">mystring</span></code> 键里面，
+第一个 <code class="docutils literal"><span class="pre">i8</span></code> 长度的二进制位的值设置为 <code class="docutils literal"><span class="pre">100</span></code> ，
+并把第二个 <code class="docutils literal"><span class="pre">i8</span></code> 长度的二进制位的值设置为 <code class="docutils literal"><span class="pre">200</span></code> 。
+当我们把一个字符串键当成数组来使用，
+并且数组中储存的都是同等长度的整数时，
+使用 <code class="docutils literal"><span class="pre">#</span></code> 前缀可以让我们免去手动计算被设置二进制位所在位置的麻烦。</p>
+</div>
+<div class="section" id="id4">
+<h2>溢出控制<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>用户可以通过 <code class="docutils literal"><span class="pre">OVERFLOW</span></code> 命令以及以下展示的三个参数，
+指定 <code class="docutils literal"><span class="pre">BITFIELD</span></code> 命令在执行自增或者自减操作时，
+碰上向上溢出（overflow）或者向下溢出（underflow）情况时的行为：</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">WRAP</span></code> ：
+使用回绕（wrap around）方法处理有符号整数和无符号整数的溢出情况。
+对于无符号整数来说，
+回绕就像使用数值本身与能够被储存的最大无符号整数执行取模计算，
+这也是 C 语言的标准行为。
+对于有符号整数来说，
+上溢将导致数字重新从最小的负数开始计算，
+而下溢将导致数字重新从最大的正数开始计算。
+比如说，
+如果我们对一个值为 <code class="docutils literal"><span class="pre">127</span></code> 的 <code class="docutils literal"><span class="pre">i8</span></code> 整数执行加一操作，
+那么将得到结果 <code class="docutils literal"><span class="pre">-128</span></code> 。</li>
+<li><code class="docutils literal"><span class="pre">SAT</span></code> ：
+使用饱和计算（saturation arithmetic）方法处理溢出，
+也即是说，
+下溢计算的结果为最小的整数值，
+而上溢计算的结果为最大的整数值。
+举个例子，
+如果我们对一个值为 <code class="docutils literal"><span class="pre">120</span></code> 的 <code class="docutils literal"><span class="pre">i8</span></code> 整数执行加 <code class="docutils literal"><span class="pre">10</span></code> 计算，
+那么命令的结果将为 <code class="docutils literal"><span class="pre">i8</span></code> 类型所能储存的最大整数值 <code class="docutils literal"><span class="pre">127</span></code> 。
+与此相反，
+如果一个针对 <code class="docutils literal"><span class="pre">i8</span></code> 值的计算造成了下溢，
+那么这个 <code class="docutils literal"><span class="pre">i8</span></code> 值将被设置为 <code class="docutils literal"><span class="pre">-127</span></code> 。</li>
+<li><code class="docutils literal"><span class="pre">FAIL</span></code> ：
+在这一模式下，
+命令将拒绝执行那些会导致上溢或者下溢情况出现的计算，
+并向用户返回空值表示计算未被执行。</li>
+</ul>
+<p>需要注意的是，
+<code class="docutils literal"><span class="pre">OVERFLOW</span></code> 子命令只会对紧随着它之后被执行的 <code class="docutils literal"><span class="pre">INCRBY</span></code> 命令产生效果，
+这一效果将一直持续到与它一同被执行的下一个 <code class="docutils literal"><span class="pre">OVERFLOW</span></code> 命令为止。
+在默认情况下，
+<code class="docutils literal"><span class="pre">INCRBY</span></code> 命令使用 <code class="docutils literal"><span class="pre">WRAP</span></code> 方式来处理溢出计算。</p>
+<p>以下是一个使用 <code class="docutils literal"><span class="pre">OVERFLOW</span></code> 子命令来控制溢出行为的例子：</p>
+<div class="highlight-python"><div class="highlight"><pre>&gt; BITFIELD mykey incrby u2 100 1 OVERFLOW SAT incrby u2 102 1
+1) (integer) 1
+2) (integer) 1
+
+&gt; BITFIELD mykey incrby u2 100 1 OVERFLOW SAT incrby u2 102 1
+1) (integer) 2
+2) (integer) 2
+
+&gt; BITFIELD mykey incrby u2 100 1 OVERFLOW SAT incrby u2 102 1
+1) (integer) 3
+2) (integer) 3
+
+&gt; BITFIELD mykey incrby u2 100 1 OVERFLOW SAT incrby u2 102 1
+1) (integer) 0  -- 使用默认的 WRAP 方式处理溢出
+2) (integer) 3  -- 使用 SAT 方式处理溢出
+</pre></div>
+</div>
+<p>而以下则是一个因为 <code class="docutils literal"><span class="pre">OVERFLOW</span> <span class="pre">FAIL</span></code> 行为而导致子命令返回空值的例子：</p>
+<div class="highlight-python"><div class="highlight"><pre>&gt; BITFIELD mykey OVERFLOW FAIL incrby u2 102 1
+1) (nil)
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>作用<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">BITFIELD</span></code> 命令的作用在于它能够将很多小的整数储存到一个长度较大的位图中，
+又或者将一个非常庞大的键分割为多个较小的键来进行储存，
+从而非常高效地使用内存，
+使得 Redis 能够得到更多不同的应用 ——
+特别是在实时分析领域：
+<code class="docutils literal"><span class="pre">BITFIELD</span></code> 能够以指定的方式对计算溢出进行控制的能力，
+使得它可以被应用于这一领域。</p>
+</div>
+<div class="section" id="id6">
+<h2>性能注意事项<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">BITFIELD</span></code> 在一般情况下都是一个快速的命令，
+需要注意的是，
+访问一个长度较短的字符串的远端二进制位将引发一次内存分配操作，
+这一操作花费的时间可能会比命令访问已有的字符串花费的时间要长。</p>
+</div>
+<div class="section" id="id7">
+<h2>二进制位的排列<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">BITFIELD</span></code> 把位图第一个字节偏移量 0 上的二进制位看作是 most significant 位，
+以此类推。
+举个例子，
+如果我们对一个已经预先被全部设置为 0 的位图进行设置，
+将它在偏移量 7 的值设置为 5 位无符号整数值 23 （二进制位为 <code class="docutils literal"><span class="pre">10111</span></code> ），
+那么命令将生产出以下这个位图表示：</p>
+<div class="highlight-python"><div class="highlight"><pre>+--------+--------+
+|00000001|01110000|
++--------+--------+
+</pre></div>
+</div>
+<p>当偏移量和整数长度与字节边界进行对齐时，
+<code class="docutils literal"><span class="pre">BITFIELD</span></code> 表示二进制位的方式跟大端表示法（big endian）一致，
+但是在没有对齐的情况下，
+理解这些二进制位是如何进行排列也是非常重要的。</p>
+<dl class="docutils">
+<dt><strong>可用版本：</strong></dt>
+<dd>&gt;= 3.2.0</dd>
+<dt><strong>时间复杂度：</strong></dt>
+<dd>每个子命令的复杂度为 O(1) 。</dd>
+<dt><strong>返回值：</strong></dt>
+<dd><code class="docutils literal"><span class="pre">BITFIELD</span></code> 命令的返回值是一个数组，
+数组中的每个元素对应一个被执行的子命令。
+需要注意的是，
+<code class="docutils literal"><span class="pre">OVERFLOW</span></code> 子命令本身并不产生任何回复。</dd>
+</dl>
+</div>
+</div>
+
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<div id="sponser">
+    <h2>赞助商</h2>
+    <a href="http://yunba.io/"><img src="../_static/yunba-logo.jpg"/></a>
+    <p><a href="http://yunba.io/">云巴（yunba.io）</a>，专业的App.Web.物联网实时通信后端云服务提供商。</p>
+</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="decr.html" title="DECR"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="bitop.html" title="BITOP"
+             >previous</a> |</li>
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >String（字符串）</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Redis.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.3.
+    </div>
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-53959484-7', 'auto');
+    ga('send', 'pageview');
+  </script>
+  </body>
+</html>
