@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>List（列表） &mdash; Redis 命令参考</title>
+    <title>HSTRLEN &mdash; Redis 命令参考</title>
     
     <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -24,8 +24,9 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="Redis 命令参考" href="../index.html" />
-    <link rel="next" title="BLPOP" href="blpop.html" />
-    <link rel="prev" title="HSTRLEN" href="../hash/hstrlen.html" /> 
+    <link rel="up" title="Hash（哈希表）" href="index.html" />
+    <link rel="next" title="List（列表）" href="../list/index.html" />
+    <link rel="prev" title="HSCAN" href="hscan.html" /> 
 
 <!--[if lte IE 6]>
 <link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
@@ -43,12 +44,13 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="blpop.html" title="BLPOP"
+          <a href="../list/index.html" title="List（列表）"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../hash/hstrlen.html" title="HSTRLEN"
+          <a href="hscan.html" title="HSCAN"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li> 
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Hash（哈希表）</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -57,39 +59,33 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="list">
-<h1>List（列表）<a class="headerlink" href="#list" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="blpop.html">BLPOP</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="blpop.html#id2">模式：事件提醒</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="brpop.html">BRPOP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="brpoplpush.html">BRPOPLPUSH</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="brpoplpush.html#id2">模式：安全队列</a></li>
-<li class="toctree-l2"><a class="reference internal" href="brpoplpush.html#id3">模式：循环列表</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="lindex.html">LINDEX</a></li>
-<li class="toctree-l1"><a class="reference internal" href="linsert.html">LINSERT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="llen.html">LLEN</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lpop.html">LPOP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lpush.html">LPUSH</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lpushx.html">LPUSHX</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lrange.html">LRANGE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lrem.html">LREM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lset.html">LSET</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ltrim.html">LTRIM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rpop.html">RPOP</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rpoplpush.html">RPOPLPUSH</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="rpoplpush.html#id2">模式： 安全的队列</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rpoplpush.html#id3">模式：循环列表</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="rpush.html">RPUSH</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rpushx.html">RPUSHX</a></li>
-</ul>
+  <div class="section" id="hstrlen">
+<span id="id1"></span><h1>HSTRLEN<a class="headerlink" href="#hstrlen" title="Permalink to this headline">¶</a></h1>
+<p><strong>HSTRLEN key field</strong></p>
+<p>返回哈希表 <code class="docutils literal"><span class="pre">key</span></code> 中，
+与给定域 <code class="docutils literal"><span class="pre">field</span></code> 相关联的值的字符串长度（string length）。</p>
+<p>如果给定的键或者域不存在，
+那么命令返回 <code class="docutils literal"><span class="pre">0</span></code> 。</p>
+<dl class="docutils">
+<dt><strong>可用版本：</strong></dt>
+<dd>&gt;= 3.2.0</dd>
+<dt><strong>时间复杂度：</strong></dt>
+<dd>O(1)</dd>
+<dt><strong>返回值：</strong></dt>
+<dd>一个整数。</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre>redis&gt; HMSET myhash f1 &quot;HelloWorld&quot; f2 &quot;99&quot; f3 &quot;-256&quot;
+OK
+
+redis&gt; HSTRLEN myhash f1
+(integer) 10
+
+redis&gt; HSTRLEN myhash f2
+(integer) 2
+
+redis&gt; HSTRLEN myhash f3
+(integer) 4
+</pre></div>
 </div>
 </div>
 
@@ -136,12 +132,13 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="blpop.html" title="BLPOP"
+          <a href="../list/index.html" title="List（列表）"
              >next</a> |</li>
         <li class="right" >
-          <a href="../hash/hstrlen.html" title="HSTRLEN"
+          <a href="hscan.html" title="HSCAN"
              >previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li> 
+        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
+          <li><a href="index.html" >Hash（哈希表）</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
