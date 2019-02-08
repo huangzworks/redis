@@ -1,61 +1,211 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>集群教程 &mdash; Redis 命令参考</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
     
-    <title>集群教程 &mdash; Redis 命令参考</title>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'2019',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
     
-    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '2.8',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Redis 命令参考" href="../index.html" />
-    <link rel="next" title="Redis 集群规范" href="cluster-spec.html" />
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="键空间通知（keyspace notification）" href="notification.html" />
     <link rel="prev" title="Sentinel" href="sentinel.html" /> 
+</head>
 
-<!--[if lte IE 6]>
-<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
-<![endif]-->
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Redis 命令参考
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2019
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../string/index.html">字符串</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hash/index.html">哈希表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../list/index.html">列表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../set/index.html">集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sorted_set/index.html">有序集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hyperloglog/index.html">HyperLogLog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geo/index.html">地理位置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bitmap/index.html">位图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../expire/index.html">自动过期</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../transaction/index.html">事务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script/index.html">Lua 脚本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../persistence/index.html">持久化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pubsub/index.html">发布与订阅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../replication/index.html">复制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../client_and_server/index.html">客户端与服务器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configure/index.html">配置选项</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug/index.html">调试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../internal/index.html">内部命令</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">功能文档</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cluster-spec.html">Redis 集群规范</a></li>
+<li class="toctree-l2"><a class="reference internal" href="persistence.html">持久化（persistence）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pubsub.html">发布与订阅（pub/sub）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sentinel.html">Sentinel</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">集群教程</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">集群简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Redis 集群数据共享</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Redis 集群中的主从复制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#redis-guarantee">Redis 集群的一致性保证（guarantee）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">创建并使用 Redis 集群</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">创建集群</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">集群的客户端</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#redis-rb-cluster">使用 <code class="docutils literal"><span class="pre">redis-rb-cluster</span></code> 编写一个示例应用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">对集群进行重新分片</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">一个更有趣的示例应用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">故障转移测试</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">添加新节点到集群</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">移除一个节点</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="notification.html">键空间通知（keyspace notification）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol.html">通信协议（protocol）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="replication.html">复制（Replication）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transaction.html">事务（transaction）</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Redis 命令参考</a>
+        
+      </nav>
 
 
-  </head>
-  <body>
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
 
 
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="cluster-spec.html" title="Redis 集群规范"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="sentinel.html" title="Sentinel"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li> 
-      </ul>
-    </div>  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">功能文档</a> &raquo;</li>
+        
+      <li>集群教程</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/topic/cluster-tutorial.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="cluster-tutorial">
 <span id="id1"></span><h1>集群教程<a class="headerlink" href="#cluster-tutorial" title="Permalink to this headline">¶</a></h1>
@@ -66,7 +216,7 @@
 <p>本文档是 Redis 集群的入门教程，
 从用户的角度介绍了设置、测试和操作集群的方法。</p>
 <p>本教程不包含晦涩难懂的分布式概念，
-也没有像 <a class="reference internal" href="cluster-spec.html#cluster-spec"><span>Redis 集群规范</span></a> 那样包含 Redis 集群的实现细节，
+也没有像 <a class="reference internal" href="cluster-spec.html#cluster-spec"><span class="std std-ref">Redis 集群规范</span></a> 那样包含 Redis 集群的实现细节，
 如果你打算深入地学习 Redis 集群的部署方法，
 那么推荐你在阅读完这个教程之后，
 再去看一看集群规范。</p>
@@ -213,11 +363,11 @@ Redis 集群可能会在将来提供同步地（synchronou）执行写命令的�
 实例的集群模式需要通过配置来开启，
 开启集群模式的实例将可以使用集群特有的功能和命令。</p>
 <p>以下是一个包含了最少选项的集群配置文件示例：</p>
-<div class="highlight-python"><div class="highlight"><pre>port 7000
-cluster-enabled yes
-cluster-config-file nodes.conf
-cluster-node-timeout 5000
-appendonly yes
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">port</span> <span class="mi">7000</span>
+<span class="n">cluster</span><span class="o">-</span><span class="n">enabled</span> <span class="n">yes</span>
+<span class="n">cluster</span><span class="o">-</span><span class="n">config</span><span class="o">-</span><span class="n">file</span> <span class="n">nodes</span><span class="o">.</span><span class="n">conf</span>
+<span class="n">cluster</span><span class="o">-</span><span class="n">node</span><span class="o">-</span><span class="n">timeout</span> <span class="mi">5000</span>
+<span class="n">appendonly</span> <span class="n">yes</span>
 </pre></div>
 </div>
 <p>文件中的 <code class="docutils literal"><span class="pre">cluster-enabled</span></code> 选项用于开实例的集群模式，
@@ -235,9 +385,9 @@ appendonly yes
 让我们进入一个新目录，
 并创建六个以端口号为名字的子目录，
 稍后我们在将每个目录中运行一个 Redis 实例：</p>
-<div class="highlight-python"><div class="highlight"><pre>mkdir cluster-test
-cd cluster-test
-mkdir 7000 7001 7002 7003 7004 7005
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">cluster</span><span class="o">-</span><span class="n">test</span>
+<span class="n">cd</span> <span class="n">cluster</span><span class="o">-</span><span class="n">test</span>
+<span class="n">mkdir</span> <span class="mi">7000</span> <span class="mi">7001</span> <span class="mi">7002</span> <span class="mi">7003</span> <span class="mi">7004</span> <span class="mi">7005</span>
 </pre></div>
 </div>
 <p>在文件夹 <code class="docutils literal"><span class="pre">7000</span></code> 至 <code class="docutils literal"><span class="pre">7005</span></code> 中，
@@ -250,14 +400,14 @@ mkdir 7000 7001 7002 7003 7004 7005
 并将文件复制到 <code class="docutils literal"><span class="pre">cluster-test</span></code> 文件夹，
 然后使用类似以下命令，
 在每个标签页中打开一个实例：</p>
-<div class="highlight-python"><div class="highlight"><pre>cd 7000
-../redis-server ./redis.conf
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="mi">7000</span>
+<span class="o">../</span><span class="n">redis</span><span class="o">-</span><span class="n">server</span> <span class="o">./</span><span class="n">redis</span><span class="o">.</span><span class="n">conf</span>
 </pre></div>
 </div>
 <p>实例打印的日志显示，
 因为 <code class="docutils literal"><span class="pre">nodes.conf</span></code> 文件不存在，
 所以每个节点都为它自身指定了一个新的 ID ：</p>
-<div class="highlight-python"><div class="highlight"><pre>[82462] 26 Nov 11:56:55.329 * No cluster configuration found, I&#39;m 97a3a64667477371c4479320d683e4c8db5858b1
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">82462</span><span class="p">]</span> <span class="mi">26</span> <span class="n">Nov</span> <span class="mi">11</span><span class="p">:</span><span class="mi">56</span><span class="p">:</span><span class="mf">55.329</span> <span class="o">*</span> <span class="n">No</span> <span class="n">cluster</span> <span class="n">configuration</span> <span class="n">found</span><span class="p">,</span> <span class="n">I</span><span class="s1">&#39;m 97a3a64667477371c4479320d683e4c8db5858b1</span>
 </pre></div>
 </div>
 <p>实例会一直使用同一个 ID ，
@@ -280,8 +430,8 @@ mkdir 7000 7001 7002 7003 7004 7005
 检查集群，
 或者对集群进行重新分片（reshared）等工作。</p>
 <p>我们需要执行以下命令来创建集群：</p>
-<div class="highlight-python"><div class="highlight"><pre>./redis-trib.rb create --replicas 1 127.0.0.1:7000 127.0.0.1:7001 \
-127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">redis</span><span class="o">-</span><span class="n">trib</span><span class="o">.</span><span class="n">rb</span> <span class="n">create</span> <span class="o">--</span><span class="n">replicas</span> <span class="mi">1</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">7000</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">7001</span> \
+<span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">7002</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">7003</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">7004</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">7005</span>
 </pre></div>
 </div>
 <p>命令的意义如下：</p>
@@ -299,7 +449,7 @@ mkdir 7000 7001 7002 7003 7004 7005
 如果你觉得没问题的话，
 就可以输入 <code class="docutils literal"><span class="pre">yes</span></code> ，
 <code class="docutils literal"><span class="pre">redis-trib</span></code> 就会将这份配置应用到集群当中：</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">Creating</span> <span class="n">cluster</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Creating</span> <span class="n">cluster</span>
 <span class="go">Connecting to node 127.0.0.1:7000: OK</span>
 <span class="go">Connecting to node 127.0.0.1:7001: OK</span>
 <span class="go">Connecting to node 127.0.0.1:7002: OK</span>
@@ -331,7 +481,7 @@ mkdir 7000 7001 7002 7003 7004 7005
 并连接起（join）各个节点 ——
 也即是，
 让各个节点开始互相通讯：</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">Nodes</span> <span class="n">configuration</span> <span class="n">updated</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Nodes</span> <span class="n">configuration</span> <span class="n">updated</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Sending</span> <span class="n">CLUSTER</span> <span class="n">MEET</span> <span class="n">messages</span> <span class="n">to</span> <span class="n">join</span> <span class="n">the</span> <span class="n">cluster</span>
 <span class="go">Waiting for the cluster to join...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Performing</span> <span class="n">Cluster</span> <span class="n">Check</span> <span class="p">(</span><span class="n">using</span> <span class="n">node</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">7000</span><span class="p">)</span>
@@ -352,7 +502,7 @@ mkdir 7000 7001 7002 7003 7004 7005
 </div>
 <p>如果一切正常的话，
 <code class="docutils literal"><span class="pre">redis-trib</span></code> 将输出以下信息：</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">Check</span> <span class="k">for</span> <span class="nb">open</span> <span class="n">slots</span><span class="o">...</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Check</span> <span class="k">for</span> <span class="nb">open</span> <span class="n">slots</span><span class="o">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Check</span> <span class="n">slots</span> <span class="n">coverage</span><span class="o">...</span>
 <span class="go">[OK] All 16384 slots covered.</span>
 </pre></div>
@@ -381,7 +531,7 @@ mkdir 7000 7001 7002 7003 7004 7005
 </ul>
 <p>测试 Redis 集群比较简单的办法就是使用 <code class="docutils literal"><span class="pre">redis-rb-cluster</span></code> 或者 <code class="docutils literal"><span class="pre">redis-cli</span></code> ，
 接下来我们将使用 <code class="docutils literal"><span class="pre">redis-cli</span></code> 为例来进行演示：</p>
-<div class="highlight-python"><div class="highlight"><pre>$ redis-cli -c -p 7000
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ redis-cli -c -p 7000
 redis 127.0.0.1:7000&gt; set foo bar
 -&gt; Redirected to slot [12182] located at 127.0.0.1:7002
 OK
@@ -454,7 +604,7 @@ redis 127.0.0.1:7000&gt; get hello
 27
 28
 29
-30</pre></div></td><td class="code"><div class="highlight"><pre><span class="nb">require</span> <span class="s1">&#39;./cluster&#39;</span>
+30</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nb">require</span> <span class="s1">&#39;./cluster&#39;</span>
 
 <span class="n">startup_nodes</span> <span class="o">=</span> <span class="o">[</span>
     <span class="p">{</span><span class="ss">:host</span> <span class="o">=&gt;</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="ss">:port</span> <span class="o">=&gt;</span> <span class="mi">7000</span><span class="p">},</span>
@@ -489,7 +639,7 @@ redis 127.0.0.1:7000&gt; get hello
 <p>这个应用所做的工作非常简单：
 它不断地以 <code class="docutils literal"><span class="pre">foo&lt;number&gt;</span></code> 为键，
 <code class="docutils literal"><span class="pre">number</span></code> 为值，
-使用 <a class="reference internal" href="../string/set.html#set"><span>SET</span></a> 命令向数据库设置键值对。</p>
+使用 <a class="reference internal" href="../string/set.html#set"><span class="std std-ref">SET key value [EX seconds] [PX milliseconds] [NX|XX]</span></a> 命令向数据库设置键值对。</p>
 <p>如果我们执行这个应用的话，
 应用将按顺序执行以下命令：</p>
 <ul class="simple">
@@ -542,17 +692,17 @@ Redis 集群对象可以获得（take）的最大连接数
 让写操作的执行速度变慢，
 帮助执行示例的人更容易看清程序的输出。</p>
 <p>执行 <code class="docutils literal"><span class="pre">example.rb</span></code> 程序将产生以下输出：</p>
-<div class="highlight-python"><div class="highlight"><pre>ruby ./example.rb
-1
-2
-3
-4
-5
-6
-7
-8
-9
-...
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ruby</span> <span class="o">./</span><span class="n">example</span><span class="o">.</span><span class="n">rb</span>
+<span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="mi">4</span>
+<span class="mi">5</span>
+<span class="mi">6</span>
+<span class="mi">7</span>
+<span class="mi">8</span>
+<span class="mi">9</span>
+<span class="o">...</span>
 </pre></div>
 </div>
 <p>这个程序并不是十分有趣，
@@ -574,7 +724,7 @@ Redis 集群对象可以获得（take）的最大连接数
 和创建集群一样，
 重新分片也可以使用 <code class="docutils literal"><span class="pre">redis-trib</span></code> 程序来执行。</p>
 <p>执行以下命令可以开始一次重新分片操作：</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ./redis-trib.rb reshard 127.0.0.1:7000
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./redis-trib.rb reshard 127.0.0.1:7000
 </pre></div>
 </div>
 <p>你只需要指定集群中其中一个节点的地址，
@@ -584,7 +734,7 @@ Redis 集群对象可以获得（take）的最大连接数
 目前来说还做不到
 （不过实现这个功能并不难）。</p>
 <p>执行 <code class="docutils literal"><span class="pre">redis-trib</span></code> 的第一步就是设定你打算移动的哈希槽的数量：</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ./redis-trib.rb reshard 127.0.0.1:7000
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./redis-trib.rb reshard 127.0.0.1:7000
 Connecting to node 127.0.0.1:7000: OK
 Connecting to node 127.0.0.1:7002: OK
 Connecting to node 127.0.0.1:7005: OK
@@ -625,7 +775,7 @@ How many slots do you want to move (from 1 to 16384)? 1000
 它的 IP 地址和端口是 <code class="docutils literal"><span class="pre">127.0.0.1:7000</span></code> ，
 而节点 ID 则是 <code class="docutils literal"><span class="pre">9991306f0e50640a5684f1958fd754b38fa034c9</span></code> ，
 那么我们应该向 <code class="docutils literal"><span class="pre">redis-trib</span></code> 提供节点的 ID ：</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ./redis-trib.rb reshard 127.0.0.1:7000
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./redis-trib.rb reshard 127.0.0.1:7000
 ...
 What is the receiving node ID? 9991306f0e50640a5684f1958fd754b38fa034c9
 </pre></div>
@@ -634,7 +784,7 @@ What is the receiving node ID? 9991306f0e50640a5684f1958fd754b38fa034c9
 <p class="first admonition-title">Note</p>
 <p><code class="docutils literal"><span class="pre">redis-trib</span></code> 会打印出集群中所有节点的 ID ，
 并且我们也可以通过执行以下命令来获得节点的运行 ID ：</p>
-<div class="last highlight-python"><div class="highlight"><pre>$ ./redis-cli -p 7000 cluster nodes | grep myself
+<div class="last highlight-default"><div class="highlight"><pre><span></span>$ ./redis-cli -p 7000 cluster nodes | grep myself
 9991306f0e50640a5684f1958fd754b38fa034c9 :0 myself,master - 0 0 0 connected 0-5460
 </pre></div>
 </div>
@@ -651,7 +801,7 @@ What is the receiving node ID? 9991306f0e50640a5684f1958fd754b38fa034c9
 <code class="docutils literal"><span class="pre">redis-trib</span></code> 将从各个源节点中各取出一部分哈希槽，
 凑够 <code class="docutils literal"><span class="pre">1000</span></code> 个，
 然后移动到目标节点上面：</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ./redis-trib.rb reshard 127.0.0.1:7000
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./redis-trib.rb reshard 127.0.0.1:7000
 ...
 Please enter all the source node IDs.
 Type &#39;all&#39; to use all the nodes as source nodes for the hash slots.
@@ -663,7 +813,7 @@ Source node #1:all
 <code class="docutils literal"><span class="pre">redis-trib</span></code> 将打印出哈希槽的移动计划，
 如果你觉得没问题的话，
 就可以输入 <code class="docutils literal"><span class="pre">yes</span></code> 并再次按下回车：</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ./redis-trib.rb reshard 127.0.0.1:7000
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./redis-trib.rb reshard 127.0.0.1:7000
 ...
 Moving slot 11421 from 393c6df5eb4b4cec323f0e4ca961c8b256e3460a
 Moving slot 11422 from 393c6df5eb4b4cec323f0e4ca961c8b256e3460a
@@ -677,7 +827,7 @@ Do you want to proceed with the proposed reshard plan (yes/no)? yes
 <p>输入 <code class="docutils literal"><span class="pre">yes</span></code> 并使用按下回车之后，
 <code class="docutils literal"><span class="pre">redis-trib</span></code> 就会正式开始执行重新分片操作，
 将指定的哈希槽从源节点一个个地移动到目标节点上面：</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ./redis-trib.rb reshard 127.0.0.1:7000
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./redis-trib.rb reshard 127.0.0.1:7000
 ...
 Moving slot 5934 from 127.0.0.1:7001 to 127.0.0.1:7000:
 Moving slot 5935 from 127.0.0.1:7001 to 127.0.0.1:7000:
@@ -692,7 +842,7 @@ Moving slot 5959 from 127.0.0.1:7001 to 127.0.0.1:7000:
 不会出现任何问题。</p>
 <p>在重新分片操作执行完毕之后，
 可以使用以下命令来检查集群是否正常：</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ./redis-trib.rb check 127.0.0.1:7000
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./redis-trib.rb check 127.0.0.1:7000
 Connecting to node 127.0.0.1:7000: OK
 Connecting to node 127.0.0.1:7002: OK
 Connecting to node 127.0.0.1:7005: OK
@@ -732,40 +882,40 @@ slots: (0 slots) slave
 因为它只是不断地对集群进行写入，
 但并不检查写入结果是否正确。
 比如说，
-集群可能会错误地将 <code class="docutils literal"><span class="pre">example.rb</span></code> 发送的所有 <a class="reference internal" href="../string/set.html#set"><span>SET</span></a> 命令都改成了 <code class="docutils literal"><span class="pre">SET</span> <span class="pre">foo</span> <span class="pre">42</span></code> ，
+集群可能会错误地将 <code class="docutils literal"><span class="pre">example.rb</span></code> 发送的所有 <a class="reference internal" href="../string/set.html#set"><span class="std std-ref">SET key value [EX seconds] [PX milliseconds] [NX|XX]</span></a> 命令都改成了 <code class="docutils literal"><span class="pre">SET</span> <span class="pre">foo</span> <span class="pre">42</span></code> ，
 但因为 <code class="docutils literal"><span class="pre">example.rb</span></code> 并不检查写入后的值，
 所以它不会意识到集群实际上写入的值是错误的。</p>
 <p>因为这个原因，
 <a class="reference external" href="https://github.com/antirez/redis-rb-cluster">redis-rb-cluster 项目</a>包含了一个名为 <a class="reference external" href="https://github.com/antirez/redis-rb-cluster/blob/master/consistency-test.rb">consistency-test.rb</a> 的示例应用，
 这个应用比起 <code class="docutils literal"><span class="pre">example.rb</span></code> 有趣得多：
 它创建了多个计数器（默认为 <code class="docutils literal"><span class="pre">1000</span></code> 个），
-并通过发送 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 命令来增加这些计数器的值。</p>
+并通过发送 <a class="reference internal" href="../string/incr.html#incr"><span class="std std-ref">INCR key</span></a> 命令来增加这些计数器的值。</p>
 <p>在增加计数器值的同时，
 <code class="docutils literal"><span class="pre">consistency-test.rb</span></code> 还执行以下操作：</p>
 <ul class="simple">
-<li>每次使用 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 命令更新一个计数器时，
-应用会记录下计数器执行 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 命令之后应该有的值。
+<li>每次使用 <a class="reference internal" href="../string/incr.html#incr"><span class="std std-ref">INCR key</span></a> 命令更新一个计数器时，
+应用会记录下计数器执行 <a class="reference internal" href="../string/incr.html#incr"><span class="std std-ref">INCR key</span></a> 命令之后应该有的值。
 举个例子，
 如果计数器的起始值为 <code class="docutils literal"><span class="pre">0</span></code> ，
-而这次是程序第 <code class="docutils literal"><span class="pre">50</span></code> 次向它发送 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 命令，
+而这次是程序第 <code class="docutils literal"><span class="pre">50</span></code> 次向它发送 <a class="reference internal" href="../string/incr.html#incr"><span class="std std-ref">INCR key</span></a> 命令，
 那么计数器的值应该是 <code class="docutils literal"><span class="pre">50</span></code> 。</li>
-<li>在每次发送 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 命令之前，
+<li>在每次发送 <a class="reference internal" href="../string/incr.html#incr"><span class="std std-ref">INCR key</span></a> 命令之前，
 程序会随机从集群中读取一个计数器的值，
 并将它与自己记录的值进行对比，
 看两个值是否相同。</li>
 </ul>
 <p>换句话说，
 这个程序是一个一致性检查器（consistency checker）：
-如果集群在执行 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 命令的过程中，
-丢失了某条 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 命令，
-又或者多执行了某条客户端没有确认到的 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 命令，
+如果集群在执行 <a class="reference internal" href="../string/incr.html#incr"><span class="std std-ref">INCR key</span></a> 命令的过程中，
+丢失了某条 <a class="reference internal" href="../string/incr.html#incr"><span class="std std-ref">INCR key</span></a> 命令，
+又或者多执行了某条客户端没有确认到的 <a class="reference internal" href="../string/incr.html#incr"><span class="std std-ref">INCR key</span></a> 命令，
 那么检查器将察觉到这一点 ——
 在前一种情况中，
 <code class="docutils literal"><span class="pre">consistency-test.rb</span></code> 记录的计数器值将比集群记录的计数器值要大；
 而在后一种情况中，
 <code class="docutils literal"><span class="pre">consistency-test.rb</span></code> 记录的计数器值将比集群记录的计数器值要小。</p>
 <p>运行 <code class="docutils literal"><span class="pre">consistency-test</span></code> 程序将产生类似以下的输出：</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ruby consistency-test.rb
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ ruby consistency-test.rb
 925 R (0 err) | 925 W (0 err) |
 5030 R (0 err) | 5030 W (0 err) |
 9261 R (0 err) | 9261 W (0 err) |
@@ -782,23 +932,23 @@ slots: (0 slots) slave
 <p>比如说，
 如果我们在 <code class="docutils literal"><span class="pre">consistency-test.rb</span></code> 运行的过程中，
 手动修改某个计数器的值：</p>
-<div class="highlight-python"><div class="highlight"><pre>$ redis 127.0.0.1:7000&gt; set key_217 0
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ redis 127.0.0.1:7000&gt; set key_217 0
 OK
 </pre></div>
 </div>
 <p>那么 <code class="docutils literal"><span class="pre">consistency-test.rb</span></code> 将向我们报告不一致情况：</p>
-<div class="highlight-python"><div class="highlight"><pre>(in the other tab I see...)
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="ow">in</span> <span class="n">the</span> <span class="n">other</span> <span class="n">tab</span> <span class="n">I</span> <span class="n">see</span><span class="o">...</span><span class="p">)</span>
 
-94774 R (0 err) | 94774 W (0 err) |
-98821 R (0 err) | 98821 W (0 err) |
-102886 R (0 err) | 102886 W (0 err) | 114 lost |
-107046 R (0 err) | 107046 W (0 err) | 114 lost |
+<span class="mi">94774</span> <span class="n">R</span> <span class="p">(</span><span class="mi">0</span> <span class="n">err</span><span class="p">)</span> <span class="o">|</span> <span class="mi">94774</span> <span class="n">W</span> <span class="p">(</span><span class="mi">0</span> <span class="n">err</span><span class="p">)</span> <span class="o">|</span>
+<span class="mi">98821</span> <span class="n">R</span> <span class="p">(</span><span class="mi">0</span> <span class="n">err</span><span class="p">)</span> <span class="o">|</span> <span class="mi">98821</span> <span class="n">W</span> <span class="p">(</span><span class="mi">0</span> <span class="n">err</span><span class="p">)</span> <span class="o">|</span>
+<span class="mi">102886</span> <span class="n">R</span> <span class="p">(</span><span class="mi">0</span> <span class="n">err</span><span class="p">)</span> <span class="o">|</span> <span class="mi">102886</span> <span class="n">W</span> <span class="p">(</span><span class="mi">0</span> <span class="n">err</span><span class="p">)</span> <span class="o">|</span> <span class="mi">114</span> <span class="n">lost</span> <span class="o">|</span>
+<span class="mi">107046</span> <span class="n">R</span> <span class="p">(</span><span class="mi">0</span> <span class="n">err</span><span class="p">)</span> <span class="o">|</span> <span class="mi">107046</span> <span class="n">W</span> <span class="p">(</span><span class="mi">0</span> <span class="n">err</span><span class="p">)</span> <span class="o">|</span> <span class="mi">114</span> <span class="n">lost</span> <span class="o">|</span>
 </pre></div>
 </div>
 <p>在我们修改计数器值的时候，
-计数器的正确值是 <code class="docutils literal"><span class="pre">114</span></code> （执行了 <code class="docutils literal"><span class="pre">114</span></code> 次 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 命令），
+计数器的正确值是 <code class="docutils literal"><span class="pre">114</span></code> （执行了 <code class="docutils literal"><span class="pre">114</span></code> 次 <a class="reference internal" href="../string/incr.html#incr"><span class="std std-ref">INCR key</span></a> 命令），
 因为我们将计数器的值设成了 <code class="docutils literal"><span class="pre">0</span></code> ，
-所以 <code class="docutils literal"><span class="pre">consistency-test.rb</span></code> 会向我们报告说丢失了 <code class="docutils literal"><span class="pre">114</span></code> 个 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 命令。</p>
+所以 <code class="docutils literal"><span class="pre">consistency-test.rb</span></code> 会向我们报告说丢失了 <code class="docutils literal"><span class="pre">114</span></code> 个 <a class="reference internal" href="../string/incr.html#incr"><span class="std std-ref">INCR key</span></a> 命令。</p>
 <p>因为这个示例程序具有一致性检查功能，
 所以我们用它来测试 Redis 集群的故障转移操作。</p>
 </div>
@@ -812,7 +962,7 @@ OK
 <p>要触发一次故障转移，
 最简单的办法就是令集群中的某个主节点进入下线状态。</p>
 <p>首先用以下命令列出集群中的所有主节点：</p>
-<div class="highlight-python"><div class="highlight"><pre>$ redis-cli -p 7000 cluster nodes | grep master
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ redis-cli -p 7000 cluster nodes | grep master
 3e3a6cb0d9a9a87168e266b0a0b24026c0aae3f0 127.0.0.1:7001 master - 0 1385482984082 0 connected 5960-10921
 2938205e12de373867bf38f1ca29d31d0ddb3e46 127.0.0.1:7002 master - 0 1385482983582 0 connected 11423-16383
 97a3a64667477371c4479320d683e4c8db5858b1 :0 myself,master - 0 0 0 connected 0-5959 10922-11422
@@ -820,9 +970,9 @@ OK
 </div>
 <p>通过命令输出，
 我们知道端口号为 <code class="docutils literal"><span class="pre">7000</span></code> 、 <code class="docutils literal"><span class="pre">7001</span></code> 和 <code class="docutils literal"><span class="pre">7002</span></code> 的节点都是主节点，
-然后我们可以通过向端口号为 <code class="docutils literal"><span class="pre">7002</span></code> 的主节点发送 <a class="reference internal" href="../server/debug_segfault.html#debug-segfault"><span>DEBUG SEGFAULT</span></a> 命令，
+然后我们可以通过向端口号为 <code class="docutils literal"><span class="pre">7002</span></code> 的主节点发送 <a class="reference internal" href="../debug/debug_segfault.html#debug-segfault"><span class="std std-ref">DEBUG SEGFAULT</span></a> 命令，
 让这个主节点崩溃：</p>
-<div class="highlight-python"><div class="highlight"><pre>$ redis-cli -p 7002 debug segfault
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ redis-cli -p 7002 debug segfault
 Error: Server closed the connection
 </pre></div>
 </div>
@@ -830,16 +980,16 @@ Error: Server closed the connection
 切换到运行着 <code class="docutils literal"><span class="pre">consistency-test</span></code> 的标签页，
 可以看到，
 <code class="docutils literal"><span class="pre">consistency-test</span></code> 在 <code class="docutils literal"><span class="pre">7002</span></code> 下线之后的一段时间里将产生大量的错误警告信息：</p>
-<div class="highlight-python"><div class="highlight"><pre>18849 R (0 err) | 18849 W (0 err) |
-23151 R (0 err) | 23151 W (0 err) |
-27302 R (0 err) | 27302 W (0 err) |
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">18849</span> <span class="n">R</span> <span class="p">(</span><span class="mi">0</span> <span class="n">err</span><span class="p">)</span> <span class="o">|</span> <span class="mi">18849</span> <span class="n">W</span> <span class="p">(</span><span class="mi">0</span> <span class="n">err</span><span class="p">)</span> <span class="o">|</span>
+<span class="mi">23151</span> <span class="n">R</span> <span class="p">(</span><span class="mi">0</span> <span class="n">err</span><span class="p">)</span> <span class="o">|</span> <span class="mi">23151</span> <span class="n">W</span> <span class="p">(</span><span class="mi">0</span> <span class="n">err</span><span class="p">)</span> <span class="o">|</span>
+<span class="mi">27302</span> <span class="n">R</span> <span class="p">(</span><span class="mi">0</span> <span class="n">err</span><span class="p">)</span> <span class="o">|</span> <span class="mi">27302</span> <span class="n">W</span> <span class="p">(</span><span class="mi">0</span> <span class="n">err</span><span class="p">)</span> <span class="o">|</span>
 
-... many error warnings here ...
+<span class="o">...</span> <span class="n">many</span> <span class="n">error</span> <span class="n">warnings</span> <span class="n">here</span> <span class="o">...</span>
 
-29659 R (578 err) | 29660 W (577 err) |
-33749 R (578 err) | 33750 W (577 err) |
-37918 R (578 err) | 37919 W (577 err) |
-42077 R (578 err) | 42078 W (577 err) |
+<span class="mi">29659</span> <span class="n">R</span> <span class="p">(</span><span class="mi">578</span> <span class="n">err</span><span class="p">)</span> <span class="o">|</span> <span class="mi">29660</span> <span class="n">W</span> <span class="p">(</span><span class="mi">577</span> <span class="n">err</span><span class="p">)</span> <span class="o">|</span>
+<span class="mi">33749</span> <span class="n">R</span> <span class="p">(</span><span class="mi">578</span> <span class="n">err</span><span class="p">)</span> <span class="o">|</span> <span class="mi">33750</span> <span class="n">W</span> <span class="p">(</span><span class="mi">577</span> <span class="n">err</span><span class="p">)</span> <span class="o">|</span>
+<span class="mi">37918</span> <span class="n">R</span> <span class="p">(</span><span class="mi">578</span> <span class="n">err</span><span class="p">)</span> <span class="o">|</span> <span class="mi">37919</span> <span class="n">W</span> <span class="p">(</span><span class="mi">577</span> <span class="n">err</span><span class="p">)</span> <span class="o">|</span>
+<span class="mi">42077</span> <span class="n">R</span> <span class="p">(</span><span class="mi">578</span> <span class="n">err</span><span class="p">)</span> <span class="o">|</span> <span class="mi">42078</span> <span class="n">W</span> <span class="p">(</span><span class="mi">577</span> <span class="n">err</span><span class="p">)</span> <span class="o">|</span>
 </pre></div>
 </div>
 <p>从 <code class="docutils literal"><span class="pre">consistency-test</span></code> 的这段输出可以看到，
@@ -864,7 +1014,7 @@ Redis 使用的是异步复制，
 让我们使用 <code class="docutils literal"><span class="pre">cluster</span> <span class="pre">nodes</span></code> 命令，
 查看集群在执行故障转移操作之后，
 主从节点的布局情况：</p>
-<div class="highlight-python"><div class="highlight"><pre>$ redis-cli -p 7000 cluster nodes
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ redis-cli -p 7000 cluster nodes
 3fc783611028b1707fd65345e763befb36454d73 127.0.0.1:7004 slave 3e3a6cb0d9a9a87168e266b0a0b24026c0aae3f0 0 1385503418521 0 connected
 a211e242fc6b22a9427fed61285e85892fa04e08 127.0.0.1:7003 slave 97a3a64667477371c4479320d683e4c8db5858b1 0 1385503419023 0 connected
 97a3a64667477371c4479320d683e4c8db5858b1 :0 myself,master - 0 0 0 connected 0-5959 10922-11422
@@ -888,10 +1038,10 @@ a211e242fc6b22a9427fed61285e85892fa04e08 127.0.0.1:7003 slave 97a3a64667477371c4
 <li>如果节点是一个从节点的话，
 那么跟在 <code class="docutils literal"><span class="pre">flags</span></code> 之后的将是主节点的节点 ID ：
 例如 <code class="docutils literal"><span class="pre">127.0.0.1:7002</span></code> 的主节点的节点 ID 就是 <code class="docutils literal"><span class="pre">3c3a0c74aae0b56170ccb03a76b60cfe7dc1912e</span></code> 。</li>
-<li>集群最近一次向节点发送 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令之后，
+<li>集群最近一次向节点发送 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令之后，
 过去了多长时间还没接到回复。</li>
 <li>节点最近一次返回 <code class="docutils literal"><span class="pre">PONG</span></code> 回复的时间。</li>
-<li>节点的配置纪元（configuration epoch）：详细信息请参考 <a class="reference internal" href="cluster-spec.html#cluster-spec"><span>Redis 集群规范</span></a> 。</li>
+<li>节点的配置纪元（configuration epoch）：详细信息请参考 <a class="reference internal" href="cluster-spec.html#cluster-spec"><span class="std std-ref">Redis 集群规范</span></a> 。</li>
 <li>本节点的网络连接情况：例如 <code class="docutils literal"><span class="pre">connected</span></code> 。</li>
 <li>节点目前包含的槽：例如 <code class="docutils literal"><span class="pre">127.0.0.1:7001</span></code> 目前包含号码为 <code class="docutils literal"><span class="pre">5960</span></code> 至 <code class="docutils literal"><span class="pre">10921</span></code> 的哈希槽。</li>
 </ul>
@@ -930,7 +1080,7 @@ a211e242fc6b22a9427fed61285e85892fa04e08 127.0.0.1:7003 slave 97a3a64667477371c4
 <p>接下来，
 执行以下命令，
 将这个新节点添加到集群里面：</p>
-<div class="highlight-python"><div class="highlight"><pre>./redis-trib.rb add-node 127.0.0.1:7006 127.0.0.1:7000
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">redis</span><span class="o">-</span><span class="n">trib</span><span class="o">.</span><span class="n">rb</span> <span class="n">add</span><span class="o">-</span><span class="n">node</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">7006</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">7000</span>
 </pre></div>
 </div>
 <p>命令中的 <code class="docutils literal"><span class="pre">add-node</span></code> 表示我们要让 <code class="docutils literal"><span class="pre">redis-trib</span></code> 将一个节点添加到集群里面，
@@ -939,14 +1089,14 @@ a211e242fc6b22a9427fed61285e85892fa04e08 127.0.0.1:7003 slave 97a3a64667477371c4
 这里我们使用的是 <code class="docutils literal"><span class="pre">127.0.0.1:7000</span></code> 。</p>
 <p>通过 <code class="docutils literal"><span class="pre">cluster</span> <span class="pre">nodes</span></code> 命令，
 我们可以确认新节点 <code class="docutils literal"><span class="pre">127.0.0.1:7006</span></code> 已经被添加到集群里面了：</p>
-<div class="highlight-python"><div class="highlight"><pre>redis 127.0.0.1:7006&gt; cluster nodes
-3e3a6cb0d9a9a87168e266b0a0b24026c0aae3f0 127.0.0.1:7001 master - 0 1385543178575 0 connected 5960-10921
-3fc783611028b1707fd65345e763befb36454d73 127.0.0.1:7004 slave 3e3a6cb0d9a9a87168e266b0a0b24026c0aae3f0 0 1385543179583 0 connected
-f093c80dde814da99c5cf72a7dd01590792b783b :0 myself,master - 0 0 0 connected
-2938205e12de373867bf38f1ca29d31d0ddb3e46 127.0.0.1:7002 slave 3c3a0c74aae0b56170ccb03a76b60cfe7dc1912e 0 1385543178072 3 connected
-a211e242fc6b22a9427fed61285e85892fa04e08 127.0.0.1:7003 slave 97a3a64667477371c4479320d683e4c8db5858b1 0 1385543178575 0 connected
-97a3a64667477371c4479320d683e4c8db5858b1 127.0.0.1:7000 master - 0 1385543179080 0 connected 0-5959 10922-11422
-3c3a0c74aae0b56170ccb03a76b60cfe7dc1912e 127.0.0.1:7005 master - 0 1385543177568 3 connected 11423-16383
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">7006</span><span class="o">&gt;</span> <span class="n">cluster</span> <span class="n">nodes</span>
+<span class="mf">3e3</span><span class="n">a6cb0d9a9a87168e266b0a0b24026c0aae3f0</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">7001</span> <span class="n">master</span> <span class="o">-</span> <span class="mi">0</span> <span class="mi">1385543178575</span> <span class="mi">0</span> <span class="n">connected</span> <span class="mi">5960</span><span class="o">-</span><span class="mi">10921</span>
+<span class="mi">3</span><span class="n">fc783611028b1707fd65345e763befb36454d73</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">7004</span> <span class="n">slave</span> <span class="mf">3e3</span><span class="n">a6cb0d9a9a87168e266b0a0b24026c0aae3f0</span> <span class="mi">0</span> <span class="mi">1385543179583</span> <span class="mi">0</span> <span class="n">connected</span>
+<span class="n">f093c80dde814da99c5cf72a7dd01590792b783b</span> <span class="p">:</span><span class="mi">0</span> <span class="n">myself</span><span class="p">,</span><span class="n">master</span> <span class="o">-</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="n">connected</span>
+<span class="mf">2938205e12</span><span class="n">de373867bf38f1ca29d31d0ddb3e46</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">7002</span> <span class="n">slave</span> <span class="mi">3</span><span class="n">c3a0c74aae0b56170ccb03a76b60cfe7dc1912e</span> <span class="mi">0</span> <span class="mi">1385543178072</span> <span class="mi">3</span> <span class="n">connected</span>
+<span class="n">a211e242fc6b22a9427fed61285e85892fa04e08</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">7003</span> <span class="n">slave</span> <span class="mi">97</span><span class="n">a3a64667477371c4479320d683e4c8db5858b1</span> <span class="mi">0</span> <span class="mi">1385543178575</span> <span class="mi">0</span> <span class="n">connected</span>
+<span class="mi">97</span><span class="n">a3a64667477371c4479320d683e4c8db5858b1</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">7000</span> <span class="n">master</span> <span class="o">-</span> <span class="mi">0</span> <span class="mi">1385543179080</span> <span class="mi">0</span> <span class="n">connected</span> <span class="mi">0</span><span class="o">-</span><span class="mi">5959</span> <span class="mi">10922</span><span class="o">-</span><span class="mi">11422</span>
+<span class="mi">3</span><span class="n">c3a0c74aae0b56170ccb03a76b60cfe7dc1912e</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">7005</span> <span class="n">master</span> <span class="o">-</span> <span class="mi">0</span> <span class="mi">1385543177568</span> <span class="mi">3</span> <span class="n">connected</span> <span class="mi">11423</span><span class="o">-</span><span class="mi">16383</span>
 </pre></div>
 </div>
 <p>新节点现在已经连接上了集群，
@@ -975,13 +1125,13 @@ a211e242fc6b22a9427fed61285e85892fa04e08 127.0.0.1:7003 slave 97a3a64667477371c4
 如果我们打算让新节点成为 <code class="docutils literal"><span class="pre">127.0.0.1:7005</span></code> 的从节点，
 那么我们只要用客户端连接上新节点，
 然后执行以下命令就可以了：</p>
-<div class="highlight-python"><div class="highlight"><pre>redis 127.0.0.1:7006&gt; cluster replicate 3c3a0c74aae0b56170ccb03a76b60cfe7dc1912e
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">7006</span><span class="o">&gt;</span> <span class="n">cluster</span> <span class="n">replicate</span> <span class="mi">3</span><span class="n">c3a0c74aae0b56170ccb03a76b60cfe7dc1912e</span>
 </pre></div>
 </div>
 <p>其中命令提供的 <code class="docutils literal"><span class="pre">3c3a0c74aae0b56170ccb03a76b60cfe7dc1912e</span></code> 就是主节点 <code class="docutils literal"><span class="pre">127.0.0.1:7005</span></code> 的节点 ID 。</p>
 <p>执行 <code class="docutils literal"><span class="pre">cluster</span> <span class="pre">replicate</span></code> 命令之后，
 我们可以使用以下命令来确认 <code class="docutils literal"><span class="pre">127.0.0.1:7006</span></code> 已经成为了 ID 为 <code class="docutils literal"><span class="pre">3c3a0c74aae0b56170ccb03a76b60cfe7dc1912e</span></code> 的节点的从节点：</p>
-<div class="highlight-python"><div class="highlight"><pre>$ redis-cli -p 7000 cluster nodes | grep slave | grep 3c3a0c74aae0b56170ccb03a76b60cfe7dc1912e
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ redis-cli -p 7000 cluster nodes | grep slave | grep 3c3a0c74aae0b56170ccb03a76b60cfe7dc1912e
 f093c80dde814da99c5cf72a7dd01590792b783b 127.0.0.1:7006 slave 3c3a0c74aae0b56170ccb03a76b60cfe7dc1912e 0 1385543617702 3 connected
 2938205e12de373867bf38f1ca29d31d0ddb3e46 127.0.0.1:7002 slave 3c3a0c74aae0b56170ccb03a76b60cfe7dc1912e 0 1385543617198 3 connected
 </pre></div>
@@ -995,7 +1145,6 @@ f093c80dde814da99c5cf72a7dd01590792b783b 127.0.0.1:7006 slave 3c3a0c74aae0b56170
 <p>未完待续。</p>
 </div>
 </div>
-
 
 
             <div class="section" id="discuss">
@@ -1021,35 +1170,59 @@ f093c80dde814da99c5cf72a7dd01590792b783b 127.0.0.1:7006 slave 3c3a0c74aae0b56170
     <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 
+<!--
 <div id="sponser">
     <h2>赞助商</h2>
     <p>我们正在寻找赞助商，有意对这个网站进行赞助的朋友请联系 huangz1990@gmail.com 。</p>
 </div>
-
+-->
+           </div>
+           
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="notification.html" class="btn btn-neutral float-right" title="键空间通知（keyspace notification）" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="sentinel.html" class="btn btn-neutral float-left" title="Sentinel" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Redis
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="cluster-spec.html" title="Redis 集群规范"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="sentinel.html" title="Sentinel"
-             >previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2015, Redis.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.3.
-    </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -1059,5 +1232,5 @@ f093c80dde814da99c5cf72a7dd01590792b783b 127.0.0.1:7006 slave 3c3a0c74aae0b56170
     ga('create', 'UA-53959484-7', 'auto');
     ga('send', 'pageview');
   </script>
-  </body>
+</body>
 </html>

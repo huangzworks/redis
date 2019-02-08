@@ -1,180 +1,249 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>INCR key &mdash; Redis 命令参考</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
     
-    <title>INCR &mdash; Redis 命令参考</title>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'2019',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
     
-    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '2.8',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Redis 命令参考" href="../index.html" />
-    <link rel="up" title="String（字符串）" href="index.html" />
-    <link rel="next" title="INCRBY" href="incrby.html" />
-    <link rel="prev" title="GETSET" href="getset.html" /> 
 
-<!--[if lte IE 6]>
-<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
-<![endif]-->
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="INCRBY key increment" href="incrby.html" />
+    <link rel="prev" title="GETRANGE key start end" href="getrange.html" /> 
+</head>
 
+<body class="wy-body-for-nav">
 
-  </head>
-  <body>
+   
+  <div class="wy-grid-for-nav">
 
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="incrby.html" title="INCRBY"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="getset.html" title="GETSET"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">String（字符串）</a> &raquo;</li> 
-      </ul>
-    </div>  
+          
+            <a href="../index.html" class="icon icon-home"> Redis 命令参考
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+          
+          </a>
+
+          
             
-  <div class="section" id="incr">
-<span id="id1"></span><h1>INCR<a class="headerlink" href="#incr" title="Permalink to this headline">¶</a></h1>
-<p><strong>INCR key</strong></p>
-<p>将 <code class="docutils literal"><span class="pre">key</span></code> 中储存的数字值增一。</p>
-<p>如果 <code class="docutils literal"><span class="pre">key</span></code> 不存在，那么 <code class="docutils literal"><span class="pre">key</span></code> 的值会先被初始化为 <code class="docutils literal"><span class="pre">0</span></code> ，然后再执行 <a class="reference internal" href="#incr">INCR</a> 操作。</p>
-<p>如果值包含错误的类型，或字符串类型的值不能表示为数字，那么返回一个错误。</p>
+            
+              <div class="version">
+                2019
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">字符串</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="set.html">SET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setnx.html">SETNX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setex.html">SETEX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psetex.html">PSETEX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get.html">GET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getset.html">GETSET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strlen.html">STRLEN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="append.html">APPEND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setrange.html">SETRANGE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getrange.html">GETRANGE</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">INCR</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">返回值</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">代码示例</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="incrby.html">INCRBY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="incrbyfloat.html">INCRBYFLOAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decr.html">DECR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decrby.html">DECRBY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mset.html">MSET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="msetnx.html">MSETNX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mget.html">MGET</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../hash/index.html">哈希表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../list/index.html">列表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../set/index.html">集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sorted_set/index.html">有序集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hyperloglog/index.html">HyperLogLog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geo/index.html">地理位置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bitmap/index.html">位图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../expire/index.html">自动过期</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../transaction/index.html">事务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script/index.html">Lua 脚本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../persistence/index.html">持久化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pubsub/index.html">发布与订阅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../replication/index.html">复制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../client_and_server/index.html">客户端与服务器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configure/index.html">配置选项</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug/index.html">调试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../internal/index.html">内部命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topic/index.html">功能文档</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Redis 命令参考</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">字符串</a> &raquo;</li>
+        
+      <li>INCR key</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/string/incr.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="incr-key">
+<span id="incr"></span><h1>INCR key<a class="headerlink" href="#incr-key" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><div class="line-block">
+<div class="line">可用版本： &gt;= 1.0.0</div>
+<div class="line">时间复杂度： O(1)</div>
+</div>
+</div></blockquote>
+<p>为键 <code class="docutils literal"><span class="pre">key</span></code> 储存的数字值加上一。</p>
+<p>如果键 <code class="docutils literal"><span class="pre">key</span></code> 不存在，
+那么它的值会先被初始化为 <code class="docutils literal"><span class="pre">0</span></code> ，
+然后再执行 <code class="docutils literal"><span class="pre">INCR</span></code> 命令。</p>
+<p>如果键 <code class="docutils literal"><span class="pre">key</span></code> 储存的值不能被解释为数字，
+那么 <code class="docutils literal"><span class="pre">INCR</span></code> 命令将返回一个错误。</p>
 <p>本操作的值限制在 64 位(bit)有符号数字表示之内。</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">这是一个针对字符串的操作，因为 Redis 没有专用的整数类型，所以 key 内储存的字符串被解释为十进制 64 位有符号整数来执行 INCR 操作。</p>
+<p class="last"><code class="docutils literal"><span class="pre">INCR</span></code> 命令是一个针对字符串的操作。
+因为 Redis 并没有专用的整数类型，
+所以键 <code class="docutils literal"><span class="pre">key</span></code> 储存的值在执行 <code class="docutils literal"><span class="pre">INCR</span></code> 命令时会被解释为十进制 64 位有符号整数。</p>
 </div>
-<dl class="docutils">
-<dt><strong>可用版本：</strong></dt>
-<dd>&gt;= 1.0.0</dd>
-<dt><strong>时间复杂度：</strong></dt>
-<dd>O(1)</dd>
-<dt><strong>返回值：</strong></dt>
-<dd>执行 <a class="reference internal" href="#incr">INCR</a> 命令之后 <code class="docutils literal"><span class="pre">key</span></code> 的值。</dd>
-</dl>
-<div class="highlight-python"><div class="highlight"><pre>redis&gt; SET page_view 20
-OK
-
-redis&gt; INCR page_view
-(integer) 21
-
-redis&gt; GET page_view    # 数字值在 Redis 中以字符串的形式保存
-&quot;21&quot;
-</pre></div>
+<div class="section" id="id1">
+<h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">INCR</span></code> 命令会返回键 <code class="docutils literal"><span class="pre">key</span></code> 在执行加一操作之后的值。</p>
 </div>
 <div class="section" id="id2">
-<h2>模式：计数器<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>计数器是 Redis 的原子性自增操作可实现的最直观的模式了，它的想法相当简单：每当某个操作发生时，向 Redis 发送一个 <a class="reference internal" href="#incr">INCR</a> 命令。</p>
-<p>比如在一个 web 应用程序中，如果想知道用户在一年中每天的点击量，那么只要将用户 ID 以及相关的日期信息作为键，并在每次用户点击页面时，执行一次自增操作即可。</p>
-<p>比如用户名是 <code class="docutils literal"><span class="pre">peter</span></code> ，点击时间是 2012 年 3 月 22 日，那么执行命令 <code class="docutils literal"><span class="pre">INCR</span> <span class="pre">peter::2012.3.22</span></code> 。</p>
-<p>可以用以下几种方式扩展这个简单的模式：</p>
-<ul class="simple">
-<li>可以通过组合使用 <a class="reference internal" href="#incr">INCR</a> 和 <a class="reference internal" href="../key/expire.html#expire"><span>EXPIRE</span></a> ，来达到只在规定的生存时间内进行计数(counting)的目的。</li>
-<li>客户端可以通过使用 <a class="reference internal" href="getset.html#getset"><span>GETSET</span></a> 命令原子性地获取计数器的当前值并将计数器清零，更多信息请参考 <a class="reference internal" href="getset.html#getset"><span>GETSET</span></a> 命令。</li>
-<li>使用其他自增/自减操作，比如 <a class="reference internal" href="decr.html#decr"><span>DECR</span></a> 和 <a class="reference internal" href="incrby.html#incrby"><span>INCRBY</span></a> ，用户可以通过执行不同的操作增加或减少计数器的值，比如在游戏中的记分器就可能用到这些命令。</li>
-</ul>
-</div>
-<div class="section" id="id3">
-<h2>模式：限速器<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>限速器是特殊化的计算器，它用于限制一个操作可以被执行的速率(rate)。</p>
-<p>限速器的典型用法是限制公开 API 的请求次数，以下是一个限速器实现示例，它将 API 的最大请求数限制在每个 IP 地址每秒钟十个之内：</p>
-<div class="highlight-python"><div class="highlight"><pre>FUNCTION LIMIT_API_CALL(ip)
-ts = CURRENT_UNIX_TIME()
-keyname = ip+&quot;:&quot;+ts
-current = GET(keyname)
+<h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">page_view</span> <span class="mi">20</span>
+<span class="n">OK</span>
 
-IF current != NULL AND current &gt; 10 THEN
-    ERROR &quot;too many requests per second&quot;
-END
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">INCR</span> <span class="n">page_view</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">21</span>
 
-IF current == NULL THEN
-    MULTI
-        INCR(keyname, 1)
-        EXPIRE(keyname, 1)
-    EXEC
-ELSE
-    INCR(keyname, 1)
-END
-
-PERFORM_API_CALL()
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">GET</span> <span class="n">page_view</span>    <span class="c1"># 数字值在 Redis 中以字符串的形式保存</span>
+<span class="s2">&quot;21&quot;</span>
 </pre></div>
 </div>
-<p>这个实现每秒钟为每个 IP 地址使用一个不同的计数器，并用 <a class="reference internal" href="../key/expire.html#expire"><span>EXPIRE</span></a> 命令设置生存时间(这样 Redis 就会负责自动删除过期的计数器)。</p>
-<p>注意，我们使用事务打包执行 <a class="reference internal" href="#incr"><span>INCR</span></a> 命令和 <a class="reference internal" href="../key/expire.html#expire"><span>EXPIRE</span></a> 命令，避免引入竞争条件，保证每次调用 API 时都可以正确地对计数器进行自增操作并设置生存时间。</p>
-<p>以下是另一个限速器实现：</p>
-<div class="highlight-python"><div class="highlight"><pre>FUNCTION LIMIT_API_CALL(ip):
-current = GET(ip)
-IF current != NULL AND current &gt; 10 THEN
-    ERROR &quot;too many requests per second&quot;
-ELSE
-    value = INCR(ip)
-    IF value == 1 THEN
-        EXPIRE(ip,1)
-    END
-    PERFORM_API_CALL()
-END
-</pre></div>
-</div>
-<p>这个限速器只使用单个计数器，它的生存时间为一秒钟，如果在一秒钟内，这个计数器的值大于 <code class="docutils literal"><span class="pre">10</span></code> 的话，那么访问就会被禁止。</p>
-<p>这个新的限速器在思路方面是没有问题的，但它在实现方面不够严谨，如果我们仔细观察一下的话，就会发现在 <a class="reference internal" href="#incr"><span>INCR</span></a> 和 <a class="reference internal" href="../key/expire.html#expire"><span>EXPIRE</span></a> 之间存在着一个竞争条件，假如客户端在执行 <a class="reference internal" href="#incr"><span>INCR</span></a> 之后，因为某些原因(比如客户端失败)而忘记设置 <a class="reference internal" href="../key/expire.html#expire"><span>EXPIRE</span></a> 的话，那么这个计数器就会一直存在下去，造成每个用户只能访问 <code class="docutils literal"><span class="pre">10</span></code> 次，噢，这简直是个灾难！</p>
-<p>要消灭这个实现中的竞争条件，我们可以将它转化为一个 Lua 脚本，并放到 Redis 中运行(这个方法仅限于 Redis 2.6 及以上的版本)：</p>
-<div class="highlight-python"><div class="highlight"><pre>local current
-current = redis.call(&quot;incr&quot;,KEYS[1])
-if tonumber(current) == 1 then
-    redis.call(&quot;expire&quot;,KEYS[1],1)
-end
-</pre></div>
-</div>
-<p>通过将计数器作为脚本放到 Redis 上运行，我们保证了 <a class="reference internal" href="#incr"><span>INCR</span></a> 和 <a class="reference internal" href="../key/expire.html#expire"><span>EXPIRE</span></a> 两个操作的原子性，现在这个脚本实现不会引入竞争条件，它可以运作的很好。</p>
-<p>关于在 Redis 中运行 Lua 脚本的更多信息，请参考 <a class="reference internal" href="../script/eval.html#eval"><span>EVAL</span></a> 命令。</p>
-<p>还有另一种消灭竞争条件的方法，就是使用 Redis 的列表结构来代替 <a class="reference internal" href="#incr"><span>INCR</span></a> 命令，这个方法无须脚本支持，因此它在 Redis 2.6 以下的版本也可以运行得很好：</p>
-<div class="highlight-python"><div class="highlight"><pre>FUNCTION LIMIT_API_CALL(ip)
-current = LLEN(ip)
-IF current &gt; 10 THEN
-    ERROR &quot;too many requests per second&quot;
-ELSE
-    IF EXISTS(ip) == FALSE
-        MULTI
-            RPUSH(ip,ip)
-            EXPIRE(ip,1)
-        EXEC
-    ELSE
-        RPUSHX(ip,ip)
-    END
-    PERFORM_API_CALL()
-END
-</pre></div>
-</div>
-<p>新的限速器使用了列表结构作为容器， <a class="reference internal" href="../list/llen.html#llen"><span>LLEN</span></a> 用于对访问次数进行检查，一个事务包裹着 <a class="reference internal" href="../list/rpush.html#rpush"><span>RPUSH</span></a> 和 <a class="reference internal" href="../key/expire.html#expire"><span>EXPIRE</span></a> 两个命令，用于在第一次执行计数时创建列表，并正确设置地设置过期时间，最后， <a class="reference internal" href="../list/rpushx.html#rpushx"><span>RPUSHX</span></a> 在后续的计数操作中进行增加操作。</p>
 </div>
 </div>
-
 
 
             <div class="section" id="discuss">
@@ -200,36 +269,59 @@ END
     <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 
+<!--
 <div id="sponser">
     <h2>赞助商</h2>
     <p>我们正在寻找赞助商，有意对这个网站进行赞助的朋友请联系 huangz1990@gmail.com 。</p>
 </div>
-
+-->
+           </div>
+           
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="incrby.html" class="btn btn-neutral float-right" title="INCRBY key increment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="getrange.html" class="btn btn-neutral float-left" title="GETRANGE key start end" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Redis
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="incrby.html" title="INCRBY"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="getset.html" title="GETSET"
-             >previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
-          <li><a href="index.html" >String（字符串）</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2015, Redis.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.3.
-    </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -239,5 +331,5 @@ END
     ga('create', 'UA-53959484-7', 'auto');
     ga('send', 'pageview');
   </script>
-  </body>
+</body>
 </html>

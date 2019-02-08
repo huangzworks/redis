@@ -1,0 +1,324 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CLIENT GETNAME &mdash; Redis 命令参考</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'2019',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CLIENT KILL ip:port" href="client_kill.html" />
+    <link rel="prev" title="TIME" href="time.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Redis 命令参考
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2019
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../string/index.html">字符串</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hash/index.html">哈希表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../list/index.html">列表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../set/index.html">集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sorted_set/index.html">有序集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hyperloglog/index.html">HyperLogLog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geo/index.html">地理位置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bitmap/index.html">位图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../expire/index.html">自动过期</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../transaction/index.html">事务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script/index.html">Lua 脚本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../persistence/index.html">持久化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pubsub/index.html">发布与订阅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../replication/index.html">复制</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">客户端与服务器</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="auth.html">AUTH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quit.html">QUIT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="info.html">INFO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shutdown.html">SHUTDOWN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="time.html">TIME</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">CLIENT_GETNAME</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">返回值</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">代码示例</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="client_kill.html">CLIENT_KILL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client_list.html">CLIENT_LIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client_setname.html">CLIENT_SETNAME</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configure/index.html">配置选项</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug/index.html">调试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../internal/index.html">内部命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topic/index.html">功能文档</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Redis 命令参考</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">客户端与服务器</a> &raquo;</li>
+        
+      <li>CLIENT GETNAME</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/client_and_server/client_getname.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="client-getname">
+<span id="id1"></span><h1>CLIENT GETNAME<a class="headerlink" href="#client-getname" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><div class="line-block">
+<div class="line">可用版本： &gt;= 2.6.9</div>
+<div class="line">时间复杂度： O(1)</div>
+</div>
+</div></blockquote>
+<p>返回 <code class="docutils literal"><span class="pre">CLIENT</span> <span class="pre">SETNAME</span></code> 命令为连接设置的名字。</p>
+<p>因为新创建的连接默认是没有名字的，
+对于没有名字的连接，
+<code class="docutils literal"><span class="pre">CLIENT</span> <span class="pre">GETNAME</span></code> 返回空白回复。</p>
+<div class="section" id="id2">
+<h2>返回值<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>如果连接没有设置名字，那么返回空白回复；
+如果有设置名字，那么返回名字。</p>
+</div>
+<div class="section" id="id3">
+<h2>代码示例<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 新连接默认没有名字</span>
+
+<span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">CLIENT</span> <span class="n">GETNAME</span>
+<span class="p">(</span><span class="n">nil</span><span class="p">)</span>
+
+<span class="c1"># 设置名字</span>
+
+<span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">CLIENT</span> <span class="n">SETNAME</span> <span class="n">hello</span><span class="o">-</span><span class="n">world</span><span class="o">-</span><span class="n">connection</span>
+<span class="n">OK</span>
+
+<span class="c1"># 返回名字</span>
+
+<span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">CLIENT</span> <span class="n">GETNAME</span>
+<span class="s2">&quot;hello-world-connection&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<!--
+<div id="sponser">
+    <h2>赞助商</h2>
+    <p>我们正在寻找赞助商，有意对这个网站进行赞助的朋友请联系 huangz1990@gmail.com 。</p>
+</div>
+-->
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="client_kill.html" class="btn btn-neutral float-right" title="CLIENT KILL ip:port" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="time.html" class="btn btn-neutral float-left" title="TIME" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Redis
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-53959484-7', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

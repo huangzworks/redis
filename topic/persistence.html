@@ -1,61 +1,215 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>持久化（persistence） &mdash; Redis 命令参考</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
     
-    <title>持久化（persistence） &mdash; Redis 命令参考</title>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'2019',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
     
-    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '2.8',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Redis 命令参考" href="../index.html" />
-    <link rel="next" title="Sentinel" href="sentinel.html" />
-    <link rel="prev" title="通信协议（protocol）" href="protocol.html" /> 
 
-<!--[if lte IE 6]>
-<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
-<![endif]-->
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="发布与订阅（pub/sub）" href="pubsub.html" />
+    <link rel="prev" title="Redis 集群规范" href="cluster-spec.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Redis 命令参考
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2019
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../string/index.html">字符串</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hash/index.html">哈希表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../list/index.html">列表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../set/index.html">集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sorted_set/index.html">有序集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hyperloglog/index.html">HyperLogLog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geo/index.html">地理位置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bitmap/index.html">位图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../expire/index.html">自动过期</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../transaction/index.html">事务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script/index.html">Lua 脚本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../persistence/index.html">持久化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pubsub/index.html">发布与订阅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../replication/index.html">复制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../client_and_server/index.html">客户端与服务器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configure/index.html">配置选项</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug/index.html">调试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../internal/index.html">内部命令</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">功能文档</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cluster-spec.html">Redis 集群规范</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">持久化（persistence）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#redis">Redis 持久化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rdb">RDB 的优点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">RDB 的缺点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#aof">AOF 的优点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">AOF 的缺点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rdb-aof">RDB 和 AOF ，我应该用哪一个？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">RDB 快照</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">快照的运作方式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#append-only-file-aof">只进行追加操作的文件（append-only file，AOF）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">AOF 重写</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">AOF 的耐久性如何？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">如果 AOF 文件出错了，怎么办？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">AOF 的运作方式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">怎么从 RDB 持久化切换到 AOF 持久化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">RDB 和 AOF 之间的相互作用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">备份 Redis 数据</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">容灾备份</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pubsub.html">发布与订阅（pub/sub）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sentinel.html">Sentinel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cluster-tutorial.html">集群教程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notification.html">键空间通知（keyspace notification）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol.html">通信协议（protocol）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="replication.html">复制（Replication）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transaction.html">事务（transaction）</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Redis 命令参考</a>
+        
+      </nav>
 
 
-  </head>
-  <body>
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
 
 
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="sentinel.html" title="Sentinel"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="protocol.html" title="通信协议（protocol）"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li> 
-      </ul>
-    </div>  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">功能文档</a> &raquo;</li>
+        
+      <li>持久化（persistence）</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/topic/persistence.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="persistence">
 <span id="id1"></span><h1>持久化（persistence）<a class="headerlink" href="#persistence" title="Permalink to this headline">¶</a></h1>
@@ -136,12 +290,12 @@ AOF 的默认策略为每秒钟 <code class="docutils literal"><span class="pre"
 对文件进行分析（parse）也很轻松。
 导出（export） AOF 文件也非常简单：
 举个例子，
-如果你不小心执行了 <a class="reference internal" href="../server/flushall.html#flushall"><span>FLUSHALL</span></a> 命令，
+如果你不小心执行了 <a class="reference internal" href="../database/flushall.html#flushall"><span class="std std-ref">FLUSHALL</span></a> 命令，
 但只要 AOF 文件未被重写，
 那么只要停止服务器，
-移除 AOF 文件末尾的 <a class="reference internal" href="../server/flushall.html#flushall"><span>FLUSHALL</span></a> 命令，
+移除 AOF 文件末尾的 <a class="reference internal" href="../database/flushall.html#flushall"><span class="std std-ref">FLUSHALL</span></a> 命令，
 并重启 Redis ，
-就可以将数据集恢复到 <a class="reference internal" href="../server/flushall.html#flushall"><span>FLUSHALL</span></a> 执行之前的状态。</li>
+就可以将数据集恢复到 <a class="reference internal" href="../database/flushall.html#flushall"><span class="std std-ref">FLUSHALL</span></a> 执行之前的状态。</li>
 </ul>
 </div>
 <div class="section" id="id4">
@@ -156,7 +310,7 @@ AOF 的默认策略为每秒钟 <code class="docutils literal"><span class="pre"
 不过在处理巨大的写入载入时，RDB 可以提供更有保证的最大延迟时间（latency）。</li>
 <li>AOF 在过去曾经发生过这样的 bug ：
 因为个别命令的原因，导致 AOF 文件在重新载入时，无法将数据集恢复成保存时的原样。
-（举个例子，阻塞命令 <a class="reference internal" href="../list/brpoplpush.html#brpoplpush"><span>BRPOPLPUSH</span></a> 就曾经引起过这样的 bug 。）
+（举个例子，阻塞命令 <a class="reference internal" href="../list/brpoplpush.html#brpoplpush"><span class="std std-ref">BRPOPLPUSH source destination timeout</span></a> 就曾经引起过这样的 bug 。）
 测试套件里为这种情况添加了测试：
 它们会自动生成随机的、复杂的数据集，
 并通过重新载入这些数据来确保一切正常。
@@ -194,12 +348,12 @@ Redis 将数据库快照保存在名字为 <code class="docutils literal"><span 
 <p>你可以对 Redis 进行设置，
 让它在“  <code class="docutils literal"><span class="pre">N</span></code> 秒内数据集至少有 <code class="docutils literal"><span class="pre">M</span></code> 个改动”这一条件被满足时，
 自动保存一次数据集。</p>
-<p>你也可以通过调用 <a class="reference internal" href="../server/save.html#save"><span>SAVE</span></a> 或者 <a class="reference internal" href="../server/bgsave.html#bgsave"><span>BGSAVE</span></a> ，
+<p>你也可以通过调用 <a class="reference internal" href="../persistence/save.html#save"><span class="std std-ref">SAVE</span></a> 或者 <a class="reference internal" href="../persistence/bgsave.html#bgsave"><span class="std std-ref">BGSAVE</span></a> ，
 手动让 Redis 进行数据集保存操作。</p>
 <p>比如说，
 以下设置会让 Redis 在满足“ <code class="docutils literal"><span class="pre">60</span></code> 秒内有至少有 <code class="docutils literal"><span class="pre">1000</span></code> 个键被改动”这一条件时，
 自动保存一次数据集：</p>
-<div class="highlight-python"><div class="highlight"><pre>save 60 1000
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">save</span> <span class="mi">60</span> <span class="mi">1000</span>
 </pre></div>
 </div>
 <p>这种持久化方式被称为快照（snapshot）。</p>
@@ -228,11 +382,11 @@ Redis 将数据库快照保存在名字为 <code class="docutils literal"><span 
 Redis 增加了一种完全耐久的持久化方式：
 AOF 持久化。</p>
 <p>你可以通过修改配置文件来打开 AOF 功能：</p>
-<div class="highlight-python"><div class="highlight"><pre>appendonly yes
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">appendonly</span> <span class="n">yes</span>
 </pre></div>
 </div>
 <p>从现在开始，
-每当 Redis 执行一个改变数据集的命令时（比如 <a class="reference internal" href="../string/set.html#set"><span>SET</span></a>），
+每当 Redis 执行一个改变数据集的命令时（比如 <a class="reference internal" href="../string/set.html#set"><span class="std std-ref">SET key value [EX seconds] [PX milliseconds] [NX|XX]</span></a>），
 这个命令就会被追加到 AOF 文件的末尾。</p>
 <p>这样的话，
 当 Redis 重新启时，
@@ -244,20 +398,20 @@ AOF 持久化。</p>
 所以随着写入命令的不断增加，
 AOF 文件的体积也会变得越来越大。</p>
 <p>举个例子，
-如果你对一个计数器调用了 100 次 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> ，
+如果你对一个计数器调用了 100 次 <a class="reference internal" href="../string/incr.html#incr"><span class="std std-ref">INCR key</span></a> ，
 那么仅仅是为了保存这个计数器的当前值，
 AOF 文件就需要使用 100 条记录（entry）。</p>
 <p>然而在实际上，
-只使用一条 <a class="reference internal" href="../string/set.html#set"><span>SET</span></a> 命令已经足以保存计数器的当前值了，
+只使用一条 <a class="reference internal" href="../string/set.html#set"><span class="std std-ref">SET key value [EX seconds] [PX milliseconds] [NX|XX]</span></a> 命令已经足以保存计数器的当前值了，
 其余 99 条记录实际上都是多余的。</p>
 <p>为了处理这种情况，
 Redis 支持一种有趣的特性：
 可以在不打断服务客户端的情况下，
 对 AOF 文件进行重建（rebuild）。</p>
-<p>执行 <a class="reference internal" href="../server/bgrewriteaof.html#bgrewriteaof"><span>BGREWRITEAOF</span></a> 命令，
+<p>执行 <a class="reference internal" href="../persistence/bgrewriteaof.html#bgrewriteaof"><span class="std std-ref">BGREWRITEAOF</span></a> 命令，
 Redis 将生成一个新的 AOF 文件，
 这个文件包含重建当前数据集所需的最少命令。</p>
-<p>Redis 2.2 需要自己手动执行 <a class="reference internal" href="../server/bgrewriteaof.html#bgrewriteaof"><span>BGREWRITEAOF</span></a> 命令；
+<p>Redis 2.2 需要自己手动执行 <a class="reference internal" href="../persistence/bgrewriteaof.html#bgrewriteaof"><span class="std std-ref">BGREWRITEAOF</span></a> 命令；
 Redis 2.4 则可以自动触发 AOF 重写，
 具体信息请查看 2.4 的示例配置文件。</p>
 </div>
@@ -289,7 +443,7 @@ Redis 2.4 则可以自动触发 AOF 重写，
 <li>使用 Redis 附带的 <code class="docutils literal"><span class="pre">redis-check-aof</span></code> 程序，对原来的 AOF 文件进行修复。</li>
 </ol>
 <blockquote>
-<div><div class="highlight-python"><div class="highlight"><pre>$ redis-check-aof --fix
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>$ redis-check-aof --fix
 </pre></div>
 </div>
 </div></blockquote>
@@ -320,9 +474,9 @@ Redis 2.4 则可以自动触发 AOF 重写，
 <li>执行以下两条命令：</li>
 </ol>
 <blockquote>
-<div><div class="highlight-python"><div class="highlight"><pre>redis-cli&gt; CONFIG SET appendonly yes
+<div><div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">-</span><span class="n">cli</span><span class="o">&gt;</span> <span class="n">CONFIG</span> <span class="n">SET</span> <span class="n">appendonly</span> <span class="n">yes</span>
 
-redis-cli&gt; CONFIG SET save &quot;&quot;
+<span class="n">redis</span><span class="o">-</span><span class="n">cli</span><span class="o">&gt;</span> <span class="n">CONFIG</span> <span class="n">SET</span> <span class="n">save</span> <span class="s2">&quot;&quot;</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -358,19 +512,19 @@ Redis 会阻塞直到初始 AOF 文件创建完成为止，
 <div class="section" id="id12">
 <h2>RDB 和 AOF 之间的相互作用<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
 <p>在版本号大于等于 2.4 的 Redis 中，
-<a class="reference internal" href="../server/bgsave.html#bgsave"><span>BGSAVE</span></a> 执行的过程中，
-不可以执行 <a class="reference internal" href="../server/bgrewriteaof.html#bgrewriteaof"><span>BGREWRITEAOF</span></a> 。
+<a class="reference internal" href="../persistence/bgsave.html#bgsave"><span class="std std-ref">BGSAVE</span></a> 执行的过程中，
+不可以执行 <a class="reference internal" href="../persistence/bgrewriteaof.html#bgrewriteaof"><span class="std std-ref">BGREWRITEAOF</span></a> 。
 反过来说，
-在 <a class="reference internal" href="../server/bgrewriteaof.html#bgrewriteaof"><span>BGREWRITEAOF</span></a> 执行的过程中，
-也不可以执行 <a class="reference internal" href="../server/bgsave.html#bgsave"><span>BGSAVE</span></a> 。</p>
+在 <a class="reference internal" href="../persistence/bgrewriteaof.html#bgrewriteaof"><span class="std std-ref">BGREWRITEAOF</span></a> 执行的过程中，
+也不可以执行 <a class="reference internal" href="../persistence/bgsave.html#bgsave"><span class="std std-ref">BGSAVE</span></a> 。</p>
 <p>这可以防止两个 Redis 后台进程同时对磁盘进行大量的 I/O 操作。</p>
-<p>如果 <a class="reference internal" href="../server/bgsave.html#bgsave"><span>BGSAVE</span></a> 正在执行，
-并且用户显示地调用 <a class="reference internal" href="../server/bgrewriteaof.html#bgrewriteaof"><span>BGREWRITEAOF</span></a> 命令，
+<p>如果 <a class="reference internal" href="../persistence/bgsave.html#bgsave"><span class="std std-ref">BGSAVE</span></a> 正在执行，
+并且用户显示地调用 <a class="reference internal" href="../persistence/bgrewriteaof.html#bgrewriteaof"><span class="std std-ref">BGREWRITEAOF</span></a> 命令，
 那么服务器将向用户回复一个 <code class="docutils literal"><span class="pre">OK</span></code> 状态，
 并告知用户，
-<a class="reference internal" href="../server/bgrewriteaof.html#bgrewriteaof"><span>BGREWRITEAOF</span></a> 已经被预定执行：
-一旦 <a class="reference internal" href="../server/bgsave.html#bgsave"><span>BGSAVE</span></a> 执行完毕，
-<a class="reference internal" href="../server/bgrewriteaof.html#bgrewriteaof"><span>BGREWRITEAOF</span></a> 就会正式开始。</p>
+<a class="reference internal" href="../persistence/bgrewriteaof.html#bgrewriteaof"><span class="std std-ref">BGREWRITEAOF</span></a> 已经被预定执行：
+一旦 <a class="reference internal" href="../persistence/bgsave.html#bgsave"><span class="std std-ref">BGSAVE</span></a> 执行完毕，
+<a class="reference internal" href="../persistence/bgrewriteaof.html#bgrewriteaof"><span class="std std-ref">BGREWRITEAOF</span></a> 就会正式开始。</p>
 <p>当 Redis 启动时，
 如果 RDB 持久化和 AOF 持久化都被打开了，
 那么程序会优先使用 AOF 文件来恢复数据集，
@@ -451,7 +605,6 @@ RDB 文件一旦被创建，
 </div>
 
 
-
             <div class="section" id="discuss">
 
     <h2>
@@ -475,35 +628,59 @@ RDB 文件一旦被创建，
     <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 
+<!--
 <div id="sponser">
     <h2>赞助商</h2>
     <p>我们正在寻找赞助商，有意对这个网站进行赞助的朋友请联系 huangz1990@gmail.com 。</p>
 </div>
-
+-->
+           </div>
+           
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pubsub.html" class="btn btn-neutral float-right" title="发布与订阅（pub/sub）" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cluster-spec.html" class="btn btn-neutral float-left" title="Redis 集群规范" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Redis
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="sentinel.html" title="Sentinel"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="protocol.html" title="通信协议（protocol）"
-             >previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2015, Redis.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.3.
-    </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -513,5 +690,5 @@ RDB 文件一旦被创建，
     ga('create', 'UA-53959484-7', 'auto');
     ga('send', 'pageview');
   </script>
-  </body>
+</body>
 </html>

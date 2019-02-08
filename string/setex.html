@@ -1,116 +1,266 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SETEX key seconds value &mdash; Redis 命令参考</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
     
-    <title>SETEX &mdash; Redis 命令参考</title>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'2019',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
     
-    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '2.8',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Redis 命令参考" href="../index.html" />
-    <link rel="up" title="String（字符串）" href="index.html" />
-    <link rel="next" title="SETNX" href="setnx.html" />
-    <link rel="prev" title="SETBIT" href="setbit.html" /> 
 
-<!--[if lte IE 6]>
-<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
-<![endif]-->
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="PSETEX key milliseconds value" href="psetex.html" />
+    <link rel="prev" title="SETNX key value" href="setnx.html" /> 
+</head>
 
+<body class="wy-body-for-nav">
 
-  </head>
-  <body>
+   
+  <div class="wy-grid-for-nav">
 
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="setnx.html" title="SETNX"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="setbit.html" title="SETBIT"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">String（字符串）</a> &raquo;</li> 
-      </ul>
-    </div>  
+          
+            <a href="../index.html" class="icon icon-home"> Redis 命令参考
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+          
+          </a>
+
+          
             
-  <div class="section" id="setex">
-<span id="id1"></span><h1>SETEX<a class="headerlink" href="#setex" title="Permalink to this headline">¶</a></h1>
-<p><strong>SETEX key seconds value</strong></p>
-<p>将值 <code class="docutils literal"><span class="pre">value</span></code> 关联到 <code class="docutils literal"><span class="pre">key</span></code> ，并将 <code class="docutils literal"><span class="pre">key</span></code> 的生存时间设为 <code class="docutils literal"><span class="pre">seconds</span></code> (以秒为单位)。</p>
-<p>如果 <code class="docutils literal"><span class="pre">key</span></code> 已经存在， <a class="reference internal" href="#setex">SETEX</a> 命令将覆写旧值。</p>
-<p>这个命令类似于以下两个命令：</p>
-<div class="highlight-python"><div class="highlight"><pre>SET key value
-EXPIRE key seconds  # 设置生存时间
+            
+              <div class="version">
+                2019
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">字符串</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="set.html">SET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setnx.html">SETNX</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SETEX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">返回值</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">代码示例</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="psetex.html">PSETEX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get.html">GET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getset.html">GETSET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strlen.html">STRLEN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="append.html">APPEND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setrange.html">SETRANGE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getrange.html">GETRANGE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="incr.html">INCR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="incrby.html">INCRBY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="incrbyfloat.html">INCRBYFLOAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decr.html">DECR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decrby.html">DECRBY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mset.html">MSET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="msetnx.html">MSETNX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mget.html">MGET</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../hash/index.html">哈希表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../list/index.html">列表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../set/index.html">集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sorted_set/index.html">有序集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hyperloglog/index.html">HyperLogLog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geo/index.html">地理位置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bitmap/index.html">位图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../expire/index.html">自动过期</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../transaction/index.html">事务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script/index.html">Lua 脚本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../persistence/index.html">持久化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pubsub/index.html">发布与订阅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../replication/index.html">复制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../client_and_server/index.html">客户端与服务器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configure/index.html">配置选项</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug/index.html">调试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../internal/index.html">内部命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topic/index.html">功能文档</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Redis 命令参考</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">字符串</a> &raquo;</li>
+        
+      <li>SETEX key seconds value</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/string/setex.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="setex-key-seconds-value">
+<span id="setex"></span><h1>SETEX key seconds value<a class="headerlink" href="#setex-key-seconds-value" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><div class="line-block">
+<div class="line">可用版本： &gt;= 2.0.0</div>
+<div class="line">时间复杂度： O(1)</div>
+</div>
+</div></blockquote>
+<p>将键 <code class="docutils literal"><span class="pre">key</span></code> 的值设置为 <code class="docutils literal"><span class="pre">value</span></code> ，
+并将键 <code class="docutils literal"><span class="pre">key</span></code> 的生存时间设置为 <code class="docutils literal"><span class="pre">seconds</span></code> 秒钟。</p>
+<p>如果键 <code class="docutils literal"><span class="pre">key</span></code> 已经存在，
+那么 <code class="docutils literal"><span class="pre">SETEX</span></code> 命令将覆盖已有的值。</p>
+<p><code class="docutils literal"><span class="pre">SETEX</span></code> 命令的效果和以下两个命令的效果类似：</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">SET</span> <span class="n">key</span> <span class="n">value</span>
+<span class="n">EXPIRE</span> <span class="n">key</span> <span class="n">seconds</span>  <span class="c1"># 设置生存时间</span>
 </pre></div>
 </div>
-<p>不同之处是， <a class="reference internal" href="#setex">SETEX</a> 是一个原子性(atomic)操作，关联值和设置生存时间两个动作会在同一时间内完成，该命令在 Redis 用作缓存时，非常实用。</p>
-<dl class="docutils">
-<dt><strong>可用版本：</strong></dt>
-<dd>&gt;= 2.0.0</dd>
-<dt><strong>时间复杂度：</strong></dt>
-<dd>O(1)</dd>
-<dt><strong>返回值：</strong></dt>
-<dd><div class="first last line-block">
-<div class="line">设置成功时返回 <code class="docutils literal"><span class="pre">OK</span></code> 。</div>
-<div class="line">当 <code class="docutils literal"><span class="pre">seconds</span></code> 参数不合法时，返回一个错误。</div>
+<p><code class="docutils literal"><span class="pre">SETEX</span></code> 和这两个命令的不同之处在于 <code class="docutils literal"><span class="pre">SETEX</span></code> 是一个原子（atomic）操作，
+它可以在同一时间内完成设置值和设置过期时间这两个操作，
+因此 <code class="docutils literal"><span class="pre">SETEX</span></code> 命令在储存缓存的时候非常实用。</p>
+<div class="section" id="id1">
+<h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>命令在设置成功时返回 <code class="docutils literal"><span class="pre">OK</span></code> 。
+当 <code class="docutils literal"><span class="pre">seconds</span></code> 参数不合法时，
+命令将返回一个错误。</p>
 </div>
-</dd>
-</dl>
-<div class="highlight-python"><div class="highlight"><pre># 在 key 不存在时进行 SETEX
+<div class="section" id="id2">
+<h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>在键 <code class="docutils literal"><span class="pre">key</span></code> 不存在的情况下执行 <code class="docutils literal"><span class="pre">SETEX</span></code> ：</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SETEX</span> <span class="n">cache_user_id</span> <span class="mi">60</span> <span class="mi">10086</span>
+<span class="n">OK</span>
 
-redis&gt; SETEX cache_user_id 60 10086
-OK
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">GET</span> <span class="n">cache_user_id</span>  <span class="c1"># 值</span>
+<span class="s2">&quot;10086&quot;</span>
 
-redis&gt; GET cache_user_id  # 值
-&quot;10086&quot;
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">TTL</span> <span class="n">cache_user_id</span>  <span class="c1"># 剩余生存时间</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">49</span>
+</pre></div>
+</div>
+<p>键 <code class="docutils literal"><span class="pre">key</span></code> 已经存在，
+使用 <code class="docutils literal"><span class="pre">SETEX</span></code> 覆盖旧值：</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">cd</span> <span class="s2">&quot;timeless&quot;</span>
+<span class="n">OK</span>
 
-redis&gt; TTL cache_user_id  # 剩余生存时间
-(integer) 49
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">SETEX</span> <span class="n">cd</span> <span class="mi">3000</span> <span class="s2">&quot;goodbye my love&quot;</span>
+<span class="n">OK</span>
 
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">GET</span> <span class="n">cd</span>
+<span class="s2">&quot;goodbye my love&quot;</span>
 
-# key 已经存在时，SETEX 覆盖旧值
-
-redis&gt; SET cd &quot;timeless&quot;
-OK
-
-redis&gt; SETEX cd 3000 &quot;goodbye my love&quot;
-OK
-
-redis&gt; GET cd
-&quot;goodbye my love&quot;
-
-redis&gt; TTL cd
-(integer) 2997
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">TTL</span> <span class="n">cd</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">2997</span>
 </pre></div>
 </div>
 </div>
-
+</div>
 
 
             <div class="section" id="discuss">
@@ -136,36 +286,59 @@ redis&gt; TTL cd
     <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 
+<!--
 <div id="sponser">
     <h2>赞助商</h2>
     <p>我们正在寻找赞助商，有意对这个网站进行赞助的朋友请联系 huangz1990@gmail.com 。</p>
 </div>
-
+-->
+           </div>
+           
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="psetex.html" class="btn btn-neutral float-right" title="PSETEX key milliseconds value" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="setnx.html" class="btn btn-neutral float-left" title="SETNX key value" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Redis
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="setnx.html" title="SETNX"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="setbit.html" title="SETBIT"
-             >previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
-          <li><a href="index.html" >String（字符串）</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2015, Redis.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.3.
-    </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -175,5 +348,5 @@ redis&gt; TTL cd
     ga('create', 'UA-53959484-7', 'auto');
     ga('send', 'pageview');
   </script>
-  </body>
+</body>
 </html>

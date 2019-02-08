@@ -1,61 +1,205 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>复制（Replication） &mdash; Redis 命令参考</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
     
-    <title>复制（Replication） &mdash; Redis 命令参考</title>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'2019',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
     
-    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '2.8',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Redis 命令参考" href="../index.html" />
-    <link rel="next" title="通信协议（protocol）" href="protocol.html" />
-    <link rel="prev" title="发布与订阅（pub/sub）" href="pubsub.html" /> 
 
-<!--[if lte IE 6]>
-<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
-<![endif]-->
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="事务（transaction）" href="transaction.html" />
+    <link rel="prev" title="通信协议（protocol）" href="protocol.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Redis 命令参考
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2019
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../string/index.html">字符串</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hash/index.html">哈希表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../list/index.html">列表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../set/index.html">集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sorted_set/index.html">有序集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hyperloglog/index.html">HyperLogLog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geo/index.html">地理位置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bitmap/index.html">位图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../expire/index.html">自动过期</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../transaction/index.html">事务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script/index.html">Lua 脚本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../persistence/index.html">持久化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pubsub/index.html">发布与订阅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../replication/index.html">复制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../client_and_server/index.html">客户端与服务器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configure/index.html">配置选项</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug/index.html">调试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../internal/index.html">内部命令</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">功能文档</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cluster-spec.html">Redis 集群规范</a></li>
+<li class="toctree-l2"><a class="reference internal" href="persistence.html">持久化（persistence）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pubsub.html">发布与订阅（pub/sub）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sentinel.html">Sentinel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cluster-tutorial.html">集群教程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notification.html">键空间通知（keyspace notification）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol.html">通信协议（protocol）</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">复制（Replication）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">关闭主服务器持久化时，复制功能的数据安全</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">复制功能的运作原理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">部分重同步</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">只读从服务器</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">从服务器相关配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#n">主服务器只在有至少 N 个从服务器的情况下，才执行写操作</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="transaction.html">事务（transaction）</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Redis 命令参考</a>
+        
+      </nav>
 
 
-  </head>
-  <body>
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
 
 
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="protocol.html" title="通信协议（protocol）"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="pubsub.html" title="发布与订阅（pub/sub）"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li> 
-      </ul>
-    </div>  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">功能文档</a> &raquo;</li>
+        
+      <li>复制（Replication）</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/topic/replication.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="replication">
 <span id="replication-topic"></span><h1>复制（Replication）<a class="headerlink" href="#replication" title="Permalink to this headline">¶</a></h1>
@@ -95,7 +239,7 @@
 <li><p class="first">复制功能可以单纯地用于数据冗余（data redundancy），
 也可以通过让多个从服务器处理只读命令请求来提升扩展性（scalability）：
 比如说，
-繁重的 <a class="reference internal" href="../key/sort.html#sort"><span>SORT</span></a> 命令可以交给附属节点去运行。</p>
+繁重的 <a class="reference internal" href="../database/sort.html#sort"><span class="std std-ref">SORT key [BY pattern] [LIMIT offset count] [GET pattern [GET pattern …]] [ASC | DESC] [ALPHA] [STORE destination]</span></a> 命令可以交给附属节点去运行。</p>
 </li>
 <li><p class="first">可以通过复制功能来让主服务器免于执行持久化操作：
 只要关闭主服务器的持久化功能，
@@ -121,11 +265,11 @@
 <h2>复制功能的运作原理<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>无论是初次连接还是重新连接，
 当建立一个从服务器时，
-从服务器都将向主服务器发送一个 <a class="reference internal" href="../server/sync.html#sync"><span>SYNC</span></a> 命令。</p>
-<p>接到 <a class="reference internal" href="../server/sync.html#sync"><span>SYNC</span></a> 命令的主服务器将开始执行 <a class="reference internal" href="../server/bgsave.html#bgsave"><span>BGSAVE</span></a> ，
+从服务器都将向主服务器发送一个 <a class="reference internal" href="../internal/sync.html#sync"><span class="std std-ref">SYNC</span></a> 命令。</p>
+<p>接到 <a class="reference internal" href="../internal/sync.html#sync"><span class="std std-ref">SYNC</span></a> 命令的主服务器将开始执行 <a class="reference internal" href="../persistence/bgsave.html#bgsave"><span class="std std-ref">BGSAVE</span></a> ，
 并在保存操作执行期间，
 将所有新执行的写入命令都保存到一个缓冲区里面。</p>
-<p>当 <a class="reference internal" href="../server/bgsave.html#bgsave"><span>BGSAVE</span></a> 执行完毕后，
+<p>当 <a class="reference internal" href="../persistence/bgsave.html#bgsave"><span class="std std-ref">BGSAVE</span></a> 执行完毕后，
 主服务器将执行保存操作所得的 <code class="docutils literal"><span class="pre">.rdb</span></code> 文件发送给从服务器，
 从服务器接收这个 <code class="docutils literal"><span class="pre">.rdb</span></code> 文件，
 并将文件中的数据载入到内存中。</p>
@@ -133,14 +277,14 @@
 将写命令缓冲区中积累的所有内容都发送给从服务器。</p>
 <p>你可以通过 telnet 命令来亲自验证这个同步过程：
 首先连上一个正在处理命令请求的 Redis 服务器，
-然后向它发送 <a class="reference internal" href="../server/sync.html#sync"><span>SYNC</span></a> 命令，
+然后向它发送 <a class="reference internal" href="../internal/sync.html#sync"><span class="std std-ref">SYNC</span></a> 命令，
 过一阵子，
 你将看到 telnet 会话（session）接收到服务器发来的大段数据（<code class="docutils literal"><span class="pre">.rdb</span></code> 文件），
 之后还会看到，
 所有在服务器执行过的写命令，
 都会重新发送到 telnet 会话来。</p>
-<p>即使有多个从服务器同时向主服务器发送 <a class="reference internal" href="../server/sync.html#sync"><span>SYNC</span></a> ，
-主服务器也只需执行一次 <a class="reference internal" href="../server/bgsave.html#bgsave"><span>BGSAVE</span></a> 命令，
+<p>即使有多个从服务器同时向主服务器发送 <a class="reference internal" href="../internal/sync.html#sync"><span class="std std-ref">SYNC</span></a> ，
+主服务器也只需执行一次 <a class="reference internal" href="../persistence/bgsave.html#bgsave"><span class="std std-ref">BGSAVE</span></a> 命令，
 就可以处理所有这些从服务器的同步请求。</p>
 <p>从服务器可以在主从服务器之间的连接断开时进行自动重连，
 在 Redis 2.8 版本之前，
@@ -167,30 +311,30 @@
 <li>否则的话，
 从服务器就要执行完整重同步操作。</li>
 </ul>
-<p>Redis 2.8 的这个部分重同步特性会用到一个新增的 <a class="reference internal" href="../server/psync.html#psync"><span>PSYNC</span></a> 内部命令，
-而 Redis 2.8 以前的旧版本只有 <a class="reference internal" href="../server/sync.html#sync"><span>SYNC</span></a> 命令，
+<p>Redis 2.8 的这个部分重同步特性会用到一个新增的 <a class="reference internal" href="../internal/psync.html#psync"><span class="std std-ref">PSYNC master_run_id offset</span></a> 内部命令，
+而 Redis 2.8 以前的旧版本只有 <a class="reference internal" href="../internal/sync.html#sync"><span class="std std-ref">SYNC</span></a> 命令，
 不过，
 只要从服务器是 Redis 2.8 或以上的版本，
-它就会根据主服务器的版本来决定到底是使用 <a class="reference internal" href="../server/psync.html#psync"><span>PSYNC</span></a> 还是 <a class="reference internal" href="../server/sync.html#sync"><span>SYNC</span></a> ：</p>
+它就会根据主服务器的版本来决定到底是使用 <a class="reference internal" href="../internal/psync.html#psync"><span class="std std-ref">PSYNC master_run_id offset</span></a> 还是 <a class="reference internal" href="../internal/sync.html#sync"><span class="std std-ref">SYNC</span></a> ：</p>
 <ul class="simple">
-<li>如果主服务器是 Redis 2.8 或以上版本，那么从服务器使用 <a class="reference internal" href="../server/psync.html#psync"><span>PSYNC</span></a> 命令来进行同步。</li>
-<li>如果主服务器是 Redis 2.8 之前的版本，那么从服务器使用 <a class="reference internal" href="../server/sync.html#sync"><span>SYNC</span></a> 命令来进行同步。</li>
+<li>如果主服务器是 Redis 2.8 或以上版本，那么从服务器使用 <a class="reference internal" href="../internal/psync.html#psync"><span class="std std-ref">PSYNC master_run_id offset</span></a> 命令来进行同步。</li>
+<li>如果主服务器是 Redis 2.8 之前的版本，那么从服务器使用 <a class="reference internal" href="../internal/sync.html#sync"><span class="std std-ref">SYNC</span></a> 命令来进行同步。</li>
 </ul>
 </div>
 <div class="section" id="id4">
 <h2>配置<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>配置一个从服务器非常简单，
 只要在配置文件中增加以下的这一行就可以了：</p>
-<div class="highlight-python"><div class="highlight"><pre>slaveof 192.168.1.1 6379
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">slaveof</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.1</span> <span class="mi">6379</span>
 </pre></div>
 </div>
 <p>当然，
 你需要将代码中的 <code class="docutils literal"><span class="pre">192.168.1.1</span></code> 和 <code class="docutils literal"><span class="pre">6379</span></code> 替换成你的主服务器的 IP 和端口号。</p>
-<p>另外一种方法是调用 <a class="reference internal" href="../server/slaveof.html#slaveof"><span>SLAVEOF</span></a> 命令，
+<p>另外一种方法是调用 <a class="reference internal" href="../replication/slaveof.html#slaveof"><span class="std std-ref">SLAVEOF host port</span></a> 命令，
 输入主服务器的 IP 和端口，
 然后同步就会开始：</p>
-<div class="highlight-python"><div class="highlight"><pre>127.0.0.1:6379&gt; SLAVEOF 192.168.1.1 10086
-OK
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SLAVEOF</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.1</span> <span class="mi">10086</span>
+<span class="n">OK</span>
 </pre></div>
 </div>
 </div>
@@ -200,7 +344,7 @@ OK
 从服务器支持只读模式，
 并且该模式为从服务器的默认模式。</p>
 <p>只读模式由 <code class="docutils literal"><span class="pre">redis.conf</span></code> 文件中的 <code class="docutils literal"><span class="pre">slave-read-only</span></code> 选项控制，
-也可以通过 <a class="reference internal" href="../server/config_set.html#config-set"><span>CONFIG SET</span></a> 命令来开启或关闭这个模式。</p>
+也可以通过 <a class="reference internal" href="../configure/config_set.html#config-set"><span class="std std-ref">CONFIG SET parameter value</span></a> 命令来开启或关闭这个模式。</p>
 <p>只读从服务器会拒绝执行任何写命令，
 所以不会出现因为操作失误而将数据不小心写入到了从服务器的情况。</p>
 <p>即使从服务器是只读的，
@@ -227,12 +371,12 @@ OK
 我们也必须为从服务器进行相应的身份验证设置。</p>
 <p>对于一个正在运行的服务器，
 可以使用客户端输入以下命令：</p>
-<div class="highlight-python"><div class="highlight"><pre>config set masterauth &lt;password&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">config</span> <span class="nb">set</span> <span class="n">masterauth</span> <span class="o">&lt;</span><span class="n">password</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>要永久地设置这个密码，
 那么可以将它加入到配置文件中：</p>
-<div class="highlight-python"><div class="highlight"><pre>masterauth &lt;password&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">masterauth</span> <span class="o">&lt;</span><span class="n">password</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>另外还有几个选项，
@@ -280,7 +424,6 @@ OK
 </div>
 
 
-
             <div class="section" id="discuss">
 
     <h2>
@@ -304,35 +447,59 @@ OK
     <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 
+<!--
 <div id="sponser">
     <h2>赞助商</h2>
     <p>我们正在寻找赞助商，有意对这个网站进行赞助的朋友请联系 huangz1990@gmail.com 。</p>
 </div>
-
+-->
+           </div>
+           
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="transaction.html" class="btn btn-neutral float-right" title="事务（transaction）" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="protocol.html" class="btn btn-neutral float-left" title="通信协议（protocol）" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Redis
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="protocol.html" title="通信协议（protocol）"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="pubsub.html" title="发布与订阅（pub/sub）"
-             >previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2015, Redis.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.3.
-    </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -342,5 +509,5 @@ OK
     ga('create', 'UA-53959484-7', 'auto');
     ga('send', 'pageview');
   </script>
-  </body>
+</body>
 </html>

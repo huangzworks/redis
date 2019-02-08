@@ -1,61 +1,218 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Sentinel &mdash; Redis 命令参考</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
     
-    <title>Sentinel &mdash; Redis 命令参考</title>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'2019',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
     
-    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '2.8',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Redis 命令参考" href="../index.html" />
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="集群教程" href="cluster-tutorial.html" />
-    <link rel="prev" title="持久化（persistence）" href="persistence.html" /> 
+    <link rel="prev" title="发布与订阅（pub/sub）" href="pubsub.html" /> 
+</head>
 
-<!--[if lte IE 6]>
-<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
-<![endif]-->
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Redis 命令参考
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2019
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../string/index.html">字符串</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hash/index.html">哈希表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../list/index.html">列表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../set/index.html">集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sorted_set/index.html">有序集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hyperloglog/index.html">HyperLogLog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geo/index.html">地理位置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bitmap/index.html">位图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../expire/index.html">自动过期</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../transaction/index.html">事务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script/index.html">Lua 脚本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../persistence/index.html">持久化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pubsub/index.html">发布与订阅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../replication/index.html">复制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../client_and_server/index.html">客户端与服务器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configure/index.html">配置选项</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug/index.html">调试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../internal/index.html">内部命令</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">功能文档</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cluster-spec.html">Redis 集群规范</a></li>
+<li class="toctree-l2"><a class="reference internal" href="persistence.html">持久化（persistence）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pubsub.html">发布与订阅（pub/sub）</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Sentinel</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">获取 Sentinel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">启动 Sentinel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">配置 Sentinel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">主观下线和客观下线</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">每个 Sentinel 都需要定期执行的任务</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">自动发现 Sentinel 和从服务器</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sentinel-api">Sentinel API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id8">Sentinel 命令</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">发布与订阅信息</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">故障转移</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id11">Sentinel 自动故障迁移的一致性特质</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">Sentinel 状态的持久化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13">Sentinel 在非故障迁移的情况下对实例进行重新配置</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tilt">TILT 模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#busy">处理 <code class="docutils literal"><span class="pre">-BUSY</span></code> 状态</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">Sentinel 的客户端实现</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cluster-tutorial.html">集群教程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notification.html">键空间通知（keyspace notification）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="protocol.html">通信协议（protocol）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="replication.html">复制（Replication）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transaction.html">事务（transaction）</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Redis 命令参考</a>
+        
+      </nav>
 
 
-  </head>
-  <body>
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
 
 
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="cluster-tutorial.html" title="集群教程"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="persistence.html" title="持久化（persistence）"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li> 
-      </ul>
-    </div>  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">功能文档</a> &raquo;</li>
+        
+      <li>Sentinel</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/topic/sentinel.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="sentinel">
 <span id="id1"></span><h1>Sentinel<a class="headerlink" href="#sentinel" title="Permalink to this headline">¶</a></h1>
@@ -111,12 +268,12 @@ Sentinel 会开始一次自动故障迁移操作，
 <h2>启动 Sentinel<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>对于 <code class="docutils literal"><span class="pre">redis-sentinel</span></code> 程序，
 你可以用以下命令来启动 Sentinel 系统：</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">redis</span><span class="o">-</span><span class="n">sentinel</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">sentinel</span><span class="o">.</span><span class="n">conf</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">-</span><span class="n">sentinel</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">sentinel</span><span class="o">.</span><span class="n">conf</span>
 </pre></div>
 </div>
 <p>对于 <code class="docutils literal"><span class="pre">redis-server</span></code> 程序，
 你可以用以下命令来启动一个运行在 Sentinel 模式下的 Redis 服务器：</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">redis</span><span class="o">-</span><span class="n">server</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">sentinel</span><span class="o">.</span><span class="n">conf</span> <span class="o">--</span><span class="n">sentinel</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">-</span><span class="n">server</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">sentinel</span><span class="o">.</span><span class="n">conf</span> <span class="o">--</span><span class="n">sentinel</span>
 </pre></div>
 </div>
 <p>两种方法都可以启动一个 Sentinel 实例。</p>
@@ -132,15 +289,15 @@ Sentinel 会开始一次自动故障迁移操作，
 <p>Redis 源码中包含了一个名为 <code class="docutils literal"><span class="pre">sentinel.conf</span></code> 的文件，
 这个文件是一个带有详细注释的 Sentinel 配置文件示例。</p>
 <p>运行一个 Sentinel 所需的最少配置如下所示：</p>
-<div class="highlight-python"><div class="highlight"><pre>sentinel monitor mymaster 127.0.0.1 6379 2
-sentinel down-after-milliseconds mymaster 60000
-sentinel failover-timeout mymaster 180000
-sentinel parallel-syncs mymaster 1
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sentinel</span> <span class="n">monitor</span> <span class="n">mymaster</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span> <span class="mi">6379</span> <span class="mi">2</span>
+<span class="n">sentinel</span> <span class="n">down</span><span class="o">-</span><span class="n">after</span><span class="o">-</span><span class="n">milliseconds</span> <span class="n">mymaster</span> <span class="mi">60000</span>
+<span class="n">sentinel</span> <span class="n">failover</span><span class="o">-</span><span class="n">timeout</span> <span class="n">mymaster</span> <span class="mi">180000</span>
+<span class="n">sentinel</span> <span class="n">parallel</span><span class="o">-</span><span class="n">syncs</span> <span class="n">mymaster</span> <span class="mi">1</span>
 
-sentinel monitor resque 192.168.1.3 6380 4
-sentinel down-after-milliseconds resque 10000
-sentinel failover-timeout resque 180000
-sentinel parallel-syncs resque 5
+<span class="n">sentinel</span> <span class="n">monitor</span> <span class="n">resque</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.3</span> <span class="mi">6380</span> <span class="mi">4</span>
+<span class="n">sentinel</span> <span class="n">down</span><span class="o">-</span><span class="n">after</span><span class="o">-</span><span class="n">milliseconds</span> <span class="n">resque</span> <span class="mi">10000</span>
+<span class="n">sentinel</span> <span class="n">failover</span><span class="o">-</span><span class="n">timeout</span> <span class="n">resque</span> <span class="mi">180000</span>
+<span class="n">sentinel</span> <span class="n">parallel</span><span class="o">-</span><span class="n">syncs</span> <span class="n">resque</span> <span class="mi">5</span>
 </pre></div>
 </div>
 <p>第一行配置指示 Sentinel 去监视一个名为 <code class="docutils literal"><span class="pre">mymaster</span></code> 的主服务器，
@@ -158,14 +315,14 @@ sentinel parallel-syncs resque 5
 <strong>在只有少数（minority） Sentinel 进程正常运作的情况下，
 Sentinel 是不能执行自动故障迁移的。</strong></p>
 <p>其他选项的基本格式如下：</p>
-<div class="highlight-python"><div class="highlight"><pre>sentinel &lt;选项的名字&gt; &lt;主服务器的名字&gt; &lt;选项的值&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sentinel</span> <span class="o">&lt;</span><span class="n">选项的名字</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">主服务器的名字</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">选项的值</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>各个选项的功能如下：</p>
 <ul>
 <li><p class="first"><code class="docutils literal"><span class="pre">down-after-milliseconds</span></code> 选项指定了 Sentinel 认为服务器已经断线所需的毫秒数。</p>
 <p>如果服务器在给定的毫秒数之内，
-没有返回 Sentinel 发送的 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令的回复，
+没有返回 Sentinel 发送的 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令的回复，
 或者返回一个错误，
 那么 Sentinel 将这个服务器标记为<strong>主观下线</strong>（subjectively down，简称 <code class="docutils literal"><span class="pre">SDOWN</span></code> ）。</p>
 <p>不过只有一个 Sentinel 将服务器标记为主观下线并不一定会引起服务器的自动故障迁移：
@@ -203,16 +360,16 @@ Redis 的 Sentinel 中关于下线（down）有两个不同的概念：</p>
 （一个 Sentinel 可以通过向另一个 Sentinel 发送 <code class="docutils literal"><span class="pre">SENTINEL</span> <span class="pre">is-master-down-by-addr</span></code> 命令来询问对方是否认为给定的服务器已下线。）</li>
 </ul>
 <p>如果一个服务器没有在 <code class="docutils literal"><span class="pre">master-down-after-milliseconds</span></code> 选项所指定的时间内，
-对向它发送 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令的 Sentinel 返回一个有效回复（valid reply），
+对向它发送 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令的 Sentinel 返回一个有效回复（valid reply），
 那么 Sentinel 就会将这个服务器标记为主观下线。</p>
-<p>服务器对 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令的有效回复可以是以下三种回复的其中一种：</p>
+<p>服务器对 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令的有效回复可以是以下三种回复的其中一种：</p>
 <ul class="simple">
 <li>返回 <code class="docutils literal"><span class="pre">+PONG</span></code> 。</li>
 <li>返回 <code class="docutils literal"><span class="pre">-LOADING</span></code> 错误。</li>
 <li>返回 <code class="docutils literal"><span class="pre">-MASTERDOWN</span></code> 错误。</li>
 </ul>
 <p>如果服务器返回除以上三种回复之外的其他回复，
-又或者在指定时间内没有回复 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令，
+又或者在指定时间内没有回复 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令，
 那么 Sentinel 认为服务器返回的回复无效（non-valid）。</p>
 <p>注意，
 一个服务器必须在 <code class="docutils literal"><span class="pre">master-down-after-milliseconds</span></code> 毫秒内，
@@ -239,8 +396,8 @@ Sentinel 在将它们判断为下线前不需要进行协商，
 <div class="section" id="id6">
 <h2>每个 Sentinel 都需要定期执行的任务<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>每个 Sentinel 以每秒钟一次的频率向它所知的主服务器、从服务器以及其他 Sentinel 实例发送一个 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令。</li>
-<li>如果一个实例（instance）距离最后一次有效回复 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令的时间超过 <code class="docutils literal"><span class="pre">down-after-milliseconds</span></code> 选项所指定的值，
+<li>每个 Sentinel 以每秒钟一次的频率向它所知的主服务器、从服务器以及其他 Sentinel 实例发送一个 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令。</li>
+<li>如果一个实例（instance）距离最后一次有效回复 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令的时间超过 <code class="docutils literal"><span class="pre">down-after-milliseconds</span></code> 选项所指定的值，
 那么这个实例会被 Sentinel 标记为主观下线。
 一个有效回复可以是： <code class="docutils literal"><span class="pre">+PONG</span></code> 、 <code class="docutils literal"><span class="pre">-LOADING</span></code> 或者 <code class="docutils literal"><span class="pre">-MASTERDOWN</span></code> 。</li>
 <li>如果一个主服务器被标记为主观下线，
@@ -249,12 +406,12 @@ Sentinel 在将它们判断为下线前不需要进行协商，
 并且有足够数量的 Sentinel （至少要达到配置文件指定的数量）在指定的时间范围内同意这一判断，
 那么这个主服务器被标记为客观下线。</li>
 <li>在一般情况下，
-每个 Sentinel 会以每 10 秒一次的频率向它已知的所有主服务器和从服务器发送 <a class="reference internal" href="../server/info.html#info"><span>INFO</span></a> 命令。
+每个 Sentinel 会以每 10 秒一次的频率向它已知的所有主服务器和从服务器发送 <a class="reference internal" href="../client_and_server/info.html#info"><span class="std std-ref">INFO [section]</span></a> 命令。
 当一个主服务器被 Sentinel 标记为客观下线时，
-Sentinel 向下线主服务器的所有从服务器发送 <a class="reference internal" href="../server/info.html#info"><span>INFO</span></a> 命令的频率会从 10 秒一次改为每秒一次。</li>
+Sentinel 向下线主服务器的所有从服务器发送 <a class="reference internal" href="../client_and_server/info.html#info"><span class="std std-ref">INFO [section]</span></a> 命令的频率会从 10 秒一次改为每秒一次。</li>
 <li>当没有足够数量的 Sentinel 同意主服务器已经下线，
 主服务器的客观下线状态就会被移除。
-当主服务器重新向 Sentinel 的 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令返回有效回复时，
+当主服务器重新向 Sentinel 的 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令返回有效回复时，
 主服务器的主管下线状态就会被移除。</li>
 </ul>
 </div>
@@ -312,7 +469,7 @@ Sentinel 就会发送相应的信息。</li>
 <h3>Sentinel 命令<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>以下列出的是 Sentinel 接受的命令：</p>
 <ul class="simple">
-<li><a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> ：返回 <code class="docutils literal"><span class="pre">PONG</span></code> 。</li>
+<li><a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> ：返回 <code class="docutils literal"><span class="pre">PONG</span></code> 。</li>
 <li><code class="docutils literal"><span class="pre">SENTINEL</span> <span class="pre">masters</span></code> ：列出所有被监视的主服务器，以及这些主服务器的当前状态。</li>
 <li><code class="docutils literal"><span class="pre">SENTINEL</span> <span class="pre">slaves</span> <span class="pre">&lt;master</span> <span class="pre">name&gt;</span></code> ：列出给定主服务器的所有从服务器，以及这些从服务器的当前状态。</li>
 <li><code class="docutils literal"><span class="pre">SENTINEL</span> <span class="pre">get-master-addr-by-name</span> <span class="pre">&lt;master</span> <span class="pre">name&gt;</span></code> ：
@@ -337,8 +494,8 @@ Sentinel 就会发送相应的信息。</li>
 <div class="section" id="id9">
 <h3>发布与订阅信息<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>客户端可以将 Sentinel 看作是一个只提供了订阅功能的 Redis 服务器：
-你不可以使用 <a class="reference internal" href="../pub_sub/publish.html#publish"><span>PUBLISH</span></a> 命令向这个服务器发送信息，
-但你可以用 <a class="reference internal" href="../pub_sub/subscribe.html#subscribe"><span>SUBSCRIBE</span></a> 命令或者 <a class="reference internal" href="../pub_sub/psubscribe.html#psubscribe"><span>PSUBSCRIBE</span></a> 命令，
+你不可以使用 <a class="reference internal" href="../pubsub/publish.html#publish"><span class="std std-ref">PUBLISH channel message</span></a> 命令向这个服务器发送信息，
+但你可以用 <a class="reference internal" href="../pubsub/subscribe.html#subscribe"><span class="std std-ref">SUBSCRIBE channel [channel …]</span></a> 命令或者 <a class="reference internal" href="../pubsub/psubscribe.html#psubscribe"><span class="std std-ref">PSUBSCRIBE pattern [pattern …]</span></a> 命令，
 通过订阅给定的频道来获取相应的事件提醒。</p>
 <p>一个频道能够接收和这个频道的名字相同的事件。
 比如说，
@@ -350,7 +507,7 @@ Sentinel 就会发送相应的信息。</li>
 <p>注意，
 当格式中包含 <code class="docutils literal"><span class="pre">instance</span> <span class="pre">details</span></code> 字样时，
 表示频道所返回的信息中包含了以下用于识别目标实例的内容：</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;instance-type&gt; &lt;name&gt; &lt;ip&gt; &lt;port&gt; @ &lt;master-name&gt; &lt;master-ip&gt; &lt;master-port&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">instance</span><span class="o">-</span><span class="nb">type</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">ip</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">port</span><span class="o">&gt;</span> <span class="o">@</span> <span class="o">&lt;</span><span class="n">master</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">master</span><span class="o">-</span><span class="n">ip</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">master</span><span class="o">-</span><span class="n">port</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">&#64;</span></code> 字符之后的内容用于指定主服务器，
@@ -361,7 +518,7 @@ Sentinel 就会发送相应的信息。</li>
 <li><code class="docutils literal"><span class="pre">+slave</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：一个新的从服务器已经被 Sentinel 识别并关联。</li>
 <li><code class="docutils literal"><span class="pre">+failover-state-reconf-slaves</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：故障转移状态切换到了 <code class="docutils literal"><span class="pre">reconf-slaves</span></code> 状态。</li>
 <li><code class="docutils literal"><span class="pre">+failover-detected</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：另一个 Sentinel 开始了一次故障转移操作，或者一个从服务器转换成了主服务器。</li>
-<li><code class="docutils literal"><span class="pre">+slave-reconf-sent</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：领头（leader）的 Sentinel 向实例发送了 <a class="reference internal" href="../server/slaveof.html#slaveof"><span>SLAVEOF</span></a> 命令，为实例设置新的主服务器。</li>
+<li><code class="docutils literal"><span class="pre">+slave-reconf-sent</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：领头（leader）的 Sentinel 向实例发送了 <a class="reference internal" href="../replication/slaveof.html#slaveof"><span class="std std-ref">SLAVEOF host port</span></a> 命令，为实例设置新的主服务器。</li>
 <li><code class="docutils literal"><span class="pre">+slave-reconf-inprog</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：实例正在将自己设置为指定主服务器的从服务器，但相应的同步过程仍未完成。</li>
 <li><code class="docutils literal"><span class="pre">+slave-reconf-done</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：从服务器已经成功完成对新主服务器的同步。</li>
 <li><code class="docutils literal"><span class="pre">-dup-sentinel</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：对给定主服务器进行监视的一个或多个 Sentinel 已经因为重复出现而被移除 —— 当 Sentinel 实例重启的时候，就会出现这种情况。</li>
@@ -402,7 +559,7 @@ Sentinel 就会发送相应的信息。</li>
 <li>通过发布与订阅功能，
 将更新后的配置传播给所有其他 Sentinel ，
 其他 Sentinel 对它们自己的配置进行更新。</li>
-<li>向已下线主服务器的从服务器发送 <a class="reference internal" href="../server/slaveof.html#slaveof"><span>SLAVEOF</span></a> 命令，
+<li>向已下线主服务器的从服务器发送 <a class="reference internal" href="../replication/slaveof.html#slaveof"><span class="std std-ref">SLAVEOF host port</span></a> 命令，
 让它们去复制新的主服务器。</li>
 <li>当所有从服务器都已经开始复制新的主服务器时，
 领头 Sentinel 终止这次故障迁移操作。</li>
@@ -417,7 +574,7 @@ Sentinel 都会向被重新配置的实例发送一个 <code class="docutils lit
 <p>Sentinel 使用以下规则来选择新的主服务器：</p>
 <ul class="simple">
 <li>在失效主服务器属下的从服务器当中，
-那些被标记为主观下线、已断线、或者最后一次回复 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令的时间大于五秒钟的从服务器都会被淘汰。</li>
+那些被标记为主观下线、已断线、或者最后一次回复 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令的时间大于五秒钟的从服务器都会被淘汰。</li>
 <li>在失效主服务器属下的从服务器当中，
 那些与失效主服务器连接断开的时长超过 <code class="docutils literal"><span class="pre">down-after</span></code> 选项指定的时长十倍的从服务器都会被淘汰。</li>
 <li>在经历了以上两轮淘汰之后剩下来的从服务器中，
@@ -484,7 +641,7 @@ Sentinel 在对实例进行重新配置之前仍然会等待一段足够长的�
 <p>Redis Sentinel 严重依赖计算机的时间功能：
 比如说，
 为了判断一个实例是否可用，
-Sentinel 会记录这个实例最后一次相应 <a class="reference internal" href="../connection/ping.html#ping"><span>PING</span></a> 命令的时间，
+Sentinel 会记录这个实例最后一次相应 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令的时间，
 并将这个时间和当前时间进行对比，
 从而知道这个实例有多长时间没有和 Sentinel 进行任何成功通讯。</p>
 <p>不过，
@@ -529,7 +686,7 @@ Sentinel 返回负值：
 Redis 就会返回 <code class="docutils literal"><span class="pre">-BUSY</span></code> 错误。</p>
 <p>当出现这种情况时，
 Sentinel 在尝试执行故障转移操作之前，
-会先向服务器发送一个 <a class="reference internal" href="../script/script_kill.html#script-kill"><span>SCRIPT KILL</span></a> 命令，
+会先向服务器发送一个 <a class="reference internal" href="../script/script_kill.html#script-kill"><span class="std std-ref">SCRIPT KILL</span></a> 命令，
 如果服务器正在执行的是一个只读脚本的话，
 那么这个脚本就会被杀死，
 服务器就会回到正常状态。</p>
@@ -539,7 +696,6 @@ Sentinel 在尝试执行故障转移操作之前，
 <p>关于 Sentinel 客户端的实现信息可以参考 <a class="reference external" href="http://redis.io/topics/sentinel-clients">Sentinel 客户端指引手册</a> 。</p>
 </div>
 </div>
-
 
 
             <div class="section" id="discuss">
@@ -565,35 +721,59 @@ Sentinel 在尝试执行故障转移操作之前，
     <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 
+<!--
 <div id="sponser">
     <h2>赞助商</h2>
     <p>我们正在寻找赞助商，有意对这个网站进行赞助的朋友请联系 huangz1990@gmail.com 。</p>
 </div>
-
+-->
+           </div>
+           
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cluster-tutorial.html" class="btn btn-neutral float-right" title="集群教程" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pubsub.html" class="btn btn-neutral float-left" title="发布与订阅（pub/sub）" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Redis
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="cluster-tutorial.html" title="集群教程"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="persistence.html" title="持久化（persistence）"
-             >previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2015, Redis.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.3.
-    </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -603,5 +783,5 @@ Sentinel 在尝试执行故障转移操作之前，
     ga('create', 'UA-53959484-7', 'auto');
     ga('send', 'pageview');
   </script>
-  </body>
+</body>
 </html>

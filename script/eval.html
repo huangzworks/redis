@@ -1,78 +1,227 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>EVAL script numkeys key [key …] arg [arg …] &mdash; Redis 命令参考</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
     
-    <title>EVAL &mdash; Redis 命令参考</title>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'2019',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
     
-    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '2.8',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Redis 命令参考" href="../index.html" />
-    <link rel="up" title="Script（脚本）" href="index.html" />
-    <link rel="next" title="EVALSHA" href="evalsha.html" />
-    <link rel="prev" title="Script（脚本）" href="index.html" /> 
 
-<!--[if lte IE 6]>
-<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
-<![endif]-->
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="EVALSHA sha1 numkeys key [key …] arg [arg …]" href="evalsha.html" />
+    <link rel="prev" title="Lua 脚本" href="index.html" /> 
+</head>
 
+<body class="wy-body-for-nav">
 
-  </head>
-  <body>
+   
+  <div class="wy-grid-for-nav">
 
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="evalsha.html" title="EVALSHA"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="index.html" title="Script（脚本）"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">Script（脚本）</a> &raquo;</li> 
-      </ul>
-    </div>  
+          
+            <a href="../index.html" class="icon icon-home"> Redis 命令参考
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+          
+          </a>
+
+          
             
-  <div class="section" id="eval">
-<span id="id1"></span><h1>EVAL<a class="headerlink" href="#eval" title="Permalink to this headline">¶</a></h1>
-<p><strong>EVAL script numkeys key [key ...] arg [arg ...]</strong></p>
+            
+              <div class="version">
+                2019
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../string/index.html">字符串</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hash/index.html">哈希表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../list/index.html">列表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../set/index.html">集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sorted_set/index.html">有序集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hyperloglog/index.html">HyperLogLog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geo/index.html">地理位置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bitmap/index.html">位图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../expire/index.html">自动过期</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../transaction/index.html">事务</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Lua 脚本</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">EVAL</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lua-redis">在 Lua 数据类型和 Redis 数据类型之间转换</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">脚本的原子性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">错误处理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#evalsha">带宽和 EVALSHA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">脚本缓存</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#script">SCRIPT 命令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">纯函数脚本</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">全局变量保护</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#redis">使用脚本散发 Redis 日志</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sandbox">沙箱(sandbox)和最大执行时间</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pipeline-context-evalsha">流水线(pipeline)上下文(context)中的 EVALSHA</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="evalsha.html">EVALSHA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script_load.html">SCRIPT_LOAD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script_exists.html">SCRIPT_EXISTS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script_flush.html">SCRIPT_FLUSH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script_kill.html">SCRIPT_KILL</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../persistence/index.html">持久化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pubsub/index.html">发布与订阅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../replication/index.html">复制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../client_and_server/index.html">客户端与服务器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configure/index.html">配置选项</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug/index.html">调试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../internal/index.html">内部命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topic/index.html">功能文档</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Redis 命令参考</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Lua 脚本</a> &raquo;</li>
+        
+      <li>EVAL script numkeys key [key …] arg [arg …]</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/script/eval.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="eval-script-numkeys-key-key-arg-arg">
+<span id="eval"></span><h1>EVAL script numkeys key [key …] arg [arg …]<a class="headerlink" href="#eval-script-numkeys-key-key-arg-arg" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><div class="line-block">
+<div class="line">可用版本： &gt;= 2.6.0</div>
+<div class="line">时间复杂度： <a class="reference internal" href="#eval">EVAL</a> 和 EVALSHA 可以在 O(1) 复杂度内找到要被执行的脚本，其余的复杂度取决于执行的脚本本身。</div>
+</div>
+</div></blockquote>
 <p>从 Redis 2.6.0 版本开始，通过内置的 Lua 解释器，可以使用 <a class="reference internal" href="#eval">EVAL</a> 命令对 Lua 脚本进行求值。</p>
 <p><code class="docutils literal"><span class="pre">script</span></code> 参数是一段 Lua 5.1 脚本程序，它会被运行在 Redis 服务器上下文中，这段脚本不必(也不应该)定义为一个 Lua 函数。</p>
 <p><code class="docutils literal"><span class="pre">numkeys</span></code> 参数用于指定键名参数的个数。</p>
 <p>键名参数 <code class="docutils literal"><span class="pre">key</span> <span class="pre">[key</span> <span class="pre">...]</span></code> 从 <a class="reference internal" href="#eval">EVAL</a> 的第三个参数开始算起，表示在脚本中所用到的那些 Redis 键(key)，这些键名参数可以在 Lua 中通过全局变量 <code class="docutils literal"><span class="pre">KEYS</span></code> 数组，用 <code class="docutils literal"><span class="pre">1</span></code> 为基址的形式访问( <code class="docutils literal"><span class="pre">KEYS[1]</span></code> ， <code class="docutils literal"><span class="pre">KEYS[2]</span></code> ，以此类推)。</p>
 <p>在命令的最后，那些不是键名参数的附加参数 <code class="docutils literal"><span class="pre">arg</span> <span class="pre">[arg</span> <span class="pre">...]</span></code> ，可以在 Lua 中通过全局变量 <code class="docutils literal"><span class="pre">ARGV</span></code> 数组访问，访问的形式和 <code class="docutils literal"><span class="pre">KEYS</span></code> 变量类似( <code class="docutils literal"><span class="pre">ARGV[1]</span></code> 、 <code class="docutils literal"><span class="pre">ARGV[2]</span></code> ，诸如此类)。</p>
 <p>上面这几段长长的说明可以用一个简单的例子来概括：</p>
-<div class="highlight-python"><div class="highlight"><pre>&gt; eval &quot;return {KEYS[1],KEYS[2],ARGV[1],ARGV[2]}&quot; 2 key1 key2 first second
-1) &quot;key1&quot;
-2) &quot;key2&quot;
-3) &quot;first&quot;
-4) &quot;second&quot;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nb">eval</span> <span class="s2">&quot;return {KEYS[1],KEYS[2],ARGV[1],ARGV[2]}&quot;</span> <span class="mi">2</span> <span class="n">key1</span> <span class="n">key2</span> <span class="n">first</span> <span class="n">second</span>
+<span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;key1&quot;</span>
+<span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;key2&quot;</span>
+<span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;first&quot;</span>
+<span class="mi">4</span><span class="p">)</span> <span class="s2">&quot;second&quot;</span>
 </pre></div>
 </div>
 <p>其中 <code class="docutils literal"><span class="pre">&quot;return</span> <span class="pre">{KEYS[1],KEYS[2],ARGV[1],ARGV[2]}&quot;</span></code> 是被求值的 Lua 脚本，数字 <code class="docutils literal"><span class="pre">2</span></code> 指定了键名参数的数量， <code class="docutils literal"><span class="pre">key1</span></code> 和 <code class="docutils literal"><span class="pre">key2</span></code> 是键名参数，分别使用 <code class="docutils literal"><span class="pre">KEYS[1]</span></code> 和 <code class="docutils literal"><span class="pre">KEYS[2]</span></code> 访问，而最后的 <code class="docutils literal"><span class="pre">first</span></code> 和 <code class="docutils literal"><span class="pre">second</span></code> 则是附加参数，可以通过 <code class="docutils literal"><span class="pre">ARGV[1]</span></code> 和 <code class="docutils literal"><span class="pre">ARGV[2]</span></code> 访问它们。</p>
@@ -83,13 +232,13 @@
 </ul>
 <p>这两个函数的唯一区别在于它们使用不同的方式处理执行命令所产生的错误，在后面的『错误处理』部分会讲到这一点。</p>
 <p><code class="docutils literal"><span class="pre">redis.call()</span></code> 和 <code class="docutils literal"><span class="pre">redis.pcall()</span></code> 两个函数的参数可以是任何格式良好(well formed)的 Redis 命令：</p>
-<div class="highlight-python"><div class="highlight"><pre>&gt; eval &quot;return redis.call(&#39;set&#39;,&#39;foo&#39;,&#39;bar&#39;)&quot; 0
-OK
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nb">eval</span> <span class="s2">&quot;return redis.call(&#39;set&#39;,&#39;foo&#39;,&#39;bar&#39;)&quot;</span> <span class="mi">0</span>
+<span class="n">OK</span>
 </pre></div>
 </div>
 <p>需要注意的是，上面这段脚本的确实现了将键 <code class="docutils literal"><span class="pre">foo</span></code> 的值设为 <code class="docutils literal"><span class="pre">bar</span></code> 的目的，但是，它违反了  <a class="reference internal" href="#eval">EVAL</a> 命令的语义，因为脚本里使用的所有键都应该由 <code class="docutils literal"><span class="pre">KEYS</span></code> 数组来传递，就像这样：</p>
-<div class="highlight-python"><div class="highlight"><pre>&gt; eval &quot;return redis.call(&#39;set&#39;,KEYS[1],&#39;bar&#39;)&quot; 1 foo
-OK
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nb">eval</span> <span class="s2">&quot;return redis.call(&#39;set&#39;,KEYS[1],&#39;bar&#39;)&quot;</span> <span class="mi">1</span> <span class="n">foo</span>
+<span class="n">OK</span>
 </pre></div>
 </div>
 <p>要求使用正确的形式来传递键(key)是有原因的，因为不仅仅是 <a class="reference internal" href="#eval">EVAL</a> 这个命令，所有的 Redis 命令，在执行之前都会被分析，籍此来确定命令会对哪些键进行操作。</p>
@@ -123,40 +272,40 @@ OK
 <li>Lua boolean true -&gt; Redis integer reply with value of 1 / Lua 布尔值 <code class="docutils literal"><span class="pre">true</span></code> 转换成 Redis 整数回复中的 <code class="docutils literal"><span class="pre">1</span></code></li>
 </ul>
 <p>以下是几个类型转换的例子：</p>
-<div class="highlight-python"><div class="highlight"><pre>&gt; eval &quot;return 10&quot; 0
-(integer) 10
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nb">eval</span> <span class="s2">&quot;return 10&quot;</span> <span class="mi">0</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">10</span>
 
-&gt; eval &quot;return {1,2,{3,&#39;Hello World!&#39;}}&quot; 0
-1) (integer) 1
-2) (integer) 2
-3) 1) (integer) 3
-   2) &quot;Hello World!&quot;
+<span class="o">&gt;</span> <span class="nb">eval</span> <span class="s2">&quot;return {1,2,{3,&#39;Hello World!&#39;}}&quot;</span> <span class="mi">0</span>
+<span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">1</span>
+<span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">2</span>
+<span class="mi">3</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">3</span>
+   <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;Hello World!&quot;</span>
 
-&gt; eval &quot;return redis.call(&#39;get&#39;,&#39;foo&#39;)&quot; 0
-&quot;bar&quot;
+<span class="o">&gt;</span> <span class="nb">eval</span> <span class="s2">&quot;return redis.call(&#39;get&#39;,&#39;foo&#39;)&quot;</span> <span class="mi">0</span>
+<span class="s2">&quot;bar&quot;</span>
 </pre></div>
 </div>
 <p>在上面的三个代码示例里，前两个演示了如何将 Lua 值转换成 Redis 值，最后一个例子更复杂一些，它演示了一个将 Redis 值转换成 Lua 值，然后再将 Lua 值转换成 Redis 值的类型转过程。</p>
 </div>
-<div class="section" id="id2">
-<h2>脚本的原子性<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>Redis 使用单个 Lua 解释器去运行所有脚本，并且， Redis 也保证脚本会以原子性(atomic)的方式执行：当某个脚本正在运行的时候，不会有其他脚本或 Redis 命令被执行。这和使用 <a class="reference internal" href="../transaction/multi.html#multi"><span>MULTI</span></a> / <a class="reference internal" href="../transaction/exec.html#exec"><span>EXEC</span></a> 包围的事务很类似。在其他别的客户端看来，脚本的效果(effect)要么是不可见的(not visible)，要么就是已完成的(already completed)。</p>
+<div class="section" id="id1">
+<h2>脚本的原子性<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Redis 使用单个 Lua 解释器去运行所有脚本，并且， Redis 也保证脚本会以原子性(atomic)的方式执行：当某个脚本正在运行的时候，不会有其他脚本或 Redis 命令被执行。这和使用 <a class="reference internal" href="../transaction/multi.html#multi"><span class="std std-ref">MULTI</span></a> / <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> 包围的事务很类似。在其他别的客户端看来，脚本的效果(effect)要么是不可见的(not visible)，要么就是已完成的(already completed)。</p>
 <p>另一方面，这也意味着，执行一个运行缓慢的脚本并不是一个好主意。写一个跑得很快很顺溜的脚本并不难，因为脚本的运行开销(overhead)非常少，但是当你不得不使用一些跑得比较慢的脚本时，请小心，因为当这些蜗牛脚本在慢吞吞地运行的时候，其他客户端会因为服务器正忙而无法执行命令。</p>
 </div>
-<div class="section" id="id3">
-<h2>错误处理<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h2>错误处理<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>前面的命令介绍部分说过， <code class="docutils literal"><span class="pre">redis.call()</span></code> 和 <code class="docutils literal"><span class="pre">redis.pcall()</span></code> 的唯一区别在于它们对错误处理的不同。</p>
 <p>当 <code class="docutils literal"><span class="pre">redis.call()</span></code> 在执行命令的过程中发生错误时，脚本会停止执行，并返回一个脚本错误，错误的输出信息会说明错误造成的原因：</p>
-<div class="highlight-python"><div class="highlight"><pre>redis&gt; lpush foo a
-(integer) 1
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">lpush</span> <span class="n">foo</span> <span class="n">a</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">1</span>
 
-redis&gt; eval &quot;return redis.call(&#39;get&#39;, &#39;foo&#39;)&quot; 0
-(error) ERR Error running script (call to f_282297a0228f48cd3fc6a55de6316f31422f5d17): ERR Operation against a key holding the wrong kind of value
+<span class="n">redis</span><span class="o">&gt;</span> <span class="nb">eval</span> <span class="s2">&quot;return redis.call(&#39;get&#39;, &#39;foo&#39;)&quot;</span> <span class="mi">0</span>
+<span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="n">ERR</span> <span class="n">Error</span> <span class="n">running</span> <span class="n">script</span> <span class="p">(</span><span class="n">call</span> <span class="n">to</span> <span class="n">f_282297a0228f48cd3fc6a55de6316f31422f5d17</span><span class="p">):</span> <span class="n">ERR</span> <span class="n">Operation</span> <span class="n">against</span> <span class="n">a</span> <span class="n">key</span> <span class="n">holding</span> <span class="n">the</span> <span class="n">wrong</span> <span class="n">kind</span> <span class="n">of</span> <span class="n">value</span>
 </pre></div>
 </div>
 <p>和 <code class="docutils literal"><span class="pre">redis.call()</span></code> 不同， <code class="docutils literal"><span class="pre">redis.pcall()</span></code> 出错时并不引发(raise)错误，而是返回一个带 <code class="docutils literal"><span class="pre">err</span></code> 域的 Lua 表(table)，用于表示错误：</p>
-<div class="highlight-python"><div class="highlight"><pre>redis 127.0.0.1:6379&gt; EVAL &quot;return redis.pcall(&#39;get&#39;, &#39;foo&#39;)&quot; 0
-(error) ERR Operation against a key holding the wrong kind of value
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">EVAL</span> <span class="s2">&quot;return redis.pcall(&#39;get&#39;, &#39;foo&#39;)&quot;</span> <span class="mi">0</span>
+<span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="n">ERR</span> <span class="n">Operation</span> <span class="n">against</span> <span class="n">a</span> <span class="n">key</span> <span class="n">holding</span> <span class="n">the</span> <span class="n">wrong</span> <span class="n">kind</span> <span class="n">of</span> <span class="n">value</span>
 </pre></div>
 </div>
 </div>
@@ -170,7 +319,7 @@ redis&gt; eval &quot;return redis.call(&#39;get&#39;, &#39;foo&#39;)&quot; 0
 <li>如果服务器不记得给定的 SHA1 校验和所指定的脚本，那么它返回一个特殊的错误，提醒用户使用 <a class="reference internal" href="#eval">EVAL</a> 代替 EVALSHA</li>
 </ul>
 <p>以下是示例：</p>
-<div class="highlight-python"><div class="highlight"><pre>&gt; set foo bar
+<div class="highlight-default"><div class="highlight"><pre><span></span>&gt; set foo bar
 OK
 
 &gt; eval &quot;return redis.call(&#39;get&#39;,&#39;foo&#39;)&quot; 0
@@ -186,8 +335,8 @@ OK
 <p>客户端库的底层实现可以一直乐观地使用 EVALSHA 来代替 <a class="reference internal" href="#eval">EVAL</a> ，并期望着要使用的脚本已经保存在服务器上了，只有当 <code class="docutils literal"><span class="pre">NOSCRIPT</span></code> 错误发生时，才使用 <a class="reference internal" href="#eval">EVAL</a> 命令重新发送脚本，这样就可以最大限度地节省带宽。</p>
 <p>这也说明了执行 <a class="reference internal" href="#eval">EVAL</a> 命令时，使用正确的格式来传递键名参数和附加参数的重要性：因为如果将参数硬写在脚本中，那么每次当参数改变的时候，都要重新发送脚本，即使脚本的主体并没有改变，相反，通过使用正确的格式来传递键名参数和附加参数，就可以在脚本主体不变的情况下，直接使用 EVALSHA 命令对脚本进行复用，免去了无谓的带宽消耗。</p>
 </div>
-<div class="section" id="id4">
-<h2>脚本缓存<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2>脚本缓存<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>Redis 保证所有被运行过的脚本都会被永久保存在脚本缓存当中，这意味着，当 <a class="reference internal" href="#eval">EVAL</a> 命令在一个 Redis 实例上成功执行某个脚本之后，随后针对这个脚本的所有 EVALSHA 命令都会成功执行。</p>
 <p>刷新脚本缓存的唯一办法是显式地调用 <code class="docutils literal"><span class="pre">SCRIPT</span> <span class="pre">FLUSH</span></code> 命令，这个命令会清空运行过的所有脚本的缓存。通常只有在云计算环境中，Redis 实例被改作其他客户或者别的应用程序的实例时，才会执行这个命令。</p>
 <p>缓存可以长时间储存而不产生内存问题的原因是，它们的体积非常小，而且数量也非常少，即使脚本在概念上类似于实现一个新命令，即使在一个大规模的程序里有成百上千的脚本，即使这些脚本会经常修改，即便如此，储存这些脚本的内存仍然是微不足道的。</p>
@@ -197,98 +346,98 @@ OK
 <h2>SCRIPT 命令<a class="headerlink" href="#script" title="Permalink to this headline">¶</a></h2>
 <p>Redis 提供了以下几个 SCRIPT 命令，用于对脚本子系统(scripting subsystem)进行控制：</p>
 <ul class="simple">
-<li><a class="reference internal" href="script_flush.html#script-flush"><span>SCRIPT FLUSH</span></a> ：清除所有脚本缓存</li>
-<li><a class="reference internal" href="script_exists.html#script-exists"><span>SCRIPT EXISTS</span></a> ：根据给定的脚本校验和，检查指定的脚本是否存在于脚本缓存</li>
-<li><a class="reference internal" href="script_load.html#script-load"><span>SCRIPT LOAD</span></a> ：将一个脚本装入脚本缓存，但并不立即运行它</li>
-<li><a class="reference internal" href="script_kill.html#script-kill"><span>SCRIPT KILL</span></a> ：杀死当前正在运行的脚本</li>
+<li><a class="reference internal" href="script_flush.html#script-flush"><span class="std std-ref">SCRIPT FLUSH</span></a> ：清除所有脚本缓存</li>
+<li><a class="reference internal" href="script_exists.html#script-exists"><span class="std std-ref">SCRIPT EXISTS sha1 [sha1 …]</span></a> ：根据给定的脚本校验和，检查指定的脚本是否存在于脚本缓存</li>
+<li><a class="reference internal" href="script_load.html#script-load"><span class="std std-ref">SCRIPT LOAD script</span></a> ：将一个脚本装入脚本缓存，但并不立即运行它</li>
+<li><a class="reference internal" href="script_kill.html#script-kill"><span class="std std-ref">SCRIPT KILL</span></a> ：杀死当前正在运行的脚本</li>
 </ul>
 </div>
-<div class="section" id="id5">
-<h2>纯函数脚本<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2>纯函数脚本<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>在编写脚本方面，一个重要的要求就是，脚本应该被写成纯函数(pure function)。</p>
 <p>也就是说，脚本应该具有以下属性：</p>
 <ul class="simple">
 <li>对于同样的数据集输入，给定相同的参数，脚本执行的 Redis 写命令总是相同的。脚本执行的操作不能依赖于任何隐藏(非显式)数据，不能依赖于脚本在执行过程中、或脚本在不同执行时期之间可能变更的状态，并且它也不能依赖于任何来自 I/O 设备的外部输入。</li>
 </ul>
-<p>使用系统时间(system time)，调用像 <a class="reference internal" href="../key/randomkey.html#randomkey"><span>RANDOMKEY</span></a> 那样的随机命令，或者使用 Lua 的随机数生成器，类似以上的这些操作，都会造成脚本的求值无法每次都得出同样的结果。</p>
+<p>使用系统时间(system time)，调用像 <a class="reference internal" href="../database/randomkey.html#randomkey"><span class="std std-ref">RANDOMKEY</span></a> 那样的随机命令，或者使用 Lua 的随机数生成器，类似以上的这些操作，都会造成脚本的求值无法每次都得出同样的结果。</p>
 <p>为了确保脚本符合上面所说的属性， Redis 做了以下工作：</p>
 <ul class="simple">
 <li>Lua 没有访问系统时间或者其他内部状态的命令</li>
-<li>Redis 会返回一个错误，阻止这样的脚本运行： 这些脚本在执行随机命令之后(比如 <a class="reference internal" href="../key/randomkey.html#randomkey"><span>RANDOMKEY</span></a> 、 <a class="reference internal" href="../set/srandmember.html#srandmember"><span>SRANDMEMBER</span></a> 或 <a class="reference internal" href="../server/time.html#time"><span>TIME</span></a> 等)，还会执行可以修改数据集的 Redis 命令。如果脚本只是执行只读操作，那么就没有这一限制。注意，随机命令并不一定就指那些带 RAND 字眼的命令，任何带有非确定性的命令都会被认为是随机命令，比如 <a class="reference internal" href="../server/time.html#time"><span>TIME</span></a> 命令就是这方面的一个很好的例子。</li>
-<li>每当从 Lua 脚本中调用那些返回无序元素的命令时，执行命令所得的数据在返回给 Lua 之前会先执行一个静默(slient)的字典序排序(<a class="reference external" href="http://en.wikipedia.org/wiki/Lexicographical_order">lexicographical sorting</a>)。举个例子，因为 Redis 的 Set 保存的是无序的元素，所以在 Redis 命令行客户端中直接执行 <a class="reference internal" href="../set/smembers.html#smembers"><span>SMEMBERS</span></a> ，返回的元素是无序的，但是，假如在脚本中执行 <code class="docutils literal"><span class="pre">redis.call(&quot;smembers&quot;,</span> <span class="pre">KEYS[1])</span></code> ，那么返回的总是排过序的元素。</li>
+<li>Redis 会返回一个错误，阻止这样的脚本运行： 这些脚本在执行随机命令之后(比如 <a class="reference internal" href="../database/randomkey.html#randomkey"><span class="std std-ref">RANDOMKEY</span></a> 、 <a class="reference internal" href="../set/srandmember.html#srandmember"><span class="std std-ref">SRANDMEMBER key [count]</span></a> 或 <a class="reference internal" href="../client_and_server/time.html#time"><span class="std std-ref">TIME</span></a> 等)，还会执行可以修改数据集的 Redis 命令。如果脚本只是执行只读操作，那么就没有这一限制。注意，随机命令并不一定就指那些带 RAND 字眼的命令，任何带有非确定性的命令都会被认为是随机命令，比如 <a class="reference internal" href="../client_and_server/time.html#time"><span class="std std-ref">TIME</span></a> 命令就是这方面的一个很好的例子。</li>
+<li>每当从 Lua 脚本中调用那些返回无序元素的命令时，执行命令所得的数据在返回给 Lua 之前会先执行一个静默(slient)的字典序排序(<a class="reference external" href="http://en.wikipedia.org/wiki/Lexicographical_order">lexicographical sorting</a>)。举个例子，因为 Redis 的 Set 保存的是无序的元素，所以在 Redis 命令行客户端中直接执行 <a class="reference internal" href="../set/smembers.html#smembers"><span class="std std-ref">SMEMBERS key</span></a> ，返回的元素是无序的，但是，假如在脚本中执行 <code class="docutils literal"><span class="pre">redis.call(&quot;smembers&quot;,</span> <span class="pre">KEYS[1])</span></code> ，那么返回的总是排过序的元素。</li>
 <li>对 Lua 的伪随机数生成函数 <code class="docutils literal"><span class="pre">math.random</span></code> 和 <code class="docutils literal"><span class="pre">math.randomseed</span></code> 进行修改，使得每次在运行新脚本的时候，总是拥有同样的 seed 值。这意味着，每次运行脚本时，只要不使用 <code class="docutils literal"><span class="pre">math.randomseed</span></code> ，那么 <code class="docutils literal"><span class="pre">math.random</span></code> 产生的随机数序列总是相同的。</li>
 </ul>
 <p>尽管有那么多的限制，但用户还是可以用一个简单的技巧写出带随机行为的脚本(如果他们需要的话)。</p>
 <p>假设现在我们要编写一个 Redis 脚本，这个脚本从列表中弹出 N 个随机数。一个 Ruby 写的例子如下：</p>
-<div class="highlight-python"><div class="highlight"><pre>require &#39;rubygems&#39;
-require &#39;redis&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">require</span> <span class="s1">&#39;rubygems&#39;</span>
+<span class="n">require</span> <span class="s1">&#39;redis&#39;</span>
 
-r = Redis.new
+<span class="n">r</span> <span class="o">=</span> <span class="n">Redis</span><span class="o">.</span><span class="n">new</span>
 
-RandomPushScript = &lt;&lt;EOF
-    local i = tonumber(ARGV[1])
-    local res
-    while (i &gt; 0) do
-        res = redis.call(&#39;lpush&#39;,KEYS[1],math.random())
-        i = i-1
-    end
-    return res
-EOF
+<span class="n">RandomPushScript</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="n">EOF</span>
+    <span class="n">local</span> <span class="n">i</span> <span class="o">=</span> <span class="n">tonumber</span><span class="p">(</span><span class="n">ARGV</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">local</span> <span class="n">res</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="n">do</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;lpush&#39;</span><span class="p">,</span><span class="n">KEYS</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">math</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span>
+    <span class="n">end</span>
+    <span class="k">return</span> <span class="n">res</span>
+<span class="n">EOF</span>
 
-r.del(:mylist)
-puts r.eval(RandomPushScript,[:mylist],[10,rand(2**32)])
+<span class="n">r</span><span class="o">.</span><span class="k">del</span><span class="p">(:</span><span class="n">mylist</span><span class="p">)</span>
+<span class="n">puts</span> <span class="n">r</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">RandomPushScript</span><span class="p">,[:</span><span class="n">mylist</span><span class="p">],[</span><span class="mi">10</span><span class="p">,</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">32</span><span class="p">)])</span>
 </pre></div>
 </div>
 <p>这个程序每次运行都会生成带有以下元素的列表：</p>
-<div class="highlight-python"><div class="highlight"><pre>&gt; lrange mylist 0 -1
-1) &quot;0.74509509873814&quot;
-2) &quot;0.87390407681181&quot;
-3) &quot;0.36876626981831&quot;
-4) &quot;0.6921941534114&quot;
-5) &quot;0.7857992587545&quot;
-6) &quot;0.57730350670279&quot;
-7) &quot;0.87046522734243&quot;
-8) &quot;0.09637165539729&quot;
-9) &quot;0.74990198051087&quot;
-10) &quot;0.17082803611217&quot;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">lrange</span> <span class="n">mylist</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span>
+<span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;0.74509509873814&quot;</span>
+<span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;0.87390407681181&quot;</span>
+<span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;0.36876626981831&quot;</span>
+<span class="mi">4</span><span class="p">)</span> <span class="s2">&quot;0.6921941534114&quot;</span>
+<span class="mi">5</span><span class="p">)</span> <span class="s2">&quot;0.7857992587545&quot;</span>
+<span class="mi">6</span><span class="p">)</span> <span class="s2">&quot;0.57730350670279&quot;</span>
+<span class="mi">7</span><span class="p">)</span> <span class="s2">&quot;0.87046522734243&quot;</span>
+<span class="mi">8</span><span class="p">)</span> <span class="s2">&quot;0.09637165539729&quot;</span>
+<span class="mi">9</span><span class="p">)</span> <span class="s2">&quot;0.74990198051087&quot;</span>
+<span class="mi">10</span><span class="p">)</span> <span class="s2">&quot;0.17082803611217&quot;</span>
 </pre></div>
 </div>
 <p>上面的 Ruby 程序每次都只生成同样的列表，用途并不是太大。那么，该怎样修改这个脚本，使得它仍然是一个纯函数(符合 Redis 的要求)，但是每次调用都可以产生不同的随机元素呢？</p>
 <p>一个简单的办法是，为脚本添加一个额外的参数，让这个参数作为 Lua 的随机数生成器的 seed 值，这样的话，只要给脚本传入不同的 seed ，脚本就会生成不同的列表元素。</p>
 <p>以下是修改后的脚本：</p>
-<div class="highlight-python"><div class="highlight"><pre>RandomPushScript = &lt;&lt;EOF
-    local i = tonumber(ARGV[1])
-    local res
-    math.randomseed(tonumber(ARGV[2]))
-    while (i &gt; 0) do
-        res = redis.call(&#39;lpush&#39;,KEYS[1],math.random())
-        i = i-1
-    end
-    return res
-EOF
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">RandomPushScript</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="n">EOF</span>
+    <span class="n">local</span> <span class="n">i</span> <span class="o">=</span> <span class="n">tonumber</span><span class="p">(</span><span class="n">ARGV</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">local</span> <span class="n">res</span>
+    <span class="n">math</span><span class="o">.</span><span class="n">randomseed</span><span class="p">(</span><span class="n">tonumber</span><span class="p">(</span><span class="n">ARGV</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="n">do</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;lpush&#39;</span><span class="p">,</span><span class="n">KEYS</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">math</span><span class="o">.</span><span class="n">random</span><span class="p">())</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span>
+    <span class="n">end</span>
+    <span class="k">return</span> <span class="n">res</span>
+<span class="n">EOF</span>
 
-r.del(:mylist)
-puts r.eval(RandomPushScript,1,:mylist,10,rand(2**32))
+<span class="n">r</span><span class="o">.</span><span class="k">del</span><span class="p">(:</span><span class="n">mylist</span><span class="p">)</span>
+<span class="n">puts</span> <span class="n">r</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">RandomPushScript</span><span class="p">,</span><span class="mi">1</span><span class="p">,:</span><span class="n">mylist</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">32</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>尽管对于同样的 seed ，上面的脚本产生的列表元素是一样的(因为它是一个纯函数)，但是只要每次在执行脚本的时候传入不同的 seed ，我们就可以得到带有不同随机元素的列表。</p>
 <p>Seed 会在复制(replication link)和写 AOF 文件时作为一个参数来传播，保证在载入 AOF 文件或附属节点(slave)处理脚本时， seed 仍然可以及时得到更新。</p>
 <p>注意，Redis 实现保证 <code class="docutils literal"><span class="pre">math.random</span></code> 和 <code class="docutils literal"><span class="pre">math.randomseed</span></code> 的输出和运行 Redis 的系统架构无关，无论是 32 位还是 64 位系统，无论是小端(little endian)还是大端(big endian)系统，这两个函数的输出总是相同的。</p>
 </div>
-<div class="section" id="id6">
-<h2>全局变量保护<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2>全局变量保护<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>为了防止不必要的数据泄漏进 Lua 环境， Redis 脚本不允许创建全局变量。如果一个脚本需要在多次执行之间维持某种状态，它应该使用 Redis key 来进行状态保存。</p>
 <p>企图在脚本中访问一个全局变量(不论这个变量是否存在)将引起脚本停止， <a class="reference internal" href="#eval">EVAL</a> 命令会返回一个错误：</p>
-<div class="highlight-python"><div class="highlight"><pre>redis 127.0.0.1:6379&gt; eval &#39;a=10&#39; 0
-(error) ERR Error running script (call to f_933044db579a2f8fd45d8065f04a8d0249383e57): user_script:1: Script attempted to create global variable &#39;a&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="nb">eval</span> <span class="s1">&#39;a=10&#39;</span> <span class="mi">0</span>
+<span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="n">ERR</span> <span class="n">Error</span> <span class="n">running</span> <span class="n">script</span> <span class="p">(</span><span class="n">call</span> <span class="n">to</span> <span class="n">f_933044db579a2f8fd45d8065f04a8d0249383e57</span><span class="p">):</span> <span class="n">user_script</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span> <span class="n">Script</span> <span class="n">attempted</span> <span class="n">to</span> <span class="n">create</span> <span class="k">global</span> <span class="n">variable</span> <span class="s1">&#39;a&#39;</span>
 </pre></div>
 </div>
 <p>Lua 的 debug 工具，或者其他设施，比如打印（alter）用于实现全局保护的 meta table ，都可以用于实现全局变量保护。</p>
 <p>实现全局变量保护并不难，不过有时候还是会不小心而为之。一旦用户在脚本中混入了 Lua 全局状态，那么 AOF 持久化和复制（replication）都会无法保证，所以，请不要使用全局变量。</p>
 <p>避免引入全局变量的一个诀窍是：将脚本中用到的所有变量都使用 <code class="docutils literal"><span class="pre">local</span></code> 关键字定义为局部变量。</p>
 </div>
-<div class="section" id="id7">
-<h2>库<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h2>库<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>Redis 内置的 Lua 解释器加载了以下 Lua 库：</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">base</span></code></li>
@@ -324,7 +473,7 @@ puts r.eval(RandomPushScript,1,:mylist,10,rand(2**32))
 <h2>沙箱(sandbox)和最大执行时间<a class="headerlink" href="#sandbox" title="Permalink to this headline">¶</a></h2>
 <p>脚本应该仅仅用于传递参数和对 Redis 数据进行处理，它不应该尝试去访问外部系统(比如文件系统)，或者执行任何系统调用。</p>
 <p>除此之外，脚本还有一个最大执行时间限制，它的默认值是 5 秒钟，一般正常运作的脚本通常可以在几分之几毫秒之内完成，花不了那么多时间，这个限制主要是为了防止因编程错误而造成的无限循环而设置的。</p>
-<p>最大执行时间的长短由 <code class="docutils literal"><span class="pre">lua-time-limit</span></code> 选项来控制(以毫秒为单位)，可以通过编辑 <code class="docutils literal"><span class="pre">redis.conf</span></code> 文件或者使用 <a class="reference internal" href="../server/config_get.html#config-get"><span>CONFIG GET</span></a> 和 <a class="reference internal" href="../server/config_set.html#config-set"><span>CONFIG SET</span></a> 命令来修改它。</p>
+<p>最大执行时间的长短由 <code class="docutils literal"><span class="pre">lua-time-limit</span></code> 选项来控制(以毫秒为单位)，可以通过编辑 <code class="docutils literal"><span class="pre">redis.conf</span></code> 文件或者使用 <a class="reference internal" href="../configure/config_get.html#config-get"><span class="std std-ref">CONFIG GET parameter</span></a> 和 <a class="reference internal" href="../configure/config_set.html#config-set"><span class="std std-ref">CONFIG SET parameter value</span></a> 命令来修改它。</p>
 <p>当一个脚本达到最大执行时间的时候，它并不会自动被 Redis 结束，因为 Redis 必须保证脚本执行的原子性，而中途停止脚本的运行意味着可能会留下未处理完的数据在数据集(data set)里面。</p>
 <p>因此，当脚本运行的时间超过最大执行时间后，以下动作会被执行：</p>
 <ul class="simple">
@@ -341,17 +490,10 @@ puts r.eval(RandomPushScript,1,:mylist,10,rand(2**32))
 <p>为了防止出现以上所说的问题，客户端库实现应该实施以下的其中一项措施：</p>
 <ul class="simple">
 <li>总是在流水线中使用 <a class="reference internal" href="#eval">EVAL</a> 命令</li>
-<li>检查流水线中要用到的所有命令，找到其中的 <a class="reference internal" href="#eval">EVAL</a> 命令，并使用 <a class="reference internal" href="script_exists.html#script-exists"><span>SCRIPT EXISTS</span></a> 命令检查要用到的脚本是不是全都已经保存在缓存里面了。如果所需的全部脚本都可以在缓存里找到，那么就可以放心地将所有 <a class="reference internal" href="#eval">EVAL</a> 命令改成 EVALSHA 命令，否则的话，就要在流水线的顶端(top)将缺少的脚本用 <a class="reference internal" href="script_load.html#script-load"><span>SCRIPT LOAD</span></a> 命令加上去。</li>
+<li>检查流水线中要用到的所有命令，找到其中的 <a class="reference internal" href="#eval">EVAL</a> 命令，并使用 <a class="reference internal" href="script_exists.html#script-exists"><span class="std std-ref">SCRIPT EXISTS sha1 [sha1 …]</span></a> 命令检查要用到的脚本是不是全都已经保存在缓存里面了。如果所需的全部脚本都可以在缓存里找到，那么就可以放心地将所有 <a class="reference internal" href="#eval">EVAL</a> 命令改成 EVALSHA 命令，否则的话，就要在流水线的顶端(top)将缺少的脚本用 <a class="reference internal" href="script_load.html#script-load"><span class="std std-ref">SCRIPT LOAD script</span></a> 命令加上去。</li>
 </ul>
-<dl class="docutils">
-<dt><strong>可用版本：</strong></dt>
-<dd>&gt;= 2.6.0</dd>
-<dt><strong>时间复杂度：</strong></dt>
-<dd><a class="reference internal" href="#eval">EVAL</a> 和 EVALSHA 可以在 O(1) 复杂度内找到要被执行的脚本，其余的复杂度取决于执行的脚本本身。</dd>
-</dl>
 </div>
 </div>
-
 
 
             <div class="section" id="discuss">
@@ -377,36 +519,59 @@ puts r.eval(RandomPushScript,1,:mylist,10,rand(2**32))
     <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 
+<!--
 <div id="sponser">
     <h2>赞助商</h2>
     <p>我们正在寻找赞助商，有意对这个网站进行赞助的朋友请联系 huangz1990@gmail.com 。</p>
 </div>
-
+-->
+           </div>
+           
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="evalsha.html" class="btn btn-neutral float-right" title="EVALSHA sha1 numkeys key [key …] arg [arg …]" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Lua 脚本" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Redis
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="evalsha.html" title="EVALSHA"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="index.html" title="Script（脚本）"
-             >previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
-          <li><a href="index.html" >Script（脚本）</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2015, Redis.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.3.
-    </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -416,5 +581,5 @@ puts r.eval(RandomPushScript,1,:mylist,10,rand(2**32))
     ga('create', 'UA-53959484-7', 'auto');
     ga('send', 'pageview');
   </script>
-  </body>
+</body>
 </html>

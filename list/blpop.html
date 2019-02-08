@@ -1,181 +1,335 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>BLPOP key [key …] timeout &mdash; Redis 命令参考</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
     
-    <title>BLPOP &mdash; Redis 命令参考</title>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'2019',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
     
-    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '2.8',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Redis 命令参考" href="../index.html" />
-    <link rel="up" title="List（列表）" href="index.html" />
-    <link rel="next" title="BRPOP" href="brpop.html" />
-    <link rel="prev" title="List（列表）" href="index.html" /> 
 
-<!--[if lte IE 6]>
-<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
-<![endif]-->
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="BRPOP key [key …] timeout" href="brpop.html" />
+    <link rel="prev" title="LTRIM key start stop" href="ltrim.html" /> 
+</head>
 
+<body class="wy-body-for-nav">
 
-  </head>
-  <body>
+   
+  <div class="wy-grid-for-nav">
 
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="brpop.html" title="BRPOP"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="index.html" title="List（列表）"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">List（列表）</a> &raquo;</li> 
-      </ul>
-    </div>  
+          
+            <a href="../index.html" class="icon icon-home"> Redis 命令参考
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+          
+          </a>
+
+          
             
-  <div class="section" id="blpop">
-<span id="id1"></span><h1>BLPOP<a class="headerlink" href="#blpop" title="Permalink to this headline">¶</a></h1>
-<p><strong>BLPOP key [key ...] timeout</strong></p>
+            
+              <div class="version">
+                2019
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../string/index.html">字符串</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hash/index.html">哈希表</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">列表</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="lpush.html">LPUSH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lpushx.html">LPUSHX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rpush.html">RPUSH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rpushx.html">RPUSHX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lpop.html">LPOP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rpop.html">RPOP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rpoplpush.html">RPOPLPUSH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lrem.html">LREM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="llen.html">LLEN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lindex.html">LINDEX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linsert.html">LINSERT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lset.html">LSET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lrange.html">LRANGE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ltrim.html">LTRIM</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">BLPOP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">非阻塞行为</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">阻塞行为</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#key">相同的key被多个客户端同时阻塞</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multi-execblpop">在MULTI/EXEC事务中的BLPOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">返回值</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">模式：事件提醒</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="brpop.html">BRPOP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brpoplpush.html">BRPOPLPUSH</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../set/index.html">集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sorted_set/index.html">有序集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hyperloglog/index.html">HyperLogLog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geo/index.html">地理位置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bitmap/index.html">位图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../expire/index.html">自动过期</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../transaction/index.html">事务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script/index.html">Lua 脚本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../persistence/index.html">持久化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pubsub/index.html">发布与订阅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../replication/index.html">复制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../client_and_server/index.html">客户端与服务器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configure/index.html">配置选项</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug/index.html">调试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../internal/index.html">内部命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topic/index.html">功能文档</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Redis 命令参考</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">列表</a> &raquo;</li>
+        
+      <li>BLPOP key [key …] timeout</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/list/blpop.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="blpop-key-key-timeout">
+<span id="blpop"></span><h1>BLPOP key [key …] timeout<a class="headerlink" href="#blpop-key-key-timeout" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><div class="line-block">
+<div class="line">可用版本： &gt;= 2.0.0</div>
+<div class="line">时间复杂度： O(1)</div>
+</div>
+</div></blockquote>
 <p><a class="reference internal" href="#blpop">BLPOP</a> 是列表的阻塞式(blocking)弹出原语。</p>
-<p>它是 <a class="reference internal" href="lpop.html#lpop"><span>LPOP</span></a> 命令的阻塞版本，当给定列表内没有任何元素可供弹出的时候，连接将被 <a class="reference internal" href="#blpop">BLPOP</a> 命令阻塞，直到等待超时或发现可弹出元素为止。</p>
+<p>它是 <a class="reference internal" href="lpop.html#lpop"><span class="std std-ref">LPOP key</span></a> 命令的阻塞版本，当给定列表内没有任何元素可供弹出的时候，连接将被 <a class="reference internal" href="#blpop">BLPOP</a> 命令阻塞，直到等待超时或发现可弹出元素为止。</p>
 <p>当给定多个 <code class="docutils literal"><span class="pre">key</span></code> 参数时，按参数 <code class="docutils literal"><span class="pre">key</span></code> 的先后顺序依次检查各个列表，弹出第一个非空列表的头元素。</p>
-<p><strong>非阻塞行为</strong></p>
+<div class="section" id="id1">
+<h2>非阻塞行为<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>当 <a class="reference internal" href="#blpop">BLPOP</a> 被调用时，如果给定 <code class="docutils literal"><span class="pre">key</span></code> 内至少有一个非空列表，那么弹出遇到的第一个非空列表的头元素，并和被弹出元素所属的列表的名字一起，组成结果返回给调用者。</p>
 <p>当存在多个给定 <code class="docutils literal"><span class="pre">key</span></code> 时， <a class="reference internal" href="#blpop">BLPOP</a> 按给定 <code class="docutils literal"><span class="pre">key</span></code> 参数排列的先后顺序，依次检查各个列表。</p>
 <p>假设现在有 <code class="docutils literal"><span class="pre">job</span></code> 、  <code class="docutils literal"><span class="pre">command</span></code> 和 <code class="docutils literal"><span class="pre">request</span></code> 三个列表，其中 <code class="docutils literal"><span class="pre">job</span></code> 不存在， <code class="docutils literal"><span class="pre">command</span></code> 和 <code class="docutils literal"><span class="pre">request</span></code> 都持有非空列表。考虑以下命令：</p>
 <p><code class="docutils literal"><span class="pre">BLPOP</span> <span class="pre">job</span> <span class="pre">command</span> <span class="pre">request</span> <span class="pre">0</span></code></p>
-<p><a class="reference internal" href="#blpop">BLPOP</a> 保证返回的元素来自 <code class="docutils literal"><span class="pre">command</span></code> ，因为它是按&#8221;查找 <code class="docutils literal"><span class="pre">job</span></code>  -&gt; 查找 <code class="docutils literal"><span class="pre">command</span></code>  -&gt; 查找 <code class="docutils literal"><span class="pre">request</span></code> &#8220;这样的顺序，第一个找到的非空列表。</p>
-<div class="highlight-python"><div class="highlight"><pre>redis&gt; DEL job command request           # 确保key都被删除
-(integer) 0
+<p><a class="reference internal" href="#blpop">BLPOP</a> 保证返回的元素来自 <code class="docutils literal"><span class="pre">command</span></code> ，因为它是按”查找 <code class="docutils literal"><span class="pre">job</span></code>  -&gt; 查找 <code class="docutils literal"><span class="pre">command</span></code>  -&gt; 查找 <code class="docutils literal"><span class="pre">request</span></code> “这样的顺序，第一个找到的非空列表。</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">DEL</span> <span class="n">job</span> <span class="n">command</span> <span class="n">request</span>           <span class="c1"># 确保key都被删除</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">0</span>
 
-redis&gt; LPUSH command &quot;update system...&quot;  # 为command列表增加一个值
-(integer) 1
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">LPUSH</span> <span class="n">command</span> <span class="s2">&quot;update system...&quot;</span>  <span class="c1"># 为command列表增加一个值</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">1</span>
 
-redis&gt; LPUSH request &quot;visit page&quot;        # 为request列表增加一个值
-(integer) 1
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">LPUSH</span> <span class="n">request</span> <span class="s2">&quot;visit page&quot;</span>        <span class="c1"># 为request列表增加一个值</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">1</span>
 
-redis&gt; BLPOP job command request 0       # job 列表为空，被跳过，紧接着 command 列表的第一个元素被弹出。
-1) &quot;command&quot;                             # 弹出元素所属的列表
-2) &quot;update system...&quot;                    # 弹出元素所属的值
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">BLPOP</span> <span class="n">job</span> <span class="n">command</span> <span class="n">request</span> <span class="mi">0</span>       <span class="c1"># job 列表为空，被跳过，紧接着 command 列表的第一个元素被弹出。</span>
+<span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;command&quot;</span>                             <span class="c1"># 弹出元素所属的列表</span>
+<span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;update system...&quot;</span>                    <span class="c1"># 弹出元素所属的值</span>
 </pre></div>
 </div>
-<p><strong>阻塞行为</strong></p>
-<p>如果所有给定 <code class="docutils literal"><span class="pre">key</span></code> 都不存在或包含空列表，那么 <a class="reference internal" href="#blpop">BLPOP</a> 命令将阻塞连接，直到等待超时，或有另一个客户端对给定 <code class="docutils literal"><span class="pre">key</span></code> 的任意一个执行 <a class="reference internal" href="lpush.html#lpush"><span>LPUSH</span></a> 或 <a class="reference internal" href="rpush.html#rpush"><span>RPUSH</span></a> 命令为止。</p>
+</div>
+<div class="section" id="id2">
+<h2>阻塞行为<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>如果所有给定 <code class="docutils literal"><span class="pre">key</span></code> 都不存在或包含空列表，那么 <a class="reference internal" href="#blpop">BLPOP</a> 命令将阻塞连接，直到等待超时，或有另一个客户端对给定 <code class="docutils literal"><span class="pre">key</span></code> 的任意一个执行 <a class="reference internal" href="lpush.html#lpush"><span class="std std-ref">LPUSH key value [value …]</span></a> 或 <a class="reference internal" href="rpush.html#rpush"><span class="std std-ref">RPUSH key value [value …]</span></a> 命令为止。</p>
 <p>超时参数 <code class="docutils literal"><span class="pre">timeout</span></code> 接受一个以秒为单位的数字作为值。超时参数设为 <code class="docutils literal"><span class="pre">0</span></code> 表示阻塞时间可以无限期延长(block indefinitely) 。</p>
-<div class="highlight-python"><div class="highlight"><pre>redis&gt; EXISTS job                # 确保两个 key 都不存在
-(integer) 0
-redis&gt; EXISTS command
-(integer) 0
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">EXISTS</span> <span class="n">job</span>                <span class="c1"># 确保两个 key 都不存在</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">0</span>
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">EXISTS</span> <span class="n">command</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">0</span>
 
-redis&gt; BLPOP job command 300     # 因为key一开始不存在，所以操作会被阻塞，直到另一客户端对 job 或者 command 列表进行 PUSH 操作。
-1) &quot;job&quot;                         # 这里被 push 的是 job
-2) &quot;do my home work&quot;             # 被弹出的值
-(26.26s)                         # 等待的秒数
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">BLPOP</span> <span class="n">job</span> <span class="n">command</span> <span class="mi">300</span>     <span class="c1"># 因为key一开始不存在，所以操作会被阻塞，直到另一客户端对 job 或者 command 列表进行 PUSH 操作。</span>
+<span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;job&quot;</span>                         <span class="c1"># 这里被 push 的是 job</span>
+<span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;do my home work&quot;</span>             <span class="c1"># 被弹出的值</span>
+<span class="p">(</span><span class="mf">26.26</span><span class="n">s</span><span class="p">)</span>                         <span class="c1"># 等待的秒数</span>
 
-redis&gt; BLPOP job command 5       # 等待超时的情况
-(nil)
-(5.66s)                          # 等待的秒数
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">BLPOP</span> <span class="n">job</span> <span class="n">command</span> <span class="mi">5</span>       <span class="c1"># 等待超时的情况</span>
+<span class="p">(</span><span class="n">nil</span><span class="p">)</span>
+<span class="p">(</span><span class="mf">5.66</span><span class="n">s</span><span class="p">)</span>                          <span class="c1"># 等待的秒数</span>
 </pre></div>
 </div>
-<p><strong>相同的key被多个客户端同时阻塞</strong></p>
+</div>
+<div class="section" id="key">
+<h2>相同的key被多个客户端同时阻塞<a class="headerlink" href="#key" title="Permalink to this headline">¶</a></h2>
 <p>相同的 <code class="docutils literal"><span class="pre">key</span></code> 可以被多个客户端同时阻塞。</p>
 <p>不同的客户端被放进一个队列中，按『先阻塞先服务』(first-BLPOP，first-served)的顺序为 <code class="docutils literal"><span class="pre">key</span></code> 执行 <a class="reference internal" href="#blpop">BLPOP</a> 命令。</p>
-<p><strong>在MULTI/EXEC事务中的BLPOP</strong></p>
-<p><a class="reference internal" href="#blpop">BLPOP</a> 可以用于流水线(pipline,批量地发送多个命令并读入多个回复)，但把它用在 <a class="reference internal" href="../transaction/multi.html#multi"><span>MULTI</span></a> / <a class="reference internal" href="../transaction/exec.html#exec"><span>EXEC</span></a> 块当中没有意义。因为这要求整个服务器被阻塞以保证块执行时的原子性，该行为阻止了其他客户端执行 <a class="reference internal" href="lpush.html#lpush"><span>LPUSH</span></a> 或 <a class="reference internal" href="rpush.html#rpush"><span>RPUSH</span></a> 命令。</p>
-<p>因此，一个被包裹在 <a class="reference internal" href="../transaction/multi.html#multi"><span>MULTI</span></a> / <a class="reference internal" href="../transaction/exec.html#exec"><span>EXEC</span></a> 块内的 <a class="reference internal" href="#blpop">BLPOP</a> 命令，行为表现得就像 <a class="reference internal" href="lpop.html#lpop"><span>LPOP</span></a> 一样，对空列表返回 <code class="docutils literal"><span class="pre">nil</span></code> ，对非空列表弹出列表元素，不进行任何阻塞操作。</p>
-<div class="highlight-python"><div class="highlight"><pre># 对非空列表进行操作
+</div>
+<div class="section" id="multi-execblpop">
+<h2>在MULTI/EXEC事务中的BLPOP<a class="headerlink" href="#multi-execblpop" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="#blpop">BLPOP</a> 可以用于流水线(pipline,批量地发送多个命令并读入多个回复)，但把它用在 <a class="reference internal" href="../transaction/multi.html#multi"><span class="std std-ref">MULTI</span></a> / <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> 块当中没有意义。因为这要求整个服务器被阻塞以保证块执行时的原子性，该行为阻止了其他客户端执行 <a class="reference internal" href="lpush.html#lpush"><span class="std std-ref">LPUSH key value [value …]</span></a> 或 <a class="reference internal" href="rpush.html#rpush"><span class="std std-ref">RPUSH key value [value …]</span></a> 命令。</p>
+<p>因此，一个被包裹在 <a class="reference internal" href="../transaction/multi.html#multi"><span class="std std-ref">MULTI</span></a> / <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> 块内的 <a class="reference internal" href="#blpop">BLPOP</a> 命令，行为表现得就像 <a class="reference internal" href="lpop.html#lpop"><span class="std std-ref">LPOP key</span></a> 一样，对空列表返回 <code class="docutils literal"><span class="pre">nil</span></code> ，对非空列表弹出列表元素，不进行任何阻塞操作。</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 对非空列表进行操作</span>
 
-redis&gt; RPUSH job programming
-(integer) 1
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">RPUSH</span> <span class="n">job</span> <span class="n">programming</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">1</span>
 
-redis&gt; MULTI
-OK
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">MULTI</span>
+<span class="n">OK</span>
 
-redis&gt; BLPOP job 30
-QUEUED
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">BLPOP</span> <span class="n">job</span> <span class="mi">30</span>
+<span class="n">QUEUED</span>
 
-redis&gt; EXEC           # 不阻塞，立即返回
-1) 1) &quot;job&quot;
-   2) &quot;programming&quot;
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">EXEC</span>           <span class="c1"># 不阻塞，立即返回</span>
+<span class="mi">1</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;job&quot;</span>
+   <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;programming&quot;</span>
 
 
-# 对空列表进行操作
+<span class="c1"># 对空列表进行操作</span>
 
-redis&gt; LLEN job      # 空列表
-(integer) 0
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">LLEN</span> <span class="n">job</span>      <span class="c1"># 空列表</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">0</span>
 
-redis&gt; MULTI
-OK
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">MULTI</span>
+<span class="n">OK</span>
 
-redis&gt; BLPOP job 30
-QUEUED
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">BLPOP</span> <span class="n">job</span> <span class="mi">30</span>
+<span class="n">QUEUED</span>
 
-redis&gt; EXEC         # 不阻塞，立即返回
-1) (nil)
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">EXEC</span>         <span class="c1"># 不阻塞，立即返回</span>
+<span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="n">nil</span><span class="p">)</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt><strong>可用版本：</strong></dt>
-<dd>&gt;= 2.0.0</dd>
-<dt><strong>时间复杂度：</strong></dt>
-<dd>O(1)</dd>
-<dt><strong>返回值：</strong></dt>
-<dd><div class="first last line-block">
-<div class="line">如果列表为空，返回一个 <code class="docutils literal"><span class="pre">nil</span></code> 。</div>
-<div class="line">否则，返回一个含有两个元素的列表，第一个元素是被弹出元素所属的 <code class="docutils literal"><span class="pre">key</span></code> ，第二个元素是被弹出元素的值。</div>
 </div>
-</dd>
-</dl>
-<div class="section" id="id2">
-<h2>模式：事件提醒<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2>返回值<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>如果列表为空，返回一个 <code class="docutils literal"><span class="pre">nil</span></code> 。
+否则，返回一个含有两个元素的列表，第一个元素是被弹出元素所属的 <code class="docutils literal"><span class="pre">key</span></code> ，第二个元素是被弹出元素的值。</p>
+</div>
+<div class="section" id="id4">
+<h2>模式：事件提醒<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>有时候，为了等待一个新元素到达数据中，需要使用轮询的方式对数据进行探查。</p>
 <p>另一种更好的方式是，使用系统提供的阻塞原语，在新元素到达时立即进行处理，而新元素还没到达时，就一直阻塞住，避免轮询占用资源。</p>
-<p>对于 Redis ，我们似乎需要一个阻塞版的 <a class="reference internal" href="../set/spop.html#spop"><span>SPOP</span></a> 命令，但实际上，使用 <a class="reference internal" href="#blpop">BLPOP</a> 或者 <a class="reference internal" href="brpop.html#brpop"><span>BRPOP</span></a> 就能很好地解决这个问题。</p>
+<p>对于 Redis ，我们似乎需要一个阻塞版的 <a class="reference internal" href="../set/spop.html#spop"><span class="std std-ref">SPOP key</span></a> 命令，但实际上，使用 <a class="reference internal" href="#blpop">BLPOP</a> 或者 <a class="reference internal" href="brpop.html#brpop"><span class="std std-ref">BRPOP key [key …] timeout</span></a> 就能很好地解决这个问题。</p>
 <p>使用元素的客户端(消费者)可以执行类似以下的代码：</p>
-<div class="highlight-python"><div class="highlight"><pre>LOOP forever
-    WHILE SPOP(key) returns elements
-        ... process elements ...
-    END
-    BRPOP helper_key
-END
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">LOOP</span> <span class="n">forever</span>
+    <span class="n">WHILE</span> <span class="n">SPOP</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="n">returns</span> <span class="n">elements</span>
+        <span class="o">...</span> <span class="n">process</span> <span class="n">elements</span> <span class="o">...</span>
+    <span class="n">END</span>
+    <span class="n">BRPOP</span> <span class="n">helper_key</span>
+<span class="n">END</span>
 </pre></div>
 </div>
 <p>添加元素的客户端(生产者)则执行以下代码：</p>
-<div class="highlight-python"><div class="highlight"><pre>MULTI
-    SADD key element
-    LPUSH helper_key x
-EXEC
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">MULTI</span>
+    <span class="n">SADD</span> <span class="n">key</span> <span class="n">element</span>
+    <span class="n">LPUSH</span> <span class="n">helper_key</span> <span class="n">x</span>
+<span class="n">EXEC</span>
 </pre></div>
 </div>
 </div>
 </div>
-
 
 
             <div class="section" id="discuss">
@@ -201,36 +355,59 @@ EXEC
     <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 
+<!--
 <div id="sponser">
     <h2>赞助商</h2>
     <p>我们正在寻找赞助商，有意对这个网站进行赞助的朋友请联系 huangz1990@gmail.com 。</p>
 </div>
-
+-->
+           </div>
+           
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="brpop.html" class="btn btn-neutral float-right" title="BRPOP key [key …] timeout" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ltrim.html" class="btn btn-neutral float-left" title="LTRIM key start stop" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Redis
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="brpop.html" title="BRPOP"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="index.html" title="List（列表）"
-             >previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
-          <li><a href="index.html" >List（列表）</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2015, Redis.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.3.
-    </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -240,5 +417,5 @@ EXEC
     ga('create', 'UA-53959484-7', 'auto');
     ga('send', 'pageview');
   </script>
-  </body>
+</body>
 </html>

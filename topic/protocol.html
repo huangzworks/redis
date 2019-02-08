@@ -1,61 +1,211 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>通信协议（protocol） &mdash; Redis 命令参考</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
     
-    <title>通信协议（protocol） &mdash; Redis 命令参考</title>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'2019',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
     
-    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '2.8',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Redis 命令参考" href="../index.html" />
-    <link rel="next" title="持久化（persistence）" href="persistence.html" />
-    <link rel="prev" title="复制（Replication）" href="replication.html" /> 
 
-<!--[if lte IE 6]>
-<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
-<![endif]-->
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="复制（Replication）" href="replication.html" />
+    <link rel="prev" title="键空间通知（keyspace notification）" href="notification.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Redis 命令参考
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2019
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../string/index.html">字符串</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hash/index.html">哈希表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../list/index.html">列表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../set/index.html">集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sorted_set/index.html">有序集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hyperloglog/index.html">HyperLogLog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geo/index.html">地理位置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bitmap/index.html">位图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../expire/index.html">自动过期</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../transaction/index.html">事务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script/index.html">Lua 脚本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../persistence/index.html">持久化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pubsub/index.html">发布与订阅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../replication/index.html">复制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../client_and_server/index.html">客户端与服务器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configure/index.html">配置选项</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug/index.html">调试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../internal/index.html">内部命令</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">功能文档</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cluster-spec.html">Redis 集群规范</a></li>
+<li class="toctree-l2"><a class="reference internal" href="persistence.html">持久化（persistence）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pubsub.html">发布与订阅（pub/sub）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sentinel.html">Sentinel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cluster-tutorial.html">集群教程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notification.html">键空间通知（keyspace notification）</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">通信协议（protocol）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">网络层</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">请求</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">新版统一请求协议</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">回复</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">状态回复</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">错误回复</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">整数回复</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">批量回复</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">多条批量回复</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">多条批量回复中的空元素</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">多命令和流水线</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">内联命令</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#redis">高性能 Redis 协议分析器</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="replication.html">复制（Replication）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transaction.html">事务（transaction）</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Redis 命令参考</a>
+        
+      </nav>
 
 
-  </head>
-  <body>
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
 
 
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="persistence.html" title="持久化（persistence）"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="replication.html" title="复制（Replication）"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li> 
-      </ul>
-    </div>  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">功能文档</a> &raquo;</li>
+        
+      <li>通信协议（protocol）</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/topic/protocol.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="protocol">
 <h1>通信协议（protocol）<a class="headerlink" href="#protocol" title="Permalink to this headline">¶</a></h1>
@@ -88,7 +238,7 @@
 <p>在这个协议中，
 所有发送至 Redis 服务器的参数都是二进制安全（binary safe）的。</p>
 <p>以下是这个协议的一般形式：</p>
-<div class="highlight-python"><div class="highlight"><pre>*&lt;参数数量&gt; CR LF
+<div class="highlight-default"><div class="highlight"><pre><span></span>*&lt;参数数量&gt; CR LF
 $&lt;参数 1 的字节数量&gt; CR LF
 &lt;参数 1 的数据&gt; CR LF
 ...
@@ -102,7 +252,7 @@ $&lt;参数 N 的字节数量&gt; CR LF
 </div>
 <p>举个例子，
 以下是一个命令协议的打印版本：</p>
-<div class="highlight-python"><div class="highlight"><pre>*3
+<div class="highlight-default"><div class="highlight"><pre><span></span>*3
 $3
 SET
 $5
@@ -112,7 +262,7 @@ myvalue
 </pre></div>
 </div>
 <p>这个命令的实际协议值如下：</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;*3</span><span class="se">\r\n</span><span class="s">$3</span><span class="se">\r\n</span><span class="s">SET</span><span class="se">\r\n</span><span class="s">$5</span><span class="se">\r\n</span><span class="s">mykey</span><span class="se">\r\n</span><span class="s">$7</span><span class="se">\r\n</span><span class="s">myvalue</span><span class="se">\r\n</span><span class="s">&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;*3</span><span class="se">\r\n</span><span class="s2">$3</span><span class="se">\r\n</span><span class="s2">SET</span><span class="se">\r\n</span><span class="s2">$5</span><span class="se">\r\n</span><span class="s2">mykey</span><span class="se">\r\n</span><span class="s2">$7</span><span class="se">\r\n</span><span class="s2">myvalue</span><span class="se">\r\n</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
 <p>稍后我们会看到，
@@ -143,7 +293,7 @@ myvalue
 <h2>状态回复<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>一个状态回复（或者单行回复，single line reply）是一段以 <code class="docutils literal"><span class="pre">&quot;+&quot;</span></code> 开始、 <code class="docutils literal"><span class="pre">&quot;\r\n&quot;</span></code> 结尾的单行字符串。</p>
 <p>以下是一个状态回复的例子：</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="o">+</span><span class="n">OK</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+</span><span class="n">OK</span>
 </pre></div>
 </div>
 <p>客户端库应该返回 <code class="docutils literal"><span class="pre">&quot;+&quot;</span></code> 号之后的所有内容。
@@ -165,8 +315,8 @@ myvalue
 等等。</p>
 <p>一个客户端库应该在收到错误回复时产生一个异常。</p>
 <p>以下是两个错误回复的例子：</p>
-<div class="highlight-python"><div class="highlight"><pre>-ERR unknown command &#39;foobar&#39;
--WRONGTYPE Operation against a key holding the wrong kind of value
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">ERR</span> <span class="n">unknown</span> <span class="n">command</span> <span class="s1">&#39;foobar&#39;</span>
+<span class="o">-</span><span class="n">WRONGTYPE</span> <span class="n">Operation</span> <span class="n">against</span> <span class="n">a</span> <span class="n">key</span> <span class="n">holding</span> <span class="n">the</span> <span class="n">wrong</span> <span class="n">kind</span> <span class="n">of</span> <span class="n">value</span>
 </pre></div>
 </div>
 <p>在 <code class="docutils literal"><span class="pre">&quot;-&quot;</span></code> 之后，直到遇到第一个空格或新行为止，这中间的内容表示所返回错误的类型。</p>
@@ -183,41 +333,41 @@ myvalue
 <p>整数回复就是一个以 <code class="docutils literal"><span class="pre">&quot;:&quot;</span></code> 开头， CRLF 结尾的字符串表示的整数。</p>
 <p>比如说，
 <code class="docutils literal"><span class="pre">&quot;:0\r\n&quot;</span></code> 和 <code class="docutils literal"><span class="pre">&quot;:1000\r\n&quot;</span></code> 都是整数回复。</p>
-<p>返回整数回复的其中两个命令是 <a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 和 <a class="reference internal" href="../server/lastsave.html#lastsave"><span>LASTSAVE</span></a> 。
+<p>返回整数回复的其中两个命令是 <a class="reference internal" href="../string/incr.html#incr"><span class="std std-ref">INCR key</span></a> 和 <a class="reference internal" href="../persistence/lastsave.html#lastsave"><span class="std std-ref">LASTSAVE</span></a> 。
 被返回的整数没有什么特殊的含义，
-<a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 返回键的一个自增后的整数值，
-而 <a class="reference internal" href="../server/lastsave.html#lastsave"><span>LASTSAVE</span></a> 则返回一个 UNIX 时间戳，
+<a class="reference internal" href="../string/incr.html#incr"><span class="std std-ref">INCR key</span></a> 返回键的一个自增后的整数值，
+而 <a class="reference internal" href="../persistence/lastsave.html#lastsave"><span class="std std-ref">LASTSAVE</span></a> 则返回一个 UNIX 时间戳，
 返回值的唯一限制是这些数必须能够用 64 位有符号整数表示。</p>
 <p>整数回复也被广泛地用于表示逻辑真和逻辑假：
-比如 <a class="reference internal" href="../key/exists.html#exists"><span>EXISTS</span></a> 和 <a class="reference internal" href="../set/sismember.html#sismember"><span>SISMEMBER</span></a> 都用返回值 <code class="docutils literal"><span class="pre">1</span></code> 表示真，
+比如 <a class="reference internal" href="../database/exists.html#exists"><span class="std std-ref">EXISTS key</span></a> 和 <a class="reference internal" href="../set/sismember.html#sismember"><span class="std std-ref">SISMEMBER key member</span></a> 都用返回值 <code class="docutils literal"><span class="pre">1</span></code> 表示真，
 <code class="docutils literal"><span class="pre">0</span></code> 表示假。</p>
 <p>其他一些命令，
-比如 <a class="reference internal" href="../set/sadd.html#sadd"><span>SADD</span></a> 、 <a class="reference internal" href="../set/srem.html#srem"><span>SREM</span></a> 和 <a class="reference internal" href="../string/setnx.html#setnx"><span>SETNX</span></a> ，
+比如 <a class="reference internal" href="../set/sadd.html#sadd"><span class="std std-ref">SADD key member [member …]</span></a> 、 <a class="reference internal" href="../set/srem.html#srem"><span class="std std-ref">SREM key member [member …]</span></a> 和 <a class="reference internal" href="../string/setnx.html#setnx"><span class="std std-ref">SETNX key value</span></a> ，
 只在操作真正被执行了的时候，
 才返回 <code class="docutils literal"><span class="pre">1</span></code> ，
 否则返回 <code class="docutils literal"><span class="pre">0</span></code> 。</p>
 <p>以下命令都返回整数回复：
-<a class="reference internal" href="../string/setnx.html#setnx"><span>SETNX</span></a> 、
-<a class="reference internal" href="../key/del.html#del"><span>DEL</span></a> 、
-<a class="reference internal" href="../key/exists.html#exists"><span>EXISTS</span></a> 、
-<a class="reference internal" href="../string/incr.html#incr"><span>INCR</span></a> 、
-<a class="reference internal" href="../string/incrby.html#incrby"><span>INCRBY</span></a> 、
-<a class="reference internal" href="../string/decr.html#decr"><span>DECR</span></a> 、
-<a class="reference internal" href="../string/decrby.html#decrby"><span>DECRBY</span></a> 、
-<a class="reference internal" href="../server/dbsize.html#dbsize"><span>DBSIZE</span></a> 、
-<a class="reference internal" href="../server/lastsave.html#lastsave"><span>LASTSAVE</span></a> 、
-<a class="reference internal" href="../key/renamenx.html#renamenx"><span>RENAMENX</span></a> 、
-<a class="reference internal" href="../key/move.html#move"><span>MOVE</span></a> 、
-<a class="reference internal" href="../list/llen.html#llen"><span>LLEN</span></a> 、
-<a class="reference internal" href="../set/sadd.html#sadd"><span>SADD</span></a> 、
-<a class="reference internal" href="../set/srem.html#srem"><span>SREM</span></a> 、
-<a class="reference internal" href="../set/sismember.html#sismember"><span>SISMEMBER</span></a> 、
-<a class="reference internal" href="../set/scard.html#scard"><span>SCARD</span></a> 。</p>
+<a class="reference internal" href="../string/setnx.html#setnx"><span class="std std-ref">SETNX key value</span></a> 、
+<a class="reference internal" href="../database/del.html#del"><span class="std std-ref">DEL key [key …]</span></a> 、
+<a class="reference internal" href="../database/exists.html#exists"><span class="std std-ref">EXISTS key</span></a> 、
+<a class="reference internal" href="../string/incr.html#incr"><span class="std std-ref">INCR key</span></a> 、
+<a class="reference internal" href="../string/incrby.html#incrby"><span class="std std-ref">INCRBY key increment</span></a> 、
+<a class="reference internal" href="../string/decr.html#decr"><span class="std std-ref">DECR key</span></a> 、
+<a class="reference internal" href="../string/decrby.html#decrby"><span class="std std-ref">DECRBY key decrement</span></a> 、
+<a class="reference internal" href="../database/dbsize.html#dbsize"><span class="std std-ref">DBSIZE</span></a> 、
+<a class="reference internal" href="../persistence/lastsave.html#lastsave"><span class="std std-ref">LASTSAVE</span></a> 、
+<a class="reference internal" href="../database/renamenx.html#renamenx"><span class="std std-ref">RENAMENX key newkey</span></a> 、
+<a class="reference internal" href="../database/move.html#move"><span class="std std-ref">MOVE key db</span></a> 、
+<a class="reference internal" href="../list/llen.html#llen"><span class="std std-ref">LLEN key</span></a> 、
+<a class="reference internal" href="../set/sadd.html#sadd"><span class="std std-ref">SADD key member [member …]</span></a> 、
+<a class="reference internal" href="../set/srem.html#srem"><span class="std std-ref">SREM key member [member …]</span></a> 、
+<a class="reference internal" href="../set/sismember.html#sismember"><span class="std std-ref">SISMEMBER key member</span></a> 、
+<a class="reference internal" href="../set/scard.html#scard"><span class="std std-ref">SCARD key</span></a> 。</p>
 </div>
 <div class="section" id="id8">
 <h2>批量回复<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <p>服务器使用批量回复来返回二进制安全的字符串，字符串的最大长度为 512 MB 。</p>
-<div class="highlight-python"><div class="highlight"><pre>客户端：GET mykey
+<div class="highlight-default"><div class="highlight"><pre><span></span>客户端：GET mykey
 服务器：foobar
 </pre></div>
 </div>
@@ -229,14 +379,14 @@ myvalue
 <li>再后面跟着的是实际回复数据</li>
 <li>最末尾是另一个 CRLF</li>
 </ul>
-<p>对于前面的 <a class="reference internal" href="../string/get.html#get"><span>GET</span></a> 命令，服务器实际发送的内容为：</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;$6</span><span class="se">\r\n</span><span class="s">foobar</span><span class="se">\r\n</span><span class="s">&quot;</span>
+<p>对于前面的 <a class="reference internal" href="../string/get.html#get"><span class="std std-ref">GET key</span></a> 命令，服务器实际发送的内容为：</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;$6</span><span class="se">\r\n</span><span class="s2">foobar</span><span class="se">\r\n</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
 <p>如果被请求的值不存在，
 那么批量回复会将特殊值 <code class="docutils literal"><span class="pre">-1</span></code> 用作回复的长度值，
 就像这样：</p>
-<div class="highlight-python"><div class="highlight"><pre>客户端：GET non-existing-key
+<div class="highlight-default"><div class="highlight"><pre><span></span>客户端：GET non-existing-key
 服务器：$-1
 </pre></div>
 </div>
@@ -248,7 +398,7 @@ myvalue
 </div>
 <div class="section" id="id9">
 <h2>多条批量回复<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
-<p>像 <a class="reference internal" href="../list/lrange.html#lrange"><span>LRANGE</span></a> 这样的命令需要返回多个值，
+<p>像 <a class="reference internal" href="../list/lrange.html#lrange"><span class="std std-ref">LRANGE key start stop</span></a> 这样的命令需要返回多个值，
 这一目标可以通过多条批量回复来完成。</p>
 <p>多条批量回复是由多个回复组成的数组，
 数组中的每个元素都可以是任意类型的回复，
@@ -257,7 +407,7 @@ myvalue
 后跟一个字符串表示的整数值，
 这个值记录了多条批量回复所包含的回复数量，
 再后面是一个 CRLF 。</p>
-<div class="highlight-python"><div class="highlight"><pre>客户端： LRANGE mylist 0 3
+<div class="highlight-default"><div class="highlight"><pre><span></span>客户端： LRANGE mylist 0 3
 服务器： *4
 服务器： $3
 服务器： foo
@@ -281,7 +431,7 @@ myvalue
 <p>以下例子展示了一个多条批量回复，
 回复中包含四个整数值，
 以及一个二进制安全字符串：</p>
-<div class="highlight-python"><div class="highlight"><pre>*5\r\n
+<div class="highlight-default"><div class="highlight"><pre><span></span>*5\r\n
 :1\r\n
 :2\r\n
 :3\r\n
@@ -296,15 +446,15 @@ foobar\r\n
 再后面跟着的则是 5 条回复的正文。</p>
 <p>多条批量回复也可以是空白的（empty），
 就像这样：</p>
-<div class="highlight-python"><div class="highlight"><pre>客户端： LRANGE nokey 0 1
+<div class="highlight-default"><div class="highlight"><pre><span></span>客户端： LRANGE nokey 0 1
 服务器： *0\r\n
 </pre></div>
 </div>
 <p>无内容的多条批量回复（null multi bulk reply）也是存在的，
-比如当 <a class="reference internal" href="../list/blpop.html#blpop"><span>BLPOP</span></a> 命令的阻塞时间超过最大时限时，
+比如当 <a class="reference internal" href="../list/blpop.html#blpop"><span class="std std-ref">BLPOP key [key …] timeout</span></a> 命令的阻塞时间超过最大时限时，
 它就返回一个无内容的多条批量回复，
 这个回复的计数值为 <code class="docutils literal"><span class="pre">-1</span></code> ：</p>
-<div class="highlight-python"><div class="highlight"><pre>客户端： BLPOP key 1
+<div class="highlight-default"><div class="highlight"><pre><span></span>客户端： BLPOP key 1
 服务器： *-1\r\n
 </pre></div>
 </div>
@@ -318,10 +468,10 @@ foobar\r\n
 <p>多条批量回复中的元素可以将自身的长度设置为 <code class="docutils literal"><span class="pre">-1</span></code> ，
 从而表示该元素不存在，
 并且也不是一个空白字符串（empty string）。</p>
-<p>当 <a class="reference internal" href="../key/sort.html#sort"><span>SORT</span></a> 命令使用 <code class="docutils literal"><span class="pre">GET</span> <span class="pre">pattern</span></code> 选项对一个不存在的键进行操作时，
+<p>当 <a class="reference internal" href="../database/sort.html#sort"><span class="std std-ref">SORT key [BY pattern] [LIMIT offset count] [GET pattern [GET pattern …]] [ASC | DESC] [ALPHA] [STORE destination]</span></a> 命令使用 <code class="docutils literal"><span class="pre">GET</span> <span class="pre">pattern</span></code> 选项对一个不存在的键进行操作时，
 就会发生多条批量回复中带有空白元素的情况。</p>
 <p>以下例子展示了一个包含空元素的多重批量回复：</p>
-<div class="highlight-python"><div class="highlight"><pre>服务器： *3
+<div class="highlight-default"><div class="highlight"><pre><span></span>服务器： *3
 服务器： $3
 服务器： foo
 服务器： $-1
@@ -333,7 +483,7 @@ foobar\r\n
 回复中的第二个元素为空。</p>
 <p>对于这个回复，
 客户端库应该返回类似于这样的回复：</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="s">&quot;foo&quot;</span><span class="p">,</span> <span class="n">nil</span><span class="p">,</span> <span class="s">&quot;bar&quot;</span><span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="n">nil</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -353,12 +503,12 @@ foobar\r\n
 而手上只有 <code class="docutils literal"><span class="pre">telnet</span></code> 的时候，
 你可以通过 Redis 特别为这种情形而设的内联命令格式来发送命令。</p>
 <p>以下是一个客户端和服务器使用内联命令来进行交互的例子：</p>
-<div class="highlight-python"><div class="highlight"><pre>客户端： PING
+<div class="highlight-default"><div class="highlight"><pre><span></span>客户端： PING
 服务器： +PONG
 </pre></div>
 </div>
 <p>以下另一个返回整数值的内联命令的例子：</p>
-<div class="highlight-python"><div class="highlight"><pre>客户端： EXISTS somekey
+<div class="highlight-default"><div class="highlight"><pre><span></span>客户端： EXISTS somekey
 服务器： :0
 </pre></div>
 </div>
@@ -382,7 +532,7 @@ foobar\r\n
 查找 CR 字符，
 并计算出批量回复或多条批量回复的长度，
 就像这样：</p>
-<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="s">&quot;$123</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">;</span>
@@ -413,7 +563,6 @@ foobar\r\n
 </div>
 
 
-
             <div class="section" id="discuss">
 
     <h2>
@@ -437,35 +586,59 @@ foobar\r\n
     <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 
+<!--
 <div id="sponser">
     <h2>赞助商</h2>
     <p>我们正在寻找赞助商，有意对这个网站进行赞助的朋友请联系 huangz1990@gmail.com 。</p>
 </div>
-
+-->
+           </div>
+           
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="replication.html" class="btn btn-neutral float-right" title="复制（Replication）" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="notification.html" class="btn btn-neutral float-left" title="键空间通知（keyspace notification）" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Redis
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="persistence.html" title="持久化（persistence）"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="replication.html" title="复制（Replication）"
-             >previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2015, Redis.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.3.
-    </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -475,5 +648,5 @@ foobar\r\n
     ga('create', 'UA-53959484-7', 'auto');
     ga('send', 'pageview');
   </script>
-  </body>
+</body>
 </html>

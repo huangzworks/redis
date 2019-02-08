@@ -1,0 +1,342 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>RESTORE key ttl serialized-value [REPLACE] &mdash; Redis 命令参考</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'2019',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SYNC" href="sync.html" />
+    <link rel="prev" title="DUMP key" href="dump.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Redis 命令参考
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2019
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../string/index.html">字符串</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hash/index.html">哈希表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../list/index.html">列表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../set/index.html">集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sorted_set/index.html">有序集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hyperloglog/index.html">HyperLogLog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geo/index.html">地理位置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bitmap/index.html">位图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../expire/index.html">自动过期</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../transaction/index.html">事务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script/index.html">Lua 脚本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../persistence/index.html">持久化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pubsub/index.html">发布与订阅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../replication/index.html">复制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../client_and_server/index.html">客户端与服务器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configure/index.html">配置选项</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug/index.html">调试</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">内部命令</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="migrate.html">MIGRATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dump.html">DUMP</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RESTORE</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">返回值</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">代码示例</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sync.html">SYNC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psync.html">PSYNC</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../topic/index.html">功能文档</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Redis 命令参考</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">内部命令</a> &raquo;</li>
+        
+      <li>RESTORE key ttl serialized-value [REPLACE]</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/internal/restore.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="restore-key-ttl-serialized-value-replace">
+<span id="restore"></span><h1>RESTORE key ttl serialized-value [REPLACE]<a class="headerlink" href="#restore-key-ttl-serialized-value-replace" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><div class="line-block">
+<div class="line">可用版本： &gt;= 2.6.0</div>
+<div class="line">时间复杂度： 查找给定键的复杂度为 O(1) ，对键进行反序列化的复杂度为 O(N*M) ，其中 N 是构成 <code class="docutils literal"><span class="pre">key</span></code> 的 Redis 对象的数量，而 M 则是这些对象的平均大小。 有序集合(sorted set)的反序列化复杂度为 O(N*M*log(N)) ，因为有序集合每次插入的复杂度为 O(log(N)) 。 如果反序列化的对象是比较小的字符串，那么复杂度为 O(1) 。</div>
+</div>
+</div></blockquote>
+<p>反序列化给定的序列化值，并将它和给定的 <code class="docutils literal"><span class="pre">key</span></code> 关联。</p>
+<p>参数 <code class="docutils literal"><span class="pre">ttl</span></code> 以毫秒为单位为 <code class="docutils literal"><span class="pre">key</span></code> 设置生存时间；如果 <code class="docutils literal"><span class="pre">ttl</span></code> 为 <code class="docutils literal"><span class="pre">0</span></code> ，那么不设置生存时间。</p>
+<p><code class="docutils literal"><span class="pre">RESTORE</span></code> 在执行反序列化之前会先对序列化值的 RDB 版本和数据校验和进行检查，如果 RDB 版本不相同或者数据不完整的话，那么 <code class="docutils literal"><span class="pre">RESTORE</span></code> 会拒绝进行反序列化，并返回一个错误。</p>
+<p>如果键 <code class="docutils literal"><span class="pre">key</span></code> 已经存在，
+并且给定了 <code class="docutils literal"><span class="pre">REPLACE</span></code> 选项，
+那么使用反序列化得出的值来代替键 <code class="docutils literal"><span class="pre">key</span></code> 原有的值；
+相反地，
+如果键 <code class="docutils literal"><span class="pre">key</span></code> 已经存在，
+但是没有给定 <code class="docutils literal"><span class="pre">REPLACE</span></code> 选项，
+那么命令返回一个错误。</p>
+<p>更多信息可以参考 <code class="docutils literal"><span class="pre">DUMP</span></code> 命令。</p>
+<div class="section" id="id1">
+<h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>如果反序列化成功那么返回 <code class="docutils literal"><span class="pre">OK</span></code> ，否则返回一个错误。</p>
+</div>
+<div class="section" id="id2">
+<h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 创建一个键，作为 DUMP 命令的输入</span>
+
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">greeting</span> <span class="s2">&quot;hello, dumping world!&quot;</span>
+<span class="n">OK</span>
+
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">DUMP</span> <span class="n">greeting</span>
+<span class="s2">&quot;</span><span class="se">\x00\x15</span><span class="s2">hello, dumping world!</span><span class="se">\x06\x00</span><span class="s2">E</span><span class="se">\xa0</span><span class="s2">Z</span><span class="se">\x82\xd8</span><span class="s2">r</span><span class="se">\xc1\xde</span><span class="s2">&quot;</span>
+
+<span class="c1"># 将序列化数据 RESTORE 到另一个键上面</span>
+
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">RESTORE</span> <span class="n">greeting</span><span class="o">-</span><span class="n">again</span> <span class="mi">0</span> <span class="s2">&quot;</span><span class="se">\x00\x15</span><span class="s2">hello, dumping world!</span><span class="se">\x06\x00</span><span class="s2">E</span><span class="se">\xa0</span><span class="s2">Z</span><span class="se">\x82\xd8</span><span class="s2">r</span><span class="se">\xc1\xde</span><span class="s2">&quot;</span>
+<span class="n">OK</span>
+
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">GET</span> <span class="n">greeting</span><span class="o">-</span><span class="n">again</span>
+<span class="s2">&quot;hello, dumping world!&quot;</span>
+
+<span class="c1"># 在没有给定 REPLACE 选项的情况下，再次尝试反序列化到同一个键，失败</span>
+
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">RESTORE</span> <span class="n">greeting</span><span class="o">-</span><span class="n">again</span> <span class="mi">0</span> <span class="s2">&quot;</span><span class="se">\x00\x15</span><span class="s2">hello, dumping world!</span><span class="se">\x06\x00</span><span class="s2">E</span><span class="se">\xa0</span><span class="s2">Z</span><span class="se">\x82\xd8</span><span class="s2">r</span><span class="se">\xc1\xde</span><span class="s2">&quot;</span>
+<span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="n">ERR</span> <span class="n">Target</span> <span class="n">key</span> <span class="n">name</span> <span class="ow">is</span> <span class="n">busy</span><span class="o">.</span>
+
+<span class="c1"># 给定 REPLACE 选项，对同一个键进行反序列化成功</span>
+
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">RESTORE</span> <span class="n">greeting</span><span class="o">-</span><span class="n">again</span> <span class="mi">0</span> <span class="s2">&quot;</span><span class="se">\x00\x15</span><span class="s2">hello, dumping world!</span><span class="se">\x06\x00</span><span class="s2">E</span><span class="se">\xa0</span><span class="s2">Z</span><span class="se">\x82\xd8</span><span class="s2">r</span><span class="se">\xc1\xde</span><span class="s2">&quot;</span> <span class="n">REPLACE</span>
+<span class="n">OK</span>
+
+<span class="c1"># 尝试使用无效的值进行反序列化，出错</span>
+
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">RESTORE</span> <span class="n">fake</span><span class="o">-</span><span class="n">message</span> <span class="mi">0</span> <span class="s2">&quot;hello moto moto blah blah&quot;</span>
+<span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="n">ERR</span> <span class="n">DUMP</span> <span class="n">payload</span> <span class="n">version</span> <span class="ow">or</span> <span class="n">checksum</span> <span class="n">are</span> <span class="n">wrong</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+            <div class="section" id="discuss">
+
+    <h2>
+        讨论
+        <a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+    </h2>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'redis-command-cn'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<!--
+<div id="sponser">
+    <h2>赞助商</h2>
+    <p>我们正在寻找赞助商，有意对这个网站进行赞助的朋友请联系 huangz1990@gmail.com 。</p>
+</div>
+-->
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="sync.html" class="btn btn-neutral float-right" title="SYNC" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="dump.html" class="btn btn-neutral float-left" title="DUMP key" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Redis
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-53959484-7', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

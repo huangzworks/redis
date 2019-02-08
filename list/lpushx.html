@@ -1,101 +1,249 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>LPUSHX key value &mdash; Redis 命令参考</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
     
-    <title>LPUSHX &mdash; Redis 命令参考</title>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'2019',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
     
-    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '2.8',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Redis 命令参考" href="../index.html" />
-    <link rel="up" title="List（列表）" href="index.html" />
-    <link rel="next" title="LRANGE" href="lrange.html" />
-    <link rel="prev" title="LPUSH" href="lpush.html" /> 
 
-<!--[if lte IE 6]>
-<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
-<![endif]-->
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="RPUSH key value [value …]" href="rpush.html" />
+    <link rel="prev" title="LPUSH key value [value …]" href="lpush.html" /> 
+</head>
 
+<body class="wy-body-for-nav">
 
-  </head>
-  <body>
+   
+  <div class="wy-grid-for-nav">
 
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="lrange.html" title="LRANGE"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="lpush.html" title="LPUSH"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">List（列表）</a> &raquo;</li> 
-      </ul>
-    </div>  
+          
+            <a href="../index.html" class="icon icon-home"> Redis 命令参考
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+          
+          </a>
+
+          
             
-  <div class="section" id="lpushx">
-<span id="id1"></span><h1>LPUSHX<a class="headerlink" href="#lpushx" title="Permalink to this headline">¶</a></h1>
-<p><strong>LPUSHX key value</strong></p>
+            
+              <div class="version">
+                2019
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../string/index.html">字符串</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hash/index.html">哈希表</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">列表</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="lpush.html">LPUSH</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">LPUSHX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">返回值</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">代码示例</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rpush.html">RPUSH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rpushx.html">RPUSHX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lpop.html">LPOP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rpop.html">RPOP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rpoplpush.html">RPOPLPUSH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lrem.html">LREM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="llen.html">LLEN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lindex.html">LINDEX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linsert.html">LINSERT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lset.html">LSET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lrange.html">LRANGE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ltrim.html">LTRIM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blpop.html">BLPOP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brpop.html">BRPOP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brpoplpush.html">BRPOPLPUSH</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../set/index.html">集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sorted_set/index.html">有序集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hyperloglog/index.html">HyperLogLog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geo/index.html">地理位置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bitmap/index.html">位图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../expire/index.html">自动过期</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../transaction/index.html">事务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script/index.html">Lua 脚本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../persistence/index.html">持久化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pubsub/index.html">发布与订阅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../replication/index.html">复制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../client_and_server/index.html">客户端与服务器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configure/index.html">配置选项</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug/index.html">调试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../internal/index.html">内部命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topic/index.html">功能文档</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Redis 命令参考</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">列表</a> &raquo;</li>
+        
+      <li>LPUSHX key value</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/list/lpushx.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="lpushx-key-value">
+<span id="lpushx"></span><h1>LPUSHX key value<a class="headerlink" href="#lpushx-key-value" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><div class="line-block">
+<div class="line">可用版本： &gt;= 2.2.0</div>
+<div class="line">时间复杂度： O(1)</div>
+</div>
+</div></blockquote>
 <p>将值 <code class="docutils literal"><span class="pre">value</span></code> 插入到列表 <code class="docutils literal"><span class="pre">key</span></code> 的表头，当且仅当 <code class="docutils literal"><span class="pre">key</span></code> 存在并且是一个列表。</p>
-<p>和 <a class="reference internal" href="lpush.html#lpush"><span>LPUSH</span></a> 命令相反，当 <code class="docutils literal"><span class="pre">key</span></code> 不存在时， <a class="reference internal" href="#lpushx">LPUSHX</a> 命令什么也不做。</p>
-<dl class="docutils">
-<dt><strong>可用版本：</strong></dt>
-<dd>&gt;= 2.2.0</dd>
-<dt><strong>时间复杂度：</strong></dt>
-<dd>O(1)</dd>
-<dt><strong>返回值：</strong></dt>
-<dd><a class="reference internal" href="#lpushx">LPUSHX</a> 命令执行之后，表的长度。</dd>
-</dl>
-<div class="highlight-python"><div class="highlight"><pre># 对空列表执行 LPUSHX
+<p>和 <a class="reference internal" href="lpush.html#lpush"><span class="std std-ref">LPUSH key value [value …]</span></a> 命令相反，当 <code class="docutils literal"><span class="pre">key</span></code> 不存在时， <a class="reference internal" href="#lpushx">LPUSHX</a> 命令什么也不做。</p>
+<div class="section" id="id1">
+<h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="#lpushx">LPUSHX</a> 命令执行之后，表的长度。</p>
+</div>
+<div class="section" id="id2">
+<h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 对空列表执行 LPUSHX</span>
 
-redis&gt; LLEN greet                       # greet 是一个空列表
-(integer) 0
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">LLEN</span> <span class="n">greet</span>                       <span class="c1"># greet 是一个空列表</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">0</span>
 
-redis&gt; LPUSHX greet &quot;hello&quot;             # 尝试 LPUSHX，失败，因为列表为空
-(integer) 0
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">LPUSHX</span> <span class="n">greet</span> <span class="s2">&quot;hello&quot;</span>             <span class="c1"># 尝试 LPUSHX，失败，因为列表为空</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">0</span>
 
 
-# 对非空列表执行 LPUSHX
+<span class="c1"># 对非空列表执行 LPUSHX</span>
 
-redis&gt; LPUSH greet &quot;hello&quot;              # 先用 LPUSH 创建一个有一个元素的列表
-(integer) 1
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">LPUSH</span> <span class="n">greet</span> <span class="s2">&quot;hello&quot;</span>              <span class="c1"># 先用 LPUSH 创建一个有一个元素的列表</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">1</span>
 
-redis&gt; LPUSHX greet &quot;good morning&quot;      # 这次 LPUSHX 执行成功
-(integer) 2
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">LPUSHX</span> <span class="n">greet</span> <span class="s2">&quot;good morning&quot;</span>      <span class="c1"># 这次 LPUSHX 执行成功</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">2</span>
 
-redis&gt; LRANGE greet 0 -1
-1) &quot;good morning&quot;
-2) &quot;hello&quot;
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">LRANGE</span> <span class="n">greet</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span>
+<span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;good morning&quot;</span>
+<span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;hello&quot;</span>
 </pre></div>
 </div>
 </div>
-
+</div>
 
 
             <div class="section" id="discuss">
@@ -121,36 +269,59 @@ redis&gt; LRANGE greet 0 -1
     <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 
+<!--
 <div id="sponser">
     <h2>赞助商</h2>
     <p>我们正在寻找赞助商，有意对这个网站进行赞助的朋友请联系 huangz1990@gmail.com 。</p>
 </div>
-
+-->
+           </div>
+           
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rpush.html" class="btn btn-neutral float-right" title="RPUSH key value [value …]" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="lpush.html" class="btn btn-neutral float-left" title="LPUSH key value [value …]" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Redis
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="lrange.html" title="LRANGE"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="lpush.html" title="LPUSH"
-             >previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
-          <li><a href="index.html" >List（列表）</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2015, Redis.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.3.
-    </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -160,5 +331,5 @@ redis&gt; LRANGE greet 0 -1
     ga('create', 'UA-53959484-7', 'auto');
     ga('send', 'pageview');
   </script>
-  </body>
+</body>
 </html>

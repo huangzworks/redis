@@ -1,106 +1,243 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SCRIPT KILL &mdash; Redis 命令参考</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
     
-    <title>SCRIPT KILL &mdash; Redis 命令参考</title>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'2019',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
     
-    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '2.8',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Redis 命令参考" href="../index.html" />
-    <link rel="up" title="Script（脚本）" href="index.html" />
-    <link rel="next" title="SCRIPT LOAD" href="script_load.html" />
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="持久化" href="../persistence/index.html" />
     <link rel="prev" title="SCRIPT FLUSH" href="script_flush.html" /> 
+</head>
 
-<!--[if lte IE 6]>
-<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
-<![endif]-->
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Redis 命令参考
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2019
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../string/index.html">字符串</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hash/index.html">哈希表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../list/index.html">列表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../set/index.html">集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sorted_set/index.html">有序集合</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hyperloglog/index.html">HyperLogLog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geo/index.html">地理位置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bitmap/index.html">位图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../expire/index.html">自动过期</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../transaction/index.html">事务</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Lua 脚本</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="eval.html">EVAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evalsha.html">EVALSHA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script_load.html">SCRIPT_LOAD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script_exists.html">SCRIPT_EXISTS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script_flush.html">SCRIPT_FLUSH</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SCRIPT_KILL</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">返回值</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">代码示例</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../persistence/index.html">持久化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pubsub/index.html">发布与订阅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../replication/index.html">复制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../client_and_server/index.html">客户端与服务器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configure/index.html">配置选项</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug/index.html">调试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../internal/index.html">内部命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topic/index.html">功能文档</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Redis 命令参考</a>
+        
+      </nav>
 
 
-  </head>
-  <body>
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
 
 
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="script_load.html" title="SCRIPT LOAD"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="script_flush.html" title="SCRIPT FLUSH"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">Script（脚本）</a> &raquo;</li> 
-      </ul>
-    </div>  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Lua 脚本</a> &raquo;</li>
+        
+      <li>SCRIPT KILL</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/script/script_kill.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="script-kill">
 <span id="id1"></span><h1>SCRIPT KILL<a class="headerlink" href="#script-kill" title="Permalink to this headline">¶</a></h1>
-<p><strong>SCRIPT KILL</strong></p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">可用版本： &gt;= 2.6.0</div>
+<div class="line">时间复杂度： O(1)</div>
+</div>
+</div></blockquote>
 <p>杀死当前正在运行的 Lua 脚本，当且仅当这个脚本没有执行过任何写操作时，这个命令才生效。</p>
 <p>这个命令主要用于终止运行时间过长的脚本，比如一个因为 BUG 而发生无限 loop 的脚本，诸如此类。</p>
-<p><a class="reference internal" href="#id1">SCRIPT KILL</a> 执行之后，当前正在运行的脚本会被杀死，执行这个脚本的客户端会从 <a class="reference internal" href="eval.html#eval"><span>EVAL</span></a> 命令的阻塞当中退出，并收到一个错误作为返回值。</p>
+<p><a class="reference internal" href="#id1">SCRIPT KILL</a> 执行之后，当前正在运行的脚本会被杀死，执行这个脚本的客户端会从 <a class="reference internal" href="eval.html#eval"><span class="std std-ref">EVAL script numkeys key [key …] arg [arg …]</span></a> 命令的阻塞当中退出，并收到一个错误作为返回值。</p>
 <p>另一方面，假如当前正在运行的脚本已经执行过写操作，那么即使执行 <a class="reference internal" href="#id1">SCRIPT KILL</a> ，也无法将它杀死，因为这是违反 Lua 脚本的原子性执行原则的。在这种情况下，唯一可行的办法是使用 <code class="docutils literal"><span class="pre">SHUTDOWN</span> <span class="pre">NOSAVE</span></code> 命令，通过停止整个 Redis 进程来停止脚本的运行，并防止不完整(half-written)的信息被写入数据库中。</p>
-<p>关于使用 Redis 对 Lua 脚本进行求值的更多信息，请参见 <a class="reference internal" href="eval.html#eval"><span>EVAL</span></a> 命令。</p>
-<dl class="docutils">
-<dt><strong>可用版本：</strong></dt>
-<dd>&gt;= 2.6.0</dd>
-<dt><strong>时间复杂度：</strong></dt>
-<dd>O(1)</dd>
-<dt><strong>返回值：</strong></dt>
-<dd>执行成功返回 <code class="docutils literal"><span class="pre">OK</span></code> ，否则返回一个错误。</dd>
-</dl>
-<div class="highlight-python"><div class="highlight"><pre># 没有脚本在执行时
+<p>关于使用 Redis 对 Lua 脚本进行求值的更多信息，请参见 <a class="reference internal" href="eval.html#eval"><span class="std std-ref">EVAL script numkeys key [key …] arg [arg …]</span></a> 命令。</p>
+<div class="section" id="id2">
+<h2>返回值<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>执行成功返回 <code class="docutils literal"><span class="pre">OK</span></code> ，否则返回一个错误。</p>
+</div>
+<div class="section" id="id3">
+<h2>代码示例<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 没有脚本在执行时</span>
 
-redis&gt; SCRIPT KILL
-(error) ERR No scripts in execution right now.
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">SCRIPT</span> <span class="n">KILL</span>
+<span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="n">ERR</span> <span class="n">No</span> <span class="n">scripts</span> <span class="ow">in</span> <span class="n">execution</span> <span class="n">right</span> <span class="n">now</span><span class="o">.</span>
 
-# 成功杀死脚本时
+<span class="c1"># 成功杀死脚本时</span>
 
-redis&gt; SCRIPT KILL
-OK
-(1.30s)
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">SCRIPT</span> <span class="n">KILL</span>
+<span class="n">OK</span>
+<span class="p">(</span><span class="mf">1.30</span><span class="n">s</span><span class="p">)</span>
 
-# 尝试杀死一个已经执行过写操作的脚本，失败
+<span class="c1"># 尝试杀死一个已经执行过写操作的脚本，失败</span>
 
-redis&gt; SCRIPT KILL
-(error) ERR Sorry the script already executed write commands against the dataset. You can either wait the script termination or kill the server in an hard way using the SHUTDOWN NOSAVE command.
-(1.69s)
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">SCRIPT</span> <span class="n">KILL</span>
+<span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="n">ERR</span> <span class="n">Sorry</span> <span class="n">the</span> <span class="n">script</span> <span class="n">already</span> <span class="n">executed</span> <span class="n">write</span> <span class="n">commands</span> <span class="n">against</span> <span class="n">the</span> <span class="n">dataset</span><span class="o">.</span> <span class="n">You</span> <span class="n">can</span> <span class="n">either</span> <span class="n">wait</span> <span class="n">the</span> <span class="n">script</span> <span class="n">termination</span> <span class="ow">or</span> <span class="n">kill</span> <span class="n">the</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">an</span> <span class="n">hard</span> <span class="n">way</span> <span class="n">using</span> <span class="n">the</span> <span class="n">SHUTDOWN</span> <span class="n">NOSAVE</span> <span class="n">command</span><span class="o">.</span>
+<span class="p">(</span><span class="mf">1.69</span><span class="n">s</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>以下是脚本被杀死之后，返回给执行脚本的客户端的错误：</p>
-<div class="highlight-python"><div class="highlight"><pre>redis&gt; EVAL &quot;while true do end&quot; 0
-(error) ERR Error running script (call to f_694a5fe1ddb97a4c6a1bf299d9537c7d3d0f84e7): Script killed by user with SCRIPT KILL...
-(5.00s)
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">EVAL</span> <span class="s2">&quot;while true do end&quot;</span> <span class="mi">0</span>
+<span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="n">ERR</span> <span class="n">Error</span> <span class="n">running</span> <span class="n">script</span> <span class="p">(</span><span class="n">call</span> <span class="n">to</span> <span class="n">f_694a5fe1ddb97a4c6a1bf299d9537c7d3d0f84e7</span><span class="p">):</span> <span class="n">Script</span> <span class="n">killed</span> <span class="n">by</span> <span class="n">user</span> <span class="k">with</span> <span class="n">SCRIPT</span> <span class="n">KILL</span><span class="o">...</span>
+<span class="p">(</span><span class="mf">5.00</span><span class="n">s</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-
+</div>
 
 
             <div class="section" id="discuss">
@@ -126,36 +263,59 @@ redis&gt; SCRIPT KILL
     <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 
+<!--
 <div id="sponser">
     <h2>赞助商</h2>
     <p>我们正在寻找赞助商，有意对这个网站进行赞助的朋友请联系 huangz1990@gmail.com 。</p>
 </div>
-
+-->
+           </div>
+           
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../persistence/index.html" class="btn btn-neutral float-right" title="持久化" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="script_flush.html" class="btn btn-neutral float-left" title="SCRIPT FLUSH" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Redis
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="script_load.html" title="SCRIPT LOAD"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="script_flush.html" title="SCRIPT FLUSH"
-             >previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
-          <li><a href="index.html" >Script（脚本）</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2015, Redis.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.3.
-    </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -165,5 +325,5 @@ redis&gt; SCRIPT KILL
     ga('create', 'UA-53959484-7', 'auto');
     ga('send', 'pageview');
   </script>
-  </body>
+</body>
 </html>

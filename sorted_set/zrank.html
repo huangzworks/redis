@@ -1,96 +1,244 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ZRANK key member &mdash; Redis 命令参考</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
     
-    <title>ZRANK &mdash; Redis 命令参考</title>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'2019',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
     
-    <link rel="stylesheet" href="../_static/pyramid.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '2.8',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Redis 命令参考" href="../index.html" />
-    <link rel="up" title="SortedSet（有序集合）" href="index.html" />
-    <link rel="next" title="ZREM" href="zrem.html" />
-    <link rel="prev" title="ZRANGEBYSCORE" href="zrangebyscore.html" /> 
 
-<!--[if lte IE 6]>
-<link rel="stylesheet" href="../_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
-<![endif]-->
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ZREVRANK key member" href="zrevrank.html" />
+    <link rel="prev" title="ZREVRANGEBYSCORE key max min [WITHSCORES] [LIMIT offset count]" href="zrevrangebyscore.html" /> 
+</head>
 
+<body class="wy-body-for-nav">
 
-  </head>
-  <body>
+   
+  <div class="wy-grid-for-nav">
 
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="zrem.html" title="ZREM"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="zrangebyscore.html" title="ZRANGEBYSCORE"
-             accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">SortedSet（有序集合）</a> &raquo;</li> 
-      </ul>
-    </div>  
+          
+            <a href="../index.html" class="icon icon-home"> Redis 命令参考
+          
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
+          
+          </a>
+
+          
             
-  <div class="section" id="zrank">
-<span id="id1"></span><h1>ZRANK<a class="headerlink" href="#zrank" title="Permalink to this headline">¶</a></h1>
-<p><strong>ZRANK key member</strong></p>
+            
+              <div class="version">
+                2019
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../string/index.html">字符串</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hash/index.html">哈希表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../list/index.html">列表</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../set/index.html">集合</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">有序集合</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="zadd.html">ZADD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zscore.html">ZSCORE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zincrby.html">ZINCRBY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zcard.html">ZCARD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zcount.html">ZCOUNT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zrange.html">ZRANGE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zrevrange.html">ZREVRANGE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zrangebyscore.html">ZRANGEBYSCORE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zrevrangebyscore.html">ZREVRANGEBYSCORE</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ZRANK</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">返回值</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">代码示例</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="zrevrank.html">ZREVRANK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zrem.html">ZREM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zremrangebyrank.html">ZREMRANGEBYRANK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zremrangebyscore.html">ZREMRANGEBYSCORE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zrangebylex.html">ZRANGEBYLEX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zlexcount.html">ZLEXCOUNT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zremrangebylex.html">ZREMRANGEBYLEX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zscan.html">ZSCAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zunionstore.html">ZUNIONSTORE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zinterstore.html">ZINTERSTORE</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../hyperloglog/index.html">HyperLogLog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geo/index.html">地理位置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bitmap/index.html">位图</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../expire/index.html">自动过期</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../transaction/index.html">事务</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script/index.html">Lua 脚本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../persistence/index.html">持久化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pubsub/index.html">发布与订阅</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../replication/index.html">复制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../client_and_server/index.html">客户端与服务器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configure/index.html">配置选项</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debug/index.html">调试</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../internal/index.html">内部命令</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topic/index.html">功能文档</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Redis 命令参考</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">有序集合</a> &raquo;</li>
+        
+      <li>ZRANK key member</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/sorted_set/zrank.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="zrank-key-member">
+<span id="zrank"></span><h1>ZRANK key member<a class="headerlink" href="#zrank-key-member" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><div class="line-block">
+<div class="line">可用版本： &gt;= 2.0.0</div>
+<div class="line">时间复杂度: O(log(N))</div>
+</div>
+</div></blockquote>
 <p>返回有序集 <code class="docutils literal"><span class="pre">key</span></code> 中成员 <code class="docutils literal"><span class="pre">member</span></code> 的排名。其中有序集成员按 <code class="docutils literal"><span class="pre">score</span></code> 值递增(从小到大)顺序排列。</p>
 <p>排名以 <code class="docutils literal"><span class="pre">0</span></code> 为底，也就是说， <code class="docutils literal"><span class="pre">score</span></code> 值最小的成员排名为 <code class="docutils literal"><span class="pre">0</span></code> 。</p>
-<p>使用 <a class="reference internal" href="zrevrank.html#zrevrank"><span>ZREVRANK</span></a> 命令可以获得成员按 <code class="docutils literal"><span class="pre">score</span></code> 值递减(从大到小)排列的排名。</p>
-<dl class="docutils">
-<dt><strong>可用版本：</strong></dt>
-<dd>&gt;= 2.0.0</dd>
-<dt><strong>时间复杂度:</strong></dt>
-<dd>O(log(N))</dd>
-<dt><strong>返回值:</strong></dt>
-<dd><div class="first last line-block">
-<div class="line">如果 <code class="docutils literal"><span class="pre">member</span></code> 是有序集 <code class="docutils literal"><span class="pre">key</span></code> 的成员，返回 <code class="docutils literal"><span class="pre">member</span></code> 的排名。</div>
-<div class="line">如果 <code class="docutils literal"><span class="pre">member</span></code> 不是有序集 <code class="docutils literal"><span class="pre">key</span></code> 的成员，返回 <code class="docutils literal"><span class="pre">nil</span></code> 。</div>
+<p>使用 <a class="reference internal" href="zrevrank.html#zrevrank"><span class="std std-ref">ZREVRANK key member</span></a> 命令可以获得成员按 <code class="docutils literal"><span class="pre">score</span></code> 值递减(从大到小)排列的排名。</p>
+<div class="section" id="id1">
+<h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>如果 <code class="docutils literal"><span class="pre">member</span></code> 是有序集 <code class="docutils literal"><span class="pre">key</span></code> 的成员，返回 <code class="docutils literal"><span class="pre">member</span></code> 的排名。
+如果 <code class="docutils literal"><span class="pre">member</span></code> 不是有序集 <code class="docutils literal"><span class="pre">key</span></code> 的成员，返回 <code class="docutils literal"><span class="pre">nil</span></code> 。</p>
 </div>
-</dd>
-</dl>
-<div class="highlight-python"><div class="highlight"><pre>redis&gt; ZRANGE salary 0 -1 WITHSCORES        # 显示所有成员及其 score 值
-1) &quot;peter&quot;
-2) &quot;3500&quot;
-3) &quot;tom&quot;
-4) &quot;4000&quot;
-5) &quot;jack&quot;
-6) &quot;5000&quot;
+<div class="section" id="id2">
+<h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">ZRANGE</span> <span class="n">salary</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="n">WITHSCORES</span>        <span class="c1"># 显示所有成员及其 score 值</span>
+<span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;peter&quot;</span>
+<span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;3500&quot;</span>
+<span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;tom&quot;</span>
+<span class="mi">4</span><span class="p">)</span> <span class="s2">&quot;4000&quot;</span>
+<span class="mi">5</span><span class="p">)</span> <span class="s2">&quot;jack&quot;</span>
+<span class="mi">6</span><span class="p">)</span> <span class="s2">&quot;5000&quot;</span>
 
-redis&gt; ZRANK salary tom                     # 显示 tom 的薪水排名，第二
-(integer) 1
+<span class="n">redis</span><span class="o">&gt;</span> <span class="n">ZRANK</span> <span class="n">salary</span> <span class="n">tom</span>                     <span class="c1"># 显示 tom 的薪水排名，第二</span>
+<span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">1</span>
 </pre></div>
 </div>
 </div>
-
+</div>
 
 
             <div class="section" id="discuss">
@@ -116,36 +264,59 @@ redis&gt; ZRANK salary tom                     # 显示 tom 的薪水排名，�
     <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 
+<!--
 <div id="sponser">
     <h2>赞助商</h2>
     <p>我们正在寻找赞助商，有意对这个网站进行赞助的朋友请联系 huangz1990@gmail.com 。</p>
 </div>
-
+-->
+           </div>
+           
           </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="zrevrank.html" class="btn btn-neutral float-right" title="ZREVRANK key member" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="zrevrangebyscore.html" class="btn btn-neutral float-left" title="ZREVRANGEBYSCORE key max min [WITHSCORES] [LIMIT offset count]" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Redis
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="zrem.html" title="ZREM"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="zrangebyscore.html" title="ZRANGEBYSCORE"
-             >previous</a> |</li>
-        <li><a href="../index.html">Redis 命令参考</a> &raquo;</li>
-          <li><a href="index.html" >SortedSet（有序集合）</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2015, Redis.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.3.
-    </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
     <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -155,5 +326,5 @@ redis&gt; ZRANK salary tom                     # 显示 tom 的薪水排名，�
     ga('create', 'UA-53959484-7', 'auto');
     ga('send', 'pageview');
   </script>
-  </body>
+</body>
 </html>
