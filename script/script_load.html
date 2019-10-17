@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -198,10 +189,10 @@
 <blockquote>
 <div><div class="line-block">
 <div class="line">可用版本： &gt;= 2.6.0</div>
-<div class="line">时间复杂度： O(N) , <code class="docutils literal"><span class="pre">N</span></code> 为脚本的长度(以字节为单位)。</div>
+<div class="line">时间复杂度： O(N) , <code class="docutils literal notranslate"><span class="pre">N</span></code> 为脚本的长度(以字节为单位)。</div>
 </div>
 </div></blockquote>
-<p>将脚本 <code class="docutils literal"><span class="pre">script</span></code> 添加到脚本缓存中，但并不立即执行这个脚本。</p>
+<p>将脚本 <code class="docutils literal notranslate"><span class="pre">script</span></code> 添加到脚本缓存中，但并不立即执行这个脚本。</p>
 <p><a class="reference internal" href="eval.html#eval"><span class="std std-ref">EVAL script numkeys key [key …] arg [arg …]</span></a> 命令也会将脚本添加到脚本缓存中，但是它会立即对输入的脚本进行求值。</p>
 <p>如果给定的脚本已经在缓存里面了，那么不做动作。</p>
 <p>在脚本被加入到缓存之后，通过 EVALSHA 命令，可以使用脚本的 SHA1 校验和来调用这个脚本。</p>
@@ -209,11 +200,11 @@
 <p>关于使用 Redis 对 Lua 脚本进行求值的更多信息，请参见 <a class="reference internal" href="eval.html#eval"><span class="std std-ref">EVAL script numkeys key [key …] arg [arg …]</span></a> 命令。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>给定 <code class="docutils literal"><span class="pre">script</span></code> 的 SHA1 校验和。</p>
+<p>给定 <code class="docutils literal notranslate"><span class="pre">script</span></code> 的 SHA1 校验和。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SCRIPT</span> <span class="n">LOAD</span> <span class="s2">&quot;return &#39;hello moto&#39;&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SCRIPT</span> <span class="n">LOAD</span> <span class="s2">&quot;return &#39;hello moto&#39;&quot;</span>
 <span class="s2">&quot;232fd51614574cf0867b83d384a5e898cfd24e5a&quot;</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">EVALSHA</span> <span class="mi">232</span><span class="n">fd51614574cf0867b83d384a5e898cfd24e5a</span> <span class="mi">0</span>

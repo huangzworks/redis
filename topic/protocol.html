@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -210,20 +201,20 @@
   <div class="section" id="protocol">
 <h1>通信协议（protocol）<a class="headerlink" href="#protocol" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">本文档翻译自： <a class="reference external" href="http://redis.io/topics/protocol">http://redis.io/topics/protocol</a> 。</p>
+<p class="admonition-title">Note</p>
+<p>本文档翻译自： <a class="reference external" href="http://redis.io/topics/protocol">http://redis.io/topics/protocol</a> 。</p>
 </div>
 <p>Redis 协议在以下三个目标之间进行折中：</p>
 <ul class="simple">
-<li>易于实现</li>
-<li>可以高效地被计算机分析（parse）</li>
-<li>可以很容易地被人类读懂</li>
+<li><p>易于实现</p></li>
+<li><p>可以高效地被计算机分析（parse）</p></li>
+<li><p>可以很容易地被人类读懂</p></li>
 </ul>
 <div class="section" id="id1">
 <h2>网络层<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>客户端和服务器通过 TCP 连接来进行数据交互，
 服务器默认的端口号为 6379 。</p>
-<p>客户端和服务器发送的命令或数据一律以 <code class="docutils literal"><span class="pre">\r\n</span></code> （CRLF）结尾。</p>
+<p>客户端和服务器发送的命令或数据一律以 <code class="docutils literal notranslate"><span class="pre">\r\n</span></code> （CRLF）结尾。</p>
 </div>
 <div class="section" id="id2">
 <h2>请求<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
@@ -238,7 +229,7 @@
 <p>在这个协议中，
 所有发送至 Redis 服务器的参数都是二进制安全（binary safe）的。</p>
 <p>以下是这个协议的一般形式：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>*&lt;参数数量&gt; CR LF
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*&lt;参数数量&gt; CR LF
 $&lt;参数 1 的字节数量&gt; CR LF
 &lt;参数 1 的数据&gt; CR LF
 ...
@@ -247,12 +238,12 @@ $&lt;参数 N 的字节数量&gt; CR LF
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">译注：命令本身也作为协议的其中一个参数来发送。</p>
+<p class="admonition-title">Note</p>
+<p>译注：命令本身也作为协议的其中一个参数来发送。</p>
 </div>
 <p>举个例子，
 以下是一个命令协议的打印版本：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>*3
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*3
 $3
 SET
 $5
@@ -262,7 +253,7 @@ myvalue
 </pre></div>
 </div>
 <p>这个命令的实际协议值如下：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;*3</span><span class="se">\r\n</span><span class="s2">$3</span><span class="se">\r\n</span><span class="s2">SET</span><span class="se">\r\n</span><span class="s2">$5</span><span class="se">\r\n</span><span class="s2">mykey</span><span class="se">\r\n</span><span class="s2">$7</span><span class="se">\r\n</span><span class="s2">myvalue</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;*3</span><span class="se">\r\n</span><span class="s2">$3</span><span class="se">\r\n</span><span class="s2">SET</span><span class="se">\r\n</span><span class="s2">$5</span><span class="se">\r\n</span><span class="s2">mykey</span><span class="se">\r\n</span><span class="s2">$7</span><span class="se">\r\n</span><span class="s2">myvalue</span><span class="se">\r\n</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
 <p>稍后我们会看到，
@@ -272,9 +263,9 @@ myvalue
 <p>统一协议请求原本是用在回复协议中，
 用于将列表的多个项返回给客户端的，
 这种回复格式被称为<strong>多条批量回复（Multi Bulk Reply）</strong>。</p>
-<p>一个多条批量回复以 <code class="docutils literal"><span class="pre">*&lt;argc&gt;\r\n</span></code> 为前缀，
+<p>一个多条批量回复以 <code class="docutils literal notranslate"><span class="pre">*&lt;argc&gt;\r\n</span></code> 为前缀，
 后跟多条不同的批量回复，
-其中 <code class="docutils literal"><span class="pre">argc</span></code> 为这些批量回复的数量。</p>
+其中 <code class="docutils literal notranslate"><span class="pre">argc</span></code> 为这些批量回复的数量。</p>
 </div>
 <div class="section" id="id4">
 <h2>回复<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
@@ -282,32 +273,32 @@ myvalue
 <p>通过检查服务器发回数据的第一个字节，
 可以确定这个回复是什么类型：</p>
 <ul class="simple">
-<li>状态回复（status reply）的第一个字节是 <code class="docutils literal"><span class="pre">&quot;+&quot;</span></code></li>
-<li>错误回复（error reply）的第一个字节是 <code class="docutils literal"><span class="pre">&quot;-&quot;</span></code></li>
-<li>整数回复（integer reply）的第一个字节是 <code class="docutils literal"><span class="pre">&quot;:&quot;</span></code></li>
-<li>批量回复（bulk reply）的第一个字节是 <code class="docutils literal"><span class="pre">&quot;$&quot;</span></code></li>
-<li>多条批量回复（multi bulk reply）的第一个字节是 <code class="docutils literal"><span class="pre">&quot;*&quot;</span></code></li>
+<li><p>状态回复（status reply）的第一个字节是 <code class="docutils literal notranslate"><span class="pre">&quot;+&quot;</span></code></p></li>
+<li><p>错误回复（error reply）的第一个字节是 <code class="docutils literal notranslate"><span class="pre">&quot;-&quot;</span></code></p></li>
+<li><p>整数回复（integer reply）的第一个字节是 <code class="docutils literal notranslate"><span class="pre">&quot;:&quot;</span></code></p></li>
+<li><p>批量回复（bulk reply）的第一个字节是 <code class="docutils literal notranslate"><span class="pre">&quot;$&quot;</span></code></p></li>
+<li><p>多条批量回复（multi bulk reply）的第一个字节是 <code class="docutils literal notranslate"><span class="pre">&quot;*&quot;</span></code></p></li>
 </ul>
 </div>
 <div class="section" id="id5">
 <h2>状态回复<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<p>一个状态回复（或者单行回复，single line reply）是一段以 <code class="docutils literal"><span class="pre">&quot;+&quot;</span></code> 开始、 <code class="docutils literal"><span class="pre">&quot;\r\n&quot;</span></code> 结尾的单行字符串。</p>
+<p>一个状态回复（或者单行回复，single line reply）是一段以 <code class="docutils literal notranslate"><span class="pre">&quot;+&quot;</span></code> 开始、 <code class="docutils literal notranslate"><span class="pre">&quot;\r\n&quot;</span></code> 结尾的单行字符串。</p>
 <p>以下是一个状态回复的例子：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+</span><span class="n">OK</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+</span><span class="n">OK</span>
 </pre></div>
 </div>
-<p>客户端库应该返回 <code class="docutils literal"><span class="pre">&quot;+&quot;</span></code> 号之后的所有内容。
+<p>客户端库应该返回 <code class="docutils literal notranslate"><span class="pre">&quot;+&quot;</span></code> 号之后的所有内容。
 比如在在上面的这个例子中，
-客户端就应该返回字符串 <code class="docutils literal"><span class="pre">&quot;OK&quot;</span></code> 。</p>
+客户端就应该返回字符串 <code class="docutils literal notranslate"><span class="pre">&quot;OK&quot;</span></code> 。</p>
 <p>状态回复通常由那些不需要返回数据的命令返回，这种回复不是二进制安全的，它也不能包含新行。</p>
-<p>状态回复的额外开销非常少，只需要三个字节（开头的 <code class="docutils literal"><span class="pre">&quot;+&quot;</span></code> 和结尾的 CRLF）。</p>
+<p>状态回复的额外开销非常少，只需要三个字节（开头的 <code class="docutils literal notranslate"><span class="pre">&quot;+&quot;</span></code> 和结尾的 CRLF）。</p>
 </div>
 <div class="section" id="id6">
 <h2>错误回复<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>错误回复和状态回复非常相似，
 它们之间的唯一区别是，
-错误回复的第一个字节是 <code class="docutils literal"><span class="pre">&quot;-&quot;</span></code> ，
-而状态回复的第一个字节是 <code class="docutils literal"><span class="pre">&quot;+&quot;</span></code> 。</p>
+错误回复的第一个字节是 <code class="docutils literal notranslate"><span class="pre">&quot;-&quot;</span></code> ，
+而状态回复的第一个字节是 <code class="docutils literal notranslate"><span class="pre">&quot;+&quot;</span></code> 。</p>
 <p>错误回复只在某些地方出现问题时发送：
 比如说，
 当用户对不正确的数据类型执行命令，
@@ -315,12 +306,12 @@ myvalue
 等等。</p>
 <p>一个客户端库应该在收到错误回复时产生一个异常。</p>
 <p>以下是两个错误回复的例子：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">ERR</span> <span class="n">unknown</span> <span class="n">command</span> <span class="s1">&#39;foobar&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">ERR</span> <span class="n">unknown</span> <span class="n">command</span> <span class="s1">&#39;foobar&#39;</span>
 <span class="o">-</span><span class="n">WRONGTYPE</span> <span class="n">Operation</span> <span class="n">against</span> <span class="n">a</span> <span class="n">key</span> <span class="n">holding</span> <span class="n">the</span> <span class="n">wrong</span> <span class="n">kind</span> <span class="n">of</span> <span class="n">value</span>
 </pre></div>
 </div>
-<p>在 <code class="docutils literal"><span class="pre">&quot;-&quot;</span></code> 之后，直到遇到第一个空格或新行为止，这中间的内容表示所返回错误的类型。</p>
-<p><code class="docutils literal"><span class="pre">ERR</span></code> 是一个通用错误，而 <code class="docutils literal"><span class="pre">WRONGTYPE</span></code> 则是一个更特定的错误。
+<p>在 <code class="docutils literal notranslate"><span class="pre">&quot;-&quot;</span></code> 之后，直到遇到第一个空格或新行为止，这中间的内容表示所返回错误的类型。</p>
+<p><code class="docutils literal notranslate"><span class="pre">ERR</span></code> 是一个通用错误，而 <code class="docutils literal notranslate"><span class="pre">WRONGTYPE</span></code> 则是一个更特定的错误。
 一个客户端实现可以为不同类型的错误产生不同类型的异常，
 或者提供一种通用的方式，
 让调用者可以通过提供字符串形式的错误名来捕捉（trap）不同的错误。</p>
@@ -330,22 +321,22 @@ myvalue
 </div>
 <div class="section" id="id7">
 <h2>整数回复<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
-<p>整数回复就是一个以 <code class="docutils literal"><span class="pre">&quot;:&quot;</span></code> 开头， CRLF 结尾的字符串表示的整数。</p>
+<p>整数回复就是一个以 <code class="docutils literal notranslate"><span class="pre">&quot;:&quot;</span></code> 开头， CRLF 结尾的字符串表示的整数。</p>
 <p>比如说，
-<code class="docutils literal"><span class="pre">&quot;:0\r\n&quot;</span></code> 和 <code class="docutils literal"><span class="pre">&quot;:1000\r\n&quot;</span></code> 都是整数回复。</p>
+<code class="docutils literal notranslate"><span class="pre">&quot;:0\r\n&quot;</span></code> 和 <code class="docutils literal notranslate"><span class="pre">&quot;:1000\r\n&quot;</span></code> 都是整数回复。</p>
 <p>返回整数回复的其中两个命令是 <a class="reference internal" href="../string/incr.html#incr"><span class="std std-ref">INCR key</span></a> 和 <a class="reference internal" href="../persistence/lastsave.html#lastsave"><span class="std std-ref">LASTSAVE</span></a> 。
 被返回的整数没有什么特殊的含义，
 <a class="reference internal" href="../string/incr.html#incr"><span class="std std-ref">INCR key</span></a> 返回键的一个自增后的整数值，
 而 <a class="reference internal" href="../persistence/lastsave.html#lastsave"><span class="std std-ref">LASTSAVE</span></a> 则返回一个 UNIX 时间戳，
 返回值的唯一限制是这些数必须能够用 64 位有符号整数表示。</p>
 <p>整数回复也被广泛地用于表示逻辑真和逻辑假：
-比如 <a class="reference internal" href="../database/exists.html#exists"><span class="std std-ref">EXISTS key</span></a> 和 <a class="reference internal" href="../set/sismember.html#sismember"><span class="std std-ref">SISMEMBER key member</span></a> 都用返回值 <code class="docutils literal"><span class="pre">1</span></code> 表示真，
-<code class="docutils literal"><span class="pre">0</span></code> 表示假。</p>
+比如 <a class="reference internal" href="../database/exists.html#exists"><span class="std std-ref">EXISTS key</span></a> 和 <a class="reference internal" href="../set/sismember.html#sismember"><span class="std std-ref">SISMEMBER key member</span></a> 都用返回值 <code class="docutils literal notranslate"><span class="pre">1</span></code> 表示真，
+<code class="docutils literal notranslate"><span class="pre">0</span></code> 表示假。</p>
 <p>其他一些命令，
 比如 <a class="reference internal" href="../set/sadd.html#sadd"><span class="std std-ref">SADD key member [member …]</span></a> 、 <a class="reference internal" href="../set/srem.html#srem"><span class="std std-ref">SREM key member [member …]</span></a> 和 <a class="reference internal" href="../string/setnx.html#setnx"><span class="std std-ref">SETNX key value</span></a> ，
 只在操作真正被执行了的时候，
-才返回 <code class="docutils literal"><span class="pre">1</span></code> ，
-否则返回 <code class="docutils literal"><span class="pre">0</span></code> 。</p>
+才返回 <code class="docutils literal notranslate"><span class="pre">1</span></code> ，
+否则返回 <code class="docutils literal notranslate"><span class="pre">0</span></code> 。</p>
 <p>以下命令都返回整数回复：
 <a class="reference internal" href="../string/setnx.html#setnx"><span class="std std-ref">SETNX key value</span></a> 、
 <a class="reference internal" href="../database/del.html#del"><span class="std std-ref">DEL key [key …]</span></a> 、
@@ -367,33 +358,33 @@ myvalue
 <div class="section" id="id8">
 <h2>批量回复<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <p>服务器使用批量回复来返回二进制安全的字符串，字符串的最大长度为 512 MB 。</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>客户端：GET mykey
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>客户端：GET mykey
 服务器：foobar
 </pre></div>
 </div>
 <p>服务器发送的内容中：</p>
 <ul class="simple">
-<li>第一字节为 <code class="docutils literal"><span class="pre">&quot;$&quot;</span></code> 符号</li>
-<li>接下来跟着的是表示实际回复长度的数字值</li>
-<li>之后跟着一个 CRLF</li>
-<li>再后面跟着的是实际回复数据</li>
-<li>最末尾是另一个 CRLF</li>
+<li><p>第一字节为 <code class="docutils literal notranslate"><span class="pre">&quot;$&quot;</span></code> 符号</p></li>
+<li><p>接下来跟着的是表示实际回复长度的数字值</p></li>
+<li><p>之后跟着一个 CRLF</p></li>
+<li><p>再后面跟着的是实际回复数据</p></li>
+<li><p>最末尾是另一个 CRLF</p></li>
 </ul>
 <p>对于前面的 <a class="reference internal" href="../string/get.html#get"><span class="std std-ref">GET key</span></a> 命令，服务器实际发送的内容为：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;$6</span><span class="se">\r\n</span><span class="s2">foobar</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;$6</span><span class="se">\r\n</span><span class="s2">foobar</span><span class="se">\r\n</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
 <p>如果被请求的值不存在，
-那么批量回复会将特殊值 <code class="docutils literal"><span class="pre">-1</span></code> 用作回复的长度值，
+那么批量回复会将特殊值 <code class="docutils literal notranslate"><span class="pre">-1</span></code> 用作回复的长度值，
 就像这样：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>客户端：GET non-existing-key
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>客户端：GET non-existing-key
 服务器：$-1
 </pre></div>
 </div>
 <p>这种回复称为空批量回复（NULL Bulk Reply）。</p>
 <p>当请求对象不存在时，客户端应该返回空对象，而不是空字符串：
-比如 Ruby 库应该返回 <code class="docutils literal"><span class="pre">nil</span></code> ，
-而 C 库应该返回 <code class="docutils literal"><span class="pre">NULL</span></code> （或者在回复对象中设置一个特殊标志），
+比如 Ruby 库应该返回 <code class="docutils literal notranslate"><span class="pre">nil</span></code> ，
+而 C 库应该返回 <code class="docutils literal notranslate"><span class="pre">NULL</span></code> （或者在回复对象中设置一个特殊标志），
 诸如此类。</p>
 </div>
 <div class="section" id="id9">
@@ -403,11 +394,11 @@ myvalue
 <p>多条批量回复是由多个回复组成的数组，
 数组中的每个元素都可以是任意类型的回复，
 包括多条批量回复本身。</p>
-<p>多条批量回复的第一个字节为 <code class="docutils literal"><span class="pre">&quot;*&quot;</span></code> ，
+<p>多条批量回复的第一个字节为 <code class="docutils literal notranslate"><span class="pre">&quot;*&quot;</span></code> ，
 后跟一个字符串表示的整数值，
 这个值记录了多条批量回复所包含的回复数量，
 再后面是一个 CRLF 。</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>客户端： LRANGE mylist 0 3
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>客户端： LRANGE mylist 0 3
 服务器： *4
 服务器： $3
 服务器： foo
@@ -425,13 +416,13 @@ myvalue
 和客户端发送命令时使用的统一请求协议的格式一模一样。
 它们之间的唯一区别是：</p>
 <ul class="simple">
-<li>统一请求协议只发送批量回复。</li>
-<li>而服务器应答命令时所发送的多条批量回复，则可以包含任意类型的回复。</li>
+<li><p>统一请求协议只发送批量回复。</p></li>
+<li><p>而服务器应答命令时所发送的多条批量回复，则可以包含任意类型的回复。</p></li>
 </ul>
 <p>以下例子展示了一个多条批量回复，
 回复中包含四个整数值，
 以及一个二进制安全字符串：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>*5\r\n
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>*5\r\n
 :1\r\n
 :2\r\n
 :3\r\n
@@ -441,20 +432,20 @@ foobar\r\n
 </pre></div>
 </div>
 <p>在回复的第一行，
-服务器发送 <code class="docutils literal"><span class="pre">*5\r\n</span></code> ，
+服务器发送 <code class="docutils literal notranslate"><span class="pre">*5\r\n</span></code> ，
 表示这个多条批量回复包含 5 条回复，
 再后面跟着的则是 5 条回复的正文。</p>
 <p>多条批量回复也可以是空白的（empty），
 就像这样：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>客户端： LRANGE nokey 0 1
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>客户端： LRANGE nokey 0 1
 服务器： *0\r\n
 </pre></div>
 </div>
 <p>无内容的多条批量回复（null multi bulk reply）也是存在的，
 比如当 <a class="reference internal" href="../list/blpop.html#blpop"><span class="std std-ref">BLPOP key [key …] timeout</span></a> 命令的阻塞时间超过最大时限时，
 它就返回一个无内容的多条批量回复，
-这个回复的计数值为 <code class="docutils literal"><span class="pre">-1</span></code> ：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>客户端： BLPOP key 1
+这个回复的计数值为 <code class="docutils literal notranslate"><span class="pre">-1</span></code> ：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>客户端： BLPOP key 1
 服务器： *-1\r\n
 </pre></div>
 </div>
@@ -465,13 +456,13 @@ foobar\r\n
 </div>
 <div class="section" id="id10">
 <h2>多条批量回复中的空元素<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
-<p>多条批量回复中的元素可以将自身的长度设置为 <code class="docutils literal"><span class="pre">-1</span></code> ，
+<p>多条批量回复中的元素可以将自身的长度设置为 <code class="docutils literal notranslate"><span class="pre">-1</span></code> ，
 从而表示该元素不存在，
 并且也不是一个空白字符串（empty string）。</p>
-<p>当 <a class="reference internal" href="../database/sort.html#sort"><span class="std std-ref">SORT key [BY pattern] [LIMIT offset count] [GET pattern [GET pattern …]] [ASC | DESC] [ALPHA] [STORE destination]</span></a> 命令使用 <code class="docutils literal"><span class="pre">GET</span> <span class="pre">pattern</span></code> 选项对一个不存在的键进行操作时，
+<p>当 <a class="reference internal" href="../database/sort.html#sort"><span class="std std-ref">SORT key [BY pattern] [LIMIT offset count] [GET pattern [GET pattern …]] [ASC | DESC] [ALPHA] [STORE destination]</span></a> 命令使用 <code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">pattern</span></code> 选项对一个不存在的键进行操作时，
 就会发生多条批量回复中带有空白元素的情况。</p>
 <p>以下例子展示了一个包含空元素的多重批量回复：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>服务器： *3
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>服务器： *3
 服务器： $3
 服务器： foo
 服务器： $-1
@@ -483,7 +474,7 @@ foobar\r\n
 回复中的第二个元素为空。</p>
 <p>对于这个回复，
 客户端库应该返回类似于这样的回复：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="n">nil</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="n">nil</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -492,28 +483,28 @@ foobar\r\n
 <p>客户端可以通过流水线，
 在一次写入操作中发送多个命令：</p>
 <ul class="simple">
-<li>在发送新命令之前， 无须阅读前一个命令的回复。</li>
-<li>多个命令的回复会在最后一并返回。</li>
+<li><p>在发送新命令之前， 无须阅读前一个命令的回复。</p></li>
+<li><p>多个命令的回复会在最后一并返回。</p></li>
 </ul>
 </div>
 <div class="section" id="id12">
 <h2>内联命令<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
 <p>当你需要和 Redis 服务器进行沟通，
-但又找不到 <code class="docutils literal"><span class="pre">redis-cli</span></code> ，
-而手上只有 <code class="docutils literal"><span class="pre">telnet</span></code> 的时候，
+但又找不到 <code class="docutils literal notranslate"><span class="pre">redis-cli</span></code> ，
+而手上只有 <code class="docutils literal notranslate"><span class="pre">telnet</span></code> 的时候，
 你可以通过 Redis 特别为这种情形而设的内联命令格式来发送命令。</p>
 <p>以下是一个客户端和服务器使用内联命令来进行交互的例子：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>客户端： PING
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>客户端： PING
 服务器： +PONG
 </pre></div>
 </div>
 <p>以下另一个返回整数值的内联命令的例子：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>客户端： EXISTS somekey
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>客户端： EXISTS somekey
 服务器： :0
 </pre></div>
 </div>
-<p>因为没有了统一请求协议中的 <code class="docutils literal"><span class="pre">&quot;*&quot;</span></code> 项来声明参数的数量，
-所以在 <code class="docutils literal"><span class="pre">telnet</span></code> 会话输入命令的时候，
+<p>因为没有了统一请求协议中的 <code class="docutils literal notranslate"><span class="pre">&quot;*&quot;</span></code> 项来声明参数的数量，
+所以在 <code class="docutils literal notranslate"><span class="pre">telnet</span></code> 会话输入命令的时候，
 必须使用空格来分割各个参数，
 服务器在接收到数据之后，
 会按空格对用户的输入进行分析（parse），
@@ -532,7 +523,7 @@ foobar\r\n
 查找 CR 字符，
 并计算出批量回复或多条批量回复的长度，
 就像这样：</p>
-<div class="highlight-c"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="s">&quot;$123</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">;</span>
@@ -551,7 +542,7 @@ foobar\r\n
 </pre></div>
 </div>
 <p>得到了批量回复或多条批量回复的长度之后，
-程序只需调用一次 <code class="docutils literal"><span class="pre">read</span></code> 函数，
+程序只需调用一次 <code class="docutils literal notranslate"><span class="pre">read</span></code> 函数，
 就可以将回复的正文数据全部读入到内存中，
 而无须对这些数据做任何的处理。</p>
 <p>在回复最末尾的 CR 和 LF 不作处理，丢弃它们。</p>

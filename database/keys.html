@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -207,29 +198,29 @@
 <blockquote>
 <div><div class="line-block">
 <div class="line">可用版本： &gt;= 1.0.0</div>
-<div class="line">时间复杂度： O(N)， <code class="docutils literal"><span class="pre">N</span></code> 为数据库中 <code class="docutils literal"><span class="pre">key</span></code> 的数量。</div>
+<div class="line">时间复杂度： O(N)， <code class="docutils literal notranslate"><span class="pre">N</span></code> 为数据库中 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的数量。</div>
 </div>
 </div></blockquote>
-<p>查找所有符合给定模式 <code class="docutils literal"><span class="pre">pattern</span></code> 的 <code class="docutils literal"><span class="pre">key</span></code> ，
+<p>查找所有符合给定模式 <code class="docutils literal notranslate"><span class="pre">pattern</span></code> 的 <code class="docutils literal notranslate"><span class="pre">key</span></code> ，
 比如说：</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">KEYS</span> <span class="pre">*</span></code> 匹配数据库中所有 <code class="docutils literal"><span class="pre">key</span></code> 。</li>
-<li><code class="docutils literal"><span class="pre">KEYS</span> <span class="pre">h?llo</span></code> 匹配 <code class="docutils literal"><span class="pre">hello</span></code> ，  <code class="docutils literal"><span class="pre">hallo</span></code> 和 <code class="docutils literal"><span class="pre">hxllo</span></code> 等。</li>
-<li><code class="docutils literal"><span class="pre">KEYS</span> <span class="pre">h*llo</span></code> 匹配 <code class="docutils literal"><span class="pre">hllo</span></code> 和 <code class="docutils literal"><span class="pre">heeeeello</span></code> 等。</li>
-<li><code class="docutils literal"><span class="pre">KEYS</span> <span class="pre">h[ae]llo</span></code> 匹配 <code class="docutils literal"><span class="pre">hello</span></code> 和 <code class="docutils literal"><span class="pre">hallo</span></code> ，但不匹配 <code class="docutils literal"><span class="pre">hillo</span></code> 。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">KEYS</span> <span class="pre">*</span></code> 匹配数据库中所有 <code class="docutils literal notranslate"><span class="pre">key</span></code> 。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">KEYS</span> <span class="pre">h?llo</span></code> 匹配 <code class="docutils literal notranslate"><span class="pre">hello</span></code> ，  <code class="docutils literal notranslate"><span class="pre">hallo</span></code> 和 <code class="docutils literal notranslate"><span class="pre">hxllo</span></code> 等。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">KEYS</span> <span class="pre">h*llo</span></code> 匹配 <code class="docutils literal notranslate"><span class="pre">hllo</span></code> 和 <code class="docutils literal notranslate"><span class="pre">heeeeello</span></code> 等。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">KEYS</span> <span class="pre">h[ae]llo</span></code> 匹配 <code class="docutils literal notranslate"><span class="pre">hello</span></code> 和 <code class="docutils literal notranslate"><span class="pre">hallo</span></code> ，但不匹配 <code class="docutils literal notranslate"><span class="pre">hillo</span></code> 。</p></li>
 </ul>
-<p>特殊符号用 <code class="docutils literal"><span class="pre">\</span></code> 隔开。</p>
+<p>特殊符号用 <code class="docutils literal notranslate"><span class="pre">\</span></code> 隔开。</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last"><a class="reference internal" href="#keys">KEYS</a> 的速度非常快，但在一个大的数据库中使用它仍然可能造成性能问题，如果你需要从一个数据集中查找特定的 <code class="docutils literal"><span class="pre">key</span></code> ，你最好还是用 Redis 的集合结构(set)来代替。</p>
+<p class="admonition-title">Warning</p>
+<p><a class="reference internal" href="#keys">KEYS</a> 的速度非常快，但在一个大的数据库中使用它仍然可能造成性能问题，如果你需要从一个数据集中查找特定的 <code class="docutils literal notranslate"><span class="pre">key</span></code> ，你最好还是用 Redis 的集合结构(set)来代替。</p>
 </div>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>符合给定模式的 <code class="docutils literal"><span class="pre">key</span></code> 列表。</p>
+<p>符合给定模式的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 列表。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span>redis&gt; MSET one 1 two 2 three 3 four 4  # 一次设置 4 个 key
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>redis&gt; MSET one 1 two 2 three 3 four 4  # 一次设置 4 个 key
 OK
 
 redis&gt; KEYS *o*

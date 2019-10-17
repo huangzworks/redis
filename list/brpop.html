@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -214,16 +205,16 @@
 </div></blockquote>
 <p><a class="reference internal" href="#brpop">BRPOP</a> 是列表的阻塞式(blocking)弹出原语。</p>
 <p>它是 <a class="reference internal" href="rpop.html#rpop"><span class="std std-ref">RPOP key</span></a> 命令的阻塞版本，当给定列表内没有任何元素可供弹出的时候，连接将被 <a class="reference internal" href="#brpop">BRPOP</a> 命令阻塞，直到等待超时或发现可弹出元素为止。</p>
-<p>当给定多个 <code class="docutils literal"><span class="pre">key</span></code> 参数时，按参数 <code class="docutils literal"><span class="pre">key</span></code> 的先后顺序依次检查各个列表，弹出第一个非空列表的尾部元素。</p>
+<p>当给定多个 <code class="docutils literal notranslate"><span class="pre">key</span></code> 参数时，按参数 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的先后顺序依次检查各个列表，弹出第一个非空列表的尾部元素。</p>
 <p>关于阻塞操作的更多信息，请查看 <a class="reference internal" href="blpop.html#blpop"><span class="std std-ref">BLPOP key [key …] timeout</span></a> 命令， <a class="reference internal" href="#brpop">BRPOP</a> 除了弹出元素的位置和 <a class="reference internal" href="blpop.html#blpop"><span class="std std-ref">BLPOP key [key …] timeout</span></a> 不同之外，其他表现一致。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>假如在指定时间内没有任何元素被弹出，则返回一个 <code class="docutils literal"><span class="pre">nil</span></code> 和等待时长。
-反之，返回一个含有两个元素的列表，第一个元素是被弹出元素所属的 <code class="docutils literal"><span class="pre">key</span></code> ，第二个元素是被弹出元素的值。</p>
+<p>假如在指定时间内没有任何元素被弹出，则返回一个 <code class="docutils literal notranslate"><span class="pre">nil</span></code> 和等待时长。
+反之，返回一个含有两个元素的列表，第一个元素是被弹出元素所属的 <code class="docutils literal notranslate"><span class="pre">key</span></code> ，第二个元素是被弹出元素的值。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">LLEN</span> <span class="n">course</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">LLEN</span> <span class="n">course</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">0</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">RPUSH</span> <span class="n">course</span> <span class="n">algorithm001</span>

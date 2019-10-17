@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -210,16 +201,16 @@
 <div class="line">时间复杂度： O(1)</div>
 </div>
 </div></blockquote>
-<p>将当前数据库的 <code class="docutils literal"><span class="pre">key</span></code> 移动到给定的数据库 <code class="docutils literal"><span class="pre">db</span></code> 当中。</p>
-<p>如果当前数据库(源数据库)和给定数据库(目标数据库)有相同名字的给定 <code class="docutils literal"><span class="pre">key</span></code> ，或者 <code class="docutils literal"><span class="pre">key</span></code> 不存在于当前数据库，那么 <code class="docutils literal"><span class="pre">MOVE</span></code> 没有任何效果。</p>
+<p>将当前数据库的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 移动到给定的数据库 <code class="docutils literal notranslate"><span class="pre">db</span></code> 当中。</p>
+<p>如果当前数据库(源数据库)和给定数据库(目标数据库)有相同名字的给定 <code class="docutils literal notranslate"><span class="pre">key</span></code> ，或者 <code class="docutils literal notranslate"><span class="pre">key</span></code> 不存在于当前数据库，那么 <code class="docutils literal notranslate"><span class="pre">MOVE</span></code> 没有任何效果。</p>
 <p>因此，也可以利用这一特性，将 <a class="reference internal" href="#move">MOVE</a> 当作锁(locking)原语(primitive)。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>移动成功返回 <code class="docutils literal"><span class="pre">1</span></code> ，失败则返回 <code class="docutils literal"><span class="pre">0</span></code> 。</p>
+<p>移动成功返回 <code class="docutils literal notranslate"><span class="pre">1</span></code> ，失败则返回 <code class="docutils literal notranslate"><span class="pre">0</span></code> 。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># key 存在于当前数据库</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># key 存在于当前数据库</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">SELECT</span> <span class="mi">0</span>                             <span class="c1"># redis默认使用数据库 0，为了清晰起见，这里再显式指定一次。</span>
 <span class="n">OK</span>

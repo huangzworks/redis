@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -201,20 +192,20 @@
   <div class="section" id="hdel">
 <span id="id1"></span><h1>HDEL<a class="headerlink" href="#hdel" title="Permalink to this headline">¶</a></h1>
 <p><strong>HDEL key field [field …]</strong></p>
-<p>删除哈希表 <code class="docutils literal"><span class="pre">key</span></code> 中的一个或多个指定域，不存在的域将被忽略。</p>
+<p>删除哈希表 <code class="docutils literal notranslate"><span class="pre">key</span></code> 中的一个或多个指定域，不存在的域将被忽略。</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">在Redis2.4以下的版本里， <a class="reference internal" href="#hdel">HDEL</a> 每次只能删除单个域，如果你需要在一个原子时间内删除多个域，请将命令包含在 <a class="reference internal" href="../transaction/multi.html#multi"><span class="std std-ref">MULTI</span></a> /  <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> 块内。</p>
+<p class="admonition-title">Note</p>
+<p>在Redis2.4以下的版本里， <a class="reference internal" href="#hdel">HDEL</a> 每次只能删除单个域，如果你需要在一个原子时间内删除多个域，请将命令包含在 <a class="reference internal" href="../transaction/multi.html#multi"><span class="std std-ref">MULTI</span></a> /  <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> 块内。</p>
 </div>
-<dl class="docutils">
-<dt><strong>可用版本：</strong></dt>
-<dd>&gt;= 2.0.0</dd>
-<dt><strong>时间复杂度:</strong></dt>
-<dd>O(N)， <code class="docutils literal"><span class="pre">N</span></code> 为要删除的域的数量。</dd>
-<dt><strong>返回值:</strong></dt>
-<dd>被成功移除的域的数量，不包括被忽略的域。</dd>
+<dl class="simple">
+<dt><strong>可用版本：</strong></dt><dd><p>&gt;= 2.0.0</p>
+</dd>
+<dt><strong>时间复杂度:</strong></dt><dd><p>O(N)， <code class="docutils literal notranslate"><span class="pre">N</span></code> 为要删除的域的数量。</p>
+</dd>
+<dt><strong>返回值:</strong></dt><dd><p>被成功移除的域的数量，不包括被忽略的域。</p>
+</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 测试数据</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 测试数据</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">HGETALL</span> <span class="n">abbr</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;a&quot;</span>

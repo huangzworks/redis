@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -210,15 +201,15 @@
 <div class="line">时间复杂度： O(1)</div>
 </div>
 </div></blockquote>
-<p>从当前数据库中随机返回(不删除)一个 <code class="docutils literal"><span class="pre">key</span></code> 。</p>
+<p>从当前数据库中随机返回(不删除)一个 <code class="docutils literal notranslate"><span class="pre">key</span></code> 。</p>
 <div class="section" id="id2">
 <h2>返回值<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>当数据库不为空时，返回一个 <code class="docutils literal"><span class="pre">key</span></code> 。
-当数据库为空时，返回 <code class="docutils literal"><span class="pre">nil</span></code> 。</p>
+<p>当数据库不为空时，返回一个 <code class="docutils literal notranslate"><span class="pre">key</span></code> 。
+当数据库为空时，返回 <code class="docutils literal notranslate"><span class="pre">nil</span></code> 。</p>
 </div>
 <div class="section" id="id3">
 <h2>代码示例<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 数据库不为空</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 数据库不为空</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">MSET</span> <span class="n">fruit</span> <span class="s2">&quot;apple&quot;</span> <span class="n">drink</span> <span class="s2">&quot;beer&quot;</span> <span class="n">food</span> <span class="s2">&quot;cookies&quot;</span>   <span class="c1"># 设置多个 key</span>
 <span class="n">OK</span>

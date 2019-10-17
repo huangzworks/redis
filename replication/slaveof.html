@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -194,21 +185,21 @@
 <blockquote>
 <div><div class="line-block">
 <div class="line">可用版本： &gt;= 1.0.0</div>
-<div class="line">时间复杂度： <code class="docutils literal"><span class="pre">SLAVEOF</span> <span class="pre">host</span> <span class="pre">port</span></code> 的复杂度为 O(N)，其中 <code class="docutils literal"><span class="pre">N</span></code> 为要同步的数据数量； <code class="docutils literal"><span class="pre">SLAVEOF</span> <span class="pre">NO</span> <span class="pre">ONE</span></code> 命令的复杂度为 O(1) 。</div>
+<div class="line">时间复杂度： <code class="docutils literal notranslate"><span class="pre">SLAVEOF</span> <span class="pre">host</span> <span class="pre">port</span></code> 的复杂度为 O(N)，其中 <code class="docutils literal notranslate"><span class="pre">N</span></code> 为要同步的数据数量； <code class="docutils literal notranslate"><span class="pre">SLAVEOF</span> <span class="pre">NO</span> <span class="pre">ONE</span></code> 命令的复杂度为 O(1) 。</div>
 </div>
 </div></blockquote>
 <p><a class="reference internal" href="#slaveof">SLAVEOF</a> 命令用于在 Redis 运行时动态地修改复制(replication)功能的行为。</p>
-<p>通过执行 <code class="docutils literal"><span class="pre">SLAVEOF</span> <span class="pre">host</span> <span class="pre">port</span></code> 命令，可以将当前服务器转变为指定服务器的从属服务器(slave server)。</p>
-<p>如果当前服务器已经是某个主服务器(master server)的从属服务器，那么执行 <code class="docutils literal"><span class="pre">SLAVEOF</span> <span class="pre">host</span> <span class="pre">port</span></code> 将使当前服务器停止对旧主服务器的同步，丢弃旧数据集，转而开始对新主服务器进行同步。</p>
-<p>另外，对一个从属服务器执行命令 <code class="docutils literal"><span class="pre">SLAVEOF</span> <span class="pre">NO</span> <span class="pre">ONE</span></code> 将使得这个从属服务器关闭复制功能，并从从属服务器转变回主服务器，原来同步所得的数据集<em>不会</em>被丢弃。</p>
-<p>利用“<code class="docutils literal"><span class="pre">SLAVEOF</span> <span class="pre">NO</span> <span class="pre">ONE</span></code> 不会丢弃同步所得数据集”这个特性，可以在主服务器失败的时候，将从属服务器用作新的主服务器，从而实现无间断运行。</p>
+<p>通过执行 <code class="docutils literal notranslate"><span class="pre">SLAVEOF</span> <span class="pre">host</span> <span class="pre">port</span></code> 命令，可以将当前服务器转变为指定服务器的从属服务器(slave server)。</p>
+<p>如果当前服务器已经是某个主服务器(master server)的从属服务器，那么执行 <code class="docutils literal notranslate"><span class="pre">SLAVEOF</span> <span class="pre">host</span> <span class="pre">port</span></code> 将使当前服务器停止对旧主服务器的同步，丢弃旧数据集，转而开始对新主服务器进行同步。</p>
+<p>另外，对一个从属服务器执行命令 <code class="docutils literal notranslate"><span class="pre">SLAVEOF</span> <span class="pre">NO</span> <span class="pre">ONE</span></code> 将使得这个从属服务器关闭复制功能，并从从属服务器转变回主服务器，原来同步所得的数据集<em>不会</em>被丢弃。</p>
+<p>利用“<code class="docutils literal notranslate"><span class="pre">SLAVEOF</span> <span class="pre">NO</span> <span class="pre">ONE</span></code> 不会丢弃同步所得数据集”这个特性，可以在主服务器失败的时候，将从属服务器用作新的主服务器，从而实现无间断运行。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>总是返回 <code class="docutils literal"><span class="pre">OK</span></code> 。</p>
+<p>总是返回 <code class="docutils literal notranslate"><span class="pre">OK</span></code> 。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SLAVEOF</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span> <span class="mi">6379</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SLAVEOF</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span> <span class="mi">6379</span>
 <span class="n">OK</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">SLAVEOF</span> <span class="n">NO</span> <span class="n">ONE</span>

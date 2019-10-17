@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -212,27 +203,27 @@
 <blockquote>
 <div><div class="line-block">
 <div class="line">可用版本： &gt;= 1.2.0</div>
-<div class="line">时间复杂度: O(log(N)+M)， <code class="docutils literal"><span class="pre">N</span></code> 为有序集的基数，而 <code class="docutils literal"><span class="pre">M</span></code> 为结果集的基数。</div>
+<div class="line">时间复杂度: O(log(N)+M)， <code class="docutils literal notranslate"><span class="pre">N</span></code> 为有序集的基数，而 <code class="docutils literal notranslate"><span class="pre">M</span></code> 为结果集的基数。</div>
 </div>
 </div></blockquote>
-<p>返回有序集 <code class="docutils literal"><span class="pre">key</span></code> 中，指定区间内的成员。</p>
-<p>其中成员的位置按 <code class="docutils literal"><span class="pre">score</span></code> 值递增(从小到大)来排序。</p>
-<p>具有相同 <code class="docutils literal"><span class="pre">score</span></code> 值的成员按字典序(<a class="reference external" href="http://en.wikipedia.org/wiki/Lexicographical_order">lexicographical order</a> )来排列。</p>
-<p>如果你需要成员按 <code class="docutils literal"><span class="pre">score</span></code> 值递减(从大到小)来排列，请使用 <a class="reference internal" href="zrevrange.html#zrevrange"><span class="std std-ref">ZREVRANGE key start stop [WITHSCORES]</span></a> 命令。</p>
-<p>下标参数 <code class="docutils literal"><span class="pre">start</span></code> 和 <code class="docutils literal"><span class="pre">stop</span></code> 都以 <code class="docutils literal"><span class="pre">0</span></code> 为底，也就是说，以 <code class="docutils literal"><span class="pre">0</span></code> 表示有序集第一个成员，以 <code class="docutils literal"><span class="pre">1</span></code> 表示有序集第二个成员，以此类推。
-你也可以使用负数下标，以 <code class="docutils literal"><span class="pre">-1</span></code> 表示最后一个成员， <code class="docutils literal"><span class="pre">-2</span></code> 表示倒数第二个成员，以此类推。</p>
+<p>返回有序集 <code class="docutils literal notranslate"><span class="pre">key</span></code> 中，指定区间内的成员。</p>
+<p>其中成员的位置按 <code class="docutils literal notranslate"><span class="pre">score</span></code> 值递增(从小到大)来排序。</p>
+<p>具有相同 <code class="docutils literal notranslate"><span class="pre">score</span></code> 值的成员按字典序(<a class="reference external" href="http://en.wikipedia.org/wiki/Lexicographical_order">lexicographical order</a> )来排列。</p>
+<p>如果你需要成员按 <code class="docutils literal notranslate"><span class="pre">score</span></code> 值递减(从大到小)来排列，请使用 <a class="reference internal" href="zrevrange.html#zrevrange"><span class="std std-ref">ZREVRANGE key start stop [WITHSCORES]</span></a> 命令。</p>
+<p>下标参数 <code class="docutils literal notranslate"><span class="pre">start</span></code> 和 <code class="docutils literal notranslate"><span class="pre">stop</span></code> 都以 <code class="docutils literal notranslate"><span class="pre">0</span></code> 为底，也就是说，以 <code class="docutils literal notranslate"><span class="pre">0</span></code> 表示有序集第一个成员，以 <code class="docutils literal notranslate"><span class="pre">1</span></code> 表示有序集第二个成员，以此类推。
+你也可以使用负数下标，以 <code class="docutils literal notranslate"><span class="pre">-1</span></code> 表示最后一个成员， <code class="docutils literal notranslate"><span class="pre">-2</span></code> 表示倒数第二个成员，以此类推。</p>
 <p>超出范围的下标并不会引起错误。
-比如说，当 <code class="docutils literal"><span class="pre">start</span></code> 的值比有序集的最大下标还要大，或是 <code class="docutils literal"><span class="pre">start</span> <span class="pre">&gt;</span> <span class="pre">stop</span></code> 时， <a class="reference internal" href="#zrange">ZRANGE</a> 命令只是简单地返回一个空列表。
-另一方面，假如 <code class="docutils literal"><span class="pre">stop</span></code> 参数的值比有序集的最大下标还要大，那么 Redis 将 <code class="docutils literal"><span class="pre">stop</span></code> 当作最大下标来处理。</p>
-<p>可以通过使用 <code class="docutils literal"><span class="pre">WITHSCORES</span></code> 选项，来让成员和它的 <code class="docutils literal"><span class="pre">score</span></code> 值一并返回，返回列表以 <code class="docutils literal"><span class="pre">value1,score1,</span> <span class="pre">...,</span> <span class="pre">valueN,scoreN</span></code> 的格式表示。
+比如说，当 <code class="docutils literal notranslate"><span class="pre">start</span></code> 的值比有序集的最大下标还要大，或是 <code class="docutils literal notranslate"><span class="pre">start</span> <span class="pre">&gt;</span> <span class="pre">stop</span></code> 时， <a class="reference internal" href="#zrange">ZRANGE</a> 命令只是简单地返回一个空列表。
+另一方面，假如 <code class="docutils literal notranslate"><span class="pre">stop</span></code> 参数的值比有序集的最大下标还要大，那么 Redis 将 <code class="docutils literal notranslate"><span class="pre">stop</span></code> 当作最大下标来处理。</p>
+<p>可以通过使用 <code class="docutils literal notranslate"><span class="pre">WITHSCORES</span></code> 选项，来让成员和它的 <code class="docutils literal notranslate"><span class="pre">score</span></code> 值一并返回，返回列表以 <code class="docutils literal notranslate"><span class="pre">value1,score1,</span> <span class="pre">...,</span> <span class="pre">valueN,scoreN</span></code> 的格式表示。
 客户端库可能会返回一些更复杂的数据类型，比如数组、元组等。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>指定区间内，带有 <code class="docutils literal"><span class="pre">score</span></code> 值(可选)的有序集成员的列表。</p>
+<p>指定区间内，带有 <code class="docutils literal notranslate"><span class="pre">score</span></code> 值(可选)的有序集成员的列表。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="o">&gt;</span> <span class="n">ZRANGE</span> <span class="n">salary</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="n">WITHSCORES</span>             <span class="c1"># 显示整个有序集成员</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="o">&gt;</span> <span class="n">ZRANGE</span> <span class="n">salary</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="n">WITHSCORES</span>             <span class="c1"># 显示整个有序集成员</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;jack&quot;</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;3500&quot;</span>
 <span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;tom&quot;</span>

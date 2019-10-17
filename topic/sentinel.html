@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -137,7 +128,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#tilt">TILT 模式</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#busy">处理 <code class="docutils literal"><span class="pre">-BUSY</span></code> 状态</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#busy">处理 <code class="docutils literal notranslate"><span class="pre">-BUSY</span></code> 状态</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id14">Sentinel 的客户端实现</a></li>
 </ul>
 </li>
@@ -217,63 +208,63 @@
   <div class="section" id="sentinel">
 <span id="id1"></span><h1>Sentinel<a class="headerlink" href="#sentinel" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">本文档翻译自： <a class="reference external" href="http://redis.io/topics/sentinel">http://redis.io/topics/sentinel</a> 。</p>
+<p class="admonition-title">Note</p>
+<p>本文档翻译自： <a class="reference external" href="http://redis.io/topics/sentinel">http://redis.io/topics/sentinel</a> 。</p>
 </div>
 <p>Redis 的 Sentinel 系统用于管理多个 Redis 服务器（instance），
 该系统执行以下三个任务：</p>
 <ul class="simple">
-<li><strong>监控（Monitoring）</strong>：
-Sentinel 会不断地检查你的主服务器和从服务器是否运作正常。</li>
-<li><strong>提醒（Notification）</strong>：
+<li><p><strong>监控（Monitoring）</strong>：
+Sentinel 会不断地检查你的主服务器和从服务器是否运作正常。</p></li>
+<li><p><strong>提醒（Notification）</strong>：
 当被监控的某个 Redis 服务器出现问题时，
-Sentinel 可以通过 API 向管理员或者其他应用程序发送通知。</li>
-<li><strong>自动故障迁移（Automatic failover）</strong>：
+Sentinel 可以通过 API 向管理员或者其他应用程序发送通知。</p></li>
+<li><p><strong>自动故障迁移（Automatic failover）</strong>：
 当一个主服务器不能正常工作时，
 Sentinel 会开始一次自动故障迁移操作，
 它会将失效主服务器的其中一个从服务器升级为新的主服务器，
 并让失效主服务器的其他从服务器改为复制新的主服务器；
 当客户端试图连接失效的主服务器时，
 集群也会向客户端返回新主服务器的地址，
-使得集群可以使用新主服务器代替失效服务器。</li>
+使得集群可以使用新主服务器代替失效服务器。</p></li>
 </ul>
 <p>Redis Sentinel 是一个分布式系统，
 你可以在一个架构中运行多个 Sentinel 进程（progress），
 这些进程使用流言协议（gossip protocols)来接收关于主服务器是否下线的信息，
 并使用投票协议（agreement protocols）来决定是否执行自动故障迁移，
 以及选择哪个从服务器作为新的主服务器。</p>
-<p>虽然 Redis Sentinel 释出为一个单独的可执行文件 <code class="docutils literal"><span class="pre">redis-sentinel</span></code> ，
+<p>虽然 Redis Sentinel 释出为一个单独的可执行文件 <code class="docutils literal notranslate"><span class="pre">redis-sentinel</span></code> ，
 但实际上它只是一个运行在特殊模式下的 Redis 服务器，
-你可以在启动一个普通 Redis 服务器时通过给定 <code class="docutils literal"><span class="pre">--sentinel</span></code> 选项来启动 Redis Sentinel 。</p>
+你可以在启动一个普通 Redis 服务器时通过给定 <code class="docutils literal notranslate"><span class="pre">--sentinel</span></code> 选项来启动 Redis Sentinel 。</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
+<p class="admonition-title">Warning</p>
 <p>Redis Sentinel 目前仍在开发中，
 这个文档的内容可能随着 Sentinel 实现的修改而变更。</p>
-<p class="last">Redis Sentinel 兼容 Redis 2.4.16 或以上版本，
+<p>Redis Sentinel 兼容 Redis 2.4.16 或以上版本，
 推荐使用 Redis 2.8.0 或以上的版本。</p>
 </div>
 <div class="section" id="id2">
 <h2>获取 Sentinel<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>目前 Sentinel 系统是 Redis 的 <code class="docutils literal"><span class="pre">unstable</span></code> 分支的一部分，
-你必须到 <a class="reference external" href="https://github.com/antirez/redis">Redis 项目的 Github 页面</a> 克隆一份 <code class="docutils literal"><span class="pre">unstable</span></code> 分值，
+<p>目前 Sentinel 系统是 Redis 的 <code class="docutils literal notranslate"><span class="pre">unstable</span></code> 分支的一部分，
+你必须到 <a class="reference external" href="https://github.com/antirez/redis">Redis 项目的 Github 页面</a> 克隆一份 <code class="docutils literal notranslate"><span class="pre">unstable</span></code> 分值，
 然后通过编译来获得 Sentinel 系统。</p>
-<p>Sentinel 程序可以在编译后的 <code class="docutils literal"><span class="pre">src</span></code> 文档中发现，
-它是一个命名为 <code class="docutils literal"><span class="pre">redis-sentinel</span></code> 的程序。</p>
+<p>Sentinel 程序可以在编译后的 <code class="docutils literal notranslate"><span class="pre">src</span></code> 文档中发现，
+它是一个命名为 <code class="docutils literal notranslate"><span class="pre">redis-sentinel</span></code> 的程序。</p>
 <p>你也可以通过下一节介绍的方法，
-让 <code class="docutils literal"><span class="pre">redis-server</span></code> 程序运行在 Sentinel 模式之下。</p>
+让 <code class="docutils literal notranslate"><span class="pre">redis-server</span></code> 程序运行在 Sentinel 模式之下。</p>
 <p>另外，
 一个新版本的 Sentinel 已经包含在了 Redis 2.8.0 版本的释出文件中。</p>
 </div>
 <div class="section" id="id3">
 <h2>启动 Sentinel<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>对于 <code class="docutils literal"><span class="pre">redis-sentinel</span></code> 程序，
+<p>对于 <code class="docutils literal notranslate"><span class="pre">redis-sentinel</span></code> 程序，
 你可以用以下命令来启动 Sentinel 系统：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">-</span><span class="n">sentinel</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">sentinel</span><span class="o">.</span><span class="n">conf</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">-</span><span class="n">sentinel</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">sentinel</span><span class="o">.</span><span class="n">conf</span>
 </pre></div>
 </div>
-<p>对于 <code class="docutils literal"><span class="pre">redis-server</span></code> 程序，
+<p>对于 <code class="docutils literal notranslate"><span class="pre">redis-server</span></code> 程序，
 你可以用以下命令来启动一个运行在 Sentinel 模式下的 Redis 服务器：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">-</span><span class="n">server</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">sentinel</span><span class="o">.</span><span class="n">conf</span> <span class="o">--</span><span class="n">sentinel</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">-</span><span class="n">server</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">sentinel</span><span class="o">.</span><span class="n">conf</span> <span class="o">--</span><span class="n">sentinel</span>
 </pre></div>
 </div>
 <p>两种方法都可以启动一个 Sentinel 实例。</p>
@@ -286,10 +277,10 @@ Sentinel 会开始一次自动故障迁移操作，
 </div>
 <div class="section" id="id4">
 <h2>配置 Sentinel<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<p>Redis 源码中包含了一个名为 <code class="docutils literal"><span class="pre">sentinel.conf</span></code> 的文件，
+<p>Redis 源码中包含了一个名为 <code class="docutils literal notranslate"><span class="pre">sentinel.conf</span></code> 的文件，
 这个文件是一个带有详细注释的 Sentinel 配置文件示例。</p>
 <p>运行一个 Sentinel 所需的最少配置如下所示：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sentinel</span> <span class="n">monitor</span> <span class="n">mymaster</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span> <span class="mi">6379</span> <span class="mi">2</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sentinel</span> <span class="n">monitor</span> <span class="n">mymaster</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span> <span class="mi">6379</span> <span class="mi">2</span>
 <span class="n">sentinel</span> <span class="n">down</span><span class="o">-</span><span class="n">after</span><span class="o">-</span><span class="n">milliseconds</span> <span class="n">mymaster</span> <span class="mi">60000</span>
 <span class="n">sentinel</span> <span class="n">failover</span><span class="o">-</span><span class="n">timeout</span> <span class="n">mymaster</span> <span class="mi">180000</span>
 <span class="n">sentinel</span> <span class="n">parallel</span><span class="o">-</span><span class="n">syncs</span> <span class="n">mymaster</span> <span class="mi">1</span>
@@ -300,10 +291,10 @@ Sentinel 会开始一次自动故障迁移操作，
 <span class="n">sentinel</span> <span class="n">parallel</span><span class="o">-</span><span class="n">syncs</span> <span class="n">resque</span> <span class="mi">5</span>
 </pre></div>
 </div>
-<p>第一行配置指示 Sentinel 去监视一个名为 <code class="docutils literal"><span class="pre">mymaster</span></code> 的主服务器，
-这个主服务器的 IP 地址为 <code class="docutils literal"><span class="pre">127.0.0.1</span></code> ，
-端口号为 <code class="docutils literal"><span class="pre">6379</span></code> ，
-而将这个主服务器判断为失效至少需要 <code class="docutils literal"><span class="pre">2</span></code> 个 Sentinel 同意
+<p>第一行配置指示 Sentinel 去监视一个名为 <code class="docutils literal notranslate"><span class="pre">mymaster</span></code> 的主服务器，
+这个主服务器的 IP 地址为 <code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code> ，
+端口号为 <code class="docutils literal notranslate"><span class="pre">6379</span></code> ，
+而将这个主服务器判断为失效至少需要 <code class="docutils literal notranslate"><span class="pre">2</span></code> 个 Sentinel 同意
 （只要同意 Sentinel 的数量不达标，自动故障迁移就不会执行）。</p>
 <p>不过要注意，
 无论你设置要多少个 Sentinel 同意才能判断一个服务器失效，
@@ -315,68 +306,68 @@ Sentinel 会开始一次自动故障迁移操作，
 <strong>在只有少数（minority） Sentinel 进程正常运作的情况下，
 Sentinel 是不能执行自动故障迁移的。</strong></p>
 <p>其他选项的基本格式如下：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sentinel</span> <span class="o">&lt;</span><span class="n">选项的名字</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">主服务器的名字</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">选项的值</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sentinel</span> <span class="o">&lt;</span><span class="n">选项的名字</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">主服务器的名字</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">选项的值</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>各个选项的功能如下：</p>
 <ul>
-<li><p class="first"><code class="docutils literal"><span class="pre">down-after-milliseconds</span></code> 选项指定了 Sentinel 认为服务器已经断线所需的毫秒数。</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">down-after-milliseconds</span></code> 选项指定了 Sentinel 认为服务器已经断线所需的毫秒数。</p>
 <p>如果服务器在给定的毫秒数之内，
 没有返回 Sentinel 发送的 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令的回复，
 或者返回一个错误，
-那么 Sentinel 将这个服务器标记为<strong>主观下线</strong>（subjectively down，简称 <code class="docutils literal"><span class="pre">SDOWN</span></code> ）。</p>
+那么 Sentinel 将这个服务器标记为<strong>主观下线</strong>（subjectively down，简称 <code class="docutils literal notranslate"><span class="pre">SDOWN</span></code> ）。</p>
 <p>不过只有一个 Sentinel 将服务器标记为主观下线并不一定会引起服务器的自动故障迁移：
 只有在足够数量的 Sentinel 都将一个服务器标记为主观下线之后，
-服务器才会被标记为<strong>客观下线</strong>（objectively down， 简称 <code class="docutils literal"><span class="pre">ODOWN</span></code> ），
+服务器才会被标记为<strong>客观下线</strong>（objectively down， 简称 <code class="docutils literal notranslate"><span class="pre">ODOWN</span></code> ），
 这时自动故障迁移才会执行。</p>
 <p>将服务器标记为客观下线所需的 Sentinel 数量由对主服务器的配置决定。</p>
 </li>
-<li><p class="first"><code class="docutils literal"><span class="pre">parallel-syncs</span></code> 选项指定了在执行故障转移时，
+<li><p><code class="docutils literal notranslate"><span class="pre">parallel-syncs</span></code> 选项指定了在执行故障转移时，
 最多可以有多少个从服务器同时对新的主服务器进行同步，
 这个数字越小，
 完成故障转移所需的时间就越长。</p>
-<p>如果从服务器被设置为允许使用过期数据集（参见对 <code class="docutils literal"><span class="pre">redis.conf</span></code> 文件中对 <code class="docutils literal"><span class="pre">slave-serve-stale-data</span></code> 选项的说明），
+<p>如果从服务器被设置为允许使用过期数据集（参见对 <code class="docutils literal notranslate"><span class="pre">redis.conf</span></code> 文件中对 <code class="docutils literal notranslate"><span class="pre">slave-serve-stale-data</span></code> 选项的说明），
 那么你可能不希望所有从服务器都在同一时间向新的主服务器发送同步请求，
 因为尽管复制过程的绝大部分步骤都不会阻塞从服务器，
 但从服务器在载入主服务器发来的 RDB 文件时，
 仍然会造成从服务器在一段时间内不能处理命令请求：
 如果全部从服务器一起对新的主服务器进行同步，
 那么就可能会造成所有从服务器在短时间内全部不可用的情况出现。</p>
-<p>你可以通过将这个值设为 <code class="docutils literal"><span class="pre">1</span></code> 来保证每次只有一个从服务器处于不能处理命令请求的状态。</p>
+<p>你可以通过将这个值设为 <code class="docutils literal notranslate"><span class="pre">1</span></code> 来保证每次只有一个从服务器处于不能处理命令请求的状态。</p>
 </li>
 </ul>
 <p>本文档剩余的内容将对 Sentinel 系统的其他选项进行介绍，
-示例配置文件 <code class="docutils literal"><span class="pre">sentinel.conf</span></code> 也对相关的选项进行了完整的注释。</p>
+示例配置文件 <code class="docutils literal notranslate"><span class="pre">sentinel.conf</span></code> 也对相关的选项进行了完整的注释。</p>
 </div>
 <div class="section" id="id5">
 <h2>主观下线和客观下线<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>前面说过，
 Redis 的 Sentinel 中关于下线（down）有两个不同的概念：</p>
 <ul class="simple">
-<li>主观下线（Subjectively Down， 简称 SDOWN）指的是单个 Sentinel 实例对服务器做出的下线判断。</li>
-<li>客观下线（Objectively Down， 简称 ODOWN）指的是多个 Sentinel 实例在对同一个服务器做出 SDOWN 判断，
-并且通过 <code class="docutils literal"><span class="pre">SENTINEL</span> <span class="pre">is-master-down-by-addr</span></code> 命令互相交流之后，
+<li><p>主观下线（Subjectively Down， 简称 SDOWN）指的是单个 Sentinel 实例对服务器做出的下线判断。</p></li>
+<li><p>客观下线（Objectively Down， 简称 ODOWN）指的是多个 Sentinel 实例在对同一个服务器做出 SDOWN 判断，
+并且通过 <code class="docutils literal notranslate"><span class="pre">SENTINEL</span> <span class="pre">is-master-down-by-addr</span></code> 命令互相交流之后，
 得出的服务器下线判断。
-（一个 Sentinel 可以通过向另一个 Sentinel 发送 <code class="docutils literal"><span class="pre">SENTINEL</span> <span class="pre">is-master-down-by-addr</span></code> 命令来询问对方是否认为给定的服务器已下线。）</li>
+（一个 Sentinel 可以通过向另一个 Sentinel 发送 <code class="docutils literal notranslate"><span class="pre">SENTINEL</span> <span class="pre">is-master-down-by-addr</span></code> 命令来询问对方是否认为给定的服务器已下线。）</p></li>
 </ul>
-<p>如果一个服务器没有在 <code class="docutils literal"><span class="pre">master-down-after-milliseconds</span></code> 选项所指定的时间内，
+<p>如果一个服务器没有在 <code class="docutils literal notranslate"><span class="pre">master-down-after-milliseconds</span></code> 选项所指定的时间内，
 对向它发送 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令的 Sentinel 返回一个有效回复（valid reply），
 那么 Sentinel 就会将这个服务器标记为主观下线。</p>
 <p>服务器对 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令的有效回复可以是以下三种回复的其中一种：</p>
 <ul class="simple">
-<li>返回 <code class="docutils literal"><span class="pre">+PONG</span></code> 。</li>
-<li>返回 <code class="docutils literal"><span class="pre">-LOADING</span></code> 错误。</li>
-<li>返回 <code class="docutils literal"><span class="pre">-MASTERDOWN</span></code> 错误。</li>
+<li><p>返回 <code class="docutils literal notranslate"><span class="pre">+PONG</span></code> 。</p></li>
+<li><p>返回 <code class="docutils literal notranslate"><span class="pre">-LOADING</span></code> 错误。</p></li>
+<li><p>返回 <code class="docutils literal notranslate"><span class="pre">-MASTERDOWN</span></code> 错误。</p></li>
 </ul>
 <p>如果服务器返回除以上三种回复之外的其他回复，
 又或者在指定时间内没有回复 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令，
 那么 Sentinel 认为服务器返回的回复无效（non-valid）。</p>
 <p>注意，
-一个服务器必须在 <code class="docutils literal"><span class="pre">master-down-after-milliseconds</span></code> 毫秒内，
+一个服务器必须在 <code class="docutils literal notranslate"><span class="pre">master-down-after-milliseconds</span></code> 毫秒内，
 一直返回无效回复才会被 Sentinel 标记为主观下线。</p>
 <p>举个例子，
-如果 <code class="docutils literal"><span class="pre">master-down-after-milliseconds</span></code> 选项的值为 <code class="docutils literal"><span class="pre">30000</span></code> 毫秒（<code class="docutils literal"><span class="pre">30</span></code> 秒），
-那么只要服务器能在每 <code class="docutils literal"><span class="pre">29</span></code> 秒之内返回至少一次有效回复，
+如果 <code class="docutils literal notranslate"><span class="pre">master-down-after-milliseconds</span></code> 选项的值为 <code class="docutils literal notranslate"><span class="pre">30000</span></code> 毫秒（<code class="docutils literal notranslate"><span class="pre">30</span></code> 秒），
+那么只要服务器能在每 <code class="docutils literal notranslate"><span class="pre">29</span></code> 秒之内返回至少一次有效回复，
 这个服务器就仍然会被认为是处于正常状态的。</p>
 <p>从主观下线状态切换到客观下线状态并没有使用严格的法定人数算法（strong quorum algorithm），
 而是使用了流言协议：
@@ -396,23 +387,23 @@ Sentinel 在将它们判断为下线前不需要进行协商，
 <div class="section" id="id6">
 <h2>每个 Sentinel 都需要定期执行的任务<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>每个 Sentinel 以每秒钟一次的频率向它所知的主服务器、从服务器以及其他 Sentinel 实例发送一个 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令。</li>
-<li>如果一个实例（instance）距离最后一次有效回复 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令的时间超过 <code class="docutils literal"><span class="pre">down-after-milliseconds</span></code> 选项所指定的值，
+<li><p>每个 Sentinel 以每秒钟一次的频率向它所知的主服务器、从服务器以及其他 Sentinel 实例发送一个 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令。</p></li>
+<li><p>如果一个实例（instance）距离最后一次有效回复 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令的时间超过 <code class="docutils literal notranslate"><span class="pre">down-after-milliseconds</span></code> 选项所指定的值，
 那么这个实例会被 Sentinel 标记为主观下线。
-一个有效回复可以是： <code class="docutils literal"><span class="pre">+PONG</span></code> 、 <code class="docutils literal"><span class="pre">-LOADING</span></code> 或者 <code class="docutils literal"><span class="pre">-MASTERDOWN</span></code> 。</li>
-<li>如果一个主服务器被标记为主观下线，
-那么正在监视这个主服务器的所有 Sentinel 要以每秒一次的频率确认主服务器的确进入了主观下线状态。</li>
-<li>如果一个主服务器被标记为主观下线，
+一个有效回复可以是： <code class="docutils literal notranslate"><span class="pre">+PONG</span></code> 、 <code class="docutils literal notranslate"><span class="pre">-LOADING</span></code> 或者 <code class="docutils literal notranslate"><span class="pre">-MASTERDOWN</span></code> 。</p></li>
+<li><p>如果一个主服务器被标记为主观下线，
+那么正在监视这个主服务器的所有 Sentinel 要以每秒一次的频率确认主服务器的确进入了主观下线状态。</p></li>
+<li><p>如果一个主服务器被标记为主观下线，
 并且有足够数量的 Sentinel （至少要达到配置文件指定的数量）在指定的时间范围内同意这一判断，
-那么这个主服务器被标记为客观下线。</li>
-<li>在一般情况下，
+那么这个主服务器被标记为客观下线。</p></li>
+<li><p>在一般情况下，
 每个 Sentinel 会以每 10 秒一次的频率向它已知的所有主服务器和从服务器发送 <a class="reference internal" href="../client_and_server/info.html#info"><span class="std std-ref">INFO [section]</span></a> 命令。
 当一个主服务器被 Sentinel 标记为客观下线时，
-Sentinel 向下线主服务器的所有从服务器发送 <a class="reference internal" href="../client_and_server/info.html#info"><span class="std std-ref">INFO [section]</span></a> 命令的频率会从 10 秒一次改为每秒一次。</li>
-<li>当没有足够数量的 Sentinel 同意主服务器已经下线，
+Sentinel 向下线主服务器的所有从服务器发送 <a class="reference internal" href="../client_and_server/info.html#info"><span class="std std-ref">INFO [section]</span></a> 命令的频率会从 10 秒一次改为每秒一次。</p></li>
+<li><p>当没有足够数量的 Sentinel 同意主服务器已经下线，
 主服务器的客观下线状态就会被移除。
 当主服务器重新向 Sentinel 的 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令返回有效回复时，
-主服务器的主管下线状态就会被移除。</li>
+主服务器的主管下线状态就会被移除。</p></li>
 </ul>
 </div>
 <div class="section" id="id7">
@@ -422,73 +413,73 @@ Sentinel 向下线主服务器的所有从服务器发送 <a class="reference in
 并进行信息交换。</p>
 <p>你无须为运行的每个 Sentinel 分别设置其他 Sentinel 的地址，
 因为 Sentinel 可以通过发布与订阅功能来自动发现正在监视相同主服务器的其他 Sentinel ，
-这一功能是通过向频道 <code class="docutils literal"><span class="pre">__sentinel__:hello</span></code> 发送信息来实现的。</p>
+这一功能是通过向频道 <code class="docutils literal notranslate"><span class="pre">__sentinel__:hello</span></code> 发送信息来实现的。</p>
 <p>与此类似，
 你也不必手动列出主服务器属下的所有从服务器，
 因为 Sentinel 可以通过询问主服务器来获得所有从服务器的信息。</p>
 <ul class="simple">
-<li>每个 Sentinel 会以每两秒一次的频率，
+<li><p>每个 Sentinel 会以每两秒一次的频率，
 通过发布与订阅功能，
-向被它监视的所有主服务器和从服务器的 <code class="docutils literal"><span class="pre">__sentinel__:hello</span></code> 频道发送一条信息，
-信息中包含了 Sentinel 的 IP 地址、端口号和运行 ID （runid）。</li>
-<li>每个 Sentinel 都订阅了被它监视的所有主服务器和从服务器的 <code class="docutils literal"><span class="pre">__sentinel__:hello</span></code> 频道，
+向被它监视的所有主服务器和从服务器的 <code class="docutils literal notranslate"><span class="pre">__sentinel__:hello</span></code> 频道发送一条信息，
+信息中包含了 Sentinel 的 IP 地址、端口号和运行 ID （runid）。</p></li>
+<li><p>每个 Sentinel 都订阅了被它监视的所有主服务器和从服务器的 <code class="docutils literal notranslate"><span class="pre">__sentinel__:hello</span></code> 频道，
 查找之前未出现过的 sentinel （looking for unknown sentinels）。
 当一个 Sentinel 发现一个新的 Sentinel 时，
 它会将新的 Sentinel 添加到一个列表中，
 这个列表保存了 Sentinel 已知的，
-监视同一个主服务器的所有其他 Sentinel 。</li>
-<li>Sentinel 发送的信息中还包括完整的主服务器当前配置（configuration）。
+监视同一个主服务器的所有其他 Sentinel 。</p></li>
+<li><p>Sentinel 发送的信息中还包括完整的主服务器当前配置（configuration）。
 如果一个 Sentinel 包含的主服务器配置比另一个 Sentinel 发送的配置要旧，
-那么这个 Sentinel 会立即升级到新配置上。</li>
-<li>在将一个新 Sentinel 添加到监视主服务器的列表上面之前，
+那么这个 Sentinel 会立即升级到新配置上。</p></li>
+<li><p>在将一个新 Sentinel 添加到监视主服务器的列表上面之前，
 Sentinel 会先检查列表中是否已经包含了和要添加的 Sentinel 拥有相同运行 ID 或者相同地址（包括 IP 地址和端口号）的 Sentinel ，
 如果是的话，
 Sentinel 会先移除列表中已有的那些拥有相同运行 ID 或者相同地址的 Sentinel ，
-然后再添加新 Sentinel 。</li>
+然后再添加新 Sentinel 。</p></li>
 </ul>
 </div>
 <div class="section" id="sentinel-api">
 <h2>Sentinel API<a class="headerlink" href="#sentinel-api" title="Permalink to this headline">¶</a></h2>
 <p>在默认情况下，
-Sentinel 使用 TCP 端口 <code class="docutils literal"><span class="pre">26379</span></code>
-（普通 Redis 服务器使用的是 <code class="docutils literal"><span class="pre">6379</span></code> ）。</p>
+Sentinel 使用 TCP 端口 <code class="docutils literal notranslate"><span class="pre">26379</span></code>
+（普通 Redis 服务器使用的是 <code class="docutils literal notranslate"><span class="pre">6379</span></code> ）。</p>
 <p>Sentinel 接受 Redis 协议格式的命令请求，
-所以你可以使用 <code class="docutils literal"><span class="pre">redis-cli</span></code> 或者任何其他 Redis 客户端来与 Sentinel 进行通讯。</p>
+所以你可以使用 <code class="docutils literal notranslate"><span class="pre">redis-cli</span></code> 或者任何其他 Redis 客户端来与 Sentinel 进行通讯。</p>
 <p>有两种方式可以和 Sentinel 进行通讯：</p>
 <ul class="simple">
-<li>第一种方法是通过直接发送命令来查询被监视 Redis 服务器的当前状态，
+<li><p>第一种方法是通过直接发送命令来查询被监视 Redis 服务器的当前状态，
 以及 Sentinel 所知道的关于其他 Sentinel 的信息，
-诸如此类。</li>
-<li>另一种方法是使用发布与订阅功能，
+诸如此类。</p></li>
+<li><p>另一种方法是使用发布与订阅功能，
 通过接收 Sentinel 发送的通知：
 当执行故障转移操作，
 或者某个被监视的服务器被判断为主观下线或者客观下线时，
-Sentinel 就会发送相应的信息。</li>
+Sentinel 就会发送相应的信息。</p></li>
 </ul>
 <div class="section" id="id8">
 <h3>Sentinel 命令<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>以下列出的是 Sentinel 接受的命令：</p>
 <ul class="simple">
-<li><a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> ：返回 <code class="docutils literal"><span class="pre">PONG</span></code> 。</li>
-<li><code class="docutils literal"><span class="pre">SENTINEL</span> <span class="pre">masters</span></code> ：列出所有被监视的主服务器，以及这些主服务器的当前状态。</li>
-<li><code class="docutils literal"><span class="pre">SENTINEL</span> <span class="pre">slaves</span> <span class="pre">&lt;master</span> <span class="pre">name&gt;</span></code> ：列出给定主服务器的所有从服务器，以及这些从服务器的当前状态。</li>
-<li><code class="docutils literal"><span class="pre">SENTINEL</span> <span class="pre">get-master-addr-by-name</span> <span class="pre">&lt;master</span> <span class="pre">name&gt;</span></code> ：
+<li><p><a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> ：返回 <code class="docutils literal notranslate"><span class="pre">PONG</span></code> 。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SENTINEL</span> <span class="pre">masters</span></code> ：列出所有被监视的主服务器，以及这些主服务器的当前状态。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SENTINEL</span> <span class="pre">slaves</span> <span class="pre">&lt;master</span> <span class="pre">name&gt;</span></code> ：列出给定主服务器的所有从服务器，以及这些从服务器的当前状态。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SENTINEL</span> <span class="pre">get-master-addr-by-name</span> <span class="pre">&lt;master</span> <span class="pre">name&gt;</span></code> ：
 返回给定名字的主服务器的 IP 地址和端口号。
 如果这个主服务器正在执行故障转移操作，
 或者针对这个主服务器的故障转移操作已经完成，
-那么这个命令返回新的主服务器的 IP 地址和端口号。</li>
-<li><code class="docutils literal"><span class="pre">SENTINEL</span> <span class="pre">reset</span> <span class="pre">&lt;pattern&gt;</span></code> ：
-重置所有名字和给定模式 <code class="docutils literal"><span class="pre">pattern</span></code> 相匹配的主服务器。
-<code class="docutils literal"><span class="pre">pattern</span></code> 参数是一个 Glob 风格的模式。
+那么这个命令返回新的主服务器的 IP 地址和端口号。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SENTINEL</span> <span class="pre">reset</span> <span class="pre">&lt;pattern&gt;</span></code> ：
+重置所有名字和给定模式 <code class="docutils literal notranslate"><span class="pre">pattern</span></code> 相匹配的主服务器。
+<code class="docutils literal notranslate"><span class="pre">pattern</span></code> 参数是一个 Glob 风格的模式。
 重置操作清除主服务器目前的所有状态，
 包括正在执行中的故障转移，
 并移除目前已经发现和关联的，
-主服务器的所有从服务器和 Sentinel 。</li>
-<li><code class="docutils literal"><span class="pre">SENTINEL</span> <span class="pre">failover</span> <span class="pre">&lt;master</span> <span class="pre">name&gt;</span></code> ：
+主服务器的所有从服务器和 Sentinel 。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SENTINEL</span> <span class="pre">failover</span> <span class="pre">&lt;master</span> <span class="pre">name&gt;</span></code> ：
 当主服务器失效时，
 在不询问其他 Sentinel 意见的情况下，
 强制开始一次自动故障迁移
-（不过发起故障转移的 Sentinel 会向其他 Sentinel 发送一个新的配置，其他 Sentinel 会根据这个配置进行相应的更新）。</li>
+（不过发起故障转移的 Sentinel 会向其他 Sentinel 发送一个新的配置，其他 Sentinel 会根据这个配置进行相应的更新）。</p></li>
 </ul>
 </div>
 <div class="section" id="id9">
@@ -499,46 +490,46 @@ Sentinel 就会发送相应的信息。</li>
 通过订阅给定的频道来获取相应的事件提醒。</p>
 <p>一个频道能够接收和这个频道的名字相同的事件。
 比如说，
-名为 <code class="docutils literal"><span class="pre">+sdown</span></code> 的频道就可以接收所有实例进入主观下线（SDOWN）状态的事件。</p>
-<p>通过执行 <code class="docutils literal"><span class="pre">PSUBSCRIBE</span> <span class="pre">*</span></code> 命令可以接收所有事件信息。</p>
+名为 <code class="docutils literal notranslate"><span class="pre">+sdown</span></code> 的频道就可以接收所有实例进入主观下线（SDOWN）状态的事件。</p>
+<p>通过执行 <code class="docutils literal notranslate"><span class="pre">PSUBSCRIBE</span> <span class="pre">*</span></code> 命令可以接收所有事件信息。</p>
 <p>以下列出的是客户端可以通过订阅来获得的频道和信息的格式：
 第一个英文单词是频道/事件的名字，
 其余的是数据的格式。</p>
 <p>注意，
-当格式中包含 <code class="docutils literal"><span class="pre">instance</span> <span class="pre">details</span></code> 字样时，
+当格式中包含 <code class="docutils literal notranslate"><span class="pre">instance</span> <span class="pre">details</span></code> 字样时，
 表示频道所返回的信息中包含了以下用于识别目标实例的内容：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">instance</span><span class="o">-</span><span class="nb">type</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">ip</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">port</span><span class="o">&gt;</span> <span class="o">@</span> <span class="o">&lt;</span><span class="n">master</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">master</span><span class="o">-</span><span class="n">ip</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">master</span><span class="o">-</span><span class="n">port</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">instance</span><span class="o">-</span><span class="nb">type</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">ip</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">port</span><span class="o">&gt;</span> <span class="o">@</span> <span class="o">&lt;</span><span class="n">master</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">master</span><span class="o">-</span><span class="n">ip</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">master</span><span class="o">-</span><span class="n">port</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">&#64;</span></code> 字符之后的内容用于指定主服务器，
+<p><code class="docutils literal notranslate"><span class="pre">&#64;</span></code> 字符之后的内容用于指定主服务器，
 这些内容是可选的，
-它们仅在 <code class="docutils literal"><span class="pre">&#64;</span></code> 字符之前的内容指定的实例不是主服务器时使用。</p>
+它们仅在 <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> 字符之前的内容指定的实例不是主服务器时使用。</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">+reset-master</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：主服务器已被重置。</li>
-<li><code class="docutils literal"><span class="pre">+slave</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：一个新的从服务器已经被 Sentinel 识别并关联。</li>
-<li><code class="docutils literal"><span class="pre">+failover-state-reconf-slaves</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：故障转移状态切换到了 <code class="docutils literal"><span class="pre">reconf-slaves</span></code> 状态。</li>
-<li><code class="docutils literal"><span class="pre">+failover-detected</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：另一个 Sentinel 开始了一次故障转移操作，或者一个从服务器转换成了主服务器。</li>
-<li><code class="docutils literal"><span class="pre">+slave-reconf-sent</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：领头（leader）的 Sentinel 向实例发送了 <a class="reference internal" href="../replication/slaveof.html#slaveof"><span class="std std-ref">SLAVEOF host port</span></a> 命令，为实例设置新的主服务器。</li>
-<li><code class="docutils literal"><span class="pre">+slave-reconf-inprog</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：实例正在将自己设置为指定主服务器的从服务器，但相应的同步过程仍未完成。</li>
-<li><code class="docutils literal"><span class="pre">+slave-reconf-done</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：从服务器已经成功完成对新主服务器的同步。</li>
-<li><code class="docutils literal"><span class="pre">-dup-sentinel</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：对给定主服务器进行监视的一个或多个 Sentinel 已经因为重复出现而被移除 —— 当 Sentinel 实例重启的时候，就会出现这种情况。</li>
-<li><code class="docutils literal"><span class="pre">+sentinel</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：一个监视给定主服务器的新 Sentinel 已经被识别并添加。</li>
-<li><code class="docutils literal"><span class="pre">+sdown</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：给定的实例现在处于主观下线状态。</li>
-<li><code class="docutils literal"><span class="pre">-sdown</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：给定的实例已经不再处于主观下线状态。</li>
-<li><code class="docutils literal"><span class="pre">+odown</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：给定的实例现在处于客观下线状态。</li>
-<li><code class="docutils literal"><span class="pre">-odown</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：给定的实例已经不再处于客观下线状态。</li>
-<li><code class="docutils literal"><span class="pre">+new-epoch</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：当前的纪元（epoch）已经被更新。</li>
-<li><code class="docutils literal"><span class="pre">+try-failover</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：一个新的故障迁移操作正在执行中，等待被大多数 Sentinel 选中（waiting to be elected by the majority）。</li>
-<li><code class="docutils literal"><span class="pre">+elected-leader</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：赢得指定纪元的选举，可以进行故障迁移操作了。</li>
-<li><code class="docutils literal"><span class="pre">+failover-state-select-slave</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：故障转移操作现在处于 <code class="docutils literal"><span class="pre">select-slave</span></code> 状态 —— Sentinel 正在寻找可以升级为主服务器的从服务器。</li>
-<li><code class="docutils literal"><span class="pre">no-good-slave</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：Sentinel 操作未能找到适合进行升级的从服务器。Sentinel 会在一段时间之后再次尝试寻找合适的从服务器来进行升级，又或者直接放弃执行故障转移操作。</li>
-<li><code class="docutils literal"><span class="pre">selected-slave</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：Sentinel 顺利找到适合进行升级的从服务器。</li>
-<li><code class="docutils literal"><span class="pre">failover-state-send-slaveof-noone</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：Sentinel 正在将指定的从服务器升级为主服务器，等待升级功能完成。</li>
-<li><code class="docutils literal"><span class="pre">failover-end-for-timeout</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：故障转移因为超时而中止，不过最终所有从服务器都会开始复制新的主服务器（slaves will eventually be configured to replicate with the new master anyway）。</li>
-<li><code class="docutils literal"><span class="pre">failover-end</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：故障转移操作顺利完成。所有从服务器都开始复制新的主服务器了。</li>
-<li><code class="docutils literal"><span class="pre">+switch-master</span> <span class="pre">&lt;master</span> <span class="pre">name&gt;</span> <span class="pre">&lt;oldip&gt;</span> <span class="pre">&lt;oldport&gt;</span> <span class="pre">&lt;newip&gt;</span> <span class="pre">&lt;newport&gt;</span></code> ：配置变更，主服务器的 IP 和地址已经改变。 <strong>这是绝大多数外部用户都关心的信息。</strong></li>
-<li><code class="docutils literal"><span class="pre">+tilt</span></code> ：进入 tilt 模式。</li>
-<li><code class="docutils literal"><span class="pre">-tilt</span></code> ：退出 tilt 模式。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+reset-master</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：主服务器已被重置。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+slave</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：一个新的从服务器已经被 Sentinel 识别并关联。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+failover-state-reconf-slaves</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：故障转移状态切换到了 <code class="docutils literal notranslate"><span class="pre">reconf-slaves</span></code> 状态。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+failover-detected</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：另一个 Sentinel 开始了一次故障转移操作，或者一个从服务器转换成了主服务器。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+slave-reconf-sent</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：领头（leader）的 Sentinel 向实例发送了 <a class="reference internal" href="../replication/slaveof.html#slaveof"><span class="std std-ref">SLAVEOF host port</span></a> 命令，为实例设置新的主服务器。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+slave-reconf-inprog</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：实例正在将自己设置为指定主服务器的从服务器，但相应的同步过程仍未完成。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+slave-reconf-done</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：从服务器已经成功完成对新主服务器的同步。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-dup-sentinel</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：对给定主服务器进行监视的一个或多个 Sentinel 已经因为重复出现而被移除 —— 当 Sentinel 实例重启的时候，就会出现这种情况。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+sentinel</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：一个监视给定主服务器的新 Sentinel 已经被识别并添加。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+sdown</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：给定的实例现在处于主观下线状态。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-sdown</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：给定的实例已经不再处于主观下线状态。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+odown</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：给定的实例现在处于客观下线状态。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-odown</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：给定的实例已经不再处于客观下线状态。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+new-epoch</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：当前的纪元（epoch）已经被更新。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+try-failover</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：一个新的故障迁移操作正在执行中，等待被大多数 Sentinel 选中（waiting to be elected by the majority）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+elected-leader</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：赢得指定纪元的选举，可以进行故障迁移操作了。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+failover-state-select-slave</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：故障转移操作现在处于 <code class="docutils literal notranslate"><span class="pre">select-slave</span></code> 状态 —— Sentinel 正在寻找可以升级为主服务器的从服务器。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">no-good-slave</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：Sentinel 操作未能找到适合进行升级的从服务器。Sentinel 会在一段时间之后再次尝试寻找合适的从服务器来进行升级，又或者直接放弃执行故障转移操作。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">selected-slave</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：Sentinel 顺利找到适合进行升级的从服务器。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">failover-state-send-slaveof-noone</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：Sentinel 正在将指定的从服务器升级为主服务器，等待升级功能完成。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">failover-end-for-timeout</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：故障转移因为超时而中止，不过最终所有从服务器都会开始复制新的主服务器（slaves will eventually be configured to replicate with the new master anyway）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">failover-end</span> <span class="pre">&lt;instance</span> <span class="pre">details&gt;</span></code> ：故障转移操作顺利完成。所有从服务器都开始复制新的主服务器了。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+switch-master</span> <span class="pre">&lt;master</span> <span class="pre">name&gt;</span> <span class="pre">&lt;oldip&gt;</span> <span class="pre">&lt;oldport&gt;</span> <span class="pre">&lt;newip&gt;</span> <span class="pre">&lt;newport&gt;</span></code> ：配置变更，主服务器的 IP 和地址已经改变。 <strong>这是绝大多数外部用户都关心的信息。</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">+tilt</span></code> ：进入 tilt 模式。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-tilt</span></code> ：退出 tilt 模式。</p></li>
 </ul>
 </div>
 </div>
@@ -546,42 +537,42 @@ Sentinel 就会发送相应的信息。</li>
 <h2>故障转移<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <p>一次故障转移操作由以下步骤组成：</p>
 <ul class="simple">
-<li>发现主服务器已经进入客观下线状态。</li>
-<li>对我们的当前纪元进行自增（详情请参考 <a class="reference external" href="https://www.google.com.hk/search?q=Raft+leader+election&amp;client=ubuntu&amp;channel=cs&amp;oq=Raft+leader+election&amp;aqs=chrome..69i57&amp;sourceid=chrome&amp;ie=UTF-8">Raft leader election</a> ），
-并尝试在这个纪元中当选。</li>
-<li>如果当选失败，
+<li><p>发现主服务器已经进入客观下线状态。</p></li>
+<li><p>对我们的当前纪元进行自增（详情请参考 <a class="reference external" href="https://www.google.com.hk/search?q=Raft+leader+election&amp;client=ubuntu&amp;channel=cs&amp;oq=Raft+leader+election&amp;aqs=chrome..69i57&amp;sourceid=chrome&amp;ie=UTF-8">Raft leader election</a> ），
+并尝试在这个纪元中当选。</p></li>
+<li><p>如果当选失败，
 那么在设定的故障迁移超时时间的两倍之后，
 重新尝试当选。
 如果当选成功，
-那么执行以下步骤。</li>
-<li>选出一个从服务器，并将它升级为主服务器。</li>
-<li>向被选中的从服务器发送 <code class="docutils literal"><span class="pre">SLAVEOF</span> <span class="pre">NO</span> <span class="pre">ONE</span></code> 命令，让它转变为主服务器。</li>
-<li>通过发布与订阅功能，
+那么执行以下步骤。</p></li>
+<li><p>选出一个从服务器，并将它升级为主服务器。</p></li>
+<li><p>向被选中的从服务器发送 <code class="docutils literal notranslate"><span class="pre">SLAVEOF</span> <span class="pre">NO</span> <span class="pre">ONE</span></code> 命令，让它转变为主服务器。</p></li>
+<li><p>通过发布与订阅功能，
 将更新后的配置传播给所有其他 Sentinel ，
-其他 Sentinel 对它们自己的配置进行更新。</li>
-<li>向已下线主服务器的从服务器发送 <a class="reference internal" href="../replication/slaveof.html#slaveof"><span class="std std-ref">SLAVEOF host port</span></a> 命令，
-让它们去复制新的主服务器。</li>
-<li>当所有从服务器都已经开始复制新的主服务器时，
-领头 Sentinel 终止这次故障迁移操作。</li>
+其他 Sentinel 对它们自己的配置进行更新。</p></li>
+<li><p>向已下线主服务器的从服务器发送 <a class="reference internal" href="../replication/slaveof.html#slaveof"><span class="std std-ref">SLAVEOF host port</span></a> 命令，
+让它们去复制新的主服务器。</p></li>
+<li><p>当所有从服务器都已经开始复制新的主服务器时，
+领头 Sentinel 终止这次故障迁移操作。</p></li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">每当一个 Redis 实例被重新配置（reconfigured） ——
+<p class="admonition-title">Note</p>
+<p>每当一个 Redis 实例被重新配置（reconfigured） ——
 无论是被设置成主服务器、从服务器、又或者被设置成其他主服务器的从服务器 ——
-Sentinel 都会向被重新配置的实例发送一个 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">REWRITE</span></code> 命令，
+Sentinel 都会向被重新配置的实例发送一个 <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">REWRITE</span></code> 命令，
 从而确保这些配置会持久化在硬盘里。</p>
 </div>
 <p>Sentinel 使用以下规则来选择新的主服务器：</p>
 <ul class="simple">
-<li>在失效主服务器属下的从服务器当中，
-那些被标记为主观下线、已断线、或者最后一次回复 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令的时间大于五秒钟的从服务器都会被淘汰。</li>
-<li>在失效主服务器属下的从服务器当中，
-那些与失效主服务器连接断开的时长超过 <code class="docutils literal"><span class="pre">down-after</span></code> 选项指定的时长十倍的从服务器都会被淘汰。</li>
-<li>在经历了以上两轮淘汰之后剩下来的从服务器中，
+<li><p>在失效主服务器属下的从服务器当中，
+那些被标记为主观下线、已断线、或者最后一次回复 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令的时间大于五秒钟的从服务器都会被淘汰。</p></li>
+<li><p>在失效主服务器属下的从服务器当中，
+那些与失效主服务器连接断开的时长超过 <code class="docutils literal notranslate"><span class="pre">down-after</span></code> 选项指定的时长十倍的从服务器都会被淘汰。</p></li>
+<li><p>在经历了以上两轮淘汰之后剩下来的从服务器中，
 我们选出复制偏移量（replication offset）最大的那个从服务器作为新的主服务器；
 如果复制偏移量不可用，
 或者从服务器的复制偏移量相同，
-那么带有最小运行 ID 的那个从服务器成为新的主服务器。</li>
+那么带有最小运行 ID 的那个从服务器成为新的主服务器。</p></li>
 </ul>
 <div class="section" id="id11">
 <h3>Sentinel 自动故障迁移的一致性特质<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
@@ -602,7 +593,7 @@ Sentinel 都会向被重新配置的实例发送一个 <code class="docutils lit
 而当这个 Sentinel 接到其他 Sentinel 发来的版本更新的配置时，
 Sentinel 就会对自己的配置进行更新。</p>
 <p>如果要在网络分割出现的情况下仍然保持一致性，
-那么应该使用 <code class="docutils literal"><span class="pre">min-slaves-to-write</span></code> 选项，
+那么应该使用 <code class="docutils literal notranslate"><span class="pre">min-slaves-to-write</span></code> 选项，
 让主服务器在连接的从实例少于给定数量时停止执行写操作，
 与此同时，
 应该在每个运行 Redis 主服务器或从服务器的机器上运行 Redis Sentinel 进程。</p>
@@ -621,13 +612,13 @@ Sentinel 就会对自己的配置进行更新。</p>
 Sentinel 总会尝试将当前的配置设置到被监视的实例上面。
 特别是：</p>
 <ul class="simple">
-<li>根据当前的配置，
+<li><p>根据当前的配置，
 如果一个从服务器被宣告为主服务器，
 那么它会代替原有的主服务器，
 成为新的主服务器，
-并且成为原有主服务器的所有从服务器的复制对象。</li>
-<li>那些连接了错误主服务器的从服务器会被重新配置，
-使得这些从服务器会去复制正确的主服务器。</li>
+并且成为原有主服务器的所有从服务器的复制对象。</p></li>
+<li><p>那些连接了错误主服务器的从服务器会被重新配置，
+使得这些从服务器会去复制正确的主服务器。</p></li>
 </ul>
 <p>不过，
 在以上这些条件满足之后，
@@ -658,32 +649,32 @@ Sentinel 的做法是，
 记录上一次时间中断器执行时的时间，
 并将它和这一次时间中断器执行的时间进行对比：</p>
 <ul class="simple">
-<li>如果两次调用时间之间的差距为负值，
+<li><p>如果两次调用时间之间的差距为负值，
 或者非常大（超过 2 秒钟），
-那么 Sentinel 进入 TILT 模式。</li>
-<li>如果 Sentinel 已经进入 TILT 模式，
-那么 Sentinel 延迟退出 TILT 模式的时间。</li>
+那么 Sentinel 进入 TILT 模式。</p></li>
+<li><p>如果 Sentinel 已经进入 TILT 模式，
+那么 Sentinel 延迟退出 TILT 模式的时间。</p></li>
 </ul>
 <p>当 Sentinel 进入 TILT 模式时，
 它仍然会继续监视所有目标，
 但是：</p>
 <ul class="simple">
-<li>它不再执行任何操作，比如故障转移。</li>
-<li>当有实例向这个 Sentinel 发送 <code class="docutils literal"><span class="pre">SENTINEL</span> <span class="pre">is-master-down-by-addr</span></code> 命令时，
+<li><p>它不再执行任何操作，比如故障转移。</p></li>
+<li><p>当有实例向这个 Sentinel 发送 <code class="docutils literal notranslate"><span class="pre">SENTINEL</span> <span class="pre">is-master-down-by-addr</span></code> 命令时，
 Sentinel 返回负值：
-因为这个 Sentinel 所进行的下线判断已经不再准确。</li>
+因为这个 Sentinel 所进行的下线判断已经不再准确。</p></li>
 </ul>
 <p>如果 TILT 可以正常维持 30 秒钟，
 那么 Sentinel 退出 TILT 模式。</p>
 </div>
 <div class="section" id="busy">
-<h2>处理 <code class="docutils literal"><span class="pre">-BUSY</span></code> 状态<a class="headerlink" href="#busy" title="Permalink to this headline">¶</a></h2>
+<h2>处理 <code class="docutils literal notranslate"><span class="pre">-BUSY</span></code> 状态<a class="headerlink" href="#busy" title="Permalink to this headline">¶</a></h2>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">该功能尚未实现</p>
+<p class="admonition-title">Warning</p>
+<p>该功能尚未实现</p>
 </div>
 <p>当 Lua 脚本的运行时间超过指定时限时，
-Redis 就会返回 <code class="docutils literal"><span class="pre">-BUSY</span></code> 错误。</p>
+Redis 就会返回 <code class="docutils literal notranslate"><span class="pre">-BUSY</span></code> 错误。</p>
 <p>当出现这种情况时，
 Sentinel 在尝试执行故障转移操作之前，
 会先向服务器发送一个 <a class="reference internal" href="../script/script_kill.html#script-kill"><span class="std std-ref">SCRIPT KILL</span></a> 命令，

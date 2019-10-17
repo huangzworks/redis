@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -201,19 +192,19 @@
   <div class="section" id="hstrlen">
 <span id="id1"></span><h1>HSTRLEN<a class="headerlink" href="#hstrlen" title="Permalink to this headline">¶</a></h1>
 <p><strong>HSTRLEN key field</strong></p>
-<p>返回哈希表 <code class="docutils literal"><span class="pre">key</span></code> 中，
-与给定域 <code class="docutils literal"><span class="pre">field</span></code> 相关联的值的字符串长度（string length）。</p>
+<p>返回哈希表 <code class="docutils literal notranslate"><span class="pre">key</span></code> 中，
+与给定域 <code class="docutils literal notranslate"><span class="pre">field</span></code> 相关联的值的字符串长度（string length）。</p>
 <p>如果给定的键或者域不存在，
-那么命令返回 <code class="docutils literal"><span class="pre">0</span></code> 。</p>
-<dl class="docutils">
-<dt><strong>可用版本：</strong></dt>
-<dd>&gt;= 3.2.0</dd>
-<dt><strong>时间复杂度：</strong></dt>
-<dd>O(1)</dd>
-<dt><strong>返回值：</strong></dt>
-<dd>一个整数。</dd>
+那么命令返回 <code class="docutils literal notranslate"><span class="pre">0</span></code> 。</p>
+<dl class="simple">
+<dt><strong>可用版本：</strong></dt><dd><p>&gt;= 3.2.0</p>
+</dd>
+<dt><strong>时间复杂度：</strong></dt><dd><p>O(1)</p>
+</dd>
+<dt><strong>返回值：</strong></dt><dd><p>一个整数。</p>
+</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">HMSET</span> <span class="n">myhash</span> <span class="n">f1</span> <span class="s2">&quot;HelloWorld&quot;</span> <span class="n">f2</span> <span class="s2">&quot;99&quot;</span> <span class="n">f3</span> <span class="s2">&quot;-256&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">HMSET</span> <span class="n">myhash</span> <span class="n">f1</span> <span class="s2">&quot;HelloWorld&quot;</span> <span class="n">f2</span> <span class="s2">&quot;99&quot;</span> <span class="n">f3</span> <span class="s2">&quot;-256&quot;</span>
 <span class="n">OK</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">HSTRLEN</span> <span class="n">myhash</span> <span class="n">f1</span>

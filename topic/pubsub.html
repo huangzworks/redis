@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -203,8 +194,8 @@
   <div class="section" id="pub-sub">
 <h1>发布与订阅（pub/sub）<a class="headerlink" href="#pub-sub" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">本文档翻译自： <a class="reference external" href="http://redis.io/topics/pubsub">http://redis.io/topics/pubsub</a> 。</p>
+<p class="admonition-title">Note</p>
+<p>本文档翻译自： <a class="reference external" href="http://redis.io/topics/pubsub">http://redis.io/topics/pubsub</a> 。</p>
 </div>
 <p><a class="reference internal" href="../pubsub/subscribe.html#subscribe"><span class="std std-ref">SUBSCRIBE channel [channel …]</span></a> 、 <a class="reference internal" href="../pubsub/unsubscribe.html#unsubscribe"><span class="std std-ref">UNSUBSCRIBE [channel [channel …]]</span></a> 和 <a class="reference internal" href="../pubsub/publish.html#publish"><span class="std std-ref">PUBLISH channel message</span></a> 三个命令实现了<a class="reference external" href="http://en.wikipedia.org/wiki/Publish/subscribe">发布与订阅信息泛型</a>（Publish/Subscribe messaging paradigm），
 在这个实现中，
@@ -218,9 +209,9 @@
 可以极大地提高系统的扩展性（scalability），
 并得到一个更动态的网络拓扑（network topology）。</p>
 <p>比如说，
-要订阅频道 <code class="docutils literal"><span class="pre">foo</span></code> 和 <code class="docutils literal"><span class="pre">bar</span></code> ，
+要订阅频道 <code class="docutils literal notranslate"><span class="pre">foo</span></code> 和 <code class="docutils literal notranslate"><span class="pre">bar</span></code> ，
 客户端可以使用频道名字作为参数来调用 <a class="reference internal" href="../pubsub/subscribe.html#subscribe"><span class="std std-ref">SUBSCRIBE channel [channel …]</span></a> 命令：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SUBSCRIBE</span> <span class="n">foo</span> <span class="n">bar</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SUBSCRIBE</span> <span class="n">foo</span> <span class="n">bar</span>
 </pre></div>
 </div>
 <p>当有客户端发送信息到这些频道时，
@@ -238,29 +229,29 @@ Redis 会将传入的信息推送到所有订阅这些频道的客户端里面�
 <p>频道转发的每条信息都是一条带有三个元素的多条批量回复（multi-bulk reply）。</p>
 <p>信息的第一个元素标识了信息的类型：</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">subscribe</span></code> ：
+<li><p><code class="docutils literal notranslate"><span class="pre">subscribe</span></code> ：
 表示当前客户端成功地订阅了信息第二个元素所指示的频道。
-而信息的第三个元素则记录了目前客户端已订阅频道的总数。</li>
-<li><code class="docutils literal"><span class="pre">unsubscribe</span></code> ：
+而信息的第三个元素则记录了目前客户端已订阅频道的总数。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unsubscribe</span></code> ：
 表示当前客户端成功地退订了信息第二个元素所指示的频道。
 信息的第三个元素记录了客户端目前仍在订阅的频道数量。
-当客户端订阅的频道数量降为 <code class="docutils literal"><span class="pre">0</span></code> 时，
+当客户端订阅的频道数量降为 <code class="docutils literal notranslate"><span class="pre">0</span></code> 时，
 客户端不再订阅任何频道，
 它可以像往常一样，
-执行任何 Redis 命令。</li>
-<li><code class="docutils literal"><span class="pre">message</span></code> ：
+执行任何 Redis 命令。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">message</span></code> ：
 表示这条信息是由某个客户端执行 <a class="reference internal" href="../pubsub/publish.html#publish"><span class="std std-ref">PUBLISH channel message</span></a> 命令所发送的，
 真正的信息。
 信息的第二个元素是信息来源的频道，
-而第三个元素则是信息的内容。</li>
+而第三个元素则是信息的内容。</p></li>
 </ul>
 <p>举个例子，
 如果客户端执行以下命令：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SUBSCRIBE</span> <span class="n">first</span> <span class="n">second</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SUBSCRIBE</span> <span class="n">first</span> <span class="n">second</span>
 </pre></div>
 </div>
 <p>那么它将收到以下回复：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;subscribe&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;subscribe&quot;</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;first&quot;</span>
 <span class="mi">3</span><span class="p">)</span> <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">1</span>
 
@@ -271,22 +262,22 @@ Redis 会将传入的信息推送到所有订阅这些频道的客户端里面�
 </div>
 <p>如果在这时，
 另一个客户端执行以下 <a class="reference internal" href="../pubsub/publish.html#publish"><span class="std std-ref">PUBLISH channel message</span></a> 命令：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">PUBLISH</span> <span class="n">second</span> <span class="n">Hello</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">PUBLISH</span> <span class="n">second</span> <span class="n">Hello</span>
 </pre></div>
 </div>
-<p>那么之前订阅了 <code class="docutils literal"><span class="pre">second</span></code> 频道的客户端将收到以下信息：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;message&quot;</span>
+<p>那么之前订阅了 <code class="docutils literal notranslate"><span class="pre">second</span></code> 频道的客户端将收到以下信息：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;message&quot;</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;second&quot;</span>
 <span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;hello&quot;</span>
 </pre></div>
 </div>
 <p>当订阅者决定退订所有频道时，
 它可以执行一个无参数的 <a class="reference internal" href="../pubsub/unsubscribe.html#unsubscribe"><span class="std std-ref">UNSUBSCRIBE [channel [channel …]]</span></a> 命令：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">UNSUBSCRIBE</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">UNSUBSCRIBE</span>
 </pre></div>
 </div>
 <p>这个命令将接到以下回复：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;unsubscribe&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;unsubscribe&quot;</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;second&quot;</span>
 <span class="mi">3</span><span class="p">)</span> <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">1</span>
 
@@ -299,34 +290,34 @@ Redis 会将传入的信息推送到所有订阅这些频道的客户端里面�
 <div class="section" id="id3">
 <h2>订阅模式<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>Redis 的发布与订阅实现支持模式匹配（pattern matching）：
-客户端可以订阅一个带 <code class="docutils literal"><span class="pre">*</span></code> 号的模式，
+客户端可以订阅一个带 <code class="docutils literal notranslate"><span class="pre">*</span></code> 号的模式，
 如果某个/某些频道的名字和这个模式匹配，
 那么当有信息发送给这个/这些频道的时候，
 客户端也会收到这个/这些频道的信息。</p>
 <p>比如说，执行命令</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">PSUBSCRIBE</span> <span class="n">news</span><span class="o">.*</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">PSUBSCRIBE</span> <span class="n">news</span><span class="o">.*</span>
 </pre></div>
 </div>
-<p>的客户端将收到来自 <code class="docutils literal"><span class="pre">news.art.figurative</span></code> 、 <code class="docutils literal"><span class="pre">news.music.jazz</span></code> 等频道的信息。</p>
+<p>的客户端将收到来自 <code class="docutils literal notranslate"><span class="pre">news.art.figurative</span></code> 、 <code class="docutils literal notranslate"><span class="pre">news.music.jazz</span></code> 等频道的信息。</p>
 <p>客户端订阅的模式里面可以包含多个 glob 风格的通配符，
-比如 <code class="docutils literal"><span class="pre">*</span></code> 、 <code class="docutils literal"><span class="pre">?</span></code> 和 <code class="docutils literal"><span class="pre">[...]</span></code> ，
+比如 <code class="docutils literal notranslate"><span class="pre">*</span></code> 、 <code class="docutils literal notranslate"><span class="pre">?</span></code> 和 <code class="docutils literal notranslate"><span class="pre">[...]</span></code> ，
 等等。</p>
 <p>执行命令</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">PUNSUBSCRIBE</span> <span class="n">news</span><span class="o">.*</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">PUNSUBSCRIBE</span> <span class="n">news</span><span class="o">.*</span>
 </pre></div>
 </div>
-<p>将退订 <code class="docutils literal"><span class="pre">news.*</span></code> 模式，
+<p>将退订 <code class="docutils literal notranslate"><span class="pre">news.*</span></code> 模式，
 其他已订阅的模式不会被影响。</p>
 <p>通过订阅模式接收到的信息，
 和通过订阅频道接收到的信息，
 这两者的格式不太一样：</p>
 <ul class="simple">
-<li>通过订阅模式而接收到的信息的类型为 <code class="docutils literal"><span class="pre">pmessage</span></code> ：
+<li><p>通过订阅模式而接收到的信息的类型为 <code class="docutils literal notranslate"><span class="pre">pmessage</span></code> ：
 这代表有某个客户端通过 <a class="reference internal" href="../pubsub/publish.html#publish"><span class="std std-ref">PUBLISH channel message</span></a> 向某个频道发送了信息，
 而这个频道刚好匹配了当前客户端所订阅的某个模式。
 信息的第二个元素记录了被匹配的模式，
 第三个元素记录了被匹配的频道的名字，
-最后一个元素则记录了信息的实际内容。</li>
+最后一个元素则记录了信息的实际内容。</p></li>
 </ul>
 <p>客户端处理 <a class="reference internal" href="../pubsub/psubscribe.html#psubscribe"><span class="std std-ref">PSUBSCRIBE pattern [pattern …]</span></a> 和 <a class="reference internal" href="../pubsub/punsubscribe.html#punsubscribe"><span class="std std-ref">PUNSUBSCRIBE [pattern [pattern …]]</span></a> 返回值的方式，
 和客户端处理 <a class="reference internal" href="../pubsub/subscribe.html#subscribe"><span class="std std-ref">SUBSCRIBE channel [channel …]</span></a> 和 <a class="reference internal" href="../pubsub/unsubscribe.html#unsubscribe"><span class="std std-ref">UNSUBSCRIBE [channel [channel …]]</span></a> 的方式类似：
@@ -341,21 +332,21 @@ Redis 会将传入的信息推送到所有订阅这些频道的客户端里面�
 那么它可能会多次接收到同一条信息。</p>
 <p>举个例子，
 如果客户端执行了以下命令：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">SUBSCRIBE</span> <span class="n">foo</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SUBSCRIBE</span> <span class="n">foo</span>
 <span class="n">PSUBSCRIBE</span> <span class="n">f</span><span class="o">*</span>
 </pre></div>
 </div>
-<p>那么当有信息发送到频道 <code class="docutils literal"><span class="pre">foo</span></code> 时，
+<p>那么当有信息发送到频道 <code class="docutils literal notranslate"><span class="pre">foo</span></code> 时，
 客户端将收到两条信息：
-一条来自频道 <code class="docutils literal"><span class="pre">foo</span></code> ，信息类型为 <code class="docutils literal"><span class="pre">message</span></code> ；
-另一条来自模式 <code class="docutils literal"><span class="pre">f*</span></code> ，信息类型为 <code class="docutils literal"><span class="pre">pmessage</span></code> 。</p>
+一条来自频道 <code class="docutils literal notranslate"><span class="pre">foo</span></code> ，信息类型为 <code class="docutils literal notranslate"><span class="pre">message</span></code> ；
+另一条来自模式 <code class="docutils literal notranslate"><span class="pre">f*</span></code> ，信息类型为 <code class="docutils literal notranslate"><span class="pre">pmessage</span></code> 。</p>
 </div>
 <div class="section" id="id5">
 <h2>订阅总数<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>在执行 <a class="reference internal" href="../pubsub/subscribe.html#subscribe"><span class="std std-ref">SUBSCRIBE channel [channel …]</span></a> 、 <a class="reference internal" href="../pubsub/unsubscribe.html#unsubscribe"><span class="std std-ref">UNSUBSCRIBE [channel [channel …]]</span></a> 、 <a class="reference internal" href="../pubsub/psubscribe.html#psubscribe"><span class="std std-ref">PSUBSCRIBE pattern [pattern …]</span></a> 和 <a class="reference internal" href="../pubsub/punsubscribe.html#punsubscribe"><span class="std std-ref">PUNSUBSCRIBE [pattern [pattern …]]</span></a> 命令时，
 返回结果的最后一个元素是客户端目前仍在订阅的频道和模式总数。</p>
 <p>当客户端退订所有频道和模式，
-也即是这个总数值下降为 <code class="docutils literal"><span class="pre">0</span></code> 的时候，
+也即是这个总数值下降为 <code class="docutils literal notranslate"><span class="pre">0</span></code> 的时候，
 客户端将退出订阅与发布状态。</p>
 </div>
 <div class="section" id="id6">
@@ -367,8 +358,8 @@ Redis 会将传入的信息推送到所有订阅这些频道的客户端里面�
 <h2>客户端库实现提示<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <p>因为所有接收到的信息都会包含一个信息来源：</p>
 <ul class="simple">
-<li>当信息来自频道时，来源是某个频道；</li>
-<li>当信息来自模式时，来源是某个模式。</li>
+<li><p>当信息来自频道时，来源是某个频道；</p></li>
+<li><p>当信息来自模式时，来源是某个模式。</p></li>
 </ul>
 <p>因此，
 客户端可以用一个哈希表，

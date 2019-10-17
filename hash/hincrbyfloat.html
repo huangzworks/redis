@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -201,24 +192,24 @@
   <div class="section" id="hincrbyfloat">
 <span id="id1"></span><h1>HINCRBYFLOAT<a class="headerlink" href="#hincrbyfloat" title="Permalink to this headline">¶</a></h1>
 <p><strong>HINCRBYFLOAT key field increment</strong></p>
-<p>为哈希表 <code class="docutils literal"><span class="pre">key</span></code> 中的域 <code class="docutils literal"><span class="pre">field</span></code> 加上浮点数增量 <code class="docutils literal"><span class="pre">increment</span></code> 。</p>
-<p>如果哈希表中没有域 <code class="docutils literal"><span class="pre">field</span></code> ，那么 <a class="reference internal" href="#hincrbyfloat">HINCRBYFLOAT</a> 会先将域 <code class="docutils literal"><span class="pre">field</span></code> 的值设为 <code class="docutils literal"><span class="pre">0</span></code> ，然后再执行加法操作。</p>
-<p>如果键 <code class="docutils literal"><span class="pre">key</span></code> 不存在，那么 <a class="reference internal" href="#hincrbyfloat">HINCRBYFLOAT</a> 会先创建一个哈希表，再创建域 <code class="docutils literal"><span class="pre">field</span></code> ，最后再执行加法操作。</p>
+<p>为哈希表 <code class="docutils literal notranslate"><span class="pre">key</span></code> 中的域 <code class="docutils literal notranslate"><span class="pre">field</span></code> 加上浮点数增量 <code class="docutils literal notranslate"><span class="pre">increment</span></code> 。</p>
+<p>如果哈希表中没有域 <code class="docutils literal notranslate"><span class="pre">field</span></code> ，那么 <a class="reference internal" href="#hincrbyfloat">HINCRBYFLOAT</a> 会先将域 <code class="docutils literal notranslate"><span class="pre">field</span></code> 的值设为 <code class="docutils literal notranslate"><span class="pre">0</span></code> ，然后再执行加法操作。</p>
+<p>如果键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 不存在，那么 <a class="reference internal" href="#hincrbyfloat">HINCRBYFLOAT</a> 会先创建一个哈希表，再创建域 <code class="docutils literal notranslate"><span class="pre">field</span></code> ，最后再执行加法操作。</p>
 <p>当以下任意一个条件发生时，返回一个错误：</p>
 <ul class="simple">
-<li>域 <code class="docutils literal"><span class="pre">field</span></code> 的值不是字符串类型(因为 redis 中的数字和浮点数都以字符串的形式保存，所以它们都属于字符串类型）</li>
-<li>域 <code class="docutils literal"><span class="pre">field</span></code> 当前的值或给定的增量 <code class="docutils literal"><span class="pre">increment</span></code> 不能解释(parse)为双精度浮点数(double precision floating point number)</li>
+<li><p>域 <code class="docutils literal notranslate"><span class="pre">field</span></code> 的值不是字符串类型(因为 redis 中的数字和浮点数都以字符串的形式保存，所以它们都属于字符串类型）</p></li>
+<li><p>域 <code class="docutils literal notranslate"><span class="pre">field</span></code> 当前的值或给定的增量 <code class="docutils literal notranslate"><span class="pre">increment</span></code> 不能解释(parse)为双精度浮点数(double precision floating point number)</p></li>
 </ul>
 <p><a class="reference internal" href="#hincrbyfloat">HINCRBYFLOAT</a> 命令的详细功能和 <a class="reference internal" href="../string/incrbyfloat.html#incrbyfloat"><span class="std std-ref">INCRBYFLOAT key increment</span></a> 命令类似，请查看 <a class="reference internal" href="../string/incrbyfloat.html#incrbyfloat"><span class="std std-ref">INCRBYFLOAT key increment</span></a> 命令获取更多相关信息。</p>
-<dl class="docutils">
-<dt><strong>可用版本：</strong></dt>
-<dd>&gt;= 2.6.0</dd>
-<dt><strong>时间复杂度：</strong></dt>
-<dd>O(1)</dd>
-<dt><strong>返回值：</strong></dt>
-<dd>执行加法操作之后 <code class="docutils literal"><span class="pre">field</span></code> 域的值。</dd>
+<dl class="simple">
+<dt><strong>可用版本：</strong></dt><dd><p>&gt;= 2.6.0</p>
+</dd>
+<dt><strong>时间复杂度：</strong></dt><dd><p>O(1)</p>
+</dd>
+<dt><strong>返回值：</strong></dt><dd><p>执行加法操作之后 <code class="docutils literal notranslate"><span class="pre">field</span></code> 域的值。</p>
+</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 值和增量都是普通小数</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 值和增量都是普通小数</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">HSET</span> <span class="n">mykey</span> <span class="n">field</span> <span class="mf">10.50</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">1</span>

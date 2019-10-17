@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -197,25 +188,25 @@
 <blockquote>
 <div><div class="line-block">
 <div class="line">可用版本： &gt;= 2.6.0</div>
-<div class="line">时间复杂度：查找给定键的复杂度为 O(1) ，对键进行序列化的复杂度为 O(N*M) ，其中 N 是构成 <code class="docutils literal"><span class="pre">key</span></code> 的 Redis 对象的数量，而 M 则是这些对象的平均大小。如果序列化的对象是比较小的字符串，那么复杂度为 O(1) 。</div>
+<div class="line">时间复杂度：查找给定键的复杂度为 O(1) ，对键进行序列化的复杂度为 O(N*M) ，其中 N 是构成 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的 Redis 对象的数量，而 M 则是这些对象的平均大小。如果序列化的对象是比较小的字符串，那么复杂度为 O(1) 。</div>
 </div>
 </div></blockquote>
-<p>序列化给定 <code class="docutils literal"><span class="pre">key</span></code> ，并返回被序列化的值，使用 <code class="docutils literal"><span class="pre">RESTORE</span></code> 命令可以将这个值反序列化为 Redis 键。</p>
+<p>序列化给定 <code class="docutils literal notranslate"><span class="pre">key</span></code> ，并返回被序列化的值，使用 <code class="docutils literal notranslate"><span class="pre">RESTORE</span></code> 命令可以将这个值反序列化为 Redis 键。</p>
 <p>序列化生成的值有以下几个特点：</p>
 <ul class="simple">
-<li>它带有 64 位的校验和，用于检测错误， <code class="docutils literal"><span class="pre">RESTORE</span></code> 在进行反序列化之前会先检查校验和。</li>
-<li>值的编码格式和 RDB 文件保持一致。</li>
-<li>RDB 版本会被编码在序列化值当中，如果因为 Redis 的版本不同造成 RDB 格式不兼容，那么 Redis 会拒绝对这个值进行反序列化操作。</li>
+<li><p>它带有 64 位的校验和，用于检测错误， <code class="docutils literal notranslate"><span class="pre">RESTORE</span></code> 在进行反序列化之前会先检查校验和。</p></li>
+<li><p>值的编码格式和 RDB 文件保持一致。</p></li>
+<li><p>RDB 版本会被编码在序列化值当中，如果因为 Redis 的版本不同造成 RDB 格式不兼容，那么 Redis 会拒绝对这个值进行反序列化操作。</p></li>
 </ul>
 <p>序列化的值不包括任何生存时间信息。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>如果 <code class="docutils literal"><span class="pre">key</span></code> 不存在，那么返回 <code class="docutils literal"><span class="pre">nil</span></code> 。
+<p>如果 <code class="docutils literal notranslate"><span class="pre">key</span></code> 不存在，那么返回 <code class="docutils literal notranslate"><span class="pre">nil</span></code> 。
 否则，返回序列化之后的值。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">greeting</span> <span class="s2">&quot;hello, dumping world!&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">greeting</span> <span class="s2">&quot;hello, dumping world!&quot;</span>
 <span class="n">OK</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">DUMP</span> <span class="n">greeting</span>

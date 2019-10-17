@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -204,15 +195,15 @@
 <p>杀死当前正在运行的 Lua 脚本，当且仅当这个脚本没有执行过任何写操作时，这个命令才生效。</p>
 <p>这个命令主要用于终止运行时间过长的脚本，比如一个因为 BUG 而发生无限 loop 的脚本，诸如此类。</p>
 <p><a class="reference internal" href="#id1">SCRIPT KILL</a> 执行之后，当前正在运行的脚本会被杀死，执行这个脚本的客户端会从 <a class="reference internal" href="eval.html#eval"><span class="std std-ref">EVAL script numkeys key [key …] arg [arg …]</span></a> 命令的阻塞当中退出，并收到一个错误作为返回值。</p>
-<p>另一方面，假如当前正在运行的脚本已经执行过写操作，那么即使执行 <a class="reference internal" href="#id1">SCRIPT KILL</a> ，也无法将它杀死，因为这是违反 Lua 脚本的原子性执行原则的。在这种情况下，唯一可行的办法是使用 <code class="docutils literal"><span class="pre">SHUTDOWN</span> <span class="pre">NOSAVE</span></code> 命令，通过停止整个 Redis 进程来停止脚本的运行，并防止不完整(half-written)的信息被写入数据库中。</p>
+<p>另一方面，假如当前正在运行的脚本已经执行过写操作，那么即使执行 <a class="reference internal" href="#id1">SCRIPT KILL</a> ，也无法将它杀死，因为这是违反 Lua 脚本的原子性执行原则的。在这种情况下，唯一可行的办法是使用 <code class="docutils literal notranslate"><span class="pre">SHUTDOWN</span> <span class="pre">NOSAVE</span></code> 命令，通过停止整个 Redis 进程来停止脚本的运行，并防止不完整(half-written)的信息被写入数据库中。</p>
 <p>关于使用 Redis 对 Lua 脚本进行求值的更多信息，请参见 <a class="reference internal" href="eval.html#eval"><span class="std std-ref">EVAL script numkeys key [key …] arg [arg …]</span></a> 命令。</p>
 <div class="section" id="id2">
 <h2>返回值<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>执行成功返回 <code class="docutils literal"><span class="pre">OK</span></code> ，否则返回一个错误。</p>
+<p>执行成功返回 <code class="docutils literal notranslate"><span class="pre">OK</span></code> ，否则返回一个错误。</p>
 </div>
 <div class="section" id="id3">
 <h2>代码示例<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 没有脚本在执行时</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 没有脚本在执行时</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">SCRIPT</span> <span class="n">KILL</span>
 <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="n">ERR</span> <span class="n">No</span> <span class="n">scripts</span> <span class="ow">in</span> <span class="n">execution</span> <span class="n">right</span> <span class="n">now</span><span class="o">.</span>
@@ -231,7 +222,7 @@
 </pre></div>
 </div>
 <p>以下是脚本被杀死之后，返回给执行脚本的客户端的错误：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">EVAL</span> <span class="s2">&quot;while true do end&quot;</span> <span class="mi">0</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">EVAL</span> <span class="s2">&quot;while true do end&quot;</span> <span class="mi">0</span>
 <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="n">ERR</span> <span class="n">Error</span> <span class="n">running</span> <span class="n">script</span> <span class="p">(</span><span class="n">call</span> <span class="n">to</span> <span class="n">f_694a5fe1ddb97a4c6a1bf299d9537c7d3d0f84e7</span><span class="p">):</span> <span class="n">Script</span> <span class="n">killed</span> <span class="n">by</span> <span class="n">user</span> <span class="k">with</span> <span class="n">SCRIPT</span> <span class="n">KILL</span><span class="o">...</span>
 <span class="p">(</span><span class="mf">5.00</span><span class="n">s</span><span class="p">)</span>
 </pre></div>

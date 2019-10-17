@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -214,18 +205,18 @@
 <div class="line">时间复杂度： O(1)</div>
 </div>
 </div></blockquote>
-<p><a class="reference internal" href="#brpoplpush">BRPOPLPUSH</a> 是 <a class="reference internal" href="rpoplpush.html#rpoplpush"><span class="std std-ref">RPOPLPUSH source destination</span></a> 的阻塞版本，当给定列表 <code class="docutils literal"><span class="pre">source</span></code> 不为空时， <a class="reference internal" href="#brpoplpush">BRPOPLPUSH</a> 的表现和 <a class="reference internal" href="rpoplpush.html#rpoplpush"><span class="std std-ref">RPOPLPUSH source destination</span></a> 一样。</p>
-<p>当列表 <code class="docutils literal"><span class="pre">source</span></code> 为空时， <a class="reference internal" href="#brpoplpush">BRPOPLPUSH</a> 命令将阻塞连接，直到等待超时，或有另一个客户端对 <code class="docutils literal"><span class="pre">source</span></code> 执行 <a class="reference internal" href="lpush.html#lpush"><span class="std std-ref">LPUSH key value [value …]</span></a> 或 <a class="reference internal" href="rpush.html#rpush"><span class="std std-ref">RPUSH key value [value …]</span></a> 命令为止。</p>
-<p>超时参数 <code class="docutils literal"><span class="pre">timeout</span></code> 接受一个以秒为单位的数字作为值。超时参数设为 <code class="docutils literal"><span class="pre">0</span></code> 表示阻塞时间可以无限期延长(block indefinitely) 。</p>
+<p><a class="reference internal" href="#brpoplpush">BRPOPLPUSH</a> 是 <a class="reference internal" href="rpoplpush.html#rpoplpush"><span class="std std-ref">RPOPLPUSH source destination</span></a> 的阻塞版本，当给定列表 <code class="docutils literal notranslate"><span class="pre">source</span></code> 不为空时， <a class="reference internal" href="#brpoplpush">BRPOPLPUSH</a> 的表现和 <a class="reference internal" href="rpoplpush.html#rpoplpush"><span class="std std-ref">RPOPLPUSH source destination</span></a> 一样。</p>
+<p>当列表 <code class="docutils literal notranslate"><span class="pre">source</span></code> 为空时， <a class="reference internal" href="#brpoplpush">BRPOPLPUSH</a> 命令将阻塞连接，直到等待超时，或有另一个客户端对 <code class="docutils literal notranslate"><span class="pre">source</span></code> 执行 <a class="reference internal" href="lpush.html#lpush"><span class="std std-ref">LPUSH key value [value …]</span></a> 或 <a class="reference internal" href="rpush.html#rpush"><span class="std std-ref">RPUSH key value [value …]</span></a> 命令为止。</p>
+<p>超时参数 <code class="docutils literal notranslate"><span class="pre">timeout</span></code> 接受一个以秒为单位的数字作为值。超时参数设为 <code class="docutils literal notranslate"><span class="pre">0</span></code> 表示阻塞时间可以无限期延长(block indefinitely) 。</p>
 <p>更多相关信息，请参考 <a class="reference internal" href="rpoplpush.html#rpoplpush"><span class="std std-ref">RPOPLPUSH source destination</span></a> 命令。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>假如在指定时间内没有任何元素被弹出，则返回一个 <code class="docutils literal"><span class="pre">nil</span></code> 和等待时长。
+<p>假如在指定时间内没有任何元素被弹出，则返回一个 <code class="docutils literal notranslate"><span class="pre">nil</span></code> 和等待时长。
 反之，返回一个含有两个元素的列表，第一个元素是被弹出元素的值，第二个元素是等待时长。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 非空列表</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 非空列表</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">BRPOPLPUSH</span> <span class="n">msg</span> <span class="n">reciver</span> <span class="mi">500</span>
 <span class="s2">&quot;hello moto&quot;</span>                        <span class="c1"># 弹出元素的值</span>

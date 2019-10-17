@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -194,15 +185,15 @@
 <p>取消 <a class="reference internal" href="watch.html#watch"><span class="std std-ref">WATCH</span></a> 命令对所有 key 的监视。</p>
 <p>如果在执行 <a class="reference internal" href="watch.html#watch"><span class="std std-ref">WATCH</span></a> 命令之后， <a class="reference internal" href="exec.html#exec"><span class="std std-ref">EXEC</span></a> 命令或 <a class="reference internal" href="discard.html#discard"><span class="std std-ref">DISCARD</span></a> 命令先被执行了的话，那么就不需要再执行 <a class="reference internal" href="#unwatch">UNWATCH</a> 了。</p>
 <p>因为 <a class="reference internal" href="exec.html#exec"><span class="std std-ref">EXEC</span></a> 命令会执行事务，因此 <a class="reference internal" href="watch.html#watch"><span class="std std-ref">WATCH</span></a> 命令的效果已经产生了；而 <a class="reference internal" href="discard.html#discard"><span class="std std-ref">DISCARD</span></a> 命令在取消事务的同时也会取消所有对 key 的监视，因此这两个命令执行之后，就没有必要执行 <a class="reference internal" href="#unwatch">UNWATCH</a> 了。</p>
-<dl class="docutils">
-<dt><strong>可用版本：</strong></dt>
-<dd>&gt;= 2.2.0</dd>
-<dt><strong>时间复杂度：</strong></dt>
-<dd>O(1)</dd>
-<dt><strong>返回值：</strong></dt>
-<dd>总是 <code class="docutils literal"><span class="pre">OK</span></code> 。</dd>
+<dl class="simple">
+<dt><strong>可用版本：</strong></dt><dd><p>&gt;= 2.2.0</p>
+</dd>
+<dt><strong>时间复杂度：</strong></dt><dd><p>O(1)</p>
+</dd>
+<dt><strong>返回值：</strong></dt><dd><p>总是 <code class="docutils literal notranslate"><span class="pre">OK</span></code> 。</p>
+</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">WATCH</span> <span class="n">lock</span> <span class="n">lock_times</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">WATCH</span> <span class="n">lock</span> <span class="n">lock_times</span>
 <span class="n">OK</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">UNWATCH</span>

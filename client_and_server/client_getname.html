@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -204,10 +195,10 @@
 <div class="line">时间复杂度： O(1)</div>
 </div>
 </div></blockquote>
-<p>返回 <code class="docutils literal"><span class="pre">CLIENT</span> <span class="pre">SETNAME</span></code> 命令为连接设置的名字。</p>
+<p>返回 <code class="docutils literal notranslate"><span class="pre">CLIENT</span> <span class="pre">SETNAME</span></code> 命令为连接设置的名字。</p>
 <p>因为新创建的连接默认是没有名字的，
 对于没有名字的连接，
-<code class="docutils literal"><span class="pre">CLIENT</span> <span class="pre">GETNAME</span></code> 返回空白回复。</p>
+<code class="docutils literal notranslate"><span class="pre">CLIENT</span> <span class="pre">GETNAME</span></code> 返回空白回复。</p>
 <div class="section" id="id2">
 <h2>返回值<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>如果连接没有设置名字，那么返回空白回复；
@@ -215,7 +206,7 @@
 </div>
 <div class="section" id="id3">
 <h2>代码示例<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 新连接默认没有名字</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 新连接默认没有名字</span>
 
 <span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">CLIENT</span> <span class="n">GETNAME</span>
 <span class="p">(</span><span class="n">nil</span><span class="p">)</span>

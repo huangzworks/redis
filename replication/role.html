@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -203,24 +194,24 @@
 </div>
 </div></blockquote>
 <p>返回实例在复制中担任的角色，
-这个角色可以是 <code class="docutils literal"><span class="pre">master</span></code> 、 <code class="docutils literal"><span class="pre">slave</span></code> 或者 <code class="docutils literal"><span class="pre">sentinel</span></code> 。
+这个角色可以是 <code class="docutils literal notranslate"><span class="pre">master</span></code> 、 <code class="docutils literal notranslate"><span class="pre">slave</span></code> 或者 <code class="docutils literal notranslate"><span class="pre">sentinel</span></code> 。
 除了角色之外，
 命令还会返回与该角色相关的其他信息，
 其中：</p>
 <ul class="simple">
-<li>主服务器将返回属下从服务器的 IP 地址和端口。</li>
-<li>从服务器将返回自己正在复制的主服务器的 IP 地址、端口、连接状态以及复制偏移量。</li>
-<li>Sentinel 将返回自己正在监视的主服务器列表。</li>
+<li><p>主服务器将返回属下从服务器的 IP 地址和端口。</p></li>
+<li><p>从服务器将返回自己正在复制的主服务器的 IP 地址、端口、连接状态以及复制偏移量。</p></li>
+<li><p>Sentinel 将返回自己正在监视的主服务器列表。</p></li>
 </ul>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">ROLE</span></code> 命令将返回一个数组。</p>
+<p><code class="docutils literal notranslate"><span class="pre">ROLE</span></code> 命令将返回一个数组。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id3">
 <h3>主服务器<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;master&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;master&quot;</span>
 <span class="mi">2</span><span class="p">)</span> <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">3129659</span>
 <span class="mi">3</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;127.0.0.1&quot;</span>
       <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;9001&quot;</span>
@@ -233,7 +224,7 @@
 </div>
 <div class="section" id="id4">
 <h3>从服务器<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;slave&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;slave&quot;</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;127.0.0.1&quot;</span>
 <span class="mi">3</span><span class="p">)</span> <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">9000</span>
 <span class="mi">4</span><span class="p">)</span> <span class="s2">&quot;connected&quot;</span>
@@ -243,7 +234,7 @@
 </div>
 <div class="section" id="sentinel">
 <h3>Sentinel<a class="headerlink" href="#sentinel" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;sentinel&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;sentinel&quot;</span>
 <span class="mi">2</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;resque-master&quot;</span>
    <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;html-fragments-master&quot;</span>
    <span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;stats-master&quot;</span>

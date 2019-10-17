@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -201,13 +192,13 @@
 <div class="line">时间复杂度： O(log(N)+M)， 其中 N 为指定范围之内的元素数量， 而 M 则是被返回的元素数量。</div>
 </div>
 </div></blockquote>
-<p>这个命令和 <code class="docutils literal"><span class="pre">GEORADIUS</span></code> 命令一样，
+<p>这个命令和 <code class="docutils literal notranslate"><span class="pre">GEORADIUS</span></code> 命令一样，
 都可以找出位于指定范围内的元素，
-但是 <code class="docutils literal"><span class="pre">GEORADIUSBYMEMBER</span></code> 的中心点是由给定的位置元素决定的，
-而不是像 <code class="docutils literal"><span class="pre">GEORADIUS</span></code> 那样，
+但是 <code class="docutils literal notranslate"><span class="pre">GEORADIUSBYMEMBER</span></code> 的中心点是由给定的位置元素决定的，
+而不是像 <code class="docutils literal notranslate"><span class="pre">GEORADIUS</span></code> 那样，
 使用输入的经度和纬度来决定中心点。</p>
-<p>关于 <code class="docutils literal"><span class="pre">GEORADIUSBYMEMBER</span></code> 命令的更多信息，
-请参考 <code class="docutils literal"><span class="pre">GEORADIUS</span></code> 命令的文档。</p>
+<p>关于 <code class="docutils literal notranslate"><span class="pre">GEORADIUSBYMEMBER</span></code> 命令的更多信息，
+请参考 <code class="docutils literal notranslate"><span class="pre">GEORADIUS</span></code> 命令的文档。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>一个数组，
@@ -215,7 +206,7 @@
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">GEOADD</span> <span class="n">Sicily</span> <span class="mf">13.583333</span> <span class="mf">37.316667</span> <span class="s2">&quot;Agrigento&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">GEOADD</span> <span class="n">Sicily</span> <span class="mf">13.583333</span> <span class="mf">37.316667</span> <span class="s2">&quot;Agrigento&quot;</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">1</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">GEOADD</span> <span class="n">Sicily</span> <span class="mf">13.361389</span> <span class="mf">38.115556</span> <span class="s2">&quot;Palermo&quot;</span> <span class="mf">15.087269</span> <span class="mf">37.502669</span> <span class="s2">&quot;Catania&quot;</span>

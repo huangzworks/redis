@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -215,17 +206,17 @@
 <div class="line">时间复杂度: O(log(N))</div>
 </div>
 </div></blockquote>
-<p>返回有序集 <code class="docutils literal"><span class="pre">key</span></code> 中成员 <code class="docutils literal"><span class="pre">member</span></code> 的排名。其中有序集成员按 <code class="docutils literal"><span class="pre">score</span></code> 值递增(从小到大)顺序排列。</p>
-<p>排名以 <code class="docutils literal"><span class="pre">0</span></code> 为底，也就是说， <code class="docutils literal"><span class="pre">score</span></code> 值最小的成员排名为 <code class="docutils literal"><span class="pre">0</span></code> 。</p>
-<p>使用 <a class="reference internal" href="zrevrank.html#zrevrank"><span class="std std-ref">ZREVRANK key member</span></a> 命令可以获得成员按 <code class="docutils literal"><span class="pre">score</span></code> 值递减(从大到小)排列的排名。</p>
+<p>返回有序集 <code class="docutils literal notranslate"><span class="pre">key</span></code> 中成员 <code class="docutils literal notranslate"><span class="pre">member</span></code> 的排名。其中有序集成员按 <code class="docutils literal notranslate"><span class="pre">score</span></code> 值递增(从小到大)顺序排列。</p>
+<p>排名以 <code class="docutils literal notranslate"><span class="pre">0</span></code> 为底，也就是说， <code class="docutils literal notranslate"><span class="pre">score</span></code> 值最小的成员排名为 <code class="docutils literal notranslate"><span class="pre">0</span></code> 。</p>
+<p>使用 <a class="reference internal" href="zrevrank.html#zrevrank"><span class="std std-ref">ZREVRANK key member</span></a> 命令可以获得成员按 <code class="docutils literal notranslate"><span class="pre">score</span></code> 值递减(从大到小)排列的排名。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>如果 <code class="docutils literal"><span class="pre">member</span></code> 是有序集 <code class="docutils literal"><span class="pre">key</span></code> 的成员，返回 <code class="docutils literal"><span class="pre">member</span></code> 的排名。
-如果 <code class="docutils literal"><span class="pre">member</span></code> 不是有序集 <code class="docutils literal"><span class="pre">key</span></code> 的成员，返回 <code class="docutils literal"><span class="pre">nil</span></code> 。</p>
+<p>如果 <code class="docutils literal notranslate"><span class="pre">member</span></code> 是有序集 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的成员，返回 <code class="docutils literal notranslate"><span class="pre">member</span></code> 的排名。
+如果 <code class="docutils literal notranslate"><span class="pre">member</span></code> 不是有序集 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的成员，返回 <code class="docutils literal notranslate"><span class="pre">nil</span></code> 。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">ZRANGE</span> <span class="n">salary</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="n">WITHSCORES</span>        <span class="c1"># 显示所有成员及其 score 值</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">ZRANGE</span> <span class="n">salary</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="n">WITHSCORES</span>        <span class="c1"># 显示所有成员及其 score 值</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;peter&quot;</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;3500&quot;</span>
 <span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;tom&quot;</span>

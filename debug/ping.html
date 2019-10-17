@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -202,15 +193,15 @@
 <div class="line">时间复杂度： O(1)</div>
 </div>
 </div></blockquote>
-<p>使用客户端向 Redis 服务器发送一个 <code class="docutils literal"><span class="pre">PING</span></code> ，如果服务器运作正常的话，会返回一个 <code class="docutils literal"><span class="pre">PONG</span></code> 。</p>
+<p>使用客户端向 Redis 服务器发送一个 <code class="docutils literal notranslate"><span class="pre">PING</span></code> ，如果服务器运作正常的话，会返回一个 <code class="docutils literal notranslate"><span class="pre">PONG</span></code> 。</p>
 <p>通常用于测试与服务器的连接是否仍然生效，或者用于测量延迟值。</p>
 <div class="section" id="id2">
 <h2>返回值<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>如果连接正常就返回一个 <code class="docutils literal"><span class="pre">PONG</span></code> ，否则返回一个连接错误。</p>
+<p>如果连接正常就返回一个 <code class="docutils literal notranslate"><span class="pre">PONG</span></code> ，否则返回一个连接错误。</p>
 </div>
 <div class="section" id="id3">
 <h2>代码示例<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 客户端和服务器连接正常</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 客户端和服务器连接正常</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">PING</span>
 <span class="n">PONG</span>

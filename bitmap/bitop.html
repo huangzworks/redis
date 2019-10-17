@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -202,31 +193,31 @@
 <div class="line">时间复杂度： O(N)</div>
 </div>
 </div></blockquote>
-<p>对一个或多个保存二进制位的字符串 <code class="docutils literal"><span class="pre">key</span></code> 进行位元操作，并将结果保存到 <code class="docutils literal"><span class="pre">destkey</span></code> 上。</p>
-<p><code class="docutils literal"><span class="pre">operation</span></code> 可以是 <code class="docutils literal"><span class="pre">AND</span></code> 、 <code class="docutils literal"><span class="pre">OR</span></code> 、 <code class="docutils literal"><span class="pre">NOT</span></code> 、 <code class="docutils literal"><span class="pre">XOR</span></code> 这四种操作中的任意一种：</p>
+<p>对一个或多个保存二进制位的字符串 <code class="docutils literal notranslate"><span class="pre">key</span></code> 进行位元操作，并将结果保存到 <code class="docutils literal notranslate"><span class="pre">destkey</span></code> 上。</p>
+<p><code class="docutils literal notranslate"><span class="pre">operation</span></code> 可以是 <code class="docutils literal notranslate"><span class="pre">AND</span></code> 、 <code class="docutils literal notranslate"><span class="pre">OR</span></code> 、 <code class="docutils literal notranslate"><span class="pre">NOT</span></code> 、 <code class="docutils literal notranslate"><span class="pre">XOR</span></code> 这四种操作中的任意一种：</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">BITOP</span> <span class="pre">AND</span> <span class="pre">destkey</span> <span class="pre">key</span> <span class="pre">[key</span> <span class="pre">...]</span></code> ，对一个或多个 <code class="docutils literal"><span class="pre">key</span></code> 求逻辑并，并将结果保存到 <code class="docutils literal"><span class="pre">destkey</span></code> 。</li>
-<li><code class="docutils literal"><span class="pre">BITOP</span> <span class="pre">OR</span> <span class="pre">destkey</span> <span class="pre">key</span> <span class="pre">[key</span> <span class="pre">...]</span></code> ，对一个或多个 <code class="docutils literal"><span class="pre">key</span></code> 求逻辑或，并将结果保存到 <code class="docutils literal"><span class="pre">destkey</span></code> 。</li>
-<li><code class="docutils literal"><span class="pre">BITOP</span> <span class="pre">XOR</span> <span class="pre">destkey</span> <span class="pre">key</span> <span class="pre">[key</span> <span class="pre">...]</span></code> ，对一个或多个 <code class="docutils literal"><span class="pre">key</span></code> 求逻辑异或，并将结果保存到 <code class="docutils literal"><span class="pre">destkey</span></code> 。</li>
-<li><code class="docutils literal"><span class="pre">BITOP</span> <span class="pre">NOT</span> <span class="pre">destkey</span> <span class="pre">key</span></code> ，对给定 <code class="docutils literal"><span class="pre">key</span></code> 求逻辑非，并将结果保存到 <code class="docutils literal"><span class="pre">destkey</span></code> 。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BITOP</span> <span class="pre">AND</span> <span class="pre">destkey</span> <span class="pre">key</span> <span class="pre">[key</span> <span class="pre">...]</span></code> ，对一个或多个 <code class="docutils literal notranslate"><span class="pre">key</span></code> 求逻辑并，并将结果保存到 <code class="docutils literal notranslate"><span class="pre">destkey</span></code> 。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BITOP</span> <span class="pre">OR</span> <span class="pre">destkey</span> <span class="pre">key</span> <span class="pre">[key</span> <span class="pre">...]</span></code> ，对一个或多个 <code class="docutils literal notranslate"><span class="pre">key</span></code> 求逻辑或，并将结果保存到 <code class="docutils literal notranslate"><span class="pre">destkey</span></code> 。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BITOP</span> <span class="pre">XOR</span> <span class="pre">destkey</span> <span class="pre">key</span> <span class="pre">[key</span> <span class="pre">...]</span></code> ，对一个或多个 <code class="docutils literal notranslate"><span class="pre">key</span></code> 求逻辑异或，并将结果保存到 <code class="docutils literal notranslate"><span class="pre">destkey</span></code> 。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BITOP</span> <span class="pre">NOT</span> <span class="pre">destkey</span> <span class="pre">key</span></code> ，对给定 <code class="docutils literal notranslate"><span class="pre">key</span></code> 求逻辑非，并将结果保存到 <code class="docutils literal notranslate"><span class="pre">destkey</span></code> 。</p></li>
 </ul>
-<p>除了 <code class="docutils literal"><span class="pre">NOT</span></code> 操作之外，其他操作都可以接受一个或多个 <code class="docutils literal"><span class="pre">key</span></code> 作为输入。</p>
+<p>除了 <code class="docutils literal notranslate"><span class="pre">NOT</span></code> 操作之外，其他操作都可以接受一个或多个 <code class="docutils literal notranslate"><span class="pre">key</span></code> 作为输入。</p>
 <div class="section" id="id1">
 <h2>处理不同长度的字符串<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>当 <a class="reference internal" href="#bitop">BITOP</a> 处理不同长度的字符串时，较短的那个字符串所缺少的部分会被看作 <code class="docutils literal"><span class="pre">0</span></code> 。</p>
-<p>空的 <code class="docutils literal"><span class="pre">key</span></code> 也被看作是包含 <code class="docutils literal"><span class="pre">0</span></code> 的字符串序列。</p>
+<p>当 <a class="reference internal" href="#bitop">BITOP</a> 处理不同长度的字符串时，较短的那个字符串所缺少的部分会被看作 <code class="docutils literal notranslate"><span class="pre">0</span></code> 。</p>
+<p>空的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 也被看作是包含 <code class="docutils literal notranslate"><span class="pre">0</span></code> 的字符串序列。</p>
 </div>
 <div class="section" id="id2">
 <h2>返回值<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>保存到 <code class="docutils literal"><span class="pre">destkey</span></code> 的字符串的长度，和输入 <code class="docutils literal"><span class="pre">key</span></code> 中最长的字符串长度相等。</p>
+<p>保存到 <code class="docutils literal notranslate"><span class="pre">destkey</span></code> 的字符串的长度，和输入 <code class="docutils literal notranslate"><span class="pre">key</span></code> 中最长的字符串长度相等。</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last"><a class="reference internal" href="#bitop">BITOP</a> 的复杂度为 O(N) ，当处理大型矩阵(matrix)或者进行大数据量的统计时，最好将任务指派到附属节点(slave)进行，避免阻塞主节点。</p>
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#bitop">BITOP</a> 的复杂度为 O(N) ，当处理大型矩阵(matrix)或者进行大数据量的统计时，最好将任务指派到附属节点(slave)进行，避免阻塞主节点。</p>
 </div>
 </div>
 <div class="section" id="id3">
 <h2>代码示例<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SETBIT</span> <span class="n">bits</span><span class="o">-</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span>        <span class="c1"># bits-1 = 1001</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SETBIT</span> <span class="n">bits</span><span class="o">-</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">1</span>        <span class="c1"># bits-1 = 1001</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">0</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">SETBIT</span> <span class="n">bits</span><span class="o">-</span><span class="mi">1</span> <span class="mi">3</span> <span class="mi">1</span>

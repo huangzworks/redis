@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -219,21 +210,21 @@
 <blockquote>
 <div><div class="line-block">
 <div class="line">可用版本： &gt;= 1.0.0</div>
-<div class="line">时间复杂度： O(N+M*log(M))， <code class="docutils literal"><span class="pre">N</span></code> 为要排序的列表或集合内的元素数量， <code class="docutils literal"><span class="pre">M</span></code> 为要返回的元素数量。如果只是使用 <a class="reference internal" href="#sort">SORT</a> 命令的 <code class="docutils literal"><span class="pre">GET</span></code> 选项获取数据而没有进行排序，时间复杂度 O(N)。</div>
+<div class="line">时间复杂度： O(N+M*log(M))， <code class="docutils literal notranslate"><span class="pre">N</span></code> 为要排序的列表或集合内的元素数量， <code class="docutils literal notranslate"><span class="pre">M</span></code> 为要返回的元素数量。如果只是使用 <a class="reference internal" href="#sort">SORT</a> 命令的 <code class="docutils literal notranslate"><span class="pre">GET</span></code> 选项获取数据而没有进行排序，时间复杂度 O(N)。</div>
 </div>
 </div></blockquote>
-<p>返回或保存给定列表、集合、有序集合 <code class="docutils literal"><span class="pre">key</span></code> 中经过排序的元素。</p>
+<p>返回或保存给定列表、集合、有序集合 <code class="docutils literal notranslate"><span class="pre">key</span></code> 中经过排序的元素。</p>
 <p>排序默认以数字作为对象，值被解释为双精度浮点数，然后进行比较。</p>
 <div class="section" id="id1">
 <h2>一般 SORT 用法<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>最简单的 <a class="reference internal" href="#sort">SORT</a> 使用方法是 <code class="docutils literal"><span class="pre">SORT</span> <span class="pre">key</span></code> 和 <code class="docutils literal"><span class="pre">SORT</span> <span class="pre">key</span> <span class="pre">DESC</span></code> ：</p>
+<p>最简单的 <a class="reference internal" href="#sort">SORT</a> 使用方法是 <code class="docutils literal notranslate"><span class="pre">SORT</span> <span class="pre">key</span></code> 和 <code class="docutils literal notranslate"><span class="pre">SORT</span> <span class="pre">key</span> <span class="pre">DESC</span></code> ：</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">SORT</span> <span class="pre">key</span></code> 返回键值从小到大排序的结果。</li>
-<li><code class="docutils literal"><span class="pre">SORT</span> <span class="pre">key</span> <span class="pre">DESC</span></code> 返回键值从大到小排序的结果。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SORT</span> <span class="pre">key</span></code> 返回键值从小到大排序的结果。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SORT</span> <span class="pre">key</span> <span class="pre">DESC</span></code> 返回键值从大到小排序的结果。</p></li>
 </ul>
-<p>假设 <code class="docutils literal"><span class="pre">today_cost</span></code> 列表保存了今日的开销金额，
+<p>假设 <code class="docutils literal notranslate"><span class="pre">today_cost</span></code> 列表保存了今日的开销金额，
 那么可以用 <a class="reference internal" href="#sort">SORT</a> 命令对它进行排序：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 开销金额列表</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 开销金额列表</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">LPUSH</span> <span class="n">today_cost</span> <span class="mi">30</span> <span class="mf">1.5</span> <span class="mi">10</span> <span class="mi">8</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">4</span>
@@ -260,8 +251,8 @@
 <h2>使用 ALPHA 修饰符对字符串进行排序<a class="headerlink" href="#alpha" title="Permalink to this headline">¶</a></h2>
 <p>因为 <a class="reference internal" href="#sort">SORT</a> 命令默认排序对象为数字，
 当需要对字符串进行排序时，
-需要显式地在 <a class="reference internal" href="#sort">SORT</a> 命令之后添加 <code class="docutils literal"><span class="pre">ALPHA</span></code> 修饰符：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 网址</span>
+需要显式地在 <a class="reference internal" href="#sort">SORT</a> 命令之后添加 <code class="docutils literal notranslate"><span class="pre">ALPHA</span></code> 修饰符：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 网址</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">LPUSH</span> <span class="n">website</span> <span class="s2">&quot;www.reddit.com&quot;</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">1</span>
@@ -287,18 +278,18 @@
 <span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;www.slashdot.com&quot;</span>
 </pre></div>
 </div>
-<p>如果系统正确地设置了 <code class="docutils literal"><span class="pre">LC_COLLATE</span></code> 环境变量的话，Redis能识别 <code class="docutils literal"><span class="pre">UTF-8</span></code> 编码。</p>
+<p>如果系统正确地设置了 <code class="docutils literal notranslate"><span class="pre">LC_COLLATE</span></code> 环境变量的话，Redis能识别 <code class="docutils literal notranslate"><span class="pre">UTF-8</span></code> 编码。</p>
 </div>
 <div class="section" id="limit">
 <h2>使用 LIMIT 修饰符限制返回结果<a class="headerlink" href="#limit" title="Permalink to this headline">¶</a></h2>
-<p>排序之后返回元素的数量可以通过 <code class="docutils literal"><span class="pre">LIMIT</span></code> 修饰符进行限制，
-修饰符接受 <code class="docutils literal"><span class="pre">offset</span></code> 和 <code class="docutils literal"><span class="pre">count</span></code> 两个参数：</p>
+<p>排序之后返回元素的数量可以通过 <code class="docutils literal notranslate"><span class="pre">LIMIT</span></code> 修饰符进行限制，
+修饰符接受 <code class="docutils literal notranslate"><span class="pre">offset</span></code> 和 <code class="docutils literal notranslate"><span class="pre">count</span></code> 两个参数：</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">offset</span></code> 指定要跳过的元素数量。</li>
-<li><code class="docutils literal"><span class="pre">count</span></code> 指定跳过 <code class="docutils literal"><span class="pre">offset</span></code> 个指定的元素之后，要返回多少个对象。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">offset</span></code> 指定要跳过的元素数量。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">count</span></code> 指定跳过 <code class="docutils literal notranslate"><span class="pre">offset</span></code> 个指定的元素之后，要返回多少个对象。</p></li>
 </ul>
-<p>以下例子返回排序结果的前 5 个对象( <code class="docutils literal"><span class="pre">offset</span></code> 为 <code class="docutils literal"><span class="pre">0</span></code> 表示没有元素被跳过)。</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 添加测试数据，列表值为 1 指 10</span>
+<p>以下例子返回排序结果的前 5 个对象( <code class="docutils literal notranslate"><span class="pre">offset</span></code> 为 <code class="docutils literal notranslate"><span class="pre">0</span></code> 表示没有元素被跳过)。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 添加测试数据，列表值为 1 指 10</span>
 
 <span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">RPUSH</span> <span class="n">rank</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">7</span> <span class="mi">9</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">5</span>
@@ -317,7 +308,7 @@
 </pre></div>
 </div>
 <p>可以组合使用多个修饰符。以下例子返回从大到小排序的前 5 个对象。</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SORT</span> <span class="n">rank</span> <span class="n">LIMIT</span> <span class="mi">0</span> <span class="mi">5</span> <span class="n">DESC</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SORT</span> <span class="n">rank</span> <span class="n">LIMIT</span> <span class="mi">0</span> <span class="mi">5</span> <span class="n">DESC</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;10&quot;</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;9&quot;</span>
 <span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;8&quot;</span>
@@ -328,10 +319,10 @@
 </div>
 <div class="section" id="key">
 <h2>使用外部 key 进行排序<a class="headerlink" href="#key" title="Permalink to this headline">¶</a></h2>
-<p>可以使用外部 <code class="docutils literal"><span class="pre">key</span></code> 的数据作为权重，代替默认的直接对比键值的方式来进行排序。</p>
+<p>可以使用外部 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的数据作为权重，代替默认的直接对比键值的方式来进行排序。</p>
 <p>假设现在有用户数据如下：</p>
 <p>以下代码将数据输入到 Redis 中：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># admin</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># admin</span>
 
 <span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">LPUSH</span> <span class="n">uid</span> <span class="mi">1</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">1</span>
@@ -378,39 +369,39 @@
 </div>
 <div class="section" id="by">
 <h3>BY 选项<a class="headerlink" href="#by" title="Permalink to this headline">¶</a></h3>
-<p>默认情况下， <code class="docutils literal"><span class="pre">SORT</span> <span class="pre">uid</span></code> 直接按 <code class="docutils literal"><span class="pre">uid</span></code> 中的值排序：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SORT</span> <span class="n">uid</span>
+<p>默认情况下， <code class="docutils literal notranslate"><span class="pre">SORT</span> <span class="pre">uid</span></code> 直接按 <code class="docutils literal notranslate"><span class="pre">uid</span></code> 中的值排序：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SORT</span> <span class="n">uid</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;1&quot;</span>      <span class="c1"># admin</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;2&quot;</span>      <span class="c1"># jack</span>
 <span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;3&quot;</span>      <span class="c1"># peter</span>
 <span class="mi">4</span><span class="p">)</span> <span class="s2">&quot;4&quot;</span>      <span class="c1"># mary</span>
 </pre></div>
 </div>
-<p>通过使用 <code class="docutils literal"><span class="pre">BY</span></code> 选项，可以让 <code class="docutils literal"><span class="pre">uid</span></code> 按其他键的元素来排序。</p>
+<p>通过使用 <code class="docutils literal notranslate"><span class="pre">BY</span></code> 选项，可以让 <code class="docutils literal notranslate"><span class="pre">uid</span></code> 按其他键的元素来排序。</p>
 <p>比如说，
-以下代码让 <code class="docutils literal"><span class="pre">uid</span></code> 键按照 <code class="docutils literal"><span class="pre">user_level_{uid}</span></code> 的大小来排序：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SORT</span> <span class="n">uid</span> <span class="n">BY</span> <span class="n">user_level_</span><span class="o">*</span>
+以下代码让 <code class="docutils literal notranslate"><span class="pre">uid</span></code> 键按照 <code class="docutils literal notranslate"><span class="pre">user_level_{uid}</span></code> 的大小来排序：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SORT</span> <span class="n">uid</span> <span class="n">BY</span> <span class="n">user_level_</span><span class="o">*</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;2&quot;</span>      <span class="c1"># jack , level = 10</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;3&quot;</span>      <span class="c1"># peter, level = 25</span>
 <span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;4&quot;</span>      <span class="c1"># mary, level = 70</span>
 <span class="mi">4</span><span class="p">)</span> <span class="s2">&quot;1&quot;</span>      <span class="c1"># admin, level = 9999</span>
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">user_level_*</span></code> 是一个占位符，
-它先取出 <code class="docutils literal"><span class="pre">uid</span></code> 中的值，
+<p><code class="docutils literal notranslate"><span class="pre">user_level_*</span></code> 是一个占位符，
+它先取出 <code class="docutils literal notranslate"><span class="pre">uid</span></code> 中的值，
 然后再用这个值来查找相应的键。</p>
-<p>比如在对 <code class="docutils literal"><span class="pre">uid</span></code> 列表进行排序时，
-程序就会先取出 <code class="docutils literal"><span class="pre">uid</span></code> 的值 <code class="docutils literal"><span class="pre">1</span></code> 、 <code class="docutils literal"><span class="pre">2</span></code> 、 <code class="docutils literal"><span class="pre">3</span></code> 、 <code class="docutils literal"><span class="pre">4</span></code> ，
-然后使用 <code class="docutils literal"><span class="pre">user_level_1</span></code> 、 <code class="docutils literal"><span class="pre">user_level_2</span></code> 、 <code class="docutils literal"><span class="pre">user_level_3</span></code> 和 <code class="docutils literal"><span class="pre">user_level_4</span></code> 的值作为排序 <code class="docutils literal"><span class="pre">uid</span></code> 的权重。</p>
+<p>比如在对 <code class="docutils literal notranslate"><span class="pre">uid</span></code> 列表进行排序时，
+程序就会先取出 <code class="docutils literal notranslate"><span class="pre">uid</span></code> 的值 <code class="docutils literal notranslate"><span class="pre">1</span></code> 、 <code class="docutils literal notranslate"><span class="pre">2</span></code> 、 <code class="docutils literal notranslate"><span class="pre">3</span></code> 、 <code class="docutils literal notranslate"><span class="pre">4</span></code> ，
+然后使用 <code class="docutils literal notranslate"><span class="pre">user_level_1</span></code> 、 <code class="docutils literal notranslate"><span class="pre">user_level_2</span></code> 、 <code class="docutils literal notranslate"><span class="pre">user_level_3</span></code> 和 <code class="docutils literal notranslate"><span class="pre">user_level_4</span></code> 的值作为排序 <code class="docutils literal notranslate"><span class="pre">uid</span></code> 的权重。</p>
 </div>
 <div class="section" id="get">
 <h3>GET 选项<a class="headerlink" href="#get" title="Permalink to this headline">¶</a></h3>
-<p>使用 <code class="docutils literal"><span class="pre">GET</span></code> 选项，
+<p>使用 <code class="docutils literal notranslate"><span class="pre">GET</span></code> 选项，
 可以根据排序的结果来取出相应的键值。</p>
 <p>比如说，
-以下代码先排序 <code class="docutils literal"><span class="pre">uid</span></code> ，
-再取出键 <code class="docutils literal"><span class="pre">user_name_{uid}</span></code> 的值：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SORT</span> <span class="n">uid</span> <span class="n">GET</span> <span class="n">user_name_</span><span class="o">*</span>
+以下代码先排序 <code class="docutils literal notranslate"><span class="pre">uid</span></code> ，
+再取出键 <code class="docutils literal notranslate"><span class="pre">user_name_{uid}</span></code> 的值：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SORT</span> <span class="n">uid</span> <span class="n">GET</span> <span class="n">user_name_</span><span class="o">*</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;admin&quot;</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;jack&quot;</span>
 <span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;peter&quot;</span>
@@ -420,26 +411,26 @@
 </div>
 <div class="section" id="by-get">
 <h3>组合使用 BY 和 GET<a class="headerlink" href="#by-get" title="Permalink to this headline">¶</a></h3>
-<p>通过组合使用 <code class="docutils literal"><span class="pre">BY</span></code> 和 <code class="docutils literal"><span class="pre">GET</span></code> ，
+<p>通过组合使用 <code class="docutils literal notranslate"><span class="pre">BY</span></code> 和 <code class="docutils literal notranslate"><span class="pre">GET</span></code> ，
 可以让排序结果以更直观的方式显示出来。</p>
 <p>比如说，
-以下代码先按 <code class="docutils literal"><span class="pre">user_level_{uid}</span></code> 来排序 <code class="docutils literal"><span class="pre">uid</span></code> 列表，
-再取出相应的 <code class="docutils literal"><span class="pre">user_name_{uid}</span></code> 的值：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SORT</span> <span class="n">uid</span> <span class="n">BY</span> <span class="n">user_level_</span><span class="o">*</span> <span class="n">GET</span> <span class="n">user_name_</span><span class="o">*</span>
+以下代码先按 <code class="docutils literal notranslate"><span class="pre">user_level_{uid}</span></code> 来排序 <code class="docutils literal notranslate"><span class="pre">uid</span></code> 列表，
+再取出相应的 <code class="docutils literal notranslate"><span class="pre">user_name_{uid}</span></code> 的值：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SORT</span> <span class="n">uid</span> <span class="n">BY</span> <span class="n">user_level_</span><span class="o">*</span> <span class="n">GET</span> <span class="n">user_name_</span><span class="o">*</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;jack&quot;</span>       <span class="c1"># level = 10</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;peter&quot;</span>      <span class="c1"># level = 25</span>
 <span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;mary&quot;</span>       <span class="c1"># level = 70</span>
 <span class="mi">4</span><span class="p">)</span> <span class="s2">&quot;admin&quot;</span>      <span class="c1"># level = 9999</span>
 </pre></div>
 </div>
-<p>现在的排序结果要比只使用 <code class="docutils literal"><span class="pre">SORT</span> <span class="pre">uid</span> <span class="pre">BY</span> <span class="pre">user_level_*</span></code> 要直观得多。</p>
+<p>现在的排序结果要比只使用 <code class="docutils literal notranslate"><span class="pre">SORT</span> <span class="pre">uid</span> <span class="pre">BY</span> <span class="pre">user_level_*</span></code> 要直观得多。</p>
 </div>
 <div class="section" id="id2">
 <h3>获取多个外部键<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>可以同时使用多个 <code class="docutils literal"><span class="pre">GET</span></code> 选项，
+<p>可以同时使用多个 <code class="docutils literal notranslate"><span class="pre">GET</span></code> 选项，
 获取多个外部键的值。</p>
-<p>以下代码就按 <code class="docutils literal"><span class="pre">uid</span></code> 分别获取 <code class="docutils literal"><span class="pre">user_level_{uid}</span></code> 和 <code class="docutils literal"><span class="pre">user_name_{uid}</span></code> ：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SORT</span> <span class="n">uid</span> <span class="n">GET</span> <span class="n">user_level_</span><span class="o">*</span> <span class="n">GET</span> <span class="n">user_name_</span><span class="o">*</span>
+<p>以下代码就按 <code class="docutils literal notranslate"><span class="pre">uid</span></code> 分别获取 <code class="docutils literal notranslate"><span class="pre">user_level_{uid}</span></code> 和 <code class="docutils literal notranslate"><span class="pre">user_name_{uid}</span></code> ：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SORT</span> <span class="n">uid</span> <span class="n">GET</span> <span class="n">user_level_</span><span class="o">*</span> <span class="n">GET</span> <span class="n">user_name_</span><span class="o">*</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;9999&quot;</span>       <span class="c1"># level</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;admin&quot;</span>      <span class="c1"># name</span>
 <span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;10&quot;</span>
@@ -450,9 +441,9 @@
 <span class="mi">8</span><span class="p">)</span> <span class="s2">&quot;mary&quot;</span>
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">GET</span></code> 有一个额外的参数规则，那就是 —— 可以用 <code class="docutils literal"><span class="pre">#</span></code> 获取被排序键的值。</p>
-<p>以下代码就将 <code class="docutils literal"><span class="pre">uid</span></code> 的值、及其相应的 <code class="docutils literal"><span class="pre">user_level_*</span></code> 和 <code class="docutils literal"><span class="pre">user_name_*</span></code> 都返回为结果：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SORT</span> <span class="n">uid</span> <span class="n">GET</span> <span class="c1"># GET user_level_* GET user_name_*</span>
+<p><code class="docutils literal notranslate"><span class="pre">GET</span></code> 有一个额外的参数规则，那就是 —— 可以用 <code class="docutils literal notranslate"><span class="pre">#</span></code> 获取被排序键的值。</p>
+<p>以下代码就将 <code class="docutils literal notranslate"><span class="pre">uid</span></code> 的值、及其相应的 <code class="docutils literal notranslate"><span class="pre">user_level_*</span></code> 和 <code class="docutils literal notranslate"><span class="pre">user_name_*</span></code> 都返回为结果：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SORT</span> <span class="n">uid</span> <span class="n">GET</span> <span class="c1"># GET user_level_* GET user_name_*</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;1&quot;</span>          <span class="c1"># uid</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;9999&quot;</span>       <span class="c1"># level</span>
 <span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;admin&quot;</span>      <span class="c1"># name</span>
@@ -470,10 +461,10 @@
 </div>
 <div class="section" id="id3">
 <h3>获取外部键，但不进行排序<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<p>通过将一个不存在的键作为参数传给 <code class="docutils literal"><span class="pre">BY</span></code> 选项，
-可以让 <code class="docutils literal"><span class="pre">SORT</span></code> 跳过排序操作，
+<p>通过将一个不存在的键作为参数传给 <code class="docutils literal notranslate"><span class="pre">BY</span></code> 选项，
+可以让 <code class="docutils literal notranslate"><span class="pre">SORT</span></code> 跳过排序操作，
 直接返回结果：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SORT</span> <span class="n">uid</span> <span class="n">BY</span> <span class="ow">not</span><span class="o">-</span><span class="n">exists</span><span class="o">-</span><span class="n">key</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SORT</span> <span class="n">uid</span> <span class="n">BY</span> <span class="ow">not</span><span class="o">-</span><span class="n">exists</span><span class="o">-</span><span class="n">key</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;4&quot;</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;3&quot;</span>
 <span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;2&quot;</span>
@@ -481,12 +472,12 @@
 </pre></div>
 </div>
 <p>这种用法在单独使用时，没什么实际用处。</p>
-<p>不过，通过将这种用法和 <code class="docutils literal"><span class="pre">GET</span></code> 选项配合，
+<p>不过，通过将这种用法和 <code class="docutils literal notranslate"><span class="pre">GET</span></code> 选项配合，
 就可以在不排序的情况下，
 获取多个外部键，
-相当于执行一个整合的获取操作（类似于 SQL 数据库的 <code class="docutils literal"><span class="pre">join</span></code> 关键字）。</p>
-<p>以下代码演示了，如何在不引起排序的情况下，使用 <code class="docutils literal"><span class="pre">SORT</span></code> 、 <code class="docutils literal"><span class="pre">BY</span></code> 和 <code class="docutils literal"><span class="pre">GET</span></code> 获取多个外部键：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SORT</span> <span class="n">uid</span> <span class="n">BY</span> <span class="ow">not</span><span class="o">-</span><span class="n">exists</span><span class="o">-</span><span class="n">key</span> <span class="n">GET</span> <span class="c1"># GET user_level_* GET user_name_*</span>
+相当于执行一个整合的获取操作（类似于 SQL 数据库的 <code class="docutils literal notranslate"><span class="pre">join</span></code> 关键字）。</p>
+<p>以下代码演示了，如何在不引起排序的情况下，使用 <code class="docutils literal notranslate"><span class="pre">SORT</span></code> 、 <code class="docutils literal notranslate"><span class="pre">BY</span></code> 和 <code class="docutils literal notranslate"><span class="pre">GET</span></code> 获取多个外部键：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SORT</span> <span class="n">uid</span> <span class="n">BY</span> <span class="ow">not</span><span class="o">-</span><span class="n">exists</span><span class="o">-</span><span class="n">key</span> <span class="n">GET</span> <span class="c1"># GET user_level_* GET user_name_*</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;4&quot;</span>      <span class="c1"># id</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;70&quot;</span>     <span class="c1"># level</span>
 <span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;mary&quot;</span>   <span class="c1"># name</span>
@@ -505,11 +496,11 @@
 <div class="section" id="get-by">
 <h3>将哈希表作为 GET 或 BY 的参数<a class="headerlink" href="#get-by" title="Permalink to this headline">¶</a></h3>
 <p>除了可以将字符串键之外，
-哈希表也可以作为 <code class="docutils literal"><span class="pre">GET</span></code> 或 <code class="docutils literal"><span class="pre">BY</span></code> 选项的参数来使用。</p>
+哈希表也可以作为 <code class="docutils literal notranslate"><span class="pre">GET</span></code> 或 <code class="docutils literal notranslate"><span class="pre">BY</span></code> 选项的参数来使用。</p>
 <p>比如说，对于前面给出的用户信息表：</p>
-<p>我们可以不将用户的名字和级别保存在 <code class="docutils literal"><span class="pre">user_name_{uid}</span></code> 和 <code class="docutils literal"><span class="pre">user_level_{uid}</span></code> 两个字符串键中，
-而是用一个带有 <code class="docutils literal"><span class="pre">name</span></code> 域和 <code class="docutils literal"><span class="pre">level</span></code> 域的哈希表 <code class="docutils literal"><span class="pre">user_info_{uid}</span></code> 来保存用户的名字和级别信息：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">HMSET</span> <span class="n">user_info_1</span> <span class="n">name</span> <span class="n">admin</span> <span class="n">level</span> <span class="mi">9999</span>
+<p>我们可以不将用户的名字和级别保存在 <code class="docutils literal notranslate"><span class="pre">user_name_{uid}</span></code> 和 <code class="docutils literal notranslate"><span class="pre">user_level_{uid}</span></code> 两个字符串键中，
+而是用一个带有 <code class="docutils literal notranslate"><span class="pre">name</span></code> 域和 <code class="docutils literal notranslate"><span class="pre">level</span></code> 域的哈希表 <code class="docutils literal notranslate"><span class="pre">user_info_{uid}</span></code> 来保存用户的名字和级别信息：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">HMSET</span> <span class="n">user_info_1</span> <span class="n">name</span> <span class="n">admin</span> <span class="n">level</span> <span class="mi">9999</span>
 <span class="n">OK</span>
 
 <span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">HMSET</span> <span class="n">user_info_2</span> <span class="n">name</span> <span class="n">jack</span> <span class="n">level</span> <span class="mi">10</span>
@@ -522,10 +513,10 @@
 <span class="n">OK</span>
 </pre></div>
 </div>
-<p>之后， <code class="docutils literal"><span class="pre">BY</span></code> 和 <code class="docutils literal"><span class="pre">GET</span></code> 选项都可以用 <code class="docutils literal"><span class="pre">key-&gt;field</span></code> 的格式来获取哈希表中的域的值，
-其中 <code class="docutils literal"><span class="pre">key</span></code> 表示哈希表键，
-而 <code class="docutils literal"><span class="pre">field</span></code> 则表示哈希表的域：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SORT</span> <span class="n">uid</span> <span class="n">BY</span> <span class="n">user_info_</span><span class="o">*-&gt;</span><span class="n">level</span>
+<p>之后， <code class="docutils literal notranslate"><span class="pre">BY</span></code> 和 <code class="docutils literal notranslate"><span class="pre">GET</span></code> 选项都可以用 <code class="docutils literal notranslate"><span class="pre">key-&gt;field</span></code> 的格式来获取哈希表中的域的值，
+其中 <code class="docutils literal notranslate"><span class="pre">key</span></code> 表示哈希表键，
+而 <code class="docutils literal notranslate"><span class="pre">field</span></code> 则表示哈希表的域：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SORT</span> <span class="n">uid</span> <span class="n">BY</span> <span class="n">user_info_</span><span class="o">*-&gt;</span><span class="n">level</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;2&quot;</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;3&quot;</span>
 <span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;4&quot;</span>
@@ -543,9 +534,9 @@
 <div class="section" id="id4">
 <h2>保存排序结果<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>默认情况下， <a class="reference internal" href="#sort">SORT</a> 操作只是简单地返回排序结果，并不进行任何保存操作。</p>
-<p>通过给 <code class="docutils literal"><span class="pre">STORE</span></code> 选项指定一个 <code class="docutils literal"><span class="pre">key</span></code> 参数，可以将排序结果保存到给定的键上。</p>
-<p>如果被指定的 <code class="docutils literal"><span class="pre">key</span></code> 已存在，那么原有的值将被排序结果覆盖。</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 测试数据</span>
+<p>通过给 <code class="docutils literal notranslate"><span class="pre">STORE</span></code> 选项指定一个 <code class="docutils literal notranslate"><span class="pre">key</span></code> 参数，可以将排序结果保存到给定的键上。</p>
+<p>如果被指定的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 已存在，那么原有的值将被排序结果覆盖。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 测试数据</span>
 
 <span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">RPUSH</span> <span class="n">numbers</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">7</span> <span class="mi">9</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">5</span>
@@ -589,8 +580,8 @@
 </div>
 <div class="section" id="id5">
 <h2>返回值<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<p>没有使用 <code class="docutils literal"><span class="pre">STORE</span></code> 参数，返回列表形式的排序结果。
-使用 <code class="docutils literal"><span class="pre">STORE</span></code> 参数，返回排序结果的元素数量。</p>
+<p>没有使用 <code class="docutils literal notranslate"><span class="pre">STORE</span></code> 参数，返回列表形式的排序结果。
+使用 <code class="docutils literal notranslate"><span class="pre">STORE</span></code> 参数，返回排序结果的元素数量。</p>
 </div>
 </div>
 

@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -209,24 +200,24 @@
 <blockquote>
 <div><div class="line-block">
 <div class="line">可用版本： &gt;= 1.0.0</div>
-<div class="line">时间复杂度： O(N)， <code class="docutils literal"><span class="pre">N</span></code> 为列表的长度。</div>
+<div class="line">时间复杂度： O(N)， <code class="docutils literal notranslate"><span class="pre">N</span></code> 为列表的长度。</div>
 </div>
 </div></blockquote>
-<p>根据参数 <code class="docutils literal"><span class="pre">count</span></code> 的值，移除列表中与参数 <code class="docutils literal"><span class="pre">value</span></code> 相等的元素。</p>
-<p><code class="docutils literal"><span class="pre">count</span></code> 的值可以是以下几种：</p>
+<p>根据参数 <code class="docutils literal notranslate"><span class="pre">count</span></code> 的值，移除列表中与参数 <code class="docutils literal notranslate"><span class="pre">value</span></code> 相等的元素。</p>
+<p><code class="docutils literal notranslate"><span class="pre">count</span></code> 的值可以是以下几种：</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">count</span> <span class="pre">&gt;</span> <span class="pre">0</span></code> : 从表头开始向表尾搜索，移除与 <code class="docutils literal"><span class="pre">value</span></code> 相等的元素，数量为 <code class="docutils literal"><span class="pre">count</span></code> 。</li>
-<li><code class="docutils literal"><span class="pre">count</span> <span class="pre">&lt;</span> <span class="pre">0</span></code> : 从表尾开始向表头搜索，移除与 <code class="docutils literal"><span class="pre">value</span></code> 相等的元素，数量为 <code class="docutils literal"><span class="pre">count</span></code> 的绝对值。</li>
-<li><code class="docutils literal"><span class="pre">count</span> <span class="pre">=</span> <span class="pre">0</span></code> : 移除表中所有与 <code class="docutils literal"><span class="pre">value</span></code> 相等的值。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">count</span> <span class="pre">&gt;</span> <span class="pre">0</span></code> : 从表头开始向表尾搜索，移除与 <code class="docutils literal notranslate"><span class="pre">value</span></code> 相等的元素，数量为 <code class="docutils literal notranslate"><span class="pre">count</span></code> 。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">count</span> <span class="pre">&lt;</span> <span class="pre">0</span></code> : 从表尾开始向表头搜索，移除与 <code class="docutils literal notranslate"><span class="pre">value</span></code> 相等的元素，数量为 <code class="docutils literal notranslate"><span class="pre">count</span></code> 的绝对值。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">count</span> <span class="pre">=</span> <span class="pre">0</span></code> : 移除表中所有与 <code class="docutils literal notranslate"><span class="pre">value</span></code> 相等的值。</p></li>
 </ul>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>被移除元素的数量。
-因为不存在的 <code class="docutils literal"><span class="pre">key</span></code> 被视作空表(empty list)，所以当 <code class="docutils literal"><span class="pre">key</span></code> 不存在时， <a class="reference internal" href="#lrem">LREM</a> 命令总是返回 <code class="docutils literal"><span class="pre">0</span></code> 。</p>
+因为不存在的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 被视作空表(empty list)，所以当 <code class="docutils literal notranslate"><span class="pre">key</span></code> 不存在时， <a class="reference internal" href="#lrem">LREM</a> 命令总是返回 <code class="docutils literal notranslate"><span class="pre">0</span></code> 。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 先创建一个表，内容排列是</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 先创建一个表，内容排列是</span>
 <span class="c1"># morning hello morning helllo morning</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">LPUSH</span> <span class="n">greet</span> <span class="s2">&quot;morning&quot;</span>

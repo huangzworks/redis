@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -204,16 +195,16 @@
 <p>返回两个给定位置之间的距离。</p>
 <p>如果两个位置之间的其中一个不存在，
 那么命令返回空值。</p>
-<p>指定单位的参数 <code class="docutils literal"><span class="pre">unit</span></code> 必须是以下单位的其中一个：</p>
+<p>指定单位的参数 <code class="docutils literal notranslate"><span class="pre">unit</span></code> 必须是以下单位的其中一个：</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">m</span></code> 表示单位为米。</li>
-<li><code class="docutils literal"><span class="pre">km</span></code> 表示单位为千米。</li>
-<li><code class="docutils literal"><span class="pre">mi</span></code> 表示单位为英里。</li>
-<li><code class="docutils literal"><span class="pre">ft</span></code> 表示单位为英尺。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m</span></code> 表示单位为米。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">km</span></code> 表示单位为千米。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mi</span></code> 表示单位为英里。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ft</span></code> 表示单位为英尺。</p></li>
 </ul>
 <p>如果用户没有显式地指定单位参数，
-那么 <code class="docutils literal"><span class="pre">GEODIST</span></code> 默认使用米作为单位。</p>
-<p><code class="docutils literal"><span class="pre">GEODIST</span></code> 命令在计算距离时会假设地球为完美的球形，
+那么 <code class="docutils literal notranslate"><span class="pre">GEODIST</span></code> 默认使用米作为单位。</p>
+<p><code class="docutils literal notranslate"><span class="pre">GEODIST</span></code> 命令在计算距离时会假设地球为完美的球形，
 在极限情况下，
 这一假设最大会造成 0.5% 的误差。</p>
 <div class="section" id="id1">
@@ -224,7 +215,7 @@
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">GEOADD</span> <span class="n">Sicily</span> <span class="mf">13.361389</span> <span class="mf">38.115556</span> <span class="s2">&quot;Palermo&quot;</span> <span class="mf">15.087269</span> <span class="mf">37.502669</span> <span class="s2">&quot;Catania&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">GEOADD</span> <span class="n">Sicily</span> <span class="mf">13.361389</span> <span class="mf">38.115556</span> <span class="s2">&quot;Palermo&quot;</span> <span class="mf">15.087269</span> <span class="mf">37.502669</span> <span class="s2">&quot;Catania&quot;</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">2</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">GEODIST</span> <span class="n">Sicily</span> <span class="n">Palermo</span> <span class="n">Catania</span>

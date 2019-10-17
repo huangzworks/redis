@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -206,57 +197,57 @@
 与中心的距离不超过给定最大距离的所有位置元素。</p>
 <p>范围可以使用以下其中一个单位：</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">m</span></code> 表示单位为米。</li>
-<li><code class="docutils literal"><span class="pre">km</span></code> 表示单位为千米。</li>
-<li><code class="docutils literal"><span class="pre">mi</span></code> 表示单位为英里。</li>
-<li><code class="docutils literal"><span class="pre">ft</span></code> 表示单位为英尺。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m</span></code> 表示单位为米。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">km</span></code> 表示单位为千米。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mi</span></code> 表示单位为英里。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ft</span></code> 表示单位为英尺。</p></li>
 </ul>
 <p>在给定以下可选项时，
 命令会返回额外的信息：</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">WITHDIST</span></code> ：
+<li><p><code class="docutils literal notranslate"><span class="pre">WITHDIST</span></code> ：
 在返回位置元素的同时，
 将位置元素与中心之间的距离也一并返回。
-距离的单位和用户给定的范围单位保持一致。</li>
-<li><code class="docutils literal"><span class="pre">WITHCOORD</span></code> ：
-将位置元素的经度和维度也一并返回。</li>
-<li><code class="docutils literal"><span class="pre">WITHHASH</span></code> ：
+距离的单位和用户给定的范围单位保持一致。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WITHCOORD</span></code> ：
+将位置元素的经度和维度也一并返回。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WITHHASH</span></code> ：
 以 52 位有符号整数的形式，
 返回位置元素经过原始 geohash 编码的有序集合分值。
 这个选项主要用于底层应用或者调试，
-实际中的作用并不大。</li>
+实际中的作用并不大。</p></li>
 </ul>
 <p>命令默认返回未排序的位置元素。
 通过以下两个参数，
 用户可以指定被返回位置元素的排序方式：</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">ASC</span></code> ：
+<li><p><code class="docutils literal notranslate"><span class="pre">ASC</span></code> ：
 根据中心的位置，
-按照从近到远的方式返回位置元素。</li>
-<li><code class="docutils literal"><span class="pre">DESC</span></code> ：
+按照从近到远的方式返回位置元素。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DESC</span></code> ：
 根据中心的位置，
-按照从远到近的方式返回位置元素。</li>
+按照从远到近的方式返回位置元素。</p></li>
 </ul>
 <p>在默认情况下，
-<code class="docutils literal"><span class="pre">GEORADIUS</span></code> 命令会返回所有匹配的位置元素。
-虽然用户可以使用 <code class="docutils literal"><span class="pre">COUNT</span> <span class="pre">&lt;count&gt;</span></code> 选项去获取前 N 个匹配元素，
+<code class="docutils literal notranslate"><span class="pre">GEORADIUS</span></code> 命令会返回所有匹配的位置元素。
+虽然用户可以使用 <code class="docutils literal notranslate"><span class="pre">COUNT</span> <span class="pre">&lt;count&gt;</span></code> 选项去获取前 N 个匹配元素，
 但是因为命令在内部可能会需要对所有被匹配的元素进行处理，
 所以在对一个非常大的区域进行搜索时，
-即使只使用 <code class="docutils literal"><span class="pre">COUNT</span></code> 选项去获取少量元素，
+即使只使用 <code class="docutils literal notranslate"><span class="pre">COUNT</span></code> 选项去获取少量元素，
 命令的执行速度也可能会非常慢。
 但是从另一方面来说，
-使用 <code class="docutils literal"><span class="pre">COUNT</span></code> 选项去减少需要返回的元素数量，
+使用 <code class="docutils literal notranslate"><span class="pre">COUNT</span></code> 选项去减少需要返回的元素数量，
 对于减少带宽来说仍然是非常有用的。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">GEORADIUS</span></code> 命令返回一个数组，
+<p><code class="docutils literal notranslate"><span class="pre">GEORADIUS</span></code> 命令返回一个数组，
 具体来说：</p>
 <ul class="simple">
-<li>在没有给定任何 <code class="docutils literal"><span class="pre">WITH</span></code> 选项的情况下，
-命令只会返回一个像 <code class="docutils literal"><span class="pre">[&quot;New</span> <span class="pre">York&quot;,&quot;Milan&quot;,&quot;Paris&quot;]</span></code> 这样的线性（linear）列表。</li>
-<li>在指定了 <code class="docutils literal"><span class="pre">WITHCOORD</span></code> 、 <code class="docutils literal"><span class="pre">WITHDIST</span></code> 、 <code class="docutils literal"><span class="pre">WITHHASH</span></code> 等选项的情况下，
+<li><p>在没有给定任何 <code class="docutils literal notranslate"><span class="pre">WITH</span></code> 选项的情况下，
+命令只会返回一个像 <code class="docutils literal notranslate"><span class="pre">[&quot;New</span> <span class="pre">York&quot;,&quot;Milan&quot;,&quot;Paris&quot;]</span></code> 这样的线性（linear）列表。</p></li>
+<li><p>在指定了 <code class="docutils literal notranslate"><span class="pre">WITHCOORD</span></code> 、 <code class="docutils literal notranslate"><span class="pre">WITHDIST</span></code> 、 <code class="docutils literal notranslate"><span class="pre">WITHHASH</span></code> 等选项的情况下，
 命令返回一个二层嵌套数组，
-内层的每个子数组就表示一个元素。</li>
+内层的每个子数组就表示一个元素。</p></li>
 </ul>
 <p>在返回嵌套数组时，
 子数组的第一个元素总是位置元素的名字。
@@ -264,20 +255,20 @@
 则会作为子数组的后续元素，
 按照以下顺序被返回：</p>
 <ol class="arabic simple">
-<li>以浮点数格式返回的中心与位置元素之间的距离，
-单位与用户指定范围时的单位一致。</li>
-<li>geohash 整数。</li>
-<li>由两个元素组成的坐标，分别为经度和纬度。</li>
+<li><p>以浮点数格式返回的中心与位置元素之间的距离，
+单位与用户指定范围时的单位一致。</p></li>
+<li><p>geohash 整数。</p></li>
+<li><p>由两个元素组成的坐标，分别为经度和纬度。</p></li>
 </ol>
 <p>举个例子，
-<code class="docutils literal"><span class="pre">GEORADIUS</span> <span class="pre">Sicily</span> <span class="pre">15</span> <span class="pre">37</span> <span class="pre">200</span> <span class="pre">km</span> <span class="pre">withcoord</span> <span class="pre">withdist</span></code> 这样的命令返回的每个子数组都是类似以下格式的：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s2">&quot;Palermo&quot;</span><span class="p">,</span><span class="s2">&quot;190.4424&quot;</span><span class="p">,[</span><span class="s2">&quot;13.361389338970184&quot;</span><span class="p">,</span><span class="s2">&quot;38.115556395496299&quot;</span><span class="p">]]</span>
+<code class="docutils literal notranslate"><span class="pre">GEORADIUS</span> <span class="pre">Sicily</span> <span class="pre">15</span> <span class="pre">37</span> <span class="pre">200</span> <span class="pre">km</span> <span class="pre">withcoord</span> <span class="pre">withdist</span></code> 这样的命令返回的每个子数组都是类似以下格式的：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s2">&quot;Palermo&quot;</span><span class="p">,</span><span class="s2">&quot;190.4424&quot;</span><span class="p">,[</span><span class="s2">&quot;13.361389338970184&quot;</span><span class="p">,</span><span class="s2">&quot;38.115556395496299&quot;</span><span class="p">]]</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">GEOADD</span> <span class="n">Sicily</span> <span class="mf">13.361389</span> <span class="mf">38.115556</span> <span class="s2">&quot;Palermo&quot;</span> <span class="mf">15.087269</span> <span class="mf">37.502669</span> <span class="s2">&quot;Catania&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">GEOADD</span> <span class="n">Sicily</span> <span class="mf">13.361389</span> <span class="mf">38.115556</span> <span class="s2">&quot;Palermo&quot;</span> <span class="mf">15.087269</span> <span class="mf">37.502669</span> <span class="s2">&quot;Catania&quot;</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">2</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">GEORADIUS</span> <span class="n">Sicily</span> <span class="mi">15</span> <span class="mi">37</span> <span class="mi">200</span> <span class="n">km</span> <span class="n">WITHDIST</span>

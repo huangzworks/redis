@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -196,7 +187,7 @@
 <blockquote>
 <div><div class="line-block">
 <div class="line">可用版本： &gt;= 1.0.0</div>
-<div class="line">时间复杂度： O(N)， <code class="docutils literal"><span class="pre">N</span></code> 为要保存到数据库中的 key 的数量。</div>
+<div class="line">时间复杂度： O(N)， <code class="docutils literal notranslate"><span class="pre">N</span></code> 为要保存到数据库中的 key 的数量。</div>
 </div>
 </div></blockquote>
 <p><a class="reference internal" href="#save">SAVE</a> 命令执行一个同步保存操作，将当前 Redis 实例的所有数据快照(snapshot)以 RDB 文件的形式保存到硬盘。</p>
@@ -204,11 +195,11 @@
 <p>请参考文档： <a class="reference external" href="http://redis.io/topics/persistence">Redis 的持久化运作方式(英文)</a> 以获取更多消息。</p>
 <div class="section" id="id2">
 <h2>返回值<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>保存成功时返回 <code class="docutils literal"><span class="pre">OK</span></code> 。</p>
+<p>保存成功时返回 <code class="docutils literal notranslate"><span class="pre">OK</span></code> 。</p>
 </div>
 <div class="section" id="id3">
 <h2>代码示例<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SAVE</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SAVE</span>
 <span class="n">OK</span>
 </pre></div>
 </div>

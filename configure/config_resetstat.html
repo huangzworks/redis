@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -204,26 +195,26 @@
 <div class="line">时间复杂度： O(1)</div>
 </div>
 </div></blockquote>
-<p>重置 <code class="docutils literal"><span class="pre">INFO</span></code> 命令中的某些统计数据，包括：</p>
+<p>重置 <code class="docutils literal notranslate"><span class="pre">INFO</span></code> 命令中的某些统计数据，包括：</p>
 <ul class="simple">
-<li>Keyspace hits (键空间命中次数)</li>
-<li>Keyspace misses (键空间不命中次数)</li>
-<li>Number of commands processed (执行命令的次数)</li>
-<li>Number of connections received (连接服务器的次数)</li>
-<li>Number of expired keys (过期key的数量)</li>
-<li>Number of rejected connections (被拒绝的连接数量)</li>
-<li>Latest fork(2) time(最后执行 fork(2) 的时间)</li>
-<li>The <code class="docutils literal"><span class="pre">aof_delayed_fsync</span></code> counter(<code class="docutils literal"><span class="pre">aof_delayed_fsync</span></code> 计数器的值)</li>
+<li><p>Keyspace hits (键空间命中次数)</p></li>
+<li><p>Keyspace misses (键空间不命中次数)</p></li>
+<li><p>Number of commands processed (执行命令的次数)</p></li>
+<li><p>Number of connections received (连接服务器的次数)</p></li>
+<li><p>Number of expired keys (过期key的数量)</p></li>
+<li><p>Number of rejected connections (被拒绝的连接数量)</p></li>
+<li><p>Latest fork(2) time(最后执行 fork(2) 的时间)</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">aof_delayed_fsync</span></code> counter(<code class="docutils literal notranslate"><span class="pre">aof_delayed_fsync</span></code> 计数器的值)</p></li>
 </ul>
 <div class="section" id="id2">
 <h2>返回值<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>总是返回 <code class="docutils literal"><span class="pre">OK</span></code> 。</p>
+<p>总是返回 <code class="docutils literal notranslate"><span class="pre">OK</span></code> 。</p>
 </div>
 <div class="section" id="id3">
 <h2>代码示例<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id4">
 <h3>重置前<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">INFO</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">INFO</span>
 <span class="c1"># Server</span>
 <span class="n">redis_version</span><span class="p">:</span><span class="mf">2.5</span><span class="o">.</span><span class="mi">3</span>
 <span class="n">redis_git_sha1</span><span class="p">:</span><span class="n">d0407c2d</span>
@@ -293,14 +284,14 @@
 </div>
 <div class="section" id="id5">
 <h3>重置<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">CONFIG</span> <span class="n">RESETSTAT</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">CONFIG</span> <span class="n">RESETSTAT</span>
 <span class="n">OK</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id6">
 <h3>重置后<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">INFO</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">INFO</span>
 <span class="c1"># Server</span>
 <span class="n">redis_version</span><span class="p">:</span><span class="mf">2.5</span><span class="o">.</span><span class="mi">3</span>
 <span class="n">redis_git_sha1</span><span class="p">:</span><span class="n">d0407c2d</span>

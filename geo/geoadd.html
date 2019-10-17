@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -203,20 +194,20 @@
 </div></blockquote>
 <p>将给定的空间元素（纬度、经度、名字）添加到指定的键里面。
 这些数据会以有序集合的形式被储存在键里面，
-从而使得像 <code class="docutils literal"><span class="pre">GEORADIUS</span></code> 和 <code class="docutils literal"><span class="pre">GEORADIUSBYMEMBER</span></code> 这样的命令可以在之后通过位置查询取得这些元素。</p>
-<p><code class="docutils literal"><span class="pre">GEOADD</span></code> 命令以标准的 <code class="docutils literal"><span class="pre">x,y</span></code> 格式接受参数，
+从而使得像 <code class="docutils literal notranslate"><span class="pre">GEORADIUS</span></code> 和 <code class="docutils literal notranslate"><span class="pre">GEORADIUSBYMEMBER</span></code> 这样的命令可以在之后通过位置查询取得这些元素。</p>
+<p><code class="docutils literal notranslate"><span class="pre">GEOADD</span></code> 命令以标准的 <code class="docutils literal notranslate"><span class="pre">x,y</span></code> 格式接受参数，
 所以用户必须先输入经度，
 然后再输入纬度。
-<code class="docutils literal"><span class="pre">GEOADD</span></code> 能够记录的坐标是有限的：
+<code class="docutils literal notranslate"><span class="pre">GEOADD</span></code> 能够记录的坐标是有限的：
 非常接近两极的区域是无法被索引的。
 精确的坐标限制由 EPSG:900913 / EPSG:3785 / OSGEO:41001 等坐标系统定义，
 具体如下：</p>
 <ul class="simple">
-<li>有效的经度介于 -180 度至 180 度之间。</li>
-<li>有效的纬度介于 -85.05112878 度至 85.05112878 度之间。</li>
+<li><p>有效的经度介于 -180 度至 180 度之间。</p></li>
+<li><p>有效的纬度介于 -85.05112878 度至 85.05112878 度之间。</p></li>
 </ul>
 <p>当用户尝试输入一个超出范围的经度或者纬度时，
-<code class="docutils literal"><span class="pre">GEOADD</span></code> 命令将返回一个错误。</p>
+<code class="docutils literal notranslate"><span class="pre">GEOADD</span></code> 命令将返回一个错误。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>新添加到键里面的空间元素数量，
@@ -224,7 +215,7 @@
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">GEOADD</span> <span class="n">Sicily</span> <span class="mf">13.361389</span> <span class="mf">38.115556</span> <span class="s2">&quot;Palermo&quot;</span> <span class="mf">15.087269</span> <span class="mf">37.502669</span> <span class="s2">&quot;Catania&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">GEOADD</span> <span class="n">Sicily</span> <span class="mf">13.361389</span> <span class="mf">38.115556</span> <span class="s2">&quot;Palermo&quot;</span> <span class="mf">15.087269</span> <span class="mf">37.502669</span> <span class="s2">&quot;Catania&quot;</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">2</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">GEODIST</span> <span class="n">Sicily</span> <span class="n">Palermo</span> <span class="n">Catania</span>

@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -213,40 +204,40 @@
 <div class="line">时间复杂度： O(1)</div>
 </div>
 </div></blockquote>
-<p>为键 <code class="docutils literal"><span class="pre">key</span></code> 储存的值加上浮点数增量 <code class="docutils literal"><span class="pre">increment</span></code> 。</p>
-<p>如果键 <code class="docutils literal"><span class="pre">key</span></code> 不存在，
-那么 <code class="docutils literal"><span class="pre">INCRBYFLOAT</span></code> 会先将键 <code class="docutils literal"><span class="pre">key</span></code> 的值设为 <code class="docutils literal"><span class="pre">0</span></code> ，
+<p>为键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 储存的值加上浮点数增量 <code class="docutils literal notranslate"><span class="pre">increment</span></code> 。</p>
+<p>如果键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 不存在，
+那么 <code class="docutils literal notranslate"><span class="pre">INCRBYFLOAT</span></code> 会先将键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的值设为 <code class="docutils literal notranslate"><span class="pre">0</span></code> ，
 然后再执行加法操作。</p>
 <p>如果命令执行成功，
-那么键 <code class="docutils literal"><span class="pre">key</span></code> 的值会被更新为执行加法计算之后的新值，
+那么键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的值会被更新为执行加法计算之后的新值，
 并且新值会以字符串的形式返回给调用者。</p>
-<p>无论是键 <code class="docutils literal"><span class="pre">key</span></code> 的值还是增量 <code class="docutils literal"><span class="pre">increment</span></code> ，
-都可以使用像 <code class="docutils literal"><span class="pre">2.0e7</span></code> 、 <code class="docutils literal"><span class="pre">3e5</span></code> 、 <code class="docutils literal"><span class="pre">90e-2</span></code> 那样的指数符号(exponential notation)来表示，
+<p>无论是键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的值还是增量 <code class="docutils literal notranslate"><span class="pre">increment</span></code> ，
+都可以使用像 <code class="docutils literal notranslate"><span class="pre">2.0e7</span></code> 、 <code class="docutils literal notranslate"><span class="pre">3e5</span></code> 、 <code class="docutils literal notranslate"><span class="pre">90e-2</span></code> 那样的指数符号(exponential notation)来表示，
 但是，
 <strong>执行 INCRBYFLOAT 命令之后的值</strong>总是以同样的形式储存，
 也即是，
 它们总是由一个数字，
-一个（可选的）小数点和一个任意长度的小数部分组成（比如 <code class="docutils literal"><span class="pre">3.14</span></code> 、 <code class="docutils literal"><span class="pre">69.768</span></code> ，诸如此类)，
-小数部分尾随的 <code class="docutils literal"><span class="pre">0</span></code> 会被移除，
+一个（可选的）小数点和一个任意长度的小数部分组成（比如 <code class="docutils literal notranslate"><span class="pre">3.14</span></code> 、 <code class="docutils literal notranslate"><span class="pre">69.768</span></code> ，诸如此类)，
+小数部分尾随的 <code class="docutils literal notranslate"><span class="pre">0</span></code> 会被移除，
 如果可能的话，
-命令还会将浮点数转换为整数（比如 <code class="docutils literal"><span class="pre">3.0</span></code> 会被保存成 <code class="docutils literal"><span class="pre">3</span></code> ）。</p>
+命令还会将浮点数转换为整数（比如 <code class="docutils literal notranslate"><span class="pre">3.0</span></code> 会被保存成 <code class="docutils literal notranslate"><span class="pre">3</span></code> ）。</p>
 <p>此外，
 无论加法计算所得的浮点数的实际精度有多长，
-<code class="docutils literal"><span class="pre">INCRBYFLOAT</span></code> 命令的计算结果最多只保留小数点的后十七位。</p>
+<code class="docutils literal notranslate"><span class="pre">INCRBYFLOAT</span></code> 命令的计算结果最多只保留小数点的后十七位。</p>
 <p>当以下任意一个条件发生时，
 命令返回一个错误：</p>
 <ul class="simple">
-<li>键 <code class="docutils literal"><span class="pre">key</span></code> 的值不是字符串类型(因为 Redis 中的数字和浮点数都以字符串的形式保存，所以它们都属于字符串类型）；</li>
-<li>键 <code class="docutils literal"><span class="pre">key</span></code> 当前的值或者给定的增量 <code class="docutils literal"><span class="pre">increment</span></code> 不能被解释(parse)为双精度浮点数。</li>
+<li><p>键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的值不是字符串类型(因为 Redis 中的数字和浮点数都以字符串的形式保存，所以它们都属于字符串类型）；</p></li>
+<li><p>键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 当前的值或者给定的增量 <code class="docutils literal notranslate"><span class="pre">increment</span></code> 不能被解释(parse)为双精度浮点数。</p></li>
 </ul>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>在加上增量 <code class="docutils literal"><span class="pre">increment</span></code> 之后，
-键 <code class="docutils literal"><span class="pre">key</span></code> 的值。</p>
+<p>在加上增量 <code class="docutils literal notranslate"><span class="pre">increment</span></code> 之后，
+键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的值。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">GET</span> <span class="n">decimal</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">GET</span> <span class="n">decimal</span>
 <span class="s2">&quot;3.0&quot;</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">INCRBYFLOAT</span> <span class="n">decimal</span> <span class="mf">2.56</span>

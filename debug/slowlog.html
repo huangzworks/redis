@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -214,17 +205,17 @@
 </div>
 <div class="section" id="id2">
 <h2>设置 SLOWLOG<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>Slow log 的行为由两个配置参数(configuration parameter)指定，可以通过改写 redis.conf 文件或者用 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 和 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">SET</span></code> 命令对它们动态地进行修改。</p>
-<p>第一个选项是 <code class="docutils literal"><span class="pre">slowlog-log-slower-than</span></code> ，它决定要对执行时间大于多少微秒(microsecond，1秒 = 1,000,000 微秒)的查询进行记录。</p>
+<p>Slow log 的行为由两个配置参数(configuration parameter)指定，可以通过改写 redis.conf 文件或者用 <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 和 <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">SET</span></code> 命令对它们动态地进行修改。</p>
+<p>第一个选项是 <code class="docutils literal notranslate"><span class="pre">slowlog-log-slower-than</span></code> ，它决定要对执行时间大于多少微秒(microsecond，1秒 = 1,000,000 微秒)的查询进行记录。</p>
 <p>比如执行以下命令将让 slow log 记录所有查询时间大于等于 100 微秒的查询：</p>
-<p><code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">SET</span> <span class="pre">slowlog-log-slower-than</span> <span class="pre">100</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">SET</span> <span class="pre">slowlog-log-slower-than</span> <span class="pre">100</span></code></p>
 <p>而以下命令记录所有查询时间大于 1000 微秒的查询：</p>
-<p><code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">SET</span> <span class="pre">slowlog-log-slower-than</span> <span class="pre">1000</span></code></p>
-<p>另一个选项是 <code class="docutils literal"><span class="pre">slowlog-max-len</span></code> ，它决定 slow log <em>最多</em>能保存多少条日志， slow log 本身是一个 FIFO 队列，当队列大小超过 <code class="docutils literal"><span class="pre">slowlog-max-len</span></code> 时，最旧的一条日志将被删除，而最新的一条日志加入到 slow log ，以此类推。</p>
+<p><code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">SET</span> <span class="pre">slowlog-log-slower-than</span> <span class="pre">1000</span></code></p>
+<p>另一个选项是 <code class="docutils literal notranslate"><span class="pre">slowlog-max-len</span></code> ，它决定 slow log <em>最多</em>能保存多少条日志， slow log 本身是一个 FIFO 队列，当队列大小超过 <code class="docutils literal notranslate"><span class="pre">slowlog-max-len</span></code> 时，最旧的一条日志将被删除，而最新的一条日志加入到 slow log ，以此类推。</p>
 <p>以下命令让 slow log 最多保存 1000 条日志：</p>
-<p><code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">SET</span> <span class="pre">slowlog-max-len</span> <span class="pre">1000</span></code></p>
-<p>使用 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 命令可以查询两个选项的当前值：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">CONFIG</span> <span class="n">GET</span> <span class="n">slowlog</span><span class="o">-</span><span class="n">log</span><span class="o">-</span><span class="n">slower</span><span class="o">-</span><span class="n">than</span>
+<p><code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">SET</span> <span class="pre">slowlog-max-len</span> <span class="pre">1000</span></code></p>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 命令可以查询两个选项的当前值：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">CONFIG</span> <span class="n">GET</span> <span class="n">slowlog</span><span class="o">-</span><span class="n">log</span><span class="o">-</span><span class="n">slower</span><span class="o">-</span><span class="n">than</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;slowlog-log-slower-than&quot;</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;1000&quot;</span>
 
@@ -236,9 +227,9 @@
 </div>
 <div class="section" id="slow-log">
 <h2>查看 slow log<a class="headerlink" href="#slow-log" title="Permalink to this headline">¶</a></h2>
-<p>要查看 slow log ，可以使用 <code class="docutils literal"><span class="pre">SLOWLOG</span> <span class="pre">GET</span></code> 或者 <code class="docutils literal"><span class="pre">SLOWLOG</span> <span class="pre">GET</span> <span class="pre">number</span></code> 命令，前者打印所有 slow log ，最大长度取决于 <code class="docutils literal"><span class="pre">slowlog-max-len</span></code> 选项的值，而 <code class="docutils literal"><span class="pre">SLOWLOG</span> <span class="pre">GET</span> <span class="pre">number</span></code> 则只打印指定数量的日志。</p>
+<p>要查看 slow log ，可以使用 <code class="docutils literal notranslate"><span class="pre">SLOWLOG</span> <span class="pre">GET</span></code> 或者 <code class="docutils literal notranslate"><span class="pre">SLOWLOG</span> <span class="pre">GET</span> <span class="pre">number</span></code> 命令，前者打印所有 slow log ，最大长度取决于 <code class="docutils literal notranslate"><span class="pre">slowlog-max-len</span></code> 选项的值，而 <code class="docutils literal notranslate"><span class="pre">SLOWLOG</span> <span class="pre">GET</span> <span class="pre">number</span></code> 则只打印指定数量的日志。</p>
 <p>最新的日志会最先被打印：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 为测试需要，将 slowlog-log-slower-than 设成了 10 微秒</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 为测试需要，将 slowlog-log-slower-than 设成了 10 微秒</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">SLOWLOG</span> <span class="n">GET</span>
 <span class="mi">1</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">12</span>                      <span class="c1"># 唯一性(unique)的日志标识符</span>
@@ -269,17 +260,17 @@
 </div>
 <div class="section" id="id3">
 <h2>查看当前日志的数量<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>使用命令 <code class="docutils literal"><span class="pre">SLOWLOG</span> <span class="pre">LEN</span></code> 可以查看当前日志的数量。</p>
-<p>请注意这个值和 <code class="docutils literal"><span class="pre">slower-max-len</span></code> 的区别，它们一个是当前日志的数量，一个是允许记录的最大日志的数量。</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SLOWLOG</span> <span class="n">LEN</span>
+<p>使用命令 <code class="docutils literal notranslate"><span class="pre">SLOWLOG</span> <span class="pre">LEN</span></code> 可以查看当前日志的数量。</p>
+<p>请注意这个值和 <code class="docutils literal notranslate"><span class="pre">slower-max-len</span></code> 的区别，它们一个是当前日志的数量，一个是允许记录的最大日志的数量。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SLOWLOG</span> <span class="n">LEN</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">14</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id4">
 <h2>清空日志<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<p>使用命令 <code class="docutils literal"><span class="pre">SLOWLOG</span> <span class="pre">RESET</span></code> 可以清空 slow log 。</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SLOWLOG</span> <span class="n">LEN</span>
+<p>使用命令 <code class="docutils literal notranslate"><span class="pre">SLOWLOG</span> <span class="pre">RESET</span></code> 可以清空 slow log 。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SLOWLOG</span> <span class="n">LEN</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">14</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">SLOWLOG</span> <span class="n">RESET</span>

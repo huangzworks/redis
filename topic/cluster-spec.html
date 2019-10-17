@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -215,16 +206,16 @@
   <div class="section" id="redis">
 <span id="cluster-spec"></span><h1>Redis 集群规范<a class="headerlink" href="#redis" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">本文档翻译自 <a class="reference external" href="http://redis.io/topics/cluster-spec">http://redis.io/topics/cluster-spec</a> 。</p>
+<p class="admonition-title">Note</p>
+<p>本文档翻译自 <a class="reference external" href="http://redis.io/topics/cluster-spec">http://redis.io/topics/cluster-spec</a> 。</p>
 </div>
 <div class="section" id="id1">
 <h2>引言<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>这个文档是正在开发中的 Redis 集群功能的规范（specification）文档，
 文档分为两个部分：</p>
 <ul class="simple">
-<li>第一部分介绍目前已经在 <code class="docutils literal"><span class="pre">unstable</span></code> 分支中实现了的那些功能。</li>
-<li>第二部分介绍目前仍未实现的那些功能。</li>
+<li><p>第一部分介绍目前已经在 <code class="docutils literal notranslate"><span class="pre">unstable</span></code> 分支中实现了的那些功能。</p></li>
+<li><p>第二部分介绍目前仍未实现的那些功能。</p></li>
 </ul>
 <p>文档各个部分的内容可能会随着集群功能的设计修改而发生改变，
 其中，
@@ -243,17 +234,17 @@
 系统会在保证对网络断线（net split）和节点失效（node failure）具有有限（limited）抵抗力的前提下，
 尽可能地保持数据的一致性。</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">集群将节点失效视为网络断线的其中一种特殊情况。</p>
+<p class="admonition-title">Note</p>
+<p>集群将节点失效视为网络断线的其中一种特殊情况。</p>
 </div>
 <p>集群的容错功能是通过使用主节点（master）和从节点（slave）两种角色（role）的节点（node）来实现的：</p>
 <ul class="simple">
-<li>主节点和从节点使用完全相同的服务器实现，
+<li><p>主节点和从节点使用完全相同的服务器实现，
 它们的功能（functionally）也完全一样，
-但从节点通常仅用于替换失效的主节点。</li>
-<li>不过，
+但从节点通常仅用于替换失效的主节点。</p></li>
+<li><p>不过，
 如果不需要保证“先写入，后读取”操作的一致性（read-after-write consistency），
-那么可以使用从节点来执行只读查询。</li>
+那么可以使用从节点来执行只读查询。</p></li>
 </ul>
 </div>
 <div class="section" id="id3">
@@ -268,16 +259,16 @@
 在集群的计算节点（computation node）中执行针对多个数据库键的只读操作，
 但集群本身不会去实现那些需要将多个数据库键在多个节点中移来移去的复杂多键命令。</p>
 <p>Redis 集群不像单机 Redis 那样支持多数据库功能，
-集群只使用默认的 <code class="docutils literal"><span class="pre">0</span></code> 号数据库，
+集群只使用默认的 <code class="docutils literal notranslate"><span class="pre">0</span></code> 号数据库，
 并且不能使用 <a class="reference internal" href="../database/select.html#select"><span class="std std-ref">SELECT index</span></a> 命令。</p>
 </div>
 <div class="section" id="id4">
 <h2>Redis 集群协议中的客户端和服务器<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>Redis 集群中的节点有以下责任：</p>
 <ul class="simple">
-<li>持有键值对数据。</li>
-<li>记录集群的状态，包括键到正确节点的映射（mapping keys to right nodes）。</li>
-<li>自动发现其他节点，识别工作不正常的节点，并在有需要时，在从节点中选举出新的主节点。</li>
+<li><p>持有键值对数据。</p></li>
+<li><p>记录集群的状态，包括键到正确节点的映射（mapping keys to right nodes）。</p></li>
+<li><p>自动发现其他节点，识别工作不正常的节点，并在有需要时，在从节点中选举出新的主节点。</p></li>
 </ul>
 <p>为了执行以上列出的任务，
 集群中的每个节点都与其他节点建立起了“集群连接（cluster bus）”，
@@ -285,14 +276,14 @@
 使用二进制协议进行通讯。</p>
 <p>节点之间使用 <a class="reference external" href="http://en.wikipedia.org/wiki/Gossip_protocol">Gossip 协议</a> 来进行以下工作：</p>
 <ul class="simple">
-<li>传播（propagate）关于集群的信息，以此来发现新的节点。</li>
-<li>向其他节点发送 <code class="docutils literal"><span class="pre">PING</span></code> 数据包，以此来检查目标节点是否正常运作。</li>
-<li>在特定事件发生时，发送集群信息。</li>
+<li><p>传播（propagate）关于集群的信息，以此来发现新的节点。</p></li>
+<li><p>向其他节点发送 <code class="docutils literal notranslate"><span class="pre">PING</span></code> 数据包，以此来检查目标节点是否正常运作。</p></li>
+<li><p>在特定事件发生时，发送集群信息。</p></li>
 </ul>
 <p>除此之外，
 集群连接还用于在集群中发布或订阅信息。</p>
 <p>因为集群节点不能代理（proxy）命令请求，
-所以客户端应该在节点返回 <code class="docutils literal"><span class="pre">-MOVED</span></code> 或者 <code class="docutils literal"><span class="pre">-ASK</span></code> 转向（redirection）错误时，
+所以客户端应该在节点返回 <code class="docutils literal notranslate"><span class="pre">-MOVED</span></code> 或者 <code class="docutils literal notranslate"><span class="pre">-ASK</span></code> 转向（redirection）错误时，
 自行将命令请求转发至其他节点。</p>
 <p>因为客户端可以自由地向集群中的任何一个节点发送命令请求，
 并可以在有需要时，
@@ -307,51 +298,51 @@
 </div>
 <div class="section" id="id5">
 <h2>键分布模型<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<p>Redis 集群的键空间被分割为 <code class="docutils literal"><span class="pre">16384</span></code> 个槽（slot），
-集群的最大节点数量也是 <code class="docutils literal"><span class="pre">16384</span></code> 个。</p>
+<p>Redis 集群的键空间被分割为 <code class="docutils literal notranslate"><span class="pre">16384</span></code> 个槽（slot），
+集群的最大节点数量也是 <code class="docutils literal notranslate"><span class="pre">16384</span></code> 个。</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">推荐的最大节点数量为 1000 个左右。</p>
+<p class="admonition-title">Note</p>
+<p>推荐的最大节点数量为 1000 个左右。</p>
 </div>
-<p>每个主节点都负责处理 <code class="docutils literal"><span class="pre">16384</span></code> 个哈希槽的其中一部分。</p>
+<p>每个主节点都负责处理 <code class="docutils literal notranslate"><span class="pre">16384</span></code> 个哈希槽的其中一部分。</p>
 <p>当我们说一个集群处于“稳定”（stable）状态时，
 指的是集群没有在执行重配置（reconfiguration）操作，
 每个哈希槽都只由一个节点进行处理。</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">重配置指的是将某个/某些槽从一个节点移动到另一个节点。</p>
+<p class="admonition-title">Note</p>
+<p>重配置指的是将某个/某些槽从一个节点移动到另一个节点。</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">一个主节点可以有任意多个从节点，
+<p class="admonition-title">Note</p>
+<p>一个主节点可以有任意多个从节点，
 这些从节点用于在主节点发生网络断线或者节点失效时，
 对主节点进行替换。</p>
 </div>
 <p>以下是负责将键映射到槽的算法：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">HASH_SLOT</span> <span class="o">=</span> <span class="n">CRC16</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="n">mod</span> <span class="mi">16384</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HASH_SLOT</span> <span class="o">=</span> <span class="n">CRC16</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="n">mod</span> <span class="mi">16384</span>
 </pre></div>
 </div>
 <p>以下是该算法所使用的参数：</p>
 <ul class="simple">
-<li>算法的名称: XMODEM (又称 ZMODEM 或者 CRC-16/ACORN)</li>
-<li>结果的长度: 16 位</li>
-<li>多项数（poly）: 1021 (也即是 <code class="docutils literal"><span class="pre">x16</span> <span class="pre">+</span> <span class="pre">x12</span> <span class="pre">+</span> <span class="pre">x5</span> <span class="pre">+</span> <span class="pre">1</span></code>)</li>
-<li>初始化值: <code class="docutils literal"><span class="pre">0000</span></code></li>
-<li>反射输入字节（Reflect Input byte）: <code class="docutils literal"><span class="pre">False</span></code></li>
-<li>发射输出 CRC （Reflect Output CRC）: <code class="docutils literal"><span class="pre">False</span></code></li>
-<li>用于 CRC 输出值的异或常量（Xor constant to output CRC）: <code class="docutils literal"><span class="pre">0000</span></code></li>
-<li>该算法对于输入 <code class="docutils literal"><span class="pre">&quot;123456789&quot;</span></code> 的输出: <code class="docutils literal"><span class="pre">31C3</span></code></li>
+<li><p>算法的名称: XMODEM (又称 ZMODEM 或者 CRC-16/ACORN)</p></li>
+<li><p>结果的长度: 16 位</p></li>
+<li><p>多项数（poly）: 1021 (也即是 <code class="docutils literal notranslate"><span class="pre">x16</span> <span class="pre">+</span> <span class="pre">x12</span> <span class="pre">+</span> <span class="pre">x5</span> <span class="pre">+</span> <span class="pre">1</span></code>)</p></li>
+<li><p>初始化值: <code class="docutils literal notranslate"><span class="pre">0000</span></code></p></li>
+<li><p>反射输入字节（Reflect Input byte）: <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+<li><p>发射输出 CRC （Reflect Output CRC）: <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+<li><p>用于 CRC 输出值的异或常量（Xor constant to output CRC）: <code class="docutils literal notranslate"><span class="pre">0000</span></code></p></li>
+<li><p>该算法对于输入 <code class="docutils literal notranslate"><span class="pre">&quot;123456789&quot;</span></code> 的输出: <code class="docutils literal notranslate"><span class="pre">31C3</span></code></p></li>
 </ul>
 <p>附录 A 中给出了集群所使用的 CRC16 算法的实现。</p>
 <p>CRC16 算法所产生的 16 位输出中的 14 位会被用到。</p>
 <p>在我们的测试中，
-CRC16 算法可以很好地将各种不同类型的键平稳地分布到 <code class="docutils literal"><span class="pre">16384</span></code> 个槽里面。</p>
+CRC16 算法可以很好地将各种不同类型的键平稳地分布到 <code class="docutils literal notranslate"><span class="pre">16384</span></code> 个槽里面。</p>
 </div>
 <div class="section" id="id6">
 <h2>集群节点属性<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>每个节点在集群中都有一个独一无二的 ID ，
 该 ID 是一个十六进制表示的 160 位随机数，
-在节点第一次启动时由 <code class="docutils literal"><span class="pre">/dev/urandom</span></code> 生成。</p>
+在节点第一次启动时由 <code class="docutils literal notranslate"><span class="pre">/dev/urandom</span></code> 生成。</p>
 <p>节点会将它的 ID 保存到配置文件，
 只要这个配置文件不被删除，
 节点就会一直沿用这个 ID 。</p>
@@ -363,20 +354,20 @@ CRC16 算法可以很好地将各种不同类型的键平稳地分布到 <code c
 <p>以下是每个节点都有的关联信息，
 并且节点会将这些信息发送给其他节点：</p>
 <ul class="simple">
-<li>节点所使用的 IP 地址和 TCP 端口号。</li>
-<li>节点的标志（flags）。</li>
-<li>节点负责处理的哈希槽。</li>
-<li>节点最近一次使用集群连接发送 <code class="docutils literal"><span class="pre">PING</span></code> 数据包（packet）的时间。</li>
-<li>节点最近一次在回复中接收到 <code class="docutils literal"><span class="pre">PONG</span></code> 数据包的时间。</li>
-<li>集群将该节点标记为下线的时间。</li>
-<li>该节点的从节点数量。</li>
-<li>如果该节点是从节点的话，那么它会记录主节点的节点 ID 。
-如果这是一个主节点的话，那么主节点 ID 这一栏的值为 <code class="docutils literal"><span class="pre">0000000</span></code> 。</li>
+<li><p>节点所使用的 IP 地址和 TCP 端口号。</p></li>
+<li><p>节点的标志（flags）。</p></li>
+<li><p>节点负责处理的哈希槽。</p></li>
+<li><p>节点最近一次使用集群连接发送 <code class="docutils literal notranslate"><span class="pre">PING</span></code> 数据包（packet）的时间。</p></li>
+<li><p>节点最近一次在回复中接收到 <code class="docutils literal notranslate"><span class="pre">PONG</span></code> 数据包的时间。</p></li>
+<li><p>集群将该节点标记为下线的时间。</p></li>
+<li><p>该节点的从节点数量。</p></li>
+<li><p>如果该节点是从节点的话，那么它会记录主节点的节点 ID 。
+如果这是一个主节点的话，那么主节点 ID 这一栏的值为 <code class="docutils literal notranslate"><span class="pre">0000000</span></code> 。</p></li>
 </ul>
-<p>以上信息的其中一部分可以通过向集群中的任意节点（主节点或者从节点都可以）发送 <code class="docutils literal"><span class="pre">CLUSTER</span> <span class="pre">NODES</span></code> 命令来获得。</p>
-<p>以下是一个向集群中的主节点发送 <code class="docutils literal"><span class="pre">CLUSTER</span> <span class="pre">NODES</span></code> 命令的例子，
+<p>以上信息的其中一部分可以通过向集群中的任意节点（主节点或者从节点都可以）发送 <code class="docutils literal notranslate"><span class="pre">CLUSTER</span> <span class="pre">NODES</span></code> 命令来获得。</p>
+<p>以下是一个向集群中的主节点发送 <code class="docutils literal notranslate"><span class="pre">CLUSTER</span> <span class="pre">NODES</span></code> 命令的例子，
 该集群由三个节点组成：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ redis-cli cluster nodes
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ redis-cli cluster nodes
 d1861060fe6a534d42d8a19aeb36600e18785e04 :0 myself - 0 1318428930 connected 0-1364
 3886e65cc906bfd9b1f7e7bde468726a052d1dae 127.0.0.1:6380 master - 1318428930 1318428931 connected 1365-2729
 d289c575dcbc4bdd2931585fd4339089e461a27d 127.0.0.1:6381 master - 1318428931 1318428931 connected 2730-4095
@@ -387,27 +378,27 @@ d289c575dcbc4bdd2931585fd4339089e461a27d 127.0.0.1:6381 master - 1318428931 1318
 节点 ID ，
 IP 地址和端口号，
 标志（flag），
-最后发送 <code class="docutils literal"><span class="pre">PING</span></code> 的时间，
-最后接收 <code class="docutils literal"><span class="pre">PONG</span></code> 的时间，
+最后发送 <code class="docutils literal notranslate"><span class="pre">PING</span></code> 的时间，
+最后接收 <code class="docutils literal notranslate"><span class="pre">PONG</span></code> 的时间，
 连接状态，
 节点负责处理的槽。</p>
 </div>
 <div class="section" id="id7">
 <h2>节点握手（已实现）<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <p>节点总是应答（accept）来自集群连接端口的连接请求，
-并对接收到的 <code class="docutils literal"><span class="pre">PING</span></code> 数据包进行回复，
-即使这个 <code class="docutils literal"><span class="pre">PING</span></code> 数据包来自不可信的节点。</p>
+并对接收到的 <code class="docutils literal notranslate"><span class="pre">PING</span></code> 数据包进行回复，
+即使这个 <code class="docutils literal notranslate"><span class="pre">PING</span></code> 数据包来自不可信的节点。</p>
 <p>然而，
-除了 <code class="docutils literal"><span class="pre">PING</span></code> 之外，
+除了 <code class="docutils literal notranslate"><span class="pre">PING</span></code> 之外，
 节点会拒绝其他所有并非来自集群节点的数据包。</p>
 <p>要让一个节点承认另一个节点同属于一个集群，
 只有以下两种方法：</p>
 <ul class="simple">
-<li>一个节点可以通过向另一个节点发送 <code class="docutils literal"><span class="pre">MEET</span></code> 信息，
+<li><p>一个节点可以通过向另一个节点发送 <code class="docutils literal notranslate"><span class="pre">MEET</span></code> 信息，
 来强制让接收信息的节点承认发送信息的节点为集群中的一份子。
-一个节点仅在管理员显式地向它发送 <code class="docutils literal"><span class="pre">CLUSTER</span> <span class="pre">MEET</span> <span class="pre">ip</span> <span class="pre">port</span></code> 命令时，
-才会向另一个节点发送 <code class="docutils literal"><span class="pre">MEET</span></code> 信息。</li>
-<li>另外，
+一个节点仅在管理员显式地向它发送 <code class="docutils literal notranslate"><span class="pre">CLUSTER</span> <span class="pre">MEET</span> <span class="pre">ip</span> <span class="pre">port</span></code> 命令时，
+才会向另一个节点发送 <code class="docutils literal notranslate"><span class="pre">MEET</span></code> 信息。</p></li>
+<li><p>另外，
 如果一个可信节点向另一个节点传播第三者节点的信息，
 那么接收信息的那个节点也会将第三者节点识别为集群中的一份子。
 也即是说，
@@ -415,11 +406,11 @@ IP 地址和端口号，
 B 认识 C ，
 并且 B 向 A 传播关于 C 的信息，
 那么 A 也会将 C 识别为集群中的一份子，
-并尝试连接 C 。</li>
+并尝试连接 C 。</p></li>
 </ul>
 <p>这意味着如果我们将一个/一些新节点添加到一个集群中，
 那么这个/这些新节点最终会和集群中已有的其他所有节点连接起来。</p>
-<p>这说明只要管理员使用 <code class="docutils literal"><span class="pre">CLUSTER</span> <span class="pre">MEET</span></code> 命令显式地指定了可信关系，
+<p>这说明只要管理员使用 <code class="docutils literal notranslate"><span class="pre">CLUSTER</span> <span class="pre">MEET</span></code> 命令显式地指定了可信关系，
 集群就可以自动发现其他节点。</p>
 <p>这种节点识别机制通过防止不同的 Redis 集群因为 IP 地址变更或者其他网络事件的发生而产生意料之外的联合（mix），
 从而使得集群更具健壮性。</p>
@@ -437,32 +428,32 @@ B 认识 C ，
 <p>另一方面，
 如果所查找的槽不是由该节点处理的话，
 节点将查看自身内部所保存的哈希槽到节点 ID 的映射记录，
-并向客户端回复一个 <code class="docutils literal"><span class="pre">MOVED</span></code> 错误。</p>
-<p>以下是一个 <code class="docutils literal"><span class="pre">MOVED</span></code> 错误的例子：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">GET</span> <span class="n">x</span>
+并向客户端回复一个 <code class="docutils literal notranslate"><span class="pre">MOVED</span></code> 错误。</p>
+<p>以下是一个 <code class="docutils literal notranslate"><span class="pre">MOVED</span></code> 错误的例子：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GET</span> <span class="n">x</span>
 
 <span class="o">-</span><span class="n">MOVED</span> <span class="mi">3999</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6381</span>
 </pre></div>
 </div>
-<p>错误信息包含键 <code class="docutils literal"><span class="pre">x</span></code> 所属的哈希槽 <code class="docutils literal"><span class="pre">3999</span></code> ，
-以及负责处理这个槽的节点的 IP 和端口号 <code class="docutils literal"><span class="pre">127.0.0.1:6381</span></code> 。
+<p>错误信息包含键 <code class="docutils literal notranslate"><span class="pre">x</span></code> 所属的哈希槽 <code class="docutils literal notranslate"><span class="pre">3999</span></code> ，
+以及负责处理这个槽的节点的 IP 和端口号 <code class="docutils literal notranslate"><span class="pre">127.0.0.1:6381</span></code> 。
 客户端需要根据这个 IP 和端口号，
 向所属的节点重新发送一次 <a class="reference internal" href="../string/get.html#get"><span class="std std-ref">GET key</span></a> 命令请求。</p>
 <p>注意，
 即使客户端在重新发送 <a class="reference internal" href="../string/get.html#get"><span class="std std-ref">GET key</span></a> 命令之前，
 等待了非常久的时间，
 以至于集群又再次更改了配置，
-使得节点 <code class="docutils literal"><span class="pre">127.0.0.1:6381</span></code> 已经不再处理槽 <code class="docutils literal"><span class="pre">3999</span></code> ，
-那么当客户端向节点 <code class="docutils literal"><span class="pre">127.0.0.1:6381</span></code> 发送 <a class="reference internal" href="../string/get.html#get"><span class="std std-ref">GET key</span></a> 命令的时候，
-节点将再次向客户端返回 <code class="docutils literal"><span class="pre">MOVED</span></code> 错误，
-指示现在负责处理槽 <code class="docutils literal"><span class="pre">3999</span></code> 的节点。</p>
+使得节点 <code class="docutils literal notranslate"><span class="pre">127.0.0.1:6381</span></code> 已经不再处理槽 <code class="docutils literal notranslate"><span class="pre">3999</span></code> ，
+那么当客户端向节点 <code class="docutils literal notranslate"><span class="pre">127.0.0.1:6381</span></code> 发送 <a class="reference internal" href="../string/get.html#get"><span class="std std-ref">GET key</span></a> 命令的时候，
+节点将再次向客户端返回 <code class="docutils literal notranslate"><span class="pre">MOVED</span></code> 错误，
+指示现在负责处理槽 <code class="docutils literal notranslate"><span class="pre">3999</span></code> 的节点。</p>
 <p>虽然我们用 ID 来标识集群中的节点，
 但是为了让客户端的转向操作尽可能地简单，
-节点在 <code class="docutils literal"><span class="pre">MOVED</span></code> 错误中直接返回目标节点的 IP 和端口号，
+节点在 <code class="docutils literal notranslate"><span class="pre">MOVED</span></code> 错误中直接返回目标节点的 IP 和端口号，
 而不是目标节点的 ID 。</p>
 <p>虽然不是必须的，
-但一个客户端应该记录（memorize）下“槽 <code class="docutils literal"><span class="pre">3999</span></code> 由节点 <code class="docutils literal"><span class="pre">127.0.0.1:6381</span></code> 负责处理“这一信息，
-这样当再次有命令需要对槽 <code class="docutils literal"><span class="pre">3999</span></code> 执行时，
+但一个客户端应该记录（memorize）下“槽 <code class="docutils literal notranslate"><span class="pre">3999</span></code> 由节点 <code class="docutils literal notranslate"><span class="pre">127.0.0.1:6381</span></code> 负责处理“这一信息，
+这样当再次有命令需要对槽 <code class="docutils literal notranslate"><span class="pre">3999</span></code> 执行时，
 客户端就可以加快寻找正确节点的速度。</p>
 <p>注意，
 当集群处于稳定状态时，
@@ -470,8 +461,8 @@ B 认识 C ，
 使得集群非常高效：
 客户端可以直接向正确的节点发送命令请求，
 无须转向、代理或者其他任何可能发生单点故障（single point failure）的实体（entiy）。</p>
-<p>除了 <code class="docutils literal"><span class="pre">MOVED</span></code> 转向错误之外，
-一个客户端还应该可以处理稍后介绍的 <code class="docutils literal"><span class="pre">ASK</span></code> 转向错误。</p>
+<p>除了 <code class="docutils literal notranslate"><span class="pre">MOVED</span></code> 转向错误之外，
+一个客户端还应该可以处理稍后介绍的 <code class="docutils literal notranslate"><span class="pre">ASK</span></code> 转向错误。</p>
 </div>
 <div class="section" id="live-reconfiguration">
 <h2>集群在线重配置（live reconfiguration）<a class="headerlink" href="#live-reconfiguration" title="Permalink to this headline">¶</a></h2>
@@ -481,10 +472,10 @@ B 认识 C ，
 那就是，
 将哈希槽从一个节点移动到另一个节点：</p>
 <ul class="simple">
-<li>添加一个新节点到集群，
-等于将其他已存在节点的槽移动到一个空白的新节点里面。</li>
-<li>从集群中移除一个节点，
-等于将被移除节点的所有槽移动到集群的其他节点上面去。</li>
+<li><p>添加一个新节点到集群，
+等于将其他已存在节点的槽移动到一个空白的新节点里面。</p></li>
+<li><p>从集群中移除一个节点，
+等于将被移除节点的所有槽移动到集群的其他节点上面去。</p></li>
 </ul>
 <p>因此，
 实现 Redis 集群在线重配置的核心就是将槽从一个节点移动到另一个节点的能力。
@@ -492,89 +483,89 @@ B 认识 C ，
 所以 Redis 集群在重哈希（rehash）时真正要做的，
 就是将一些键从一个节点移动到另一个节点。</p>
 <p>要理解 Redis 集群如何将槽从一个节点移动到另一个节点，
-我们需要对 <code class="docutils literal"><span class="pre">CLUSTER</span></code> 命令的各个子命令进行介绍，
+我们需要对 <code class="docutils literal notranslate"><span class="pre">CLUSTER</span></code> 命令的各个子命令进行介绍，
 这些命理负责管理集群节点的槽转换表（slots translation table）。</p>
-<p>以下是 <code class="docutils literal"><span class="pre">CLUSTER</span></code> 命令可用的子命令：</p>
+<p>以下是 <code class="docutils literal notranslate"><span class="pre">CLUSTER</span></code> 命令可用的子命令：</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">CLUSTER</span> <span class="pre">ADDSLOTS</span> <span class="pre">slot1</span> <span class="pre">[slot2]</span> <span class="pre">...</span> <span class="pre">[slotN]</span></code></li>
-<li><code class="docutils literal"><span class="pre">CLUSTER</span> <span class="pre">DELSLOTS</span> <span class="pre">slot1</span> <span class="pre">[slot2]</span> <span class="pre">...</span> <span class="pre">[slotN]</span></code></li>
-<li><code class="docutils literal"><span class="pre">CLUSTER</span> <span class="pre">SETSLOT</span> <span class="pre">slot</span> <span class="pre">NODE</span> <span class="pre">node</span></code></li>
-<li><code class="docutils literal"><span class="pre">CLUSTER</span> <span class="pre">SETSLOT</span> <span class="pre">slot</span> <span class="pre">MIGRATING</span> <span class="pre">node</span></code></li>
-<li><code class="docutils literal"><span class="pre">CLUSTER</span> <span class="pre">SETSLOT</span> <span class="pre">slot</span> <span class="pre">IMPORTING</span> <span class="pre">node</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CLUSTER</span> <span class="pre">ADDSLOTS</span> <span class="pre">slot1</span> <span class="pre">[slot2]</span> <span class="pre">...</span> <span class="pre">[slotN]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CLUSTER</span> <span class="pre">DELSLOTS</span> <span class="pre">slot1</span> <span class="pre">[slot2]</span> <span class="pre">...</span> <span class="pre">[slotN]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CLUSTER</span> <span class="pre">SETSLOT</span> <span class="pre">slot</span> <span class="pre">NODE</span> <span class="pre">node</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CLUSTER</span> <span class="pre">SETSLOT</span> <span class="pre">slot</span> <span class="pre">MIGRATING</span> <span class="pre">node</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CLUSTER</span> <span class="pre">SETSLOT</span> <span class="pre">slot</span> <span class="pre">IMPORTING</span> <span class="pre">node</span></code></p></li>
 </ul>
-<p>最开头的两条命令 <code class="docutils literal"><span class="pre">ADDSLOTS</span></code> 和 <code class="docutils literal"><span class="pre">DELSLOTS</span></code> 分别用于向节点指派（assign）或者移除节点，
+<p>最开头的两条命令 <code class="docutils literal notranslate"><span class="pre">ADDSLOTS</span></code> 和 <code class="docutils literal notranslate"><span class="pre">DELSLOTS</span></code> 分别用于向节点指派（assign）或者移除节点，
 当槽被指派或者移除之后，
 节点会将这一信息通过 Gossip 协议传播到整个集群。
-<code class="docutils literal"><span class="pre">ADDSLOTS</span></code> 命令通常在新创建集群时，
+<code class="docutils literal notranslate"><span class="pre">ADDSLOTS</span></code> 命令通常在新创建集群时，
 作为一种快速地将各个槽指派给各个节点的手段来使用。</p>
-<p><code class="docutils literal"><span class="pre">CLUSTER</span> <span class="pre">SETSLOT</span> <span class="pre">slot</span> <span class="pre">NODE</span> <span class="pre">node</span></code> 子命令可以将指定的槽 <code class="docutils literal"><span class="pre">slot</span></code> 指派给节点 <code class="docutils literal"><span class="pre">node</span></code> 。</p>
-<p>至于 <code class="docutils literal"><span class="pre">CLUSTER</span> <span class="pre">SETSLOT</span> <span class="pre">slot</span> <span class="pre">MIGRATING</span> <span class="pre">node</span></code> 命令和 <code class="docutils literal"><span class="pre">CLUSTER</span> <span class="pre">SETSLOT</span> <span class="pre">slot</span> <span class="pre">IMPORTING</span> <span class="pre">node</span></code> 命令，
-前者用于将给定节点 <code class="docutils literal"><span class="pre">node</span></code> 中的槽 <code class="docutils literal"><span class="pre">slot</span></code> 迁移出节点，
-而后者用于将给定槽 <code class="docutils literal"><span class="pre">slot</span></code> 导入到节点 <code class="docutils literal"><span class="pre">node</span></code> ：</p>
+<p><code class="docutils literal notranslate"><span class="pre">CLUSTER</span> <span class="pre">SETSLOT</span> <span class="pre">slot</span> <span class="pre">NODE</span> <span class="pre">node</span></code> 子命令可以将指定的槽 <code class="docutils literal notranslate"><span class="pre">slot</span></code> 指派给节点 <code class="docutils literal notranslate"><span class="pre">node</span></code> 。</p>
+<p>至于 <code class="docutils literal notranslate"><span class="pre">CLUSTER</span> <span class="pre">SETSLOT</span> <span class="pre">slot</span> <span class="pre">MIGRATING</span> <span class="pre">node</span></code> 命令和 <code class="docutils literal notranslate"><span class="pre">CLUSTER</span> <span class="pre">SETSLOT</span> <span class="pre">slot</span> <span class="pre">IMPORTING</span> <span class="pre">node</span></code> 命令，
+前者用于将给定节点 <code class="docutils literal notranslate"><span class="pre">node</span></code> 中的槽 <code class="docutils literal notranslate"><span class="pre">slot</span></code> 迁移出节点，
+而后者用于将给定槽 <code class="docutils literal notranslate"><span class="pre">slot</span></code> 导入到节点 <code class="docutils literal notranslate"><span class="pre">node</span></code> ：</p>
 <ul>
-<li><p class="first">当一个槽被设置为 <code class="docutils literal"><span class="pre">MIGRATING</span></code> 状态时，
+<li><p>当一个槽被设置为 <code class="docutils literal notranslate"><span class="pre">MIGRATING</span></code> 状态时，
 原来持有这个槽的节点仍然会继续接受关于这个槽的命令请求，
 但只有命令所处理的键仍然存在于节点时，
 节点才会处理这个命令请求。</p>
 <p>如果命令所使用的键不存在与该节点，
-那么节点将向客户端返回一个 <code class="docutils literal"><span class="pre">-ASK</span></code> 转向（redirection）错误，
+那么节点将向客户端返回一个 <code class="docutils literal notranslate"><span class="pre">-ASK</span></code> 转向（redirection）错误，
 告知客户端，
 要将命令请求发送到槽的迁移目标节点。</p>
 </li>
-<li><p class="first">当一个槽被设置为 <code class="docutils literal"><span class="pre">IMPORTING</span></code> 状态时，
-节点仅在接收到 <code class="docutils literal"><span class="pre">ASKING</span></code> 命令之后，
+<li><p>当一个槽被设置为 <code class="docutils literal notranslate"><span class="pre">IMPORTING</span></code> 状态时，
+节点仅在接收到 <code class="docutils literal notranslate"><span class="pre">ASKING</span></code> 命令之后，
 才会接受关于这个槽的命令请求。</p>
-<p>如果客户端没有向节点发送 <code class="docutils literal"><span class="pre">ASKING</span></code> 命令，
-那么节点会使用 <code class="docutils literal"><span class="pre">-MOVED</span></code> 转向错误将命令请求转向至真正负责处理这个槽的节点。</p>
+<p>如果客户端没有向节点发送 <code class="docutils literal notranslate"><span class="pre">ASKING</span></code> 命令，
+那么节点会使用 <code class="docutils literal notranslate"><span class="pre">-MOVED</span></code> 转向错误将命令请求转向至真正负责处理这个槽的节点。</p>
 </li>
 </ul>
-<p>上面关于 <code class="docutils literal"><span class="pre">MIGRATING</span></code> 和 <code class="docutils literal"><span class="pre">IMPORTING</span></code> 的说明有些难懂，
+<p>上面关于 <code class="docutils literal notranslate"><span class="pre">MIGRATING</span></code> 和 <code class="docutils literal notranslate"><span class="pre">IMPORTING</span></code> 的说明有些难懂，
 让我们用一个实际的实例来说明一下。</p>
 <p>假设现在，
 我们有 A 和 B 两个节点，
-并且我们想将槽 <code class="docutils literal"><span class="pre">8</span></code> 从节点 A 移动到节点 B ，
+并且我们想将槽 <code class="docutils literal notranslate"><span class="pre">8</span></code> 从节点 A 移动到节点 B ，
 于是我们：</p>
 <ul class="simple">
-<li>向节点 B 发送命令 <code class="docutils literal"><span class="pre">CLUSTER</span> <span class="pre">SETSLOT</span> <span class="pre">8</span> <span class="pre">IMPORTING</span> <span class="pre">A</span></code></li>
-<li>向节点 A 发送命令 <code class="docutils literal"><span class="pre">CLUSTER</span> <span class="pre">SETSLOT</span> <span class="pre">8</span> <span class="pre">MIGRATING</span> <span class="pre">B</span></code></li>
+<li><p>向节点 B 发送命令 <code class="docutils literal notranslate"><span class="pre">CLUSTER</span> <span class="pre">SETSLOT</span> <span class="pre">8</span> <span class="pre">IMPORTING</span> <span class="pre">A</span></code></p></li>
+<li><p>向节点 A 发送命令 <code class="docutils literal notranslate"><span class="pre">CLUSTER</span> <span class="pre">SETSLOT</span> <span class="pre">8</span> <span class="pre">MIGRATING</span> <span class="pre">B</span></code></p></li>
 </ul>
-<p>每当客户端向其他节点发送关于哈希槽 <code class="docutils literal"><span class="pre">8</span></code> 的命令请求时，
+<p>每当客户端向其他节点发送关于哈希槽 <code class="docutils literal notranslate"><span class="pre">8</span></code> 的命令请求时，
 这些节点都会向客户端返回指向节点 A 的转向信息：</p>
 <ul class="simple">
-<li>如果命令要处理的键已经存在于槽 <code class="docutils literal"><span class="pre">8</span></code> 里面，
-那么这个命令将由节点 A 处理。</li>
-<li>如果命令要处理的键未存在于槽 <code class="docutils literal"><span class="pre">8</span></code> 里面（比如说，要向槽添加一个新的键），
-那么这个命令由节点 B 处理。</li>
+<li><p>如果命令要处理的键已经存在于槽 <code class="docutils literal notranslate"><span class="pre">8</span></code> 里面，
+那么这个命令将由节点 A 处理。</p></li>
+<li><p>如果命令要处理的键未存在于槽 <code class="docutils literal notranslate"><span class="pre">8</span></code> 里面（比如说，要向槽添加一个新的键），
+那么这个命令由节点 B 处理。</p></li>
 </ul>
-<p>这种机制将使得节点 A 不再创建关于槽 <code class="docutils literal"><span class="pre">8</span></code> 的任何新键。</p>
+<p>这种机制将使得节点 A 不再创建关于槽 <code class="docutils literal notranslate"><span class="pre">8</span></code> 的任何新键。</p>
 <p>与此同时，
-一个特殊的客户端 <code class="docutils literal"><span class="pre">redis-trib</span></code> 以及 Redis 集群配置程序（configuration utility）会将节点 A 中槽 <code class="docutils literal"><span class="pre">8</span></code> 里面的键移动到节点 B 。</p>
+一个特殊的客户端 <code class="docutils literal notranslate"><span class="pre">redis-trib</span></code> 以及 Redis 集群配置程序（configuration utility）会将节点 A 中槽 <code class="docutils literal notranslate"><span class="pre">8</span></code> 里面的键移动到节点 B 。</p>
 <p>键的移动操作由以下两个命令执行：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">CLUSTER</span> <span class="n">GETKEYSINSLOT</span> <span class="n">slot</span> <span class="n">count</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CLUSTER</span> <span class="n">GETKEYSINSLOT</span> <span class="n">slot</span> <span class="n">count</span>
 </pre></div>
 </div>
-<p>上面的命令会让节点返回 <code class="docutils literal"><span class="pre">count</span></code> 个 <code class="docutils literal"><span class="pre">slot</span></code> 槽中的键，
+<p>上面的命令会让节点返回 <code class="docutils literal notranslate"><span class="pre">count</span></code> 个 <code class="docutils literal notranslate"><span class="pre">slot</span></code> 槽中的键，
 对于命令所返回的每个键，
-<code class="docutils literal"><span class="pre">redis-trib</span></code> 都会向节点 A 发送一条 <a class="reference internal" href="../internal/migrate.html#migrate"><span class="std std-ref">MIGRATE host port key destination-db timeout [COPY] [REPLACE]</span></a> 命令，
+<code class="docutils literal notranslate"><span class="pre">redis-trib</span></code> 都会向节点 A 发送一条 <a class="reference internal" href="../internal/migrate.html#migrate"><span class="std std-ref">MIGRATE host port key destination-db timeout [COPY] [REPLACE]</span></a> 命令，
 该命令会将所指定的键原子地（atomic）从节点 A 移动到节点 B
 （在移动键期间，两个节点都会处于阻塞状态，以免出现竞争条件）。</p>
 <p>以下为 <a class="reference internal" href="../internal/migrate.html#migrate"><span class="std std-ref">MIGRATE host port key destination-db timeout [COPY] [REPLACE]</span></a> 命令的运作原理：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">MIGRATE</span> <span class="n">target_host</span> <span class="n">target_port</span> <span class="n">key</span> <span class="n">target_database</span> <span class="nb">id</span> <span class="n">timeout</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MIGRATE</span> <span class="n">target_host</span> <span class="n">target_port</span> <span class="n">key</span> <span class="n">target_database</span> <span class="nb">id</span> <span class="n">timeout</span>
 </pre></div>
 </div>
-<p>执行 <a class="reference internal" href="../internal/migrate.html#migrate"><span class="std std-ref">MIGRATE host port key destination-db timeout [COPY] [REPLACE]</span></a> 命令的节点会连接到 <code class="docutils literal"><span class="pre">target</span></code> 节点，
-并将序列化后的 <code class="docutils literal"><span class="pre">key</span></code> 数据发送给 <code class="docutils literal"><span class="pre">target</span></code> ，
-一旦 <code class="docutils literal"><span class="pre">target</span></code> 返回 <code class="docutils literal"><span class="pre">OK</span></code> ，
-节点就将自己的 <code class="docutils literal"><span class="pre">key</span></code> 从数据库中删除。</p>
+<p>执行 <a class="reference internal" href="../internal/migrate.html#migrate"><span class="std std-ref">MIGRATE host port key destination-db timeout [COPY] [REPLACE]</span></a> 命令的节点会连接到 <code class="docutils literal notranslate"><span class="pre">target</span></code> 节点，
+并将序列化后的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 数据发送给 <code class="docutils literal notranslate"><span class="pre">target</span></code> ，
+一旦 <code class="docutils literal notranslate"><span class="pre">target</span></code> 返回 <code class="docutils literal notranslate"><span class="pre">OK</span></code> ，
+节点就将自己的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 从数据库中删除。</p>
 <p>从一个外部客户端的视角来看，
 在某个时间点上，
-键 <code class="docutils literal"><span class="pre">key</span></code> 要么存在于节点 A ，
+键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 要么存在于节点 A ，
 要么存在于节点 B ，
 但不会同时存在于节点 A 和节点 B 。</p>
-<p>因为 Redis 集群只使用 <code class="docutils literal"><span class="pre">0</span></code> 号数据库，
+<p>因为 Redis 集群只使用 <code class="docutils literal notranslate"><span class="pre">0</span></code> 号数据库，
 所以当 <a class="reference internal" href="../internal/migrate.html#migrate"><span class="std std-ref">MIGRATE host port key destination-db timeout [COPY] [REPLACE]</span></a> 命令被用于执行集群操作时，
-<code class="docutils literal"><span class="pre">target_database</span></code> 的值总是 <code class="docutils literal"><span class="pre">0</span></code> 。</p>
-<p><code class="docutils literal"><span class="pre">target_database</span></code> 参数的存在是为了让 <a class="reference internal" href="../internal/migrate.html#migrate"><span class="std std-ref">MIGRATE host port key destination-db timeout [COPY] [REPLACE]</span></a> 命令成为一个通用命令，
+<code class="docutils literal notranslate"><span class="pre">target_database</span></code> 的值总是 <code class="docutils literal notranslate"><span class="pre">0</span></code> 。</p>
+<p><code class="docutils literal notranslate"><span class="pre">target_database</span></code> 参数的存在是为了让 <a class="reference internal" href="../internal/migrate.html#migrate"><span class="std std-ref">MIGRATE host port key destination-db timeout [COPY] [REPLACE]</span></a> 命令成为一个通用命令，
 从而可以作用于集群以外的其他功能。</p>
 <p>我们对 <a class="reference internal" href="../internal/migrate.html#migrate"><span class="std std-ref">MIGRATE host port key destination-db timeout [COPY] [REPLACE]</span></a> 命令做了优化，
 使得它即使在传输包含多个元素的列表键这样的复杂数据时，
@@ -587,53 +578,53 @@ B 认识 C ，
 </div>
 <div class="section" id="ask">
 <h2>ASK 转向<a class="headerlink" href="#ask" title="Permalink to this headline">¶</a></h2>
-<p>在之前介绍 <code class="docutils literal"><span class="pre">MOVED</span></code> 转向的时候，
-我们说除了 <code class="docutils literal"><span class="pre">MOVED</span></code> 转向之外，
-还有另一种 <code class="docutils literal"><span class="pre">ASK</span></code> 转向。</p>
+<p>在之前介绍 <code class="docutils literal notranslate"><span class="pre">MOVED</span></code> 转向的时候，
+我们说除了 <code class="docutils literal notranslate"><span class="pre">MOVED</span></code> 转向之外，
+还有另一种 <code class="docutils literal notranslate"><span class="pre">ASK</span></code> 转向。</p>
 <p>当节点需要让一个客户端长期地（permanently）将针对某个槽的命令请求发送至另一个节点时，
-节点向客户端返回 <code class="docutils literal"><span class="pre">MOVED</span></code> 转向。</p>
+节点向客户端返回 <code class="docutils literal notranslate"><span class="pre">MOVED</span></code> 转向。</p>
 <p>另一方面，
 当节点需要让客户端仅仅在下一个命令请求中转向至另一个节点时，
-节点向客户端返回 <code class="docutils literal"><span class="pre">ASK</span></code> 转向。</p>
+节点向客户端返回 <code class="docutils literal notranslate"><span class="pre">ASK</span></code> 转向。</p>
 <p>比如说，
-在我们上一节列举的槽 <code class="docutils literal"><span class="pre">8</span></code> 的例子中，
-因为槽 <code class="docutils literal"><span class="pre">8</span></code> 所包含的各个键分散在节点 A 和节点 B 中，
+在我们上一节列举的槽 <code class="docutils literal notranslate"><span class="pre">8</span></code> 的例子中，
+因为槽 <code class="docutils literal notranslate"><span class="pre">8</span></code> 所包含的各个键分散在节点 A 和节点 B 中，
 所以当客户端在节点 A 中没找到某个键时，
 它应该转向到节点 B 中去寻找，
 但是这种转向应该仅仅影响一次命令查询，
 而不是让客户端每次都直接去查找节点 B ：
-在节点 A 所持有的属于槽 <code class="docutils literal"><span class="pre">8</span></code> 的键没有全部被迁移到节点 B 之前，
+在节点 A 所持有的属于槽 <code class="docutils literal notranslate"><span class="pre">8</span></code> 的键没有全部被迁移到节点 B 之前，
 客户端应该先访问节点 A ，
 然后再访问节点 B 。</p>
-<p>因为这种转向只针对 <code class="docutils literal"><span class="pre">16384</span></code> 个槽中的其中一个槽，
+<p>因为这种转向只针对 <code class="docutils literal notranslate"><span class="pre">16384</span></code> 个槽中的其中一个槽，
 所以转向对集群造成的性能损耗属于可接受的范围。</p>
 <p>因为上述原因，
 如果我们要在查找节点 A 之后，
 继续查找节点 B ，
 那么客户端在向节点 B 发送命令请求之前，
-应该先发送一个 <code class="docutils literal"><span class="pre">ASKING</span></code> 命令，
-否则这个针对带有 <code class="docutils literal"><span class="pre">IMPORTING</span></code> 状态的槽的命令请求将被节点 B 拒绝执行。</p>
-<p>接收到客户端 <code class="docutils literal"><span class="pre">ASKING</span></code> 命令的节点将为客户端设置一个一次性的标志（flag），
-使得客户端可以执行一次针对 <code class="docutils literal"><span class="pre">IMPORTING</span></code> 状态的槽的命令请求。</p>
+应该先发送一个 <code class="docutils literal notranslate"><span class="pre">ASKING</span></code> 命令，
+否则这个针对带有 <code class="docutils literal notranslate"><span class="pre">IMPORTING</span></code> 状态的槽的命令请求将被节点 B 拒绝执行。</p>
+<p>接收到客户端 <code class="docutils literal notranslate"><span class="pre">ASKING</span></code> 命令的节点将为客户端设置一个一次性的标志（flag），
+使得客户端可以执行一次针对 <code class="docutils literal notranslate"><span class="pre">IMPORTING</span></code> 状态的槽的命令请求。</p>
 <p>从客户端的角度来看，
-<code class="docutils literal"><span class="pre">ASK</span></code> 转向的完整语义（semantics）如下：</p>
+<code class="docutils literal notranslate"><span class="pre">ASK</span></code> 转向的完整语义（semantics）如下：</p>
 <ul class="simple">
-<li>如果客户端接收到 <code class="docutils literal"><span class="pre">ASK</span></code> 转向，
-那么将命令请求的发送对象调整为转向所指定的节点。</li>
-<li>先发送一个 <code class="docutils literal"><span class="pre">ASKING</span></code> 命令，然后再发送真正的命令请求。</li>
-<li>不必更新客户端所记录的槽 <code class="docutils literal"><span class="pre">8</span></code> 至节点的映射：
-槽 <code class="docutils literal"><span class="pre">8</span></code> 应该仍然映射到节点 A ，
-而不是节点 B 。</li>
+<li><p>如果客户端接收到 <code class="docutils literal notranslate"><span class="pre">ASK</span></code> 转向，
+那么将命令请求的发送对象调整为转向所指定的节点。</p></li>
+<li><p>先发送一个 <code class="docutils literal notranslate"><span class="pre">ASKING</span></code> 命令，然后再发送真正的命令请求。</p></li>
+<li><p>不必更新客户端所记录的槽 <code class="docutils literal notranslate"><span class="pre">8</span></code> 至节点的映射：
+槽 <code class="docutils literal notranslate"><span class="pre">8</span></code> 应该仍然映射到节点 A ，
+而不是节点 B 。</p></li>
 </ul>
-<p>一旦节点 A 针对槽 <code class="docutils literal"><span class="pre">8</span></code> 的迁移工作完成，
-节点 A 在再次收到针对槽 <code class="docutils literal"><span class="pre">8</span></code> 的命令请求时，
-就会向客户端返回 <code class="docutils literal"><span class="pre">MOVED</span></code> 转向，
-将关于槽  <code class="docutils literal"><span class="pre">8</span></code> 的命令请求长期地转向到节点 B 。</p>
+<p>一旦节点 A 针对槽 <code class="docutils literal notranslate"><span class="pre">8</span></code> 的迁移工作完成，
+节点 A 在再次收到针对槽 <code class="docutils literal notranslate"><span class="pre">8</span></code> 的命令请求时，
+就会向客户端返回 <code class="docutils literal notranslate"><span class="pre">MOVED</span></code> 转向，
+将关于槽  <code class="docutils literal notranslate"><span class="pre">8</span></code> 的命令请求长期地转向到节点 B 。</p>
 <p>注意，
 即使客户端出现 Bug ，
-过早地将槽 <code class="docutils literal"><span class="pre">8</span></code> 映射到了节点 B 上面，
-但只要这个客户端不发送 <code class="docutils literal"><span class="pre">ASKING</span></code> 命令，
-客户端发送命令请求的时候就会遇上 <code class="docutils literal"><span class="pre">MOVED</span></code> 错误，
+过早地将槽 <code class="docutils literal notranslate"><span class="pre">8</span></code> 映射到了节点 B 上面，
+但只要这个客户端不发送 <code class="docutils literal notranslate"><span class="pre">ASKING</span></code> 命令，
+客户端发送命令请求的时候就会遇上 <code class="docutils literal notranslate"><span class="pre">MOVED</span></code> 错误，
 并将它转向回节点 A 。</p>
 </div>
 <div class="section" id="id8">
@@ -642,55 +633,50 @@ B 认识 C ，
 <h3>节点失效检测<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>以下是节点失效检查的实现方法：</p>
 <ul>
-<li><p class="first">当一个节点向另一个节点发送 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令，
+<li><p>当一个节点向另一个节点发送 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令，
 但是目标节点未能在给定的时限内返回 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令的回复时，
-那么发送命令的节点会将目标节点标记为 <code class="docutils literal"><span class="pre">PFAIL</span></code> （possible failure，可能已失效）。</p>
+那么发送命令的节点会将目标节点标记为 <code class="docutils literal notranslate"><span class="pre">PFAIL</span></code> （possible failure，可能已失效）。</p>
 <p>等待 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令回复的时限称为“节点超时时限（node timeout）”，
 是一个节点选项（node-wise setting）。</p>
 </li>
-<li><p class="first">每次当节点对其他节点发送 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令的时候，
+<li><p>每次当节点对其他节点发送 <a class="reference internal" href="../debug/ping.html#ping"><span class="std std-ref">PING</span></a> 命令的时候，
 它都会随机地广播三个它所知道的节点的信息，
-这些信息里面的其中一项就是说明节点是否已经被标记为 <code class="docutils literal"><span class="pre">PFAIL</span></code> 或者 <code class="docutils literal"><span class="pre">FAIL</span></code> 。</p>
-</li>
-<li><p class="first">当节点接收到其他节点发来的信息时，
+这些信息里面的其中一项就是说明节点是否已经被标记为 <code class="docutils literal notranslate"><span class="pre">PFAIL</span></code> 或者 <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> 。</p></li>
+<li><p>当节点接收到其他节点发来的信息时，
 它会记下那些被其他节点标记为失效的节点。
-这称为失效报告（failure report）。</p>
-</li>
-<li><p class="first">如果节点已经将某个节点标记为 <code class="docutils literal"><span class="pre">PFAIL</span></code> ，
+这称为失效报告（failure report）。</p></li>
+<li><p>如果节点已经将某个节点标记为 <code class="docutils literal notranslate"><span class="pre">PFAIL</span></code> ，
 并且根据节点所收到的失效报告显式，
 集群中的大部分其他主节点也认为那个节点进入了失效状态，
-那么节点会将那个失效节点的状态标记为 <code class="docutils literal"><span class="pre">FAIL</span></code> 。</p>
-</li>
-<li><p class="first">一旦某个节点被标记为 <code class="docutils literal"><span class="pre">FAIL</span></code> ，
+那么节点会将那个失效节点的状态标记为 <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> 。</p></li>
+<li><p>一旦某个节点被标记为 <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> ，
 关于这个节点已失效的信息就会被广播到整个集群，
-所有接收到这条信息的节点都会将失效节点标记为 <code class="docutils literal"><span class="pre">FAIL</span></code> 。</p>
-</li>
+所有接收到这条信息的节点都会将失效节点标记为 <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> 。</p></li>
 </ul>
 <p>简单来说，
 一个节点要将另一个节点标记为失效，
 必须先询问其他节点的意见，
 并且得到大部分主节点的同意才行。</p>
 <p>因为过期的失效报告会被移除，
-所以主节点要将某个节点标记为 <code class="docutils literal"><span class="pre">FAIL</span></code> 的话，
+所以主节点要将某个节点标记为 <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> 的话，
 必须以最近接收到的失效报告作为根据。</p>
 <p>在以下两种情况中，
-节点的 <code class="docutils literal"><span class="pre">FAIL</span></code> 状态会被移除：</p>
+节点的 <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> 状态会被移除：</p>
 <ul>
-<li><p class="first">如果被标记为 <code class="docutils literal"><span class="pre">FAIL</span></code> 的是从节点，
+<li><p>如果被标记为 <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> 的是从节点，
 那么当这个节点重新上线时，
-<code class="docutils literal"><span class="pre">FAIL</span></code> 标记就会被移除。</p>
-<p>保持（retaning）从节点的 <code class="docutils literal"><span class="pre">FAIL</span></code> 状态是没有意义的，
+<code class="docutils literal notranslate"><span class="pre">FAIL</span></code> 标记就会被移除。</p>
+<p>保持（retaning）从节点的 <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> 状态是没有意义的，
 因为它不处理任何槽，
-一个从节点是否处于 <code class="docutils literal"><span class="pre">FAIL</span></code> 状态，
+一个从节点是否处于 <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> 状态，
 决定了这个从节点在有需要时能否被提升为主节点。</p>
 </li>
-<li><p class="first">如果一个主节点被打上 <code class="docutils literal"><span class="pre">FAIL</span></code> 标记之后，
+<li><p>如果一个主节点被打上 <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> 标记之后，
 经过了节点超时时限的四倍时间，
 再加上十秒钟之后，
 针对这个主节点的槽的故障转移操作仍未完成，
 并且这个主节点已经重新上线的话，
-那么移除对这个节点的 <code class="docutils literal"><span class="pre">FAIL</span></code> 标记。</p>
-</li>
+那么移除对这个节点的 <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> 标记。</p></li>
 </ul>
 <p>在第二种情况中，
 如果故障转移未能顺利完成，
@@ -705,96 +691,96 @@ B 认识 C ，
 <p>一旦配置处理完毕，
 集群会进入以下两种状态的其中一种：</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">FAIL</span></code> ：
+<li><p><code class="docutils literal notranslate"><span class="pre">FAIL</span></code> ：
 集群不能正常工作。
 当集群中有某个节点进入失效状态时，
 集群不能处理任何命令请求，
 对于每个命令请求，
-集群节点都返回错误回复。</li>
-<li><code class="docutils literal"><span class="pre">OK</span></code> ：
+集群节点都返回错误回复。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OK</span></code> ：
 集群可以正常工作，
-负责处理全部 <code class="docutils literal"><span class="pre">16384</span></code> 个槽的节点中，
-没有一个节点被标记为 <code class="docutils literal"><span class="pre">FAIL</span></code> 状态。</li>
+负责处理全部 <code class="docutils literal notranslate"><span class="pre">16384</span></code> 个槽的节点中，
+没有一个节点被标记为 <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> 状态。</p></li>
 </ul>
 <p>这说明即使集群中只有一部分哈希槽不能正常使用，
 整个集群也会停止处理任何命令。</p>
-<p>不过节点从出现问题到被标记为 <code class="docutils literal"><span class="pre">FAIL</span></code> 状态的这段时间里，
+<p>不过节点从出现问题到被标记为 <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> 状态的这段时间里，
 集群仍然会正常运作，
 所以集群在某些时候，
-仍然有可能只能处理针对 <code class="docutils literal"><span class="pre">16384</span></code> 个槽的其中一个子集的命令请求。</p>
-<p>以下是集群进入 <code class="docutils literal"><span class="pre">FAIL</span></code> 状态的两种情况：</p>
+仍然有可能只能处理针对 <code class="docutils literal notranslate"><span class="pre">16384</span></code> 个槽的其中一个子集的命令请求。</p>
+<p>以下是集群进入 <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> 状态的两种情况：</p>
 <ol class="arabic simple">
-<li>至少有一个哈希槽不可用，因为负责处理这个槽的节点进入了 <code class="docutils literal"><span class="pre">FAIL</span></code> 状态。</li>
-<li>集群中的大部分主节点都进入下线状态。当大部分主节点都进入 <code class="docutils literal"><span class="pre">PFAIL</span></code> 状态时，集群也会进入 <code class="docutils literal"><span class="pre">FAIL</span></code> 状态。</li>
+<li><p>至少有一个哈希槽不可用，因为负责处理这个槽的节点进入了 <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> 状态。</p></li>
+<li><p>集群中的大部分主节点都进入下线状态。当大部分主节点都进入 <code class="docutils literal notranslate"><span class="pre">PFAIL</span></code> 状态时，集群也会进入 <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> 状态。</p></li>
 </ol>
 <p>第二个检查是必须的，
-因为要将一个节点从 <code class="docutils literal"><span class="pre">PFAIL</span></code> 状态改变为 <code class="docutils literal"><span class="pre">FAIL</span></code> 状态，
+因为要将一个节点从 <code class="docutils literal notranslate"><span class="pre">PFAIL</span></code> 状态改变为 <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> 状态，
 必须要有大部分主节点进行投票表决，
 但是，
 当集群中的大部分主节点都进入失效状态时，
-单凭一个两个节点是没有办法将一个节点标记为 <code class="docutils literal"><span class="pre">FAIL</span></code> 状态的。</p>
+单凭一个两个节点是没有办法将一个节点标记为 <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> 状态的。</p>
 <p>因此，
 有了第二个检查条件，
 只要集群中的大部分主节点进入了下线状态，
 那么集群就可以在不请求这些主节点的意见下，
-将某个节点判断为 <code class="docutils literal"><span class="pre">FAIL</span></code> 状态，
+将某个节点判断为 <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> 状态，
 从而让整个集群停止处理命令请求。</p>
 </div>
 <div class="section" id="id11">
 <h3>从节点选举<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
-<p>一旦某个主节点进入 <code class="docutils literal"><span class="pre">FAIL</span></code> 状态，
+<p>一旦某个主节点进入 <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> 状态，
 如果这个主节点有一个或多个从节点存在，
 那么其中一个从节点会被升级为新的主节点，
 而其他从节点则会开始对这个新的主节点进行复制。</p>
 <p>新的主节点由已下线主节点属下的所有从节点中自行选举产生，
 以下是选举的条件：</p>
 <ul class="simple">
-<li>这个节点是已下线主节点的从节点。</li>
-<li>已下线主节点负责处理的槽数量非空。</li>
-<li>从节点的数据被认为是可靠的，
+<li><p>这个节点是已下线主节点的从节点。</p></li>
+<li><p>已下线主节点负责处理的槽数量非空。</p></li>
+<li><p>从节点的数据被认为是可靠的，
 也即是，
-主从节点之间的复制连接（replication link）的断线时长不能超过节点超时时限（node timeout）乘以 <code class="docutils literal"><span class="pre">REDIS_CLUSTER_SLAVE_VALIDITY_MULT</span></code> 常量得出的积。</li>
+主从节点之间的复制连接（replication link）的断线时长不能超过节点超时时限（node timeout）乘以 <code class="docutils literal notranslate"><span class="pre">REDIS_CLUSTER_SLAVE_VALIDITY_MULT</span></code> 常量得出的积。</p></li>
 </ul>
 <p>如果一个从节点满足了以上的所有条件，
 那么这个从节点将向集群中的其他主节点发送授权请求，
 询问它们，
 是否允许自己（从节点）升级为新的主节点。</p>
 <p>如果发送授权请求的从节点满足以下属性，
-那么主节点将向从节点返回 <code class="docutils literal"><span class="pre">FAILOVER_AUTH_GRANTED</span></code> 授权，
+那么主节点将向从节点返回 <code class="docutils literal notranslate"><span class="pre">FAILOVER_AUTH_GRANTED</span></code> 授权，
 同意从节点的升级要求：</p>
 <ul class="simple">
-<li>发送授权请求的是一个从节点，
-并且它所属的主节点处于 <code class="docutils literal"><span class="pre">FAIL</span></code> 状态。</li>
-<li>在已下线主节点的所有从节点中，
-这个从节点的节点 ID 在排序中是最小的。</li>
-<li>这个从节点处于正常的运行状态：
-它没有被标记为 <code class="docutils literal"><span class="pre">FAIL</span></code> 状态，
-也没有被标记为 <code class="docutils literal"><span class="pre">PFAIL</span></code> 状态。</li>
+<li><p>发送授权请求的是一个从节点，
+并且它所属的主节点处于 <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> 状态。</p></li>
+<li><p>在已下线主节点的所有从节点中，
+这个从节点的节点 ID 在排序中是最小的。</p></li>
+<li><p>这个从节点处于正常的运行状态：
+它没有被标记为 <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> 状态，
+也没有被标记为 <code class="docutils literal notranslate"><span class="pre">PFAIL</span></code> 状态。</p></li>
 </ul>
 <p>一旦某个从节点在给定的时限内得到大部分主节点的授权，
 它就会开始执行以下故障转移操作：</p>
 <ul class="simple">
-<li>通过 <code class="docutils literal"><span class="pre">PONG</span></code> 数据包（packet）告知其他节点，
-这个节点现在是主节点了。</li>
-<li>通过 <code class="docutils literal"><span class="pre">PONG</span></code> 数据包告知其他节点，
-这个节点是一个已升级的从节点（promoted slave）。</li>
-<li>接管（claiming）所有由已下线主节点负责处理的哈希槽。</li>
-<li>显式地向所有节点广播一个 <code class="docutils literal"><span class="pre">PONG</span></code> 数据包，
+<li><p>通过 <code class="docutils literal notranslate"><span class="pre">PONG</span></code> 数据包（packet）告知其他节点，
+这个节点现在是主节点了。</p></li>
+<li><p>通过 <code class="docutils literal notranslate"><span class="pre">PONG</span></code> 数据包告知其他节点，
+这个节点是一个已升级的从节点（promoted slave）。</p></li>
+<li><p>接管（claiming）所有由已下线主节点负责处理的哈希槽。</p></li>
+<li><p>显式地向所有节点广播一个 <code class="docutils literal notranslate"><span class="pre">PONG</span></code> 数据包，
 加速其他节点识别这个节点的进度，
-而不是等待定时的 <code class="docutils literal"><span class="pre">PING</span></code> / <code class="docutils literal"><span class="pre">PONG</span></code> 数据包。</li>
+而不是等待定时的 <code class="docutils literal notranslate"><span class="pre">PING</span></code> / <code class="docutils literal notranslate"><span class="pre">PONG</span></code> 数据包。</p></li>
 </ul>
 <p>所有其他节点都会根据新的主节点对配置进行相应的更新，特别地：</p>
 <ul class="simple">
-<li>所有被新的主节点接管的槽会被更新。</li>
-<li>已下线主节点的所有从节点会察觉到 <code class="docutils literal"><span class="pre">PROMOTED</span></code> 标志，
-并开始对新的主节点进行复制。</li>
-<li>如果已下线的主节点重新回到上线状态，
-那么它会察觉到 <code class="docutils literal"><span class="pre">PROMOTED</span></code> 标志，
-并将自身调整为现任主节点的从节点。</li>
+<li><p>所有被新的主节点接管的槽会被更新。</p></li>
+<li><p>已下线主节点的所有从节点会察觉到 <code class="docutils literal notranslate"><span class="pre">PROMOTED</span></code> 标志，
+并开始对新的主节点进行复制。</p></li>
+<li><p>如果已下线的主节点重新回到上线状态，
+那么它会察觉到 <code class="docutils literal notranslate"><span class="pre">PROMOTED</span></code> 标志，
+并将自身调整为现任主节点的从节点。</p></li>
 </ul>
 <p>在集群的生命周期中，
-如果一个带有 <code class="docutils literal"><span class="pre">PROMOTED</span></code> 标识的主节点因为某些原因转变成了从节点，
-那么该节点将丢失它所带有的 <code class="docutils literal"><span class="pre">PROMOTED</span></code> 标识。</p>
+如果一个带有 <code class="docutils literal notranslate"><span class="pre">PROMOTED</span></code> 标识的主节点因为某些原因转变成了从节点，
+那么该节点将丢失它所带有的 <code class="docutils literal notranslate"><span class="pre">PROMOTED</span></code> 标识。</p>
 </div>
 </div>
 <div class="section" id="id12">
@@ -810,7 +796,7 @@ B 认识 C ，
 </div>
 <div class="section" id="a-crc16-ansi">
 <h2>附录 A： CRC16 算法的 ANSI 实现参考<a class="headerlink" href="#a-crc16-ansi" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span>/*
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>/*
  * Copyright 2001-2010 Georges Menie (www.menie.org)
  * Copyright 2010 Salvatore Sanfilippo (adapted to Redis coding style)
  * All rights reserved.

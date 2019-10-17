@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -213,38 +204,38 @@
 <blockquote>
 <div><div class="line-block">
 <div class="line">可用版本： &gt;= 2.8.9</div>
-<div class="line">时间复杂度：O(log(N)+M)， 其中 N 为有序集合的元素数量， 而 M 则是命令返回的元素数量。 如果 M 是一个常数（比如说，用户总是使用 <code class="docutils literal"><span class="pre">LIMIT</span></code> 参数来返回最先的 10 个元素）， 那么命令的复杂度也可以看作是 O(log(N)) 。</div>
+<div class="line">时间复杂度：O(log(N)+M)， 其中 N 为有序集合的元素数量， 而 M 则是命令返回的元素数量。 如果 M 是一个常数（比如说，用户总是使用 <code class="docutils literal notranslate"><span class="pre">LIMIT</span></code> 参数来返回最先的 10 个元素）， 那么命令的复杂度也可以看作是 O(log(N)) 。</div>
 </div>
 </div></blockquote>
 <p>当有序集合的所有成员都具有相同的分值时，
 有序集合的元素会根据成员的字典序（lexicographical ordering）来进行排序，
-而这个命令则可以返回给定的有序集合键 <code class="docutils literal"><span class="pre">key</span></code> 中，
-值介于 <code class="docutils literal"><span class="pre">min</span></code> 和 <code class="docutils literal"><span class="pre">max</span></code> 之间的成员。</p>
+而这个命令则可以返回给定的有序集合键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 中，
+值介于 <code class="docutils literal notranslate"><span class="pre">min</span></code> 和 <code class="docutils literal notranslate"><span class="pre">max</span></code> 之间的成员。</p>
 <p>如果有序集合里面的成员带有不同的分值，
 那么命令返回的结果是未指定的（unspecified）。</p>
-<p>命令会使用 C 语言的 <code class="docutils literal"><span class="pre">memcmp()</span></code> 函数，
+<p>命令会使用 C 语言的 <code class="docutils literal notranslate"><span class="pre">memcmp()</span></code> 函数，
 对集合中的每个成员进行逐个字节的对比（byte-by-byte compare），
 并按照从低到高的顺序，
 返回排序后的集合成员。
 如果两个字符串有一部分内容是相同的话，
 那么命令会认为较长的字符串比较短的字符串要大。</p>
-<p>可选的 <code class="docutils literal"><span class="pre">LIMIT</span> <span class="pre">offset</span> <span class="pre">count</span></code> 参数用于获取指定范围内的匹配元素
-（就像 SQL 中的 <code class="docutils literal"><span class="pre">SELECT</span> <span class="pre">LIMIT</span> <span class="pre">offset</span> <span class="pre">count</span></code> 语句）。
+<p>可选的 <code class="docutils literal notranslate"><span class="pre">LIMIT</span> <span class="pre">offset</span> <span class="pre">count</span></code> 参数用于获取指定范围内的匹配元素
+（就像 SQL 中的 <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">LIMIT</span> <span class="pre">offset</span> <span class="pre">count</span></code> 语句）。
 需要注意的一点是，
-如果 <code class="docutils literal"><span class="pre">offset</span></code> 参数的值非常大的话，
+如果 <code class="docutils literal notranslate"><span class="pre">offset</span></code> 参数的值非常大的话，
 那么命令在返回结果之前，
-需要先遍历至 <code class="docutils literal"><span class="pre">offset</span></code> 所指定的位置，
+需要先遍历至 <code class="docutils literal notranslate"><span class="pre">offset</span></code> 所指定的位置，
 这个操作会为命令加上最多 O(N) 复杂度。</p>
 <div class="section" id="id1">
 <h2>如何指定范围区间<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>合法的 <code class="docutils literal"><span class="pre">min</span></code> 和 <code class="docutils literal"><span class="pre">max</span></code> 参数必须包含 <code class="docutils literal"><span class="pre">(</span></code> 或者 <code class="docutils literal"><span class="pre">[</span></code> ，
-其中 <code class="docutils literal"><span class="pre">(</span></code> 表示开区间（指定的值不会被包含在范围之内），
-而 <code class="docutils literal"><span class="pre">[</span></code> 则表示闭区间（指定的值会被包含在范围之内）。</p>
-<p>特殊值 <code class="docutils literal"><span class="pre">+</span></code> 和 <code class="docutils literal"><span class="pre">-</span></code> 在 <code class="docutils literal"><span class="pre">min</span></code> 参数以及 <code class="docutils literal"><span class="pre">max</span></code> 参数中具有特殊的意义，
-其中 <code class="docutils literal"><span class="pre">+</span></code> 表示正无限，
-而 <code class="docutils literal"><span class="pre">-</span></code> 表示负无限。
+<p>合法的 <code class="docutils literal notranslate"><span class="pre">min</span></code> 和 <code class="docutils literal notranslate"><span class="pre">max</span></code> 参数必须包含 <code class="docutils literal notranslate"><span class="pre">(</span></code> 或者 <code class="docutils literal notranslate"><span class="pre">[</span></code> ，
+其中 <code class="docutils literal notranslate"><span class="pre">(</span></code> 表示开区间（指定的值不会被包含在范围之内），
+而 <code class="docutils literal notranslate"><span class="pre">[</span></code> 则表示闭区间（指定的值会被包含在范围之内）。</p>
+<p>特殊值 <code class="docutils literal notranslate"><span class="pre">+</span></code> 和 <code class="docutils literal notranslate"><span class="pre">-</span></code> 在 <code class="docutils literal notranslate"><span class="pre">min</span></code> 参数以及 <code class="docutils literal notranslate"><span class="pre">max</span></code> 参数中具有特殊的意义，
+其中 <code class="docutils literal notranslate"><span class="pre">+</span></code> 表示正无限，
+而 <code class="docutils literal notranslate"><span class="pre">-</span></code> 表示负无限。
 因此，
-向一个所有成员的分值都相同的有序集合发送命令 <code class="docutils literal"><span class="pre">ZRANGEBYLEX</span> <span class="pre">&lt;zset&gt;</span> <span class="pre">-</span> <span class="pre">+</span></code> ，
+向一个所有成员的分值都相同的有序集合发送命令 <code class="docutils literal notranslate"><span class="pre">ZRANGEBYLEX</span> <span class="pre">&lt;zset&gt;</span> <span class="pre">-</span> <span class="pre">+</span></code> ，
 命令将返回有序集合中的所有元素。</p>
 </div>
 <div class="section" id="id2">
@@ -253,7 +244,7 @@
 </div>
 <div class="section" id="id3">
 <h2>代码示例<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">ZADD</span> <span class="n">myzset</span> <span class="mi">0</span> <span class="n">a</span> <span class="mi">0</span> <span class="n">b</span> <span class="mi">0</span> <span class="n">c</span> <span class="mi">0</span> <span class="n">d</span> <span class="mi">0</span> <span class="n">e</span> <span class="mi">0</span> <span class="n">f</span> <span class="mi">0</span> <span class="n">g</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">ZADD</span> <span class="n">myzset</span> <span class="mi">0</span> <span class="n">a</span> <span class="mi">0</span> <span class="n">b</span> <span class="mi">0</span> <span class="n">c</span> <span class="mi">0</span> <span class="n">d</span> <span class="mi">0</span> <span class="n">e</span> <span class="mi">0</span> <span class="n">f</span> <span class="mi">0</span> <span class="n">g</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">7</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">ZRANGEBYLEX</span> <span class="n">myzset</span> <span class="o">-</span> <span class="p">[</span><span class="n">c</span>

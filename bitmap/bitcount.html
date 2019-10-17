@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -203,18 +194,18 @@
 <div class="line">时间复杂度： O(N)</div>
 </div>
 </div></blockquote>
-<p>计算给定字符串中，被设置为 <code class="docutils literal"><span class="pre">1</span></code> 的比特位的数量。</p>
-<p>一般情况下，给定的整个字符串都会被进行计数，通过指定额外的 <code class="docutils literal"><span class="pre">start</span></code> 或 <code class="docutils literal"><span class="pre">end</span></code> 参数，可以让计数只在特定的位上进行。</p>
-<p><code class="docutils literal"><span class="pre">start</span></code> 和 <code class="docutils literal"><span class="pre">end</span></code> 参数的设置和 <a class="reference internal" href="../string/getrange.html#getrange"><span class="std std-ref">GETRANGE key start end</span></a> 命令类似，都可以使用负数值：
-比如 <code class="docutils literal"><span class="pre">-1</span></code> 表示最后一个字节， <code class="docutils literal"><span class="pre">-2</span></code> 表示倒数第二个字节，以此类推。</p>
-<p>不存在的 <code class="docutils literal"><span class="pre">key</span></code> 被当成是空字符串来处理，因此对一个不存在的 <code class="docutils literal"><span class="pre">key</span></code> 进行 <code class="docutils literal"><span class="pre">BITCOUNT</span></code> 操作，结果为 <code class="docutils literal"><span class="pre">0</span></code> 。</p>
+<p>计算给定字符串中，被设置为 <code class="docutils literal notranslate"><span class="pre">1</span></code> 的比特位的数量。</p>
+<p>一般情况下，给定的整个字符串都会被进行计数，通过指定额外的 <code class="docutils literal notranslate"><span class="pre">start</span></code> 或 <code class="docutils literal notranslate"><span class="pre">end</span></code> 参数，可以让计数只在特定的位上进行。</p>
+<p><code class="docutils literal notranslate"><span class="pre">start</span></code> 和 <code class="docutils literal notranslate"><span class="pre">end</span></code> 参数的设置和 <a class="reference internal" href="../string/getrange.html#getrange"><span class="std std-ref">GETRANGE key start end</span></a> 命令类似，都可以使用负数值：
+比如 <code class="docutils literal notranslate"><span class="pre">-1</span></code> 表示最后一个字节， <code class="docutils literal notranslate"><span class="pre">-2</span></code> 表示倒数第二个字节，以此类推。</p>
+<p>不存在的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 被当成是空字符串来处理，因此对一个不存在的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 进行 <code class="docutils literal notranslate"><span class="pre">BITCOUNT</span></code> 操作，结果为 <code class="docutils literal notranslate"><span class="pre">0</span></code> 。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>被设置为 <code class="docutils literal"><span class="pre">1</span></code> 的位的数量。</p>
+<p>被设置为 <code class="docutils literal notranslate"><span class="pre">1</span></code> 的位的数量。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">BITCOUNT</span> <span class="n">bits</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">BITCOUNT</span> <span class="n">bits</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">0</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">SETBIT</span> <span class="n">bits</span> <span class="mi">0</span> <span class="mi">1</span>          <span class="c1"># 0001</span>
@@ -235,9 +226,9 @@
 <h2>模式：使用 bitmap 实现用户上线次数统计<a class="headerlink" href="#bitmap" title="Permalink to this headline">¶</a></h2>
 <p>Bitmap 对于一些特定类型的计算非常有效。</p>
 <p>假设现在我们希望记录自己网站上的用户的上线频率，比如说，计算用户 A 上线了多少天，用户 B 上线了多少天，诸如此类，以此作为数据，从而决定让哪些用户参加 beta 测试等活动 —— 这个模式可以使用 <a class="reference internal" href="setbit.html#setbit"><span class="std std-ref">SETBIT key offset value</span></a> 和 <a class="reference internal" href="#bitcount"><span class="std std-ref">BITCOUNT key [start] [end]</span></a> 来实现。</p>
-<p>比如说，每当用户在某一天上线的时候，我们就使用 <a class="reference internal" href="setbit.html#setbit"><span class="std std-ref">SETBIT key offset value</span></a> ，以用户名作为 <code class="docutils literal"><span class="pre">key</span></code> ，将那天所代表的网站的上线日作为 <code class="docutils literal"><span class="pre">offset</span></code> 参数，并将这个 <code class="docutils literal"><span class="pre">offset</span></code> 上的为设置为 <code class="docutils literal"><span class="pre">1</span></code> 。</p>
-<p>举个例子，如果今天是网站上线的第 100 天，而用户 peter 在今天阅览过网站，那么执行命令 <code class="docutils literal"><span class="pre">SETBIT</span> <span class="pre">peter</span> <span class="pre">100</span> <span class="pre">1</span></code> ；如果明天 peter 也继续阅览网站，那么执行命令 <code class="docutils literal"><span class="pre">SETBIT</span> <span class="pre">peter</span> <span class="pre">101</span> <span class="pre">1</span></code> ，以此类推。</p>
-<p>当要计算 peter 总共以来的上线次数时，就使用 <a class="reference internal" href="#bitcount"><span class="std std-ref">BITCOUNT key [start] [end]</span></a> 命令：执行 <code class="docutils literal"><span class="pre">BITCOUNT</span> <span class="pre">peter</span></code> ，得出的结果就是 peter 上线的总天数。</p>
+<p>比如说，每当用户在某一天上线的时候，我们就使用 <a class="reference internal" href="setbit.html#setbit"><span class="std std-ref">SETBIT key offset value</span></a> ，以用户名作为 <code class="docutils literal notranslate"><span class="pre">key</span></code> ，将那天所代表的网站的上线日作为 <code class="docutils literal notranslate"><span class="pre">offset</span></code> 参数，并将这个 <code class="docutils literal notranslate"><span class="pre">offset</span></code> 上的为设置为 <code class="docutils literal notranslate"><span class="pre">1</span></code> 。</p>
+<p>举个例子，如果今天是网站上线的第 100 天，而用户 peter 在今天阅览过网站，那么执行命令 <code class="docutils literal notranslate"><span class="pre">SETBIT</span> <span class="pre">peter</span> <span class="pre">100</span> <span class="pre">1</span></code> ；如果明天 peter 也继续阅览网站，那么执行命令 <code class="docutils literal notranslate"><span class="pre">SETBIT</span> <span class="pre">peter</span> <span class="pre">101</span> <span class="pre">1</span></code> ，以此类推。</p>
+<p>当要计算 peter 总共以来的上线次数时，就使用 <a class="reference internal" href="#bitcount"><span class="std std-ref">BITCOUNT key [start] [end]</span></a> 命令：执行 <code class="docutils literal notranslate"><span class="pre">BITCOUNT</span> <span class="pre">peter</span></code> ，得出的结果就是 peter 上线的总天数。</p>
 <p>更详细的实现可以参考博文(墙外) <a class="reference external" href="http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps/">Fast, easy, realtime metrics using Redis bitmaps</a> 。</p>
 </div>
 <div class="section" id="id3">
@@ -245,8 +236,8 @@
 <p>前面的上线次数统计例子，即使运行 10 年，占用的空间也只是每个用户 10*365 比特位(bit)，也即是每个用户 456 字节。对于这种大小的数据来说， <a class="reference internal" href="#bitcount"><span class="std std-ref">BITCOUNT key [start] [end]</span></a> 的处理速度就像 <a class="reference internal" href="../string/get.html#get"><span class="std std-ref">GET key</span></a> 和 <a class="reference internal" href="../string/incr.html#incr"><span class="std std-ref">INCR key</span></a> 这种 O(1) 复杂度的操作一样快。</p>
 <p>如果你的 bitmap 数据非常大，那么可以考虑使用以下两种方法：</p>
 <ol class="arabic simple">
-<li>将一个大的 bitmap 分散到不同的 key 中，作为小的 bitmap 来处理。使用 Lua 脚本可以很方便地完成这一工作。</li>
-<li>使用 <a class="reference internal" href="#bitcount"><span class="std std-ref">BITCOUNT key [start] [end]</span></a> 的 <code class="docutils literal"><span class="pre">start</span></code> 和 <code class="docutils literal"><span class="pre">end</span></code> 参数，每次只对所需的部分位进行计算，将位的累积工作(accumulating)放到客户端进行，并且对结果进行缓存 (caching)。</li>
+<li><p>将一个大的 bitmap 分散到不同的 key 中，作为小的 bitmap 来处理。使用 Lua 脚本可以很方便地完成这一工作。</p></li>
+<li><p>使用 <a class="reference internal" href="#bitcount"><span class="std std-ref">BITCOUNT key [start] [end]</span></a> 的 <code class="docutils literal notranslate"><span class="pre">start</span></code> 和 <code class="docutils literal notranslate"><span class="pre">end</span></code> 参数，每次只对所需的部分位进行计算，将位的累积工作(accumulating)放到客户端进行，并且对结果进行缓存 (caching)。</p></li>
 </ol>
 </div>
 </div>

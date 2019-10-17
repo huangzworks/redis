@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -214,28 +205,28 @@
 <blockquote>
 <div><div class="line-block">
 <div class="line">可用版本：&gt;= 2.0.0</div>
-<div class="line">时间复杂度: O(N)+O(M log(M))， <code class="docutils literal"><span class="pre">N</span></code> 为给定有序集基数的总和， <code class="docutils literal"><span class="pre">M</span></code> 为结果集的基数。</div>
+<div class="line">时间复杂度: O(N)+O(M log(M))， <code class="docutils literal notranslate"><span class="pre">N</span></code> 为给定有序集基数的总和， <code class="docutils literal notranslate"><span class="pre">M</span></code> 为结果集的基数。</div>
 </div>
 </div></blockquote>
-<p>计算给定的一个或多个有序集的并集，其中给定 <code class="docutils literal"><span class="pre">key</span></code> 的数量必须以 <code class="docutils literal"><span class="pre">numkeys</span></code> 参数指定，并将该并集(结果集)储存到 <code class="docutils literal"><span class="pre">destination</span></code> 。</p>
-<p>默认情况下，结果集中某个成员的 <code class="docutils literal"><span class="pre">score</span></code> 值是所有给定集下该成员 <code class="docutils literal"><span class="pre">score</span></code> 值之 <em>和</em> 。</p>
+<p>计算给定的一个或多个有序集的并集，其中给定 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的数量必须以 <code class="docutils literal notranslate"><span class="pre">numkeys</span></code> 参数指定，并将该并集(结果集)储存到 <code class="docutils literal notranslate"><span class="pre">destination</span></code> 。</p>
+<p>默认情况下，结果集中某个成员的 <code class="docutils literal notranslate"><span class="pre">score</span></code> 值是所有给定集下该成员 <code class="docutils literal notranslate"><span class="pre">score</span></code> 值之 <em>和</em> 。</p>
 <div class="section" id="weights">
 <h2>WEIGHTS<a class="headerlink" href="#weights" title="Permalink to this headline">¶</a></h2>
-<p>使用 <code class="docutils literal"><span class="pre">WEIGHTS</span></code> 选项，你可以为 <em>每个</em> 给定有序集 <em>分别</em> 指定一个乘法因子(multiplication factor)，每个给定有序集的所有成员的 <code class="docutils literal"><span class="pre">score</span></code> 值在传递给聚合函数(aggregation function)之前都要先乘以该有序集的因子。</p>
-<p>如果没有指定 <code class="docutils literal"><span class="pre">WEIGHTS</span></code> 选项，乘法因子默认设置为 <code class="docutils literal"><span class="pre">1</span></code> 。</p>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">WEIGHTS</span></code> 选项，你可以为 <em>每个</em> 给定有序集 <em>分别</em> 指定一个乘法因子(multiplication factor)，每个给定有序集的所有成员的 <code class="docutils literal notranslate"><span class="pre">score</span></code> 值在传递给聚合函数(aggregation function)之前都要先乘以该有序集的因子。</p>
+<p>如果没有指定 <code class="docutils literal notranslate"><span class="pre">WEIGHTS</span></code> 选项，乘法因子默认设置为 <code class="docutils literal notranslate"><span class="pre">1</span></code> 。</p>
 </div>
 <div class="section" id="aggregate">
 <h2>AGGREGATE<a class="headerlink" href="#aggregate" title="Permalink to this headline">¶</a></h2>
-<p>使用 <code class="docutils literal"><span class="pre">AGGREGATE</span></code> 选项，你可以指定并集的结果集的聚合方式。</p>
-<p>默认使用的参数 <code class="docutils literal"><span class="pre">SUM</span></code> ，可以将所有集合中某个成员的 <code class="docutils literal"><span class="pre">score</span></code> 值之 <em>和</em> 作为结果集中该成员的 <code class="docutils literal"><span class="pre">score</span></code> 值；使用参数 <code class="docutils literal"><span class="pre">MIN</span></code> ，可以将所有集合中某个成员的 <em>最小</em>  <code class="docutils literal"><span class="pre">score</span></code> 值作为结果集中该成员的 <code class="docutils literal"><span class="pre">score</span></code> 值；而参数 <code class="docutils literal"><span class="pre">MAX</span></code> 则是将所有集合中某个成员的 <em>最大</em>  <code class="docutils literal"><span class="pre">score</span></code> 值作为结果集中该成员的 <code class="docutils literal"><span class="pre">score</span></code> 值。</p>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">AGGREGATE</span></code> 选项，你可以指定并集的结果集的聚合方式。</p>
+<p>默认使用的参数 <code class="docutils literal notranslate"><span class="pre">SUM</span></code> ，可以将所有集合中某个成员的 <code class="docutils literal notranslate"><span class="pre">score</span></code> 值之 <em>和</em> 作为结果集中该成员的 <code class="docutils literal notranslate"><span class="pre">score</span></code> 值；使用参数 <code class="docutils literal notranslate"><span class="pre">MIN</span></code> ，可以将所有集合中某个成员的 <em>最小</em>  <code class="docutils literal notranslate"><span class="pre">score</span></code> 值作为结果集中该成员的 <code class="docutils literal notranslate"><span class="pre">score</span></code> 值；而参数 <code class="docutils literal notranslate"><span class="pre">MAX</span></code> 则是将所有集合中某个成员的 <em>最大</em>  <code class="docutils literal notranslate"><span class="pre">score</span></code> 值作为结果集中该成员的 <code class="docutils literal notranslate"><span class="pre">score</span></code> 值。</p>
 </div>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>保存到 <code class="docutils literal"><span class="pre">destination</span></code> 的结果集的基数。</p>
+<p>保存到 <code class="docutils literal notranslate"><span class="pre">destination</span></code> 的结果集的基数。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">ZRANGE</span> <span class="n">programmer</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="n">WITHSCORES</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">ZRANGE</span> <span class="n">programmer</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="n">WITHSCORES</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;peter&quot;</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;2000&quot;</span>
 <span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;jack&quot;</span>

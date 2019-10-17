@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -202,16 +193,16 @@
 <div class="line">时间复杂度： O(1)</div>
 </div>
 </div></blockquote>
-<p><code class="docutils literal"><span class="pre">DEBUG</span> <span class="pre">OBJECT</span></code> 是一个调试命令，它不应被客户端所使用。</p>
-<p>查看 <code class="docutils literal"><span class="pre">OBJECT</span></code> 命令获取更多信息。</p>
+<p><code class="docutils literal notranslate"><span class="pre">DEBUG</span> <span class="pre">OBJECT</span></code> 是一个调试命令，它不应被客户端所使用。</p>
+<p>查看 <code class="docutils literal notranslate"><span class="pre">OBJECT</span></code> 命令获取更多信息。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>当 <code class="docutils literal"><span class="pre">key</span></code> 存在时，返回有关信息。
-当 <code class="docutils literal"><span class="pre">key</span></code> 不存在时，返回一个错误。</p>
+<p>当 <code class="docutils literal notranslate"><span class="pre">key</span></code> 存在时，返回有关信息。
+当 <code class="docutils literal notranslate"><span class="pre">key</span></code> 不存在时，返回一个错误。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">DEBUG</span> <span class="n">OBJECT</span> <span class="n">my_pc</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">DEBUG</span> <span class="n">OBJECT</span> <span class="n">my_pc</span>
 <span class="n">Value</span> <span class="n">at</span><span class="p">:</span><span class="mh">0xb6838d20</span> <span class="n">refcount</span><span class="p">:</span><span class="mi">1</span> <span class="n">encoding</span><span class="p">:</span><span class="n">raw</span> <span class="n">serializedlength</span><span class="p">:</span><span class="mi">9</span> <span class="n">lru</span><span class="p">:</span><span class="mi">283790</span> <span class="n">lru_seconds_idle</span><span class="p">:</span><span class="mi">150</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">DEBUG</span> <span class="n">OBJECT</span> <span class="n">your_mac</span>

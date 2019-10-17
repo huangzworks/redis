@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -210,15 +201,15 @@
 <div class="line">时间复杂度： O(1)</div>
 </div>
 </div></blockquote>
-<p>切换到指定的数据库，数据库索引号 <code class="docutils literal"><span class="pre">index</span></code> 用数字值指定，以 <code class="docutils literal"><span class="pre">0</span></code> 作为起始索引值。</p>
-<p>默认使用 <code class="docutils literal"><span class="pre">0</span></code> 号数据库。</p>
+<p>切换到指定的数据库，数据库索引号 <code class="docutils literal notranslate"><span class="pre">index</span></code> 用数字值指定，以 <code class="docutils literal notranslate"><span class="pre">0</span></code> 作为起始索引值。</p>
+<p>默认使用 <code class="docutils literal notranslate"><span class="pre">0</span></code> 号数据库。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">OK</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">OK</span></code></p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">db_number</span> <span class="mi">0</span>         <span class="c1"># 默认使用 0 号数据库</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">db_number</span> <span class="mi">0</span>         <span class="c1"># 默认使用 0 号数据库</span>
 <span class="n">OK</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">SELECT</span> <span class="mi">1</span>                <span class="c1"># 使用 1 号数据库</span>

@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -196,11 +187,11 @@
 <blockquote>
 <div><div class="line-block">
 <div class="line">可用版本： &gt;= 1.0.0</div>
-<div class="line">时间复杂度： O(N)， <code class="docutils literal"><span class="pre">N</span></code> 为要保存到数据库中的 key 的数量。</div>
+<div class="line">时间复杂度： O(N)， <code class="docutils literal notranslate"><span class="pre">N</span></code> 为要保存到数据库中的 key 的数量。</div>
 </div>
 </div></blockquote>
 <p>在后台异步(Asynchronously)保存当前数据库的数据到磁盘。</p>
-<p><a class="reference internal" href="#bgsave">BGSAVE</a> 命令执行之后立即返回 <code class="docutils literal"><span class="pre">OK</span></code> ，然后 Redis fork 出一个新子进程，原来的 Redis 进程(父进程)继续处理客户端请求，而子进程则负责将数据保存到磁盘，然后退出。</p>
+<p><a class="reference internal" href="#bgsave">BGSAVE</a> 命令执行之后立即返回 <code class="docutils literal notranslate"><span class="pre">OK</span></code> ，然后 Redis fork 出一个新子进程，原来的 Redis 进程(父进程)继续处理客户端请求，而子进程则负责将数据保存到磁盘，然后退出。</p>
 <p>客户端可以通过 <a class="reference internal" href="lastsave.html#lastsave"><span class="std std-ref">LASTSAVE</span></a> 命令查看相关信息，判断 <a class="reference internal" href="#bgsave">BGSAVE</a> 命令是否执行成功。</p>
 <p>请移步 <a class="reference external" href="http://redis.io/topics/persistence">持久化文档</a> 查看更多相关细节。</p>
 <div class="section" id="id3">
@@ -209,7 +200,7 @@
 </div>
 <div class="section" id="id4">
 <h2>代码示例<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">BGSAVE</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">BGSAVE</span>
 <span class="n">Background</span> <span class="n">saving</span> <span class="n">started</span>
 </pre></div>
 </div>

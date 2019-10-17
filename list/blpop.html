@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -218,15 +209,15 @@
 </div></blockquote>
 <p><a class="reference internal" href="#blpop">BLPOP</a> 是列表的阻塞式(blocking)弹出原语。</p>
 <p>它是 <a class="reference internal" href="lpop.html#lpop"><span class="std std-ref">LPOP key</span></a> 命令的阻塞版本，当给定列表内没有任何元素可供弹出的时候，连接将被 <a class="reference internal" href="#blpop">BLPOP</a> 命令阻塞，直到等待超时或发现可弹出元素为止。</p>
-<p>当给定多个 <code class="docutils literal"><span class="pre">key</span></code> 参数时，按参数 <code class="docutils literal"><span class="pre">key</span></code> 的先后顺序依次检查各个列表，弹出第一个非空列表的头元素。</p>
+<p>当给定多个 <code class="docutils literal notranslate"><span class="pre">key</span></code> 参数时，按参数 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的先后顺序依次检查各个列表，弹出第一个非空列表的头元素。</p>
 <div class="section" id="id1">
 <h2>非阻塞行为<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>当 <a class="reference internal" href="#blpop">BLPOP</a> 被调用时，如果给定 <code class="docutils literal"><span class="pre">key</span></code> 内至少有一个非空列表，那么弹出遇到的第一个非空列表的头元素，并和被弹出元素所属的列表的名字一起，组成结果返回给调用者。</p>
-<p>当存在多个给定 <code class="docutils literal"><span class="pre">key</span></code> 时， <a class="reference internal" href="#blpop">BLPOP</a> 按给定 <code class="docutils literal"><span class="pre">key</span></code> 参数排列的先后顺序，依次检查各个列表。</p>
-<p>假设现在有 <code class="docutils literal"><span class="pre">job</span></code> 、  <code class="docutils literal"><span class="pre">command</span></code> 和 <code class="docutils literal"><span class="pre">request</span></code> 三个列表，其中 <code class="docutils literal"><span class="pre">job</span></code> 不存在， <code class="docutils literal"><span class="pre">command</span></code> 和 <code class="docutils literal"><span class="pre">request</span></code> 都持有非空列表。考虑以下命令：</p>
-<p><code class="docutils literal"><span class="pre">BLPOP</span> <span class="pre">job</span> <span class="pre">command</span> <span class="pre">request</span> <span class="pre">0</span></code></p>
-<p><a class="reference internal" href="#blpop">BLPOP</a> 保证返回的元素来自 <code class="docutils literal"><span class="pre">command</span></code> ，因为它是按”查找 <code class="docutils literal"><span class="pre">job</span></code>  -&gt; 查找 <code class="docutils literal"><span class="pre">command</span></code>  -&gt; 查找 <code class="docutils literal"><span class="pre">request</span></code> “这样的顺序，第一个找到的非空列表。</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">DEL</span> <span class="n">job</span> <span class="n">command</span> <span class="n">request</span>           <span class="c1"># 确保key都被删除</span>
+<p>当 <a class="reference internal" href="#blpop">BLPOP</a> 被调用时，如果给定 <code class="docutils literal notranslate"><span class="pre">key</span></code> 内至少有一个非空列表，那么弹出遇到的第一个非空列表的头元素，并和被弹出元素所属的列表的名字一起，组成结果返回给调用者。</p>
+<p>当存在多个给定 <code class="docutils literal notranslate"><span class="pre">key</span></code> 时， <a class="reference internal" href="#blpop">BLPOP</a> 按给定 <code class="docutils literal notranslate"><span class="pre">key</span></code> 参数排列的先后顺序，依次检查各个列表。</p>
+<p>假设现在有 <code class="docutils literal notranslate"><span class="pre">job</span></code> 、  <code class="docutils literal notranslate"><span class="pre">command</span></code> 和 <code class="docutils literal notranslate"><span class="pre">request</span></code> 三个列表，其中 <code class="docutils literal notranslate"><span class="pre">job</span></code> 不存在， <code class="docutils literal notranslate"><span class="pre">command</span></code> 和 <code class="docutils literal notranslate"><span class="pre">request</span></code> 都持有非空列表。考虑以下命令：</p>
+<p><code class="docutils literal notranslate"><span class="pre">BLPOP</span> <span class="pre">job</span> <span class="pre">command</span> <span class="pre">request</span> <span class="pre">0</span></code></p>
+<p><a class="reference internal" href="#blpop">BLPOP</a> 保证返回的元素来自 <code class="docutils literal notranslate"><span class="pre">command</span></code> ，因为它是按”查找 <code class="docutils literal notranslate"><span class="pre">job</span></code>  -&gt; 查找 <code class="docutils literal notranslate"><span class="pre">command</span></code>  -&gt; 查找 <code class="docutils literal notranslate"><span class="pre">request</span></code> “这样的顺序，第一个找到的非空列表。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">DEL</span> <span class="n">job</span> <span class="n">command</span> <span class="n">request</span>           <span class="c1"># 确保key都被删除</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">0</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">LPUSH</span> <span class="n">command</span> <span class="s2">&quot;update system...&quot;</span>  <span class="c1"># 为command列表增加一个值</span>
@@ -243,9 +234,9 @@
 </div>
 <div class="section" id="id2">
 <h2>阻塞行为<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>如果所有给定 <code class="docutils literal"><span class="pre">key</span></code> 都不存在或包含空列表，那么 <a class="reference internal" href="#blpop">BLPOP</a> 命令将阻塞连接，直到等待超时，或有另一个客户端对给定 <code class="docutils literal"><span class="pre">key</span></code> 的任意一个执行 <a class="reference internal" href="lpush.html#lpush"><span class="std std-ref">LPUSH key value [value …]</span></a> 或 <a class="reference internal" href="rpush.html#rpush"><span class="std std-ref">RPUSH key value [value …]</span></a> 命令为止。</p>
-<p>超时参数 <code class="docutils literal"><span class="pre">timeout</span></code> 接受一个以秒为单位的数字作为值。超时参数设为 <code class="docutils literal"><span class="pre">0</span></code> 表示阻塞时间可以无限期延长(block indefinitely) 。</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">EXISTS</span> <span class="n">job</span>                <span class="c1"># 确保两个 key 都不存在</span>
+<p>如果所有给定 <code class="docutils literal notranslate"><span class="pre">key</span></code> 都不存在或包含空列表，那么 <a class="reference internal" href="#blpop">BLPOP</a> 命令将阻塞连接，直到等待超时，或有另一个客户端对给定 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的任意一个执行 <a class="reference internal" href="lpush.html#lpush"><span class="std std-ref">LPUSH key value [value …]</span></a> 或 <a class="reference internal" href="rpush.html#rpush"><span class="std std-ref">RPUSH key value [value …]</span></a> 命令为止。</p>
+<p>超时参数 <code class="docutils literal notranslate"><span class="pre">timeout</span></code> 接受一个以秒为单位的数字作为值。超时参数设为 <code class="docutils literal notranslate"><span class="pre">0</span></code> 表示阻塞时间可以无限期延长(block indefinitely) 。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">EXISTS</span> <span class="n">job</span>                <span class="c1"># 确保两个 key 都不存在</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">0</span>
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">EXISTS</span> <span class="n">command</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">0</span>
@@ -263,14 +254,14 @@
 </div>
 <div class="section" id="key">
 <h2>相同的key被多个客户端同时阻塞<a class="headerlink" href="#key" title="Permalink to this headline">¶</a></h2>
-<p>相同的 <code class="docutils literal"><span class="pre">key</span></code> 可以被多个客户端同时阻塞。</p>
-<p>不同的客户端被放进一个队列中，按『先阻塞先服务』(first-BLPOP，first-served)的顺序为 <code class="docutils literal"><span class="pre">key</span></code> 执行 <a class="reference internal" href="#blpop">BLPOP</a> 命令。</p>
+<p>相同的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 可以被多个客户端同时阻塞。</p>
+<p>不同的客户端被放进一个队列中，按『先阻塞先服务』(first-BLPOP，first-served)的顺序为 <code class="docutils literal notranslate"><span class="pre">key</span></code> 执行 <a class="reference internal" href="#blpop">BLPOP</a> 命令。</p>
 </div>
 <div class="section" id="multi-execblpop">
 <h2>在MULTI/EXEC事务中的BLPOP<a class="headerlink" href="#multi-execblpop" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference internal" href="#blpop">BLPOP</a> 可以用于流水线(pipline,批量地发送多个命令并读入多个回复)，但把它用在 <a class="reference internal" href="../transaction/multi.html#multi"><span class="std std-ref">MULTI</span></a> / <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> 块当中没有意义。因为这要求整个服务器被阻塞以保证块执行时的原子性，该行为阻止了其他客户端执行 <a class="reference internal" href="lpush.html#lpush"><span class="std std-ref">LPUSH key value [value …]</span></a> 或 <a class="reference internal" href="rpush.html#rpush"><span class="std std-ref">RPUSH key value [value …]</span></a> 命令。</p>
-<p>因此，一个被包裹在 <a class="reference internal" href="../transaction/multi.html#multi"><span class="std std-ref">MULTI</span></a> / <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> 块内的 <a class="reference internal" href="#blpop">BLPOP</a> 命令，行为表现得就像 <a class="reference internal" href="lpop.html#lpop"><span class="std std-ref">LPOP key</span></a> 一样，对空列表返回 <code class="docutils literal"><span class="pre">nil</span></code> ，对非空列表弹出列表元素，不进行任何阻塞操作。</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 对非空列表进行操作</span>
+<p>因此，一个被包裹在 <a class="reference internal" href="../transaction/multi.html#multi"><span class="std std-ref">MULTI</span></a> / <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> 块内的 <a class="reference internal" href="#blpop">BLPOP</a> 命令，行为表现得就像 <a class="reference internal" href="lpop.html#lpop"><span class="std std-ref">LPOP key</span></a> 一样，对空列表返回 <code class="docutils literal notranslate"><span class="pre">nil</span></code> ，对非空列表弹出列表元素，不进行任何阻塞操作。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 对非空列表进行操作</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">RPUSH</span> <span class="n">job</span> <span class="n">programming</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">1</span>
@@ -304,8 +295,8 @@
 </div>
 <div class="section" id="id3">
 <h2>返回值<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>如果列表为空，返回一个 <code class="docutils literal"><span class="pre">nil</span></code> 。
-否则，返回一个含有两个元素的列表，第一个元素是被弹出元素所属的 <code class="docutils literal"><span class="pre">key</span></code> ，第二个元素是被弹出元素的值。</p>
+<p>如果列表为空，返回一个 <code class="docutils literal notranslate"><span class="pre">nil</span></code> 。
+否则，返回一个含有两个元素的列表，第一个元素是被弹出元素所属的 <code class="docutils literal notranslate"><span class="pre">key</span></code> ，第二个元素是被弹出元素的值。</p>
 </div>
 <div class="section" id="id4">
 <h2>模式：事件提醒<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
@@ -313,7 +304,7 @@
 <p>另一种更好的方式是，使用系统提供的阻塞原语，在新元素到达时立即进行处理，而新元素还没到达时，就一直阻塞住，避免轮询占用资源。</p>
 <p>对于 Redis ，我们似乎需要一个阻塞版的 <a class="reference internal" href="../set/spop.html#spop"><span class="std std-ref">SPOP key</span></a> 命令，但实际上，使用 <a class="reference internal" href="#blpop">BLPOP</a> 或者 <a class="reference internal" href="brpop.html#brpop"><span class="std std-ref">BRPOP key [key …] timeout</span></a> 就能很好地解决这个问题。</p>
 <p>使用元素的客户端(消费者)可以执行类似以下的代码：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">LOOP</span> <span class="n">forever</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">LOOP</span> <span class="n">forever</span>
     <span class="n">WHILE</span> <span class="n">SPOP</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="n">returns</span> <span class="n">elements</span>
         <span class="o">...</span> <span class="n">process</span> <span class="n">elements</span> <span class="o">...</span>
     <span class="n">END</span>
@@ -322,7 +313,7 @@
 </pre></div>
 </div>
 <p>添加元素的客户端(生产者)则执行以下代码：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">MULTI</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MULTI</span>
     <span class="n">SADD</span> <span class="n">key</span> <span class="n">element</span>
     <span class="n">LPUSH</span> <span class="n">helper_key</span> <span class="n">x</span>
 <span class="n">EXEC</span>

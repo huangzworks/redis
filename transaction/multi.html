@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -193,15 +184,15 @@
 <p><strong>MULTI</strong></p>
 <p>标记一个事务块的开始。</p>
 <p>事务块内的多条命令会按照先后顺序被放进一个队列当中，最后由 <a class="reference internal" href="exec.html#exec"><span class="std std-ref">EXEC</span></a> 命令原子性(atomic)地执行。</p>
-<dl class="docutils">
-<dt><strong>可用版本：</strong></dt>
-<dd>&gt;= 1.2.0</dd>
-<dt><strong>时间复杂度：</strong></dt>
-<dd>O(1)。</dd>
-<dt><strong>返回值：</strong></dt>
-<dd>总是返回 <code class="docutils literal"><span class="pre">OK</span></code> 。</dd>
+<dl class="simple">
+<dt><strong>可用版本：</strong></dt><dd><p>&gt;= 1.2.0</p>
+</dd>
+<dt><strong>时间复杂度：</strong></dt><dd><p>O(1)。</p>
+</dd>
+<dt><strong>返回值：</strong></dt><dd><p>总是返回 <code class="docutils literal notranslate"><span class="pre">OK</span></code> 。</p>
+</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">MULTI</span>            <span class="c1"># 标记事务开始</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">MULTI</span>            <span class="c1"># 标记事务开始</span>
 <span class="n">OK</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">INCR</span> <span class="n">user_id</span>     <span class="c1"># 多条命令按顺序入队</span>

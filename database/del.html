@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -207,18 +198,18 @@
 <blockquote>
 <div><div class="line-block">
 <div class="line">可用版本： &gt;= 1.0.0</div>
-<div class="line">时间复杂度：O(N)， <code class="docutils literal"><span class="pre">N</span></code> 为被删除的 <code class="docutils literal"><span class="pre">key</span></code> 的数量，其中删除单个字符串类型的 <code class="docutils literal"><span class="pre">key</span></code> ，时间复杂度为O(1)；删除单个列表、集合、有序集合或哈希表类型的 <code class="docutils literal"><span class="pre">key</span></code> ，时间复杂度为O(M)， <code class="docutils literal"><span class="pre">M</span></code> 为以上数据结构内的元素数量。</div>
+<div class="line">时间复杂度：O(N)， <code class="docutils literal notranslate"><span class="pre">N</span></code> 为被删除的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的数量，其中删除单个字符串类型的 <code class="docutils literal notranslate"><span class="pre">key</span></code> ，时间复杂度为O(1)；删除单个列表、集合、有序集合或哈希表类型的 <code class="docutils literal notranslate"><span class="pre">key</span></code> ，时间复杂度为O(M)， <code class="docutils literal notranslate"><span class="pre">M</span></code> 为以上数据结构内的元素数量。</div>
 </div>
 </div></blockquote>
-<p>删除给定的一个或多个 <code class="docutils literal"><span class="pre">key</span></code> 。</p>
-<p>不存在的 <code class="docutils literal"><span class="pre">key</span></code> 会被忽略。</p>
+<p>删除给定的一个或多个 <code class="docutils literal notranslate"><span class="pre">key</span></code> 。</p>
+<p>不存在的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 会被忽略。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>被删除 <code class="docutils literal"><span class="pre">key</span></code> 的数量。</p>
+<p>被删除 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的数量。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1">#  删除单个 key</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#  删除单个 key</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">name</span> <span class="n">huangz</span>
 <span class="n">OK</span>

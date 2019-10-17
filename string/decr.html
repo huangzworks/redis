@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -213,31 +204,31 @@
 <div class="line">时间复杂度： O(1)</div>
 </div>
 </div></blockquote>
-<p>为键 <code class="docutils literal"><span class="pre">key</span></code> 储存的数字值减去一。</p>
-<p>如果键 <code class="docutils literal"><span class="pre">key</span></code> 不存在，
-那么键 <code class="docutils literal"><span class="pre">key</span></code> 的值会先被初始化为 <code class="docutils literal"><span class="pre">0</span></code> ，
-然后再执行 <code class="docutils literal"><span class="pre">DECR</span></code> 操作。</p>
-<p>如果键 <code class="docutils literal"><span class="pre">key</span></code> 储存的值不能被解释为数字，
-那么 <code class="docutils literal"><span class="pre">DECR</span></code> 命令将返回一个错误。</p>
+<p>为键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 储存的数字值减去一。</p>
+<p>如果键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 不存在，
+那么键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的值会先被初始化为 <code class="docutils literal notranslate"><span class="pre">0</span></code> ，
+然后再执行 <code class="docutils literal notranslate"><span class="pre">DECR</span></code> 操作。</p>
+<p>如果键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 储存的值不能被解释为数字，
+那么 <code class="docutils literal notranslate"><span class="pre">DECR</span></code> 命令将返回一个错误。</p>
 <p>本操作的值限制在 64 位(bit)有符号数字表示之内。</p>
 <p>关于递增(increment) / 递减(decrement)操作的更多信息，
-请参见 <code class="docutils literal"><span class="pre">INCR</span></code> 命令的文档。</p>
+请参见 <code class="docutils literal notranslate"><span class="pre">INCR</span></code> 命令的文档。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">DECR</span></code> 命令会返回键 <code class="docutils literal"><span class="pre">key</span></code> 在执行减一操作之后的值。</p>
+<p><code class="docutils literal notranslate"><span class="pre">DECR</span></code> 命令会返回键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 在执行减一操作之后的值。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>对储存数字值的键 <code class="docutils literal"><span class="pre">key</span></code> 执行 <code class="docutils literal"><span class="pre">DECR</span></code> 命令：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">failure_times</span> <span class="mi">10</span>
+<p>对储存数字值的键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 执行 <code class="docutils literal notranslate"><span class="pre">DECR</span></code> 命令：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">failure_times</span> <span class="mi">10</span>
 <span class="n">OK</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">DECR</span> <span class="n">failure_times</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">9</span>
 </pre></div>
 </div>
-<p>对不存在的键执行 <code class="docutils literal"><span class="pre">DECR</span></code> 命令：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">EXISTS</span> <span class="n">count</span>
+<p>对不存在的键执行 <code class="docutils literal notranslate"><span class="pre">DECR</span></code> 命令：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">EXISTS</span> <span class="n">count</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">0</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">DECR</span> <span class="n">count</span>

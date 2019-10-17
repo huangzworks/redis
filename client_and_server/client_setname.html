@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -205,7 +196,7 @@
 </div>
 </div></blockquote>
 <p>为当前连接分配一个名字。</p>
-<p>这个名字会显示在 <code class="docutils literal"><span class="pre">CLIENT</span> <span class="pre">LIST</span></code> 命令的结果中，
+<p>这个名字会显示在 <code class="docutils literal notranslate"><span class="pre">CLIENT</span> <span class="pre">LIST</span></code> 命令的结果中，
 用于识别当前正在与服务器进行连接的客户端。</p>
 <p>举个例子，
 在使用 Redis 构建队列（queue）时，
@@ -214,23 +205,23 @@
 <p>名字使用 Redis 的字符串类型来保存，
 最大可以占用 512 MB 。
 另外，
-为了避免和 <code class="docutils literal"><span class="pre">CLIENT</span> <span class="pre">LIST</span></code> 命令的输出格式发生冲突，
+为了避免和 <code class="docutils literal notranslate"><span class="pre">CLIENT</span> <span class="pre">LIST</span></code> 命令的输出格式发生冲突，
 名字里不允许使用空格。</p>
 <p>要移除一个连接的名字，
-可以将连接的名字设为空字符串 <code class="docutils literal"><span class="pre">&quot;&quot;</span></code> 。</p>
-<p>使用 <code class="docutils literal"><span class="pre">CLIENT</span> <span class="pre">GETNAME</span></code> 命令可以取出连接的名字。</p>
+可以将连接的名字设为空字符串 <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code> 。</p>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">CLIENT</span> <span class="pre">GETNAME</span></code> 命令可以取出连接的名字。</p>
 <p>新创建的连接默认是没有名字的。</p>
 <div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">在 Redis 应用程序发生连接泄漏时，为连接设置名字是一种很好的 debug 手段。</p>
+<p class="admonition-title">Tip</p>
+<p>在 Redis 应用程序发生连接泄漏时，为连接设置名字是一种很好的 debug 手段。</p>
 </div>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>设置成功时返回 <code class="docutils literal"><span class="pre">OK</span></code> 。</p>
+<p>设置成功时返回 <code class="docutils literal notranslate"><span class="pre">OK</span></code> 。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 新连接默认没有名字</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 新连接默认没有名字</span>
 
 <span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">CLIENT</span> <span class="n">GETNAME</span>
 <span class="p">(</span><span class="n">nil</span><span class="p">)</span>

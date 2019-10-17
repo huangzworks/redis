@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -212,20 +203,20 @@
 <blockquote>
 <div><div class="line-block">
 <div class="line">可用版本： &gt;= 1.2.0</div>
-<div class="line">时间复杂度: O(log(N)+M)， <code class="docutils literal"><span class="pre">N</span></code> 为有序集的基数，而 <code class="docutils literal"><span class="pre">M</span></code> 为结果集的基数。</div>
+<div class="line">时间复杂度: O(log(N)+M)， <code class="docutils literal notranslate"><span class="pre">N</span></code> 为有序集的基数，而 <code class="docutils literal notranslate"><span class="pre">M</span></code> 为结果集的基数。</div>
 </div>
 </div></blockquote>
-<p>返回有序集 <code class="docutils literal"><span class="pre">key</span></code> 中，指定区间内的成员。</p>
-<p>其中成员的位置按 <code class="docutils literal"><span class="pre">score</span></code> 值递减(从大到小)来排列。
-具有相同 <code class="docutils literal"><span class="pre">score</span></code> 值的成员按字典序的逆序(<a class="reference external" href="http://en.wikipedia.org/wiki/Lexicographical_order#Reverse_lexicographic_order">reverse lexicographical order</a>)排列。</p>
-<p>除了成员按 <code class="docutils literal"><span class="pre">score</span></code> 值递减的次序排列这一点外， <a class="reference internal" href="#zrevrange">ZREVRANGE</a> 命令的其他方面和 <a class="reference internal" href="zrange.html#zrange"><span class="std std-ref">ZRANGE key start stop [WITHSCORES]</span></a> 命令一样。</p>
+<p>返回有序集 <code class="docutils literal notranslate"><span class="pre">key</span></code> 中，指定区间内的成员。</p>
+<p>其中成员的位置按 <code class="docutils literal notranslate"><span class="pre">score</span></code> 值递减(从大到小)来排列。
+具有相同 <code class="docutils literal notranslate"><span class="pre">score</span></code> 值的成员按字典序的逆序(<a class="reference external" href="http://en.wikipedia.org/wiki/Lexicographical_order#Reverse_lexicographic_order">reverse lexicographical order</a>)排列。</p>
+<p>除了成员按 <code class="docutils literal notranslate"><span class="pre">score</span></code> 值递减的次序排列这一点外， <a class="reference internal" href="#zrevrange">ZREVRANGE</a> 命令的其他方面和 <a class="reference internal" href="zrange.html#zrange"><span class="std std-ref">ZRANGE key start stop [WITHSCORES]</span></a> 命令一样。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>指定区间内，带有 <code class="docutils literal"><span class="pre">score</span></code> 值(可选)的有序集成员的列表。</p>
+<p>指定区间内，带有 <code class="docutils literal notranslate"><span class="pre">score</span></code> 值(可选)的有序集成员的列表。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">ZRANGE</span> <span class="n">salary</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="n">WITHSCORES</span>        <span class="c1"># 递增排列</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">ZRANGE</span> <span class="n">salary</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="n">WITHSCORES</span>        <span class="c1"># 递增排列</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;peter&quot;</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;3500&quot;</span>
 <span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;tom&quot;</span>

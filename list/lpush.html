@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -212,14 +203,14 @@
 <div class="line">时间复杂度： O(1)</div>
 </div>
 </div></blockquote>
-<p>将一个或多个值 <code class="docutils literal"><span class="pre">value</span></code> 插入到列表 <code class="docutils literal"><span class="pre">key</span></code> 的表头</p>
-<p>如果有多个 <code class="docutils literal"><span class="pre">value</span></code> 值，那么各个 <code class="docutils literal"><span class="pre">value</span></code> 值按从左到右的顺序依次插入到表头：
-比如说，对空列表 <code class="docutils literal"><span class="pre">mylist</span></code> 执行命令 <code class="docutils literal"><span class="pre">LPUSH</span> <span class="pre">mylist</span> <span class="pre">a</span> <span class="pre">b</span> <span class="pre">c</span></code> ，列表的值将是 <code class="docutils literal"><span class="pre">c</span> <span class="pre">b</span> <span class="pre">a</span></code> ，这等同于原子性地执行 <code class="docutils literal"><span class="pre">LPUSH</span> <span class="pre">mylist</span> <span class="pre">a</span></code> 、 <code class="docutils literal"><span class="pre">LPUSH</span> <span class="pre">mylist</span> <span class="pre">b</span></code> 和 <code class="docutils literal"><span class="pre">LPUSH</span> <span class="pre">mylist</span> <span class="pre">c</span></code> 三个命令。</p>
-<p>如果 <code class="docutils literal"><span class="pre">key</span></code> 不存在，一个空列表会被创建并执行 <a class="reference internal" href="#lpush">LPUSH</a> 操作。</p>
-<p>当 <code class="docutils literal"><span class="pre">key</span></code> 存在但不是列表类型时，返回一个错误。</p>
+<p>将一个或多个值 <code class="docutils literal notranslate"><span class="pre">value</span></code> 插入到列表 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的表头</p>
+<p>如果有多个 <code class="docutils literal notranslate"><span class="pre">value</span></code> 值，那么各个 <code class="docutils literal notranslate"><span class="pre">value</span></code> 值按从左到右的顺序依次插入到表头：
+比如说，对空列表 <code class="docutils literal notranslate"><span class="pre">mylist</span></code> 执行命令 <code class="docutils literal notranslate"><span class="pre">LPUSH</span> <span class="pre">mylist</span> <span class="pre">a</span> <span class="pre">b</span> <span class="pre">c</span></code> ，列表的值将是 <code class="docutils literal notranslate"><span class="pre">c</span> <span class="pre">b</span> <span class="pre">a</span></code> ，这等同于原子性地执行 <code class="docutils literal notranslate"><span class="pre">LPUSH</span> <span class="pre">mylist</span> <span class="pre">a</span></code> 、 <code class="docutils literal notranslate"><span class="pre">LPUSH</span> <span class="pre">mylist</span> <span class="pre">b</span></code> 和 <code class="docutils literal notranslate"><span class="pre">LPUSH</span> <span class="pre">mylist</span> <span class="pre">c</span></code> 三个命令。</p>
+<p>如果 <code class="docutils literal notranslate"><span class="pre">key</span></code> 不存在，一个空列表会被创建并执行 <a class="reference internal" href="#lpush">LPUSH</a> 操作。</p>
+<p>当 <code class="docutils literal notranslate"><span class="pre">key</span></code> 存在但不是列表类型时，返回一个错误。</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">在Redis 2.4版本以前的 <a class="reference internal" href="#lpush">LPUSH</a> 命令，都只接受单个 <code class="docutils literal"><span class="pre">value</span></code> 值。</p>
+<p class="admonition-title">Note</p>
+<p>在Redis 2.4版本以前的 <a class="reference internal" href="#lpush">LPUSH</a> 命令，都只接受单个 <code class="docutils literal notranslate"><span class="pre">value</span></code> 值。</p>
 </div>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
@@ -227,7 +218,7 @@
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 加入单个元素</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 加入单个元素</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">LPUSH</span> <span class="n">languages</span> <span class="n">python</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">1</span>

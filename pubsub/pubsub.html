@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -209,21 +200,23 @@
   <div class="section" id="pubsub-subcommand-argument-argument">
 <span id="pubsub"></span><h1>PUBSUB &lt;subcommand&gt; [argument [argument …]]<a class="headerlink" href="#pubsub-subcommand-argument-argument" title="Permalink to this headline">¶</a></h1>
 <blockquote>
-<div>可用版本：&gt;= 2.8.0</div></blockquote>
-<p><code class="docutils literal"><span class="pre">PUBSUB</span></code> 是一个查看订阅与发布系统状态的内省命令，
+<div><p>可用版本：&gt;= 2.8.0</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">PUBSUB</span></code> 是一个查看订阅与发布系统状态的内省命令，
 它由数个不同格式的子命令组成，
 以下将分别对这些子命令进行介绍。</p>
 <div class="section" id="pubsub-channels-pattern">
 <h2>PUBSUB CHANNELS [pattern]<a class="headerlink" href="#pubsub-channels-pattern" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div>复杂度： O(N) ， <code class="docutils literal"><span class="pre">N</span></code> 为活跃频道的数量（对于长度较短的频道和模式来说，将进行模式匹配的复杂度视为常数）。</div></blockquote>
+<div><p>复杂度： O(N) ， <code class="docutils literal notranslate"><span class="pre">N</span></code> 为活跃频道的数量（对于长度较短的频道和模式来说，将进行模式匹配的复杂度视为常数）。</p>
+</div></blockquote>
 <p>列出当前的活跃频道。</p>
 <p>活跃频道指的是那些至少有一个订阅者的频道，
 订阅模式的客户端不计算在内。</p>
-<p><code class="docutils literal"><span class="pre">pattern</span></code> 参数是可选的：</p>
+<p><code class="docutils literal notranslate"><span class="pre">pattern</span></code> 参数是可选的：</p>
 <ul class="simple">
-<li>如果不给出 <code class="docutils literal"><span class="pre">pattern</span></code> 参数，那么列出订阅与发布系统中的所有活跃频道。</li>
-<li>如果给出 <code class="docutils literal"><span class="pre">pattern</span></code> 参数，那么只列出和给定模式 <code class="docutils literal"><span class="pre">pattern</span></code> 相匹配的那些活跃频道。</li>
+<li><p>如果不给出 <code class="docutils literal notranslate"><span class="pre">pattern</span></code> 参数，那么列出订阅与发布系统中的所有活跃频道。</p></li>
+<li><p>如果给出 <code class="docutils literal notranslate"><span class="pre">pattern</span></code> 参数，那么只列出和给定模式 <code class="docutils literal notranslate"><span class="pre">pattern</span></code> 相匹配的那些活跃频道。</p></li>
 </ul>
 <div class="section" id="id1">
 <h3>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
@@ -231,7 +224,7 @@
 </div>
 <div class="section" id="id2">
 <h3>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># client-1 订阅 news.it 和 news.sport 两个频道</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># client-1 订阅 news.it 和 news.sport 两个频道</span>
 
 <span class="n">client</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;</span> <span class="n">SUBSCRIBE</span> <span class="n">news</span><span class="o">.</span><span class="n">it</span> <span class="n">news</span><span class="o">.</span><span class="n">sport</span>
 <span class="n">Reading</span> <span class="n">messages</span><span class="o">...</span> <span class="p">(</span><span class="n">press</span> <span class="n">Ctrl</span><span class="o">-</span><span class="n">C</span> <span class="n">to</span> <span class="n">quit</span><span class="p">)</span>
@@ -274,13 +267,14 @@
 <div class="section" id="pubsub-numsub-channel-1-channel-n">
 <h2>PUBSUB NUMSUB [channel-1 … channel-N]<a class="headerlink" href="#pubsub-numsub-channel-1-channel-n" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div>复杂度： O(N) ， <code class="docutils literal"><span class="pre">N</span></code> 为给定频道的数量。</div></blockquote>
+<div><p>复杂度： O(N) ， <code class="docutils literal notranslate"><span class="pre">N</span></code> 为给定频道的数量。</p>
+</div></blockquote>
 <p>返回给定频道的订阅者数量，
 订阅模式的客户端不计算在内。</p>
 <div class="section" id="id3">
 <h3>返回值<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>一个多条批量回复（Multi-bulk reply），回复中包含给定的频道，以及频道的订阅者数量。
-格式为：频道 <code class="docutils literal"><span class="pre">channel-1</span></code> ， <code class="docutils literal"><span class="pre">channel-1</span></code> 的订阅者数量，频道 <code class="docutils literal"><span class="pre">channel-2</span></code> ， <code class="docutils literal"><span class="pre">channel-2</span></code> 的订阅者数量，诸如此类。
+格式为：频道 <code class="docutils literal notranslate"><span class="pre">channel-1</span></code> ， <code class="docutils literal notranslate"><span class="pre">channel-1</span></code> 的订阅者数量，频道 <code class="docutils literal notranslate"><span class="pre">channel-2</span></code> ， <code class="docutils literal notranslate"><span class="pre">channel-2</span></code> 的订阅者数量，诸如此类。
 回复中频道的排列顺序和执行命令时给定频道的排列顺序一致。
 不给定任何频道而直接调用这个命令也是可以的，
 在这种情况下，
@@ -288,7 +282,7 @@
 </div>
 <div class="section" id="id4">
 <h3>代码示例<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># client-1 订阅 news.it 和 news.sport 两个频道</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># client-1 订阅 news.it 和 news.sport 两个频道</span>
 
 <span class="n">client</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;</span> <span class="n">SUBSCRIBE</span> <span class="n">news</span><span class="o">.</span><span class="n">it</span> <span class="n">news</span><span class="o">.</span><span class="n">sport</span>
 <span class="n">Reading</span> <span class="n">messages</span><span class="o">...</span> <span class="p">(</span><span class="n">press</span> <span class="n">Ctrl</span><span class="o">-</span><span class="n">C</span> <span class="n">to</span> <span class="n">quit</span><span class="p">)</span>
@@ -328,7 +322,8 @@
 <div class="section" id="pubsub-numpat">
 <h2>PUBSUB NUMPAT<a class="headerlink" href="#pubsub-numpat" title="Permalink to this headline">¶</a></h2>
 <blockquote>
-<div>复杂度： O(1) 。</div></blockquote>
+<div><p>复杂度： O(1) 。</p>
+</div></blockquote>
 <p>返回订阅模式的数量。</p>
 <p>注意，
 这个命令返回的不是订阅模式的客户端的数量，
@@ -339,7 +334,7 @@
 </div>
 <div class="section" id="id6">
 <h3>代码示例<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># client-1 订阅 news.* 和 discount.* 两个模式</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># client-1 订阅 news.* 和 discount.* 两个模式</span>
 
 <span class="n">client</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;</span> <span class="n">PSUBSCRIBE</span> <span class="n">news</span><span class="o">.*</span> <span class="n">discount</span><span class="o">.*</span>
 <span class="n">Reading</span> <span class="n">messages</span><span class="o">...</span> <span class="p">(</span><span class="n">press</span> <span class="n">Ctrl</span><span class="o">-</span><span class="n">C</span> <span class="n">to</span> <span class="n">quit</span><span class="p">)</span>

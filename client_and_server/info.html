@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -205,195 +196,195 @@
 </div>
 </div></blockquote>
 <p>以一种易于解释（parse）且易于阅读的格式，返回关于 Redis 服务器的各种信息和统计数值。</p>
-<p>通过给定可选的参数 <code class="docutils literal"><span class="pre">section</span></code> ，可以让命令只返回某一部分的信息：</p>
+<p>通过给定可选的参数 <code class="docutils literal notranslate"><span class="pre">section</span></code> ，可以让命令只返回某一部分的信息：</p>
 <ul>
-<li><p class="first"><code class="docutils literal"><span class="pre">server</span></code> 部分记录了 Redis 服务器的信息，它包含以下域：</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">server</span></code> 部分记录了 Redis 服务器的信息，它包含以下域：</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal"><span class="pre">redis_version</span></code> : Redis 服务器版本</li>
-<li><code class="docutils literal"><span class="pre">redis_git_sha1</span></code> : Git SHA1</li>
-<li><code class="docutils literal"><span class="pre">redis_git_dirty</span></code> : Git dirty flag</li>
-<li><code class="docutils literal"><span class="pre">os</span></code> : Redis 服务器的宿主操作系统</li>
-<li><code class="docutils literal"><span class="pre">arch_bits</span></code> : 架构（32 或 64 位）</li>
-<li><code class="docutils literal"><span class="pre">multiplexing_api</span></code> : Redis 所使用的事件处理机制</li>
-<li><code class="docutils literal"><span class="pre">gcc_version</span></code> : 编译 Redis 时所使用的 GCC 版本</li>
-<li><code class="docutils literal"><span class="pre">process_id</span></code> : 服务器进程的 PID</li>
-<li><code class="docutils literal"><span class="pre">run_id</span></code> : Redis 服务器的随机标识符（用于 Sentinel 和集群）</li>
-<li><code class="docutils literal"><span class="pre">tcp_port</span></code> : TCP/IP 监听端口</li>
-<li><code class="docutils literal"><span class="pre">uptime_in_seconds</span></code> : 自 Redis 服务器启动以来，经过的秒数</li>
-<li><code class="docutils literal"><span class="pre">uptime_in_days</span></code> : 自 Redis 服务器启动以来，经过的天数</li>
-<li><code class="docutils literal"><span class="pre">lru_clock</span></code> : 以分钟为单位进行自增的时钟，用于 LRU 管理</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">redis_version</span></code> : Redis 服务器版本</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">redis_git_sha1</span></code> : Git SHA1</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">redis_git_dirty</span></code> : Git dirty flag</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">os</span></code> : Redis 服务器的宿主操作系统</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">arch_bits</span></code> : 架构（32 或 64 位）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">multiplexing_api</span></code> : Redis 所使用的事件处理机制</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gcc_version</span></code> : 编译 Redis 时所使用的 GCC 版本</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">process_id</span></code> : 服务器进程的 PID</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">run_id</span></code> : Redis 服务器的随机标识符（用于 Sentinel 和集群）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tcp_port</span></code> : TCP/IP 监听端口</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">uptime_in_seconds</span></code> : 自 Redis 服务器启动以来，经过的秒数</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">uptime_in_days</span></code> : 自 Redis 服务器启动以来，经过的天数</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lru_clock</span></code> : 以分钟为单位进行自增的时钟，用于 LRU 管理</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first"><code class="docutils literal"><span class="pre">clients</span></code> 部分记录了已连接客户端的信息，它包含以下域：</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">clients</span></code> 部分记录了已连接客户端的信息，它包含以下域：</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal"><span class="pre">connected_clients</span></code> : 已连接客户端的数量（不包括通过从属服务器连接的客户端）</li>
-<li><code class="docutils literal"><span class="pre">client_longest_output_list</span></code> : 当前连接的客户端当中，最长的输出列表</li>
-<li><code class="docutils literal"><span class="pre">client_longest_input_buf</span></code> : 当前连接的客户端当中，最大输入缓存</li>
-<li><code class="docutils literal"><span class="pre">blocked_clients</span></code> : 正在等待阻塞命令（BLPOP、BRPOP、BRPOPLPUSH）的客户端的数量</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">connected_clients</span></code> : 已连接客户端的数量（不包括通过从属服务器连接的客户端）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">client_longest_output_list</span></code> : 当前连接的客户端当中，最长的输出列表</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">client_longest_input_buf</span></code> : 当前连接的客户端当中，最大输入缓存</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">blocked_clients</span></code> : 正在等待阻塞命令（BLPOP、BRPOP、BRPOPLPUSH）的客户端的数量</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first"><code class="docutils literal"><span class="pre">memory</span></code> 部分记录了服务器的内存信息，它包含以下域：</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">memory</span></code> 部分记录了服务器的内存信息，它包含以下域：</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal"><span class="pre">used_memory</span></code> : 由 Redis 分配器分配的内存总量，以字节（byte）为单位</li>
-<li><code class="docutils literal"><span class="pre">used_memory_human</span></code> : 以人类可读的格式返回 Redis 分配的内存总量</li>
-<li><code class="docutils literal"><span class="pre">used_memory_rss</span></code> : 从操作系统的角度，返回 Redis 已分配的内存总量（俗称常驻集大小）。这个值和 <code class="docutils literal"><span class="pre">top</span></code> 、 <code class="docutils literal"><span class="pre">ps</span></code> 等命令的输出一致。</li>
-<li><code class="docutils literal"><span class="pre">used_memory_peak</span></code> : Redis 的内存消耗峰值（以字节为单位）</li>
-<li><code class="docutils literal"><span class="pre">used_memory_peak_human</span></code> : 以人类可读的格式返回 Redis 的内存消耗峰值</li>
-<li><code class="docutils literal"><span class="pre">used_memory_lua</span></code> : Lua 引擎所使用的内存大小（以字节为单位）</li>
-<li><code class="docutils literal"><span class="pre">mem_fragmentation_ratio</span></code> : <code class="docutils literal"><span class="pre">used_memory_rss</span></code> 和 <code class="docutils literal"><span class="pre">used_memory</span></code> 之间的比率</li>
-<li><code class="docutils literal"><span class="pre">mem_allocator</span></code> : 在编译时指定的， Redis 所使用的内存分配器。可以是 libc 、 jemalloc 或者 tcmalloc 。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">used_memory</span></code> : 由 Redis 分配器分配的内存总量，以字节（byte）为单位</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">used_memory_human</span></code> : 以人类可读的格式返回 Redis 分配的内存总量</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">used_memory_rss</span></code> : 从操作系统的角度，返回 Redis 已分配的内存总量（俗称常驻集大小）。这个值和 <code class="docutils literal notranslate"><span class="pre">top</span></code> 、 <code class="docutils literal notranslate"><span class="pre">ps</span></code> 等命令的输出一致。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">used_memory_peak</span></code> : Redis 的内存消耗峰值（以字节为单位）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">used_memory_peak_human</span></code> : 以人类可读的格式返回 Redis 的内存消耗峰值</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">used_memory_lua</span></code> : Lua 引擎所使用的内存大小（以字节为单位）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mem_fragmentation_ratio</span></code> : <code class="docutils literal notranslate"><span class="pre">used_memory_rss</span></code> 和 <code class="docutils literal notranslate"><span class="pre">used_memory</span></code> 之间的比率</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mem_allocator</span></code> : 在编译时指定的， Redis 所使用的内存分配器。可以是 libc 、 jemalloc 或者 tcmalloc 。</p></li>
 </ul>
 <div class="line-block">
-<div class="line">在理想情况下， <code class="docutils literal"><span class="pre">used_memory_rss</span></code> 的值应该只比 <code class="docutils literal"><span class="pre">used_memory</span></code> 稍微高一点儿。</div>
-<div class="line">当 <code class="docutils literal"><span class="pre">rss</span> <span class="pre">&gt;</span> <span class="pre">used</span></code> ，且两者的值相差较大时，表示存在（内部或外部的）内存碎片。</div>
-<div class="line">内存碎片的比率可以通过 <code class="docutils literal"><span class="pre">mem_fragmentation_ratio</span></code> 的值看出。</div>
-<div class="line">当 <code class="docutils literal"><span class="pre">used</span> <span class="pre">&gt;</span> <span class="pre">rss</span></code> 时，表示 Redis 的部分内存被操作系统换出到交换空间了，在这种情况下，操作可能会产生明显的延迟。</div>
+<div class="line">在理想情况下， <code class="docutils literal notranslate"><span class="pre">used_memory_rss</span></code> 的值应该只比 <code class="docutils literal notranslate"><span class="pre">used_memory</span></code> 稍微高一点儿。</div>
+<div class="line">当 <code class="docutils literal notranslate"><span class="pre">rss</span> <span class="pre">&gt;</span> <span class="pre">used</span></code> ，且两者的值相差较大时，表示存在（内部或外部的）内存碎片。</div>
+<div class="line">内存碎片的比率可以通过 <code class="docutils literal notranslate"><span class="pre">mem_fragmentation_ratio</span></code> 的值看出。</div>
+<div class="line">当 <code class="docutils literal notranslate"><span class="pre">used</span> <span class="pre">&gt;</span> <span class="pre">rss</span></code> 时，表示 Redis 的部分内存被操作系统换出到交换空间了，在这种情况下，操作可能会产生明显的延迟。</div>
 </div>
-<p>Because Redis does not have control over how its allocations are mapped to memory pages, high <code class="docutils literal"><span class="pre">used_memory_rss</span></code> is often the result of a spike in memory usage.</p>
+<p>Because Redis does not have control over how its allocations are mapped to memory pages, high <code class="docutils literal notranslate"><span class="pre">used_memory_rss</span></code> is often the result of a spike in memory usage.</p>
 <div class="line-block">
 <div class="line">当 Redis 释放内存时，分配器可能会，也可能不会，将内存返还给操作系统。</div>
-<div class="line">如果 Redis 释放了内存，却没有将内存返还给操作系统，那么 <code class="docutils literal"><span class="pre">used_memory</span></code> 的值可能和操作系统显示的 Redis 内存占用并不一致。</div>
-<div class="line">查看 <code class="docutils literal"><span class="pre">used_memory_peak</span></code> 的值可以验证这种情况是否发生。</div>
+<div class="line">如果 Redis 释放了内存，却没有将内存返还给操作系统，那么 <code class="docutils literal notranslate"><span class="pre">used_memory</span></code> 的值可能和操作系统显示的 Redis 内存占用并不一致。</div>
+<div class="line">查看 <code class="docutils literal notranslate"><span class="pre">used_memory_peak</span></code> 的值可以验证这种情况是否发生。</div>
 </div>
 </div></blockquote>
 </li>
-<li><p class="first"><code class="docutils literal"><span class="pre">persistence</span></code> 部分记录了跟 <code class="docutils literal"><span class="pre">RDB</span></code> 持久化和 <code class="docutils literal"><span class="pre">AOF</span></code> 持久化有关的信息，它包含以下域：</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">persistence</span></code> 部分记录了跟 <code class="docutils literal notranslate"><span class="pre">RDB</span></code> 持久化和 <code class="docutils literal notranslate"><span class="pre">AOF</span></code> 持久化有关的信息，它包含以下域：</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal"><span class="pre">loading</span></code> : 一个标志值，记录了服务器是否正在载入持久化文件。</li>
-<li><code class="docutils literal"><span class="pre">rdb_changes_since_last_save</span></code> : 距离最近一次成功创建持久化文件之后，经过了多少秒。</li>
-<li><code class="docutils literal"><span class="pre">rdb_bgsave_in_progress</span></code> : 一个标志值，记录了服务器是否正在创建 RDB 文件。</li>
-<li><code class="docutils literal"><span class="pre">rdb_last_save_time</span></code> : 最近一次成功创建 RDB 文件的 UNIX 时间戳。</li>
-<li><code class="docutils literal"><span class="pre">rdb_last_bgsave_status</span></code> : 一个标志值，记录了最近一次创建 RDB 文件的结果是成功还是失败。</li>
-<li><code class="docutils literal"><span class="pre">rdb_last_bgsave_time_sec</span></code> : 记录了最近一次创建 RDB 文件耗费的秒数。</li>
-<li><code class="docutils literal"><span class="pre">rdb_current_bgsave_time_sec</span></code> : 如果服务器正在创建 RDB 文件，那么这个域记录的就是当前的创建操作已经耗费的秒数。</li>
-<li><code class="docutils literal"><span class="pre">aof_enabled</span></code> : 一个标志值，记录了 AOF 是否处于打开状态。</li>
-<li><code class="docutils literal"><span class="pre">aof_rewrite_in_progress</span></code> : 一个标志值，记录了服务器是否正在创建 AOF 文件。</li>
-<li><code class="docutils literal"><span class="pre">aof_rewrite_scheduled</span></code> : 一个标志值，记录了在 RDB 文件创建完毕之后，是否需要执行预约的 AOF 重写操作。</li>
-<li><code class="docutils literal"><span class="pre">aof_last_rewrite_time_sec</span></code> : 最近一次创建 AOF 文件耗费的时长。</li>
-<li><code class="docutils literal"><span class="pre">aof_current_rewrite_time_sec</span></code> : 如果服务器正在创建 AOF 文件，那么这个域记录的就是当前的创建操作已经耗费的秒数。</li>
-<li><code class="docutils literal"><span class="pre">aof_last_bgrewrite_status</span></code> : 一个标志值，记录了最近一次创建 AOF 文件的结果是成功还是失败。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">loading</span></code> : 一个标志值，记录了服务器是否正在载入持久化文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rdb_changes_since_last_save</span></code> : 距离最近一次成功创建持久化文件之后，经过了多少秒。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rdb_bgsave_in_progress</span></code> : 一个标志值，记录了服务器是否正在创建 RDB 文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rdb_last_save_time</span></code> : 最近一次成功创建 RDB 文件的 UNIX 时间戳。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rdb_last_bgsave_status</span></code> : 一个标志值，记录了最近一次创建 RDB 文件的结果是成功还是失败。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rdb_last_bgsave_time_sec</span></code> : 记录了最近一次创建 RDB 文件耗费的秒数。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rdb_current_bgsave_time_sec</span></code> : 如果服务器正在创建 RDB 文件，那么这个域记录的就是当前的创建操作已经耗费的秒数。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aof_enabled</span></code> : 一个标志值，记录了 AOF 是否处于打开状态。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aof_rewrite_in_progress</span></code> : 一个标志值，记录了服务器是否正在创建 AOF 文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aof_rewrite_scheduled</span></code> : 一个标志值，记录了在 RDB 文件创建完毕之后，是否需要执行预约的 AOF 重写操作。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aof_last_rewrite_time_sec</span></code> : 最近一次创建 AOF 文件耗费的时长。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aof_current_rewrite_time_sec</span></code> : 如果服务器正在创建 AOF 文件，那么这个域记录的就是当前的创建操作已经耗费的秒数。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aof_last_bgrewrite_status</span></code> : 一个标志值，记录了最近一次创建 AOF 文件的结果是成功还是失败。</p></li>
 </ul>
 </div></blockquote>
 <p>如果 AOF 持久化功能处于开启状态，那么这个部分还会加上以下域：</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal"><span class="pre">aof_current_size</span></code> : AOF 文件目前的大小。</li>
-<li><code class="docutils literal"><span class="pre">aof_base_size</span></code> : 服务器启动时或者 AOF 重写最近一次执行之后，AOF 文件的大小。</li>
-<li><code class="docutils literal"><span class="pre">aof_pending_rewrite</span></code> : 一个标志值，记录了是否有 AOF 重写操作在等待 RDB 文件创建完毕之后执行。</li>
-<li><code class="docutils literal"><span class="pre">aof_buffer_length</span></code> : AOF 缓冲区的大小。</li>
-<li><code class="docutils literal"><span class="pre">aof_rewrite_buffer_length</span></code> : AOF 重写缓冲区的大小。</li>
-<li><code class="docutils literal"><span class="pre">aof_pending_bio_fsync</span></code> : 后台 I/O 队列里面，等待执行的 <code class="docutils literal"><span class="pre">fsync</span></code> 调用数量。</li>
-<li><code class="docutils literal"><span class="pre">aof_delayed_fsync</span></code> : 被延迟的 <code class="docutils literal"><span class="pre">fsync</span></code> 调用数量。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aof_current_size</span></code> : AOF 文件目前的大小。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aof_base_size</span></code> : 服务器启动时或者 AOF 重写最近一次执行之后，AOF 文件的大小。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aof_pending_rewrite</span></code> : 一个标志值，记录了是否有 AOF 重写操作在等待 RDB 文件创建完毕之后执行。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aof_buffer_length</span></code> : AOF 缓冲区的大小。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aof_rewrite_buffer_length</span></code> : AOF 重写缓冲区的大小。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aof_pending_bio_fsync</span></code> : 后台 I/O 队列里面，等待执行的 <code class="docutils literal notranslate"><span class="pre">fsync</span></code> 调用数量。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aof_delayed_fsync</span></code> : 被延迟的 <code class="docutils literal notranslate"><span class="pre">fsync</span></code> 调用数量。</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first"><code class="docutils literal"><span class="pre">stats</span></code> 部分记录了一般统计信息，它包含以下域：</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">stats</span></code> 部分记录了一般统计信息，它包含以下域：</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal"><span class="pre">total_connections_received</span></code> : 服务器已接受的连接请求数量。</li>
-<li><code class="docutils literal"><span class="pre">total_commands_processed</span></code> : 服务器已执行的命令数量。</li>
-<li><code class="docutils literal"><span class="pre">instantaneous_ops_per_sec</span></code> : 服务器每秒钟执行的命令数量。</li>
-<li><code class="docutils literal"><span class="pre">rejected_connections</span></code> : 因为最大客户端数量限制而被拒绝的连接请求数量。</li>
-<li><code class="docutils literal"><span class="pre">expired_keys</span></code> : 因为过期而被自动删除的数据库键数量。</li>
-<li><code class="docutils literal"><span class="pre">evicted_keys</span></code> : 因为最大内存容量限制而被驱逐（evict）的键数量。</li>
-<li><code class="docutils literal"><span class="pre">keyspace_hits</span></code> : 查找数据库键成功的次数。</li>
-<li><code class="docutils literal"><span class="pre">keyspace_misses</span></code> : 查找数据库键失败的次数。</li>
-<li><code class="docutils literal"><span class="pre">pubsub_channels</span></code> : 目前被订阅的频道数量。</li>
-<li><code class="docutils literal"><span class="pre">pubsub_patterns</span></code> : 目前被订阅的模式数量。</li>
-<li><code class="docutils literal"><span class="pre">latest_fork_usec</span></code> : 最近一次 <code class="docutils literal"><span class="pre">fork()</span></code> 操作耗费的毫秒数。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">total_connections_received</span></code> : 服务器已接受的连接请求数量。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">total_commands_processed</span></code> : 服务器已执行的命令数量。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">instantaneous_ops_per_sec</span></code> : 服务器每秒钟执行的命令数量。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rejected_connections</span></code> : 因为最大客户端数量限制而被拒绝的连接请求数量。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">expired_keys</span></code> : 因为过期而被自动删除的数据库键数量。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">evicted_keys</span></code> : 因为最大内存容量限制而被驱逐（evict）的键数量。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keyspace_hits</span></code> : 查找数据库键成功的次数。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keyspace_misses</span></code> : 查找数据库键失败的次数。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pubsub_channels</span></code> : 目前被订阅的频道数量。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pubsub_patterns</span></code> : 目前被订阅的模式数量。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">latest_fork_usec</span></code> : 最近一次 <code class="docutils literal notranslate"><span class="pre">fork()</span></code> 操作耗费的毫秒数。</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first"><code class="docutils literal"><span class="pre">replication</span></code> : 主/从复制信息</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">replication</span></code> : 主/从复制信息</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal"><span class="pre">role</span></code> : 如果当前服务器没有在复制任何其他服务器，那么这个域的值就是 <code class="docutils literal"><span class="pre">master</span></code> ；否则的话，这个域的值就是 <code class="docutils literal"><span class="pre">slave</span></code> 。注意，在创建复制链的时候，一个从服务器也可能是另一个服务器的主服务器。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">role</span></code> : 如果当前服务器没有在复制任何其他服务器，那么这个域的值就是 <code class="docutils literal notranslate"><span class="pre">master</span></code> ；否则的话，这个域的值就是 <code class="docutils literal notranslate"><span class="pre">slave</span></code> 。注意，在创建复制链的时候，一个从服务器也可能是另一个服务器的主服务器。</p></li>
 </ul>
 </div></blockquote>
 <p>如果当前服务器是一个从服务器的话，那么这个部分还会加上以下域：</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal"><span class="pre">master_host</span></code> : 主服务器的 IP 地址。</li>
-<li><code class="docutils literal"><span class="pre">master_port</span></code> : 主服务器的 TCP 监听端口号。</li>
-<li><code class="docutils literal"><span class="pre">master_link_status</span></code> : 复制连接当前的状态， <code class="docutils literal"><span class="pre">up</span></code> 表示连接正常， <code class="docutils literal"><span class="pre">down</span></code> 表示连接断开。</li>
-<li><code class="docutils literal"><span class="pre">master_last_io_seconds_ago</span></code> : 距离最近一次与主服务器进行通信已经过去了多少秒钟。</li>
-<li><code class="docutils literal"><span class="pre">master_sync_in_progress</span></code> : 一个标志值，记录了主服务器是否正在与这个从服务器进行同步。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">master_host</span></code> : 主服务器的 IP 地址。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">master_port</span></code> : 主服务器的 TCP 监听端口号。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">master_link_status</span></code> : 复制连接当前的状态， <code class="docutils literal notranslate"><span class="pre">up</span></code> 表示连接正常， <code class="docutils literal notranslate"><span class="pre">down</span></code> 表示连接断开。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">master_last_io_seconds_ago</span></code> : 距离最近一次与主服务器进行通信已经过去了多少秒钟。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">master_sync_in_progress</span></code> : 一个标志值，记录了主服务器是否正在与这个从服务器进行同步。</p></li>
 </ul>
 </div></blockquote>
 <p>如果同步操作正在进行，那么这个部分还会加上以下域：</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal"><span class="pre">master_sync_left_bytes</span></code> : 距离同步完成还缺少多少字节数据。</li>
-<li><code class="docutils literal"><span class="pre">master_sync_last_io_seconds_ago</span></code> : 距离最近一次因为 SYNC 操作而进行 I/O 已经过去了多少秒。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">master_sync_left_bytes</span></code> : 距离同步完成还缺少多少字节数据。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">master_sync_last_io_seconds_ago</span></code> : 距离最近一次因为 SYNC 操作而进行 I/O 已经过去了多少秒。</p></li>
 </ul>
 </div></blockquote>
 <p>如果主从服务器之间的连接处于断线状态，那么这个部分还会加上以下域：</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal"><span class="pre">master_link_down_since_seconds</span></code> : 主从服务器连接断开了多少秒。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">master_link_down_since_seconds</span></code> : 主从服务器连接断开了多少秒。</p></li>
 </ul>
 </div></blockquote>
 <p>以下是一些总会出现的域：</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal"><span class="pre">connected_slaves</span></code> : 已连接的从服务器数量。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">connected_slaves</span></code> : 已连接的从服务器数量。</p></li>
 </ul>
 </div></blockquote>
 <p>对于每个从服务器，都会添加以下一行信息：</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal"><span class="pre">slaveXXX</span></code> : ID、IP 地址、端口号、连接状态</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slaveXXX</span></code> : ID、IP 地址、端口号、连接状态</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first"><code class="docutils literal"><span class="pre">cpu</span></code> 部分记录了 CPU 的计算量统计信息，它包含以下域：</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpu</span></code> 部分记录了 CPU 的计算量统计信息，它包含以下域：</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal"><span class="pre">used_cpu_sys</span></code> : Redis 服务器耗费的系统 CPU 。</li>
-<li><code class="docutils literal"><span class="pre">used_cpu_user</span></code> : Redis 服务器耗费的用户 CPU 。</li>
-<li><code class="docutils literal"><span class="pre">used_cpu_sys_children</span></code> : 后台进程耗费的系统 CPU 。</li>
-<li><code class="docutils literal"><span class="pre">used_cpu_user_children</span></code> : 后台进程耗费的用户 CPU 。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">used_cpu_sys</span></code> : Redis 服务器耗费的系统 CPU 。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">used_cpu_user</span></code> : Redis 服务器耗费的用户 CPU 。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">used_cpu_sys_children</span></code> : 后台进程耗费的系统 CPU 。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">used_cpu_user_children</span></code> : 后台进程耗费的用户 CPU 。</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first"><code class="docutils literal"><span class="pre">commandstats</span></code> 部分记录了各种不同类型的命令的执行统计信息，比如命令执行的次数、命令耗费的 CPU 时间、执行每个命令耗费的平均 CPU 时间等等。对于每种类型的命令，这个部分都会添加一行以下格式的信息：</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">commandstats</span></code> 部分记录了各种不同类型的命令的执行统计信息，比如命令执行的次数、命令耗费的 CPU 时间、执行每个命令耗费的平均 CPU 时间等等。对于每种类型的命令，这个部分都会添加一行以下格式的信息：</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal"><span class="pre">cmdstat_XXX:calls=XXX,usec=XXX,usecpercall=XXX</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cmdstat_XXX:calls=XXX,usec=XXX,usecpercall=XXX</span></code></p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first"><code class="docutils literal"><span class="pre">cluster</span></code> 部分记录了和集群有关的信息，它包含以下域：</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">cluster</span></code> 部分记录了和集群有关的信息，它包含以下域：</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal"><span class="pre">cluster_enabled</span></code> : 一个标志值，记录集群功能是否已经开启。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cluster_enabled</span></code> : 一个标志值，记录集群功能是否已经开启。</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first"><code class="docutils literal"><span class="pre">keyspace</span></code> 部分记录了数据库相关的统计信息，比如数据库的键数量、数据库已经被删除的过期键数量等。对于每个数据库，这个部分都会添加一行以下格式的信息：</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">keyspace</span></code> 部分记录了数据库相关的统计信息，比如数据库的键数量、数据库已经被删除的过期键数量等。对于每个数据库，这个部分都会添加一行以下格式的信息：</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal"><span class="pre">dbXXX:keys=XXX,expires=XXX</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dbXXX:keys=XXX,expires=XXX</span></code></p></li>
 </ul>
 </div></blockquote>
 </li>
 </ul>
-<p>除上面给出的这些值以外， <code class="docutils literal"><span class="pre">section</span></code> 参数的值还可以是下面这两个：</p>
+<p>除上面给出的这些值以外， <code class="docutils literal notranslate"><span class="pre">section</span></code> 参数的值还可以是下面这两个：</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">all</span></code> : 返回所有信息</li>
-<li><code class="docutils literal"><span class="pre">default</span></code> : 返回默认选择的信息</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">all</span></code> : 返回所有信息</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">default</span></code> : 返回默认选择的信息</p></li>
 </ul>
-<p>当不带参数直接调用 <a class="reference internal" href="#info">INFO</a> 命令时，使用 <code class="docutils literal"><span class="pre">default</span></code> 作为默认参数。</p>
+<p>当不带参数直接调用 <a class="reference internal" href="#info">INFO</a> 命令时，使用 <code class="docutils literal notranslate"><span class="pre">default</span></code> 作为默认参数。</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>不同版本的 Redis 可能对返回的一些域进行了增加或删减。</p>
-<p class="last">因此，一个健壮的客户端程序在对 <a class="reference internal" href="#info"><span class="std std-ref">INFO [section]</span></a> 命令的输出进行分析时，应该能够跳过不认识的域，并且妥善地处理丢失不见的域。</p>
+<p>因此，一个健壮的客户端程序在对 <a class="reference internal" href="#info"><span class="std std-ref">INFO [section]</span></a> 命令的输出进行分析时，应该能够跳过不认识的域，并且妥善地处理丢失不见的域。</p>
 </div>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
@@ -401,7 +392,7 @@
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">INFO</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">INFO</span>
 <span class="c1"># Server</span>
 <span class="n">redis_version</span><span class="p">:</span><span class="mf">2.9</span><span class="o">.</span><span class="mi">11</span>
 <span class="n">redis_git_sha1</span><span class="p">:</span><span class="mi">937384</span><span class="n">d0</span>

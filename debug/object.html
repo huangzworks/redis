@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -202,32 +193,32 @@
 <div class="line">时间复杂度： O(1)</div>
 </div>
 </div></blockquote>
-<p><code class="docutils literal"><span class="pre">OBJECT</span></code> 命令允许从内部察看给定 <code class="docutils literal"><span class="pre">key</span></code> 的 Redis 对象，
-它通常用在除错(debugging)或者了解为了节省空间而对 <code class="docutils literal"><span class="pre">key</span></code> 使用特殊编码的情况。
-当将Redis用作缓存程序时，你也可以通过 <code class="docutils literal"><span class="pre">OBJECT</span></code> 命令中的信息，决定 <code class="docutils literal"><span class="pre">key</span></code> 的驱逐策略(eviction policies)。</p>
+<p><code class="docutils literal notranslate"><span class="pre">OBJECT</span></code> 命令允许从内部察看给定 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的 Redis 对象，
+它通常用在除错(debugging)或者了解为了节省空间而对 <code class="docutils literal notranslate"><span class="pre">key</span></code> 使用特殊编码的情况。
+当将Redis用作缓存程序时，你也可以通过 <code class="docutils literal notranslate"><span class="pre">OBJECT</span></code> 命令中的信息，决定 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的驱逐策略(eviction policies)。</p>
 <p>OBJECT 命令有多个子命令：</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">OBJECT</span> <span class="pre">REFCOUNT</span> <span class="pre">&lt;key&gt;</span></code> 返回给定 <code class="docutils literal"><span class="pre">key</span></code> 引用所储存的值的次数。此命令主要用于除错。</li>
-<li><code class="docutils literal"><span class="pre">OBJECT</span> <span class="pre">ENCODING</span> <span class="pre">&lt;key&gt;</span></code> 返回给定 <code class="docutils literal"><span class="pre">key</span></code> 锁储存的值所使用的内部表示(representation)。</li>
-<li><code class="docutils literal"><span class="pre">OBJECT</span> <span class="pre">IDLETIME</span> <span class="pre">&lt;key&gt;</span></code> 返回给定 <code class="docutils literal"><span class="pre">key</span></code> 自储存以来的空闲时间(idle， 没有被读取也没有被写入)，以秒为单位。</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OBJECT</span> <span class="pre">REFCOUNT</span> <span class="pre">&lt;key&gt;</span></code> 返回给定 <code class="docutils literal notranslate"><span class="pre">key</span></code> 引用所储存的值的次数。此命令主要用于除错。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OBJECT</span> <span class="pre">ENCODING</span> <span class="pre">&lt;key&gt;</span></code> 返回给定 <code class="docutils literal notranslate"><span class="pre">key</span></code> 锁储存的值所使用的内部表示(representation)。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OBJECT</span> <span class="pre">IDLETIME</span> <span class="pre">&lt;key&gt;</span></code> 返回给定 <code class="docutils literal notranslate"><span class="pre">key</span></code> 自储存以来的空闲时间(idle， 没有被读取也没有被写入)，以秒为单位。</p></li>
 </ul>
 <p>对象可以以多种方式编码：</p>
 <ul class="simple">
-<li>字符串可以被编码为 <code class="docutils literal"><span class="pre">raw</span></code> (一般字符串)或 <code class="docutils literal"><span class="pre">int</span></code> (为了节约内存，Redis 会将字符串表示的 64 位有符号整数编码为整数来进行储存）。</li>
-<li>列表可以被编码为 <code class="docutils literal"><span class="pre">ziplist</span></code> 或 <code class="docutils literal"><span class="pre">linkedlist</span></code> 。 <code class="docutils literal"><span class="pre">ziplist</span></code> 是为节约大小较小的列表空间而作的特殊表示。</li>
-<li>集合可以被编码为 <code class="docutils literal"><span class="pre">intset</span></code> 或者 <code class="docutils literal"><span class="pre">hashtable</span></code> 。 <code class="docutils literal"><span class="pre">intset</span></code> 是只储存数字的小集合的特殊表示。</li>
-<li>哈希表可以编码为 <code class="docutils literal"><span class="pre">zipmap</span></code> 或者 <code class="docutils literal"><span class="pre">hashtable</span></code> 。 <code class="docutils literal"><span class="pre">zipmap</span></code> 是小哈希表的特殊表示。</li>
-<li>有序集合可以被编码为 <code class="docutils literal"><span class="pre">ziplist</span></code> 或者 <code class="docutils literal"><span class="pre">skiplist</span></code> 格式。 <code class="docutils literal"><span class="pre">ziplist</span></code> 用于表示小的有序集合，而 <code class="docutils literal"><span class="pre">skiplist</span></code> 则用于表示任何大小的有序集合。</li>
+<li><p>字符串可以被编码为 <code class="docutils literal notranslate"><span class="pre">raw</span></code> (一般字符串)或 <code class="docutils literal notranslate"><span class="pre">int</span></code> (为了节约内存，Redis 会将字符串表示的 64 位有符号整数编码为整数来进行储存）。</p></li>
+<li><p>列表可以被编码为 <code class="docutils literal notranslate"><span class="pre">ziplist</span></code> 或 <code class="docutils literal notranslate"><span class="pre">linkedlist</span></code> 。 <code class="docutils literal notranslate"><span class="pre">ziplist</span></code> 是为节约大小较小的列表空间而作的特殊表示。</p></li>
+<li><p>集合可以被编码为 <code class="docutils literal notranslate"><span class="pre">intset</span></code> 或者 <code class="docutils literal notranslate"><span class="pre">hashtable</span></code> 。 <code class="docutils literal notranslate"><span class="pre">intset</span></code> 是只储存数字的小集合的特殊表示。</p></li>
+<li><p>哈希表可以编码为 <code class="docutils literal notranslate"><span class="pre">zipmap</span></code> 或者 <code class="docutils literal notranslate"><span class="pre">hashtable</span></code> 。 <code class="docutils literal notranslate"><span class="pre">zipmap</span></code> 是小哈希表的特殊表示。</p></li>
+<li><p>有序集合可以被编码为 <code class="docutils literal notranslate"><span class="pre">ziplist</span></code> 或者 <code class="docutils literal notranslate"><span class="pre">skiplist</span></code> 格式。 <code class="docutils literal notranslate"><span class="pre">ziplist</span></code> 用于表示小的有序集合，而 <code class="docutils literal notranslate"><span class="pre">skiplist</span></code> 则用于表示任何大小的有序集合。</p></li>
 </ul>
 <p>假如你做了什么让 Redis 没办法再使用节省空间的编码时(比如将一个只有 1 个元素的集合扩展为一个有 100 万个元素的集合)，特殊编码类型(specially encoded types)会自动转换成通用类型(general type)。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">REFCOUNT</span></code> 和 <code class="docutils literal"><span class="pre">IDLETIME</span></code> 返回数字。
-<code class="docutils literal"><span class="pre">ENCODING</span></code> 返回相应的编码类型。</p>
+<p><code class="docutils literal notranslate"><span class="pre">REFCOUNT</span></code> 和 <code class="docutils literal notranslate"><span class="pre">IDLETIME</span></code> 返回数字。
+<code class="docutils literal notranslate"><span class="pre">ENCODING</span></code> 返回相应的编码类型。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">game</span> <span class="s2">&quot;COD&quot;</span>           <span class="c1"># 设置一个字符串</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">game</span> <span class="s2">&quot;COD&quot;</span>           <span class="c1"># 设置一个字符串</span>
 <span class="n">OK</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">OBJECT</span> <span class="n">REFCOUNT</span> <span class="n">game</span>     <span class="c1"># 只有一个引用</span>

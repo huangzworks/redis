@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -211,37 +202,37 @@
 <blockquote>
 <div><div class="line-block">
 <div class="line">可用版本： &gt;= 1.0.0</div>
-<div class="line">时间复杂度: O(N)， <code class="docutils literal"><span class="pre">N</span></code> 为被移除的元素的数量。</div>
+<div class="line">时间复杂度: O(N)， <code class="docutils literal notranslate"><span class="pre">N</span></code> 为被移除的元素的数量。</div>
 </div>
 </div></blockquote>
 <p>对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除。</p>
-<p>举个例子，执行命令 <code class="docutils literal"><span class="pre">LTRIM</span> <span class="pre">list</span> <span class="pre">0</span> <span class="pre">2</span></code> ，表示只保留列表 <code class="docutils literal"><span class="pre">list</span></code> 的前三个元素，其余元素全部删除。</p>
-<p>下标(index)参数 <code class="docutils literal"><span class="pre">start</span></code> 和 <code class="docutils literal"><span class="pre">stop</span></code> 都以 <code class="docutils literal"><span class="pre">0</span></code> 为底，也就是说，以 <code class="docutils literal"><span class="pre">0</span></code> 表示列表的第一个元素，以 <code class="docutils literal"><span class="pre">1</span></code> 表示列表的第二个元素，以此类推。</p>
-<p>你也可以使用负数下标，以 <code class="docutils literal"><span class="pre">-1</span></code> 表示列表的最后一个元素， <code class="docutils literal"><span class="pre">-2</span></code> 表示列表的倒数第二个元素，以此类推。</p>
-<p>当 <code class="docutils literal"><span class="pre">key</span></code> 不是列表类型时，返回一个错误。</p>
+<p>举个例子，执行命令 <code class="docutils literal notranslate"><span class="pre">LTRIM</span> <span class="pre">list</span> <span class="pre">0</span> <span class="pre">2</span></code> ，表示只保留列表 <code class="docutils literal notranslate"><span class="pre">list</span></code> 的前三个元素，其余元素全部删除。</p>
+<p>下标(index)参数 <code class="docutils literal notranslate"><span class="pre">start</span></code> 和 <code class="docutils literal notranslate"><span class="pre">stop</span></code> 都以 <code class="docutils literal notranslate"><span class="pre">0</span></code> 为底，也就是说，以 <code class="docutils literal notranslate"><span class="pre">0</span></code> 表示列表的第一个元素，以 <code class="docutils literal notranslate"><span class="pre">1</span></code> 表示列表的第二个元素，以此类推。</p>
+<p>你也可以使用负数下标，以 <code class="docutils literal notranslate"><span class="pre">-1</span></code> 表示列表的最后一个元素， <code class="docutils literal notranslate"><span class="pre">-2</span></code> 表示列表的倒数第二个元素，以此类推。</p>
+<p>当 <code class="docutils literal notranslate"><span class="pre">key</span></code> 不是列表类型时，返回一个错误。</p>
 <p><a class="reference internal" href="#ltrim">LTRIM</a> 命令通常和 <a class="reference internal" href="lpush.html#lpush"><span class="std std-ref">LPUSH key value [value …]</span></a> 命令或 <a class="reference internal" href="rpush.html#rpush"><span class="std std-ref">RPUSH key value [value …]</span></a> 命令配合使用，举个例子：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">LPUSH</span> <span class="n">log</span> <span class="n">newest_log</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">LPUSH</span> <span class="n">log</span> <span class="n">newest_log</span>
 <span class="n">LTRIM</span> <span class="n">log</span> <span class="mi">0</span> <span class="mi">99</span>
 </pre></div>
 </div>
-<p>这个例子模拟了一个日志程序，每次将最新日志 <code class="docutils literal"><span class="pre">newest_log</span></code> 放到 <code class="docutils literal"><span class="pre">log</span></code> 列表中，并且只保留最新的 <code class="docutils literal"><span class="pre">100</span></code> 项。注意当这样使用 <code class="docutils literal"><span class="pre">LTRIM</span></code> 命令时，时间复杂度是O(1)，因为平均情况下，每次只有一个元素被移除。</p>
+<p>这个例子模拟了一个日志程序，每次将最新日志 <code class="docutils literal notranslate"><span class="pre">newest_log</span></code> 放到 <code class="docutils literal notranslate"><span class="pre">log</span></code> 列表中，并且只保留最新的 <code class="docutils literal notranslate"><span class="pre">100</span></code> 项。注意当这样使用 <code class="docutils literal notranslate"><span class="pre">LTRIM</span></code> 命令时，时间复杂度是O(1)，因为平均情况下，每次只有一个元素被移除。</p>
 <div class="section" id="id1">
 <h2>注意LTRIM命令和编程语言区间函数的区别<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>假如你有一个包含一百个元素的列表 <code class="docutils literal"><span class="pre">list</span></code> ，对该列表执行 <code class="docutils literal"><span class="pre">LTRIM</span> <span class="pre">list</span> <span class="pre">0</span> <span class="pre">10</span></code> ，结果是一个包含11个元素的列表，这表明 <code class="docutils literal"><span class="pre">stop</span></code> 下标也在 <a class="reference internal" href="#ltrim">LTRIM</a> 命令的取值范围之内(闭区间)，这和某些语言的区间函数可能不一致，比如Ruby的 <code class="docutils literal"><span class="pre">Range.new</span></code> 、 <code class="docutils literal"><span class="pre">Array#slice</span></code> 和Python的 <code class="docutils literal"><span class="pre">range()</span></code> 函数。</p>
+<p>假如你有一个包含一百个元素的列表 <code class="docutils literal notranslate"><span class="pre">list</span></code> ，对该列表执行 <code class="docutils literal notranslate"><span class="pre">LTRIM</span> <span class="pre">list</span> <span class="pre">0</span> <span class="pre">10</span></code> ，结果是一个包含11个元素的列表，这表明 <code class="docutils literal notranslate"><span class="pre">stop</span></code> 下标也在 <a class="reference internal" href="#ltrim">LTRIM</a> 命令的取值范围之内(闭区间)，这和某些语言的区间函数可能不一致，比如Ruby的 <code class="docutils literal notranslate"><span class="pre">Range.new</span></code> 、 <code class="docutils literal notranslate"><span class="pre">Array#slice</span></code> 和Python的 <code class="docutils literal notranslate"><span class="pre">range()</span></code> 函数。</p>
 </div>
 <div class="section" id="id2">
 <h2>超出范围的下标<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>超出范围的下标值不会引起错误。</p>
-<p>如果 <code class="docutils literal"><span class="pre">start</span></code> 下标比列表的最大下标 <code class="docutils literal"><span class="pre">end</span></code> ( <code class="docutils literal"><span class="pre">LLEN</span> <span class="pre">list</span></code> 减去 <code class="docutils literal"><span class="pre">1</span></code> )还要大，或者 <code class="docutils literal"><span class="pre">start</span> <span class="pre">&gt;</span> <span class="pre">stop</span></code> ， <a class="reference internal" href="#ltrim">LTRIM</a> 返回一个空列表(因为 <a class="reference internal" href="#ltrim">LTRIM</a> 已经将整个列表清空)。</p>
-<p>如果 <code class="docutils literal"><span class="pre">stop</span></code> 下标比 <code class="docutils literal"><span class="pre">end</span></code> 下标还要大，Redis将 <code class="docutils literal"><span class="pre">stop</span></code> 的值设置为 <code class="docutils literal"><span class="pre">end</span></code> 。</p>
+<p>如果 <code class="docutils literal notranslate"><span class="pre">start</span></code> 下标比列表的最大下标 <code class="docutils literal notranslate"><span class="pre">end</span></code> ( <code class="docutils literal notranslate"><span class="pre">LLEN</span> <span class="pre">list</span></code> 减去 <code class="docutils literal notranslate"><span class="pre">1</span></code> )还要大，或者 <code class="docutils literal notranslate"><span class="pre">start</span> <span class="pre">&gt;</span> <span class="pre">stop</span></code> ， <a class="reference internal" href="#ltrim">LTRIM</a> 返回一个空列表(因为 <a class="reference internal" href="#ltrim">LTRIM</a> 已经将整个列表清空)。</p>
+<p>如果 <code class="docutils literal notranslate"><span class="pre">stop</span></code> 下标比 <code class="docutils literal notranslate"><span class="pre">end</span></code> 下标还要大，Redis将 <code class="docutils literal notranslate"><span class="pre">stop</span></code> 的值设置为 <code class="docutils literal notranslate"><span class="pre">end</span></code> 。</p>
 </div>
 <div class="section" id="id3">
 <h2>返回值<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>命令执行成功时，返回 <code class="docutils literal"><span class="pre">ok</span></code> 。</p>
+<p>命令执行成功时，返回 <code class="docutils literal notranslate"><span class="pre">ok</span></code> 。</p>
 </div>
 <div class="section" id="id4">
 <h2>代码示例<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 情况 1： 常见情况， start 和 stop 都在列表的索引范围之内</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 情况 1： 常见情况， start 和 stop 都在列表的索引范围之内</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">LRANGE</span> <span class="n">alpha</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span>       <span class="c1"># alpha 是一个包含 5 个字符串的列表</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;h&quot;</span>

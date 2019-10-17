@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -210,22 +201,22 @@
 <blockquote>
 <div><div class="line-block">
 <div class="line">可用版本： &gt;= 2.2.0</div>
-<div class="line">时间复杂度：对于长度较短的字符串，命令的平摊复杂度O(1)；对于长度较大的字符串，命令的复杂度为 O(M) ，其中 M 为 <code class="docutils literal"><span class="pre">value</span></code> 的长度。</div>
+<div class="line">时间复杂度：对于长度较短的字符串，命令的平摊复杂度O(1)；对于长度较大的字符串，命令的复杂度为 O(M) ，其中 M 为 <code class="docutils literal notranslate"><span class="pre">value</span></code> 的长度。</div>
 </div>
 </div></blockquote>
-<p>从偏移量 <code class="docutils literal"><span class="pre">offset</span></code> 开始，
-用 <code class="docutils literal"><span class="pre">value</span></code> 参数覆写(overwrite)键 <code class="docutils literal"><span class="pre">key</span></code> 储存的字符串值。</p>
-<p>不存在的键 <code class="docutils literal"><span class="pre">key</span></code> 当作空白字符串处理。</p>
-<p><code class="docutils literal"><span class="pre">SETRANGE</span></code> 命令会确保字符串足够长以便将 <code class="docutils literal"><span class="pre">value</span></code> 设置到指定的偏移量上，
-如果键 <code class="docutils literal"><span class="pre">key</span></code> 原来储存的字符串长度比偏移量小(比如字符串只有 <code class="docutils literal"><span class="pre">5</span></code> 个字符长，但你设置的 <code class="docutils literal"><span class="pre">offset</span></code> 是 <code class="docutils literal"><span class="pre">10</span></code> )，
-那么原字符和偏移量之间的空白将用零字节(zerobytes, <code class="docutils literal"><span class="pre">&quot;\x00&quot;</span></code> )进行填充。</p>
+<p>从偏移量 <code class="docutils literal notranslate"><span class="pre">offset</span></code> 开始，
+用 <code class="docutils literal notranslate"><span class="pre">value</span></code> 参数覆写(overwrite)键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 储存的字符串值。</p>
+<p>不存在的键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 当作空白字符串处理。</p>
+<p><code class="docutils literal notranslate"><span class="pre">SETRANGE</span></code> 命令会确保字符串足够长以便将 <code class="docutils literal notranslate"><span class="pre">value</span></code> 设置到指定的偏移量上，
+如果键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 原来储存的字符串长度比偏移量小(比如字符串只有 <code class="docutils literal notranslate"><span class="pre">5</span></code> 个字符长，但你设置的 <code class="docutils literal notranslate"><span class="pre">offset</span></code> 是 <code class="docutils literal notranslate"><span class="pre">10</span></code> )，
+那么原字符和偏移量之间的空白将用零字节(zerobytes, <code class="docutils literal notranslate"><span class="pre">&quot;\x00&quot;</span></code> )进行填充。</p>
 <p>因为 Redis 字符串的大小被限制在 512 兆(megabytes)以内，
 所以用户能够使用的最大偏移量为 2^29-1(536870911) ，
 如果你需要使用比这更大的空间，
-请使用多个 <code class="docutils literal"><span class="pre">key</span></code> 。</p>
+请使用多个 <code class="docutils literal notranslate"><span class="pre">key</span></code> 。</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">当生成一个很长的字符串时，
+<p class="admonition-title">Warning</p>
+<p>当生成一个很长的字符串时，
 Redis 需要分配内存空间，
 该操作有时候可能会造成服务器阻塞(block)。
 在2010年出产的Macbook Pro上，
@@ -236,13 +227,13 @@ Redis 需要分配内存空间，
 </div>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">SETRANGE</span></code> 命令会返回被修改之后，
+<p><code class="docutils literal notranslate"><span class="pre">SETRANGE</span></code> 命令会返回被修改之后，
 字符串值的长度。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>对非空字符串执行 <code class="docutils literal"><span class="pre">SETRANGE</span></code> 命令：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">greeting</span> <span class="s2">&quot;hello world&quot;</span>
+<p>对非空字符串执行 <code class="docutils literal notranslate"><span class="pre">SETRANGE</span></code> 命令：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">greeting</span> <span class="s2">&quot;hello world&quot;</span>
 <span class="n">OK</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">SETRANGE</span> <span class="n">greeting</span> <span class="mi">6</span> <span class="s2">&quot;Redis&quot;</span>
@@ -252,8 +243,8 @@ Redis 需要分配内存空间，
 <span class="s2">&quot;hello Redis&quot;</span>
 </pre></div>
 </div>
-<p>对空字符串/不存在的键执行 <code class="docutils literal"><span class="pre">SETRANGE</span></code> 命令：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">EXISTS</span> <span class="n">empty_string</span>
+<p>对空字符串/不存在的键执行 <code class="docutils literal notranslate"><span class="pre">SETRANGE</span></code> 命令：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">EXISTS</span> <span class="n">empty_string</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">0</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">SETRANGE</span> <span class="n">empty_string</span> <span class="mi">5</span> <span class="s2">&quot;Redis!&quot;</span>   <span class="c1"># 对不存在的 key 使用 SETRANGE</span>

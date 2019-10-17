@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -210,23 +201,23 @@
 <div class="line">时间复杂度： O(1)</div>
 </div>
 </div></blockquote>
-<p>将哈希表 <code class="docutils literal"><span class="pre">hash</span></code> 中域 <code class="docutils literal"><span class="pre">field</span></code> 的值设置为 <code class="docutils literal"><span class="pre">value</span></code> 。</p>
+<p>将哈希表 <code class="docutils literal notranslate"><span class="pre">hash</span></code> 中域 <code class="docutils literal notranslate"><span class="pre">field</span></code> 的值设置为 <code class="docutils literal notranslate"><span class="pre">value</span></code> 。</p>
 <p>如果给定的哈希表并不存在，
-那么一个新的哈希表将被创建并执行 <code class="docutils literal"><span class="pre">HSET</span></code> 操作。</p>
-<p>如果域 <code class="docutils literal"><span class="pre">field</span></code> 已经存在于哈希表中，
-那么它的旧值将被新值 <code class="docutils literal"><span class="pre">value</span></code> 覆盖。</p>
+那么一个新的哈希表将被创建并执行 <code class="docutils literal notranslate"><span class="pre">HSET</span></code> 操作。</p>
+<p>如果域 <code class="docutils literal notranslate"><span class="pre">field</span></code> 已经存在于哈希表中，
+那么它的旧值将被新值 <code class="docutils literal notranslate"><span class="pre">value</span></code> 覆盖。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>当 <code class="docutils literal"><span class="pre">HSET</span></code> 命令在哈希表中新创建 <code class="docutils literal"><span class="pre">field</span></code> 域并成功为它设置值时，
-命令返回 <code class="docutils literal"><span class="pre">1</span></code> ；
-如果域 <code class="docutils literal"><span class="pre">field</span></code> 已经存在于哈希表，
-并且 <code class="docutils literal"><span class="pre">HSET</span></code> 命令成功使用新值覆盖了它的旧值，
-那么命令返回 <code class="docutils literal"><span class="pre">0</span></code> 。</p>
+<p>当 <code class="docutils literal notranslate"><span class="pre">HSET</span></code> 命令在哈希表中新创建 <code class="docutils literal notranslate"><span class="pre">field</span></code> 域并成功为它设置值时，
+命令返回 <code class="docutils literal notranslate"><span class="pre">1</span></code> ；
+如果域 <code class="docutils literal notranslate"><span class="pre">field</span></code> 已经存在于哈希表，
+并且 <code class="docutils literal notranslate"><span class="pre">HSET</span></code> 命令成功使用新值覆盖了它的旧值，
+那么命令返回 <code class="docutils literal notranslate"><span class="pre">0</span></code> 。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>设置一个新域：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">HSET</span> <span class="n">website</span> <span class="n">google</span> <span class="s2">&quot;www.g.cn&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">HSET</span> <span class="n">website</span> <span class="n">google</span> <span class="s2">&quot;www.g.cn&quot;</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">1</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">HGET</span> <span class="n">website</span> <span class="n">google</span>
@@ -234,7 +225,7 @@
 </pre></div>
 </div>
 <p>对一个已存在的域进行更新：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">HSET</span> <span class="n">website</span> <span class="n">google</span> <span class="s2">&quot;www.google.com&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">HSET</span> <span class="n">website</span> <span class="n">google</span> <span class="s2">&quot;www.google.com&quot;</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">0</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">HGET</span> <span class="n">website</span> <span class="n">google</span>

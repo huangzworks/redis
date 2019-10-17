@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -210,19 +201,19 @@
 <div class="line">时间复杂度: O(1)</div>
 </div>
 </div></blockquote>
-<p>将 <code class="docutils literal"><span class="pre">member</span></code> 元素从 <code class="docutils literal"><span class="pre">source</span></code> 集合移动到 <code class="docutils literal"><span class="pre">destination</span></code> 集合。</p>
+<p>将 <code class="docutils literal notranslate"><span class="pre">member</span></code> 元素从 <code class="docutils literal notranslate"><span class="pre">source</span></code> 集合移动到 <code class="docutils literal notranslate"><span class="pre">destination</span></code> 集合。</p>
 <p><a class="reference internal" href="#smove">SMOVE</a> 是原子性操作。</p>
-<p>如果 <code class="docutils literal"><span class="pre">source</span></code> 集合不存在或不包含指定的 <code class="docutils literal"><span class="pre">member</span></code> 元素，则 <a class="reference internal" href="#smove">SMOVE</a> 命令不执行任何操作，仅返回 <code class="docutils literal"><span class="pre">0</span></code> 。否则， <code class="docutils literal"><span class="pre">member</span></code> 元素从 <code class="docutils literal"><span class="pre">source</span></code> 集合中被移除，并添加到 <code class="docutils literal"><span class="pre">destination</span></code> 集合中去。</p>
-<p>当 <code class="docutils literal"><span class="pre">destination</span></code> 集合已经包含 <code class="docutils literal"><span class="pre">member</span></code> 元素时， <a class="reference internal" href="#smove">SMOVE</a> 命令只是简单地将 <code class="docutils literal"><span class="pre">source</span></code> 集合中的 <code class="docutils literal"><span class="pre">member</span></code> 元素删除。</p>
-<p>当 <code class="docutils literal"><span class="pre">source</span></code> 或 <code class="docutils literal"><span class="pre">destination</span></code> 不是集合类型时，返回一个错误。</p>
+<p>如果 <code class="docutils literal notranslate"><span class="pre">source</span></code> 集合不存在或不包含指定的 <code class="docutils literal notranslate"><span class="pre">member</span></code> 元素，则 <a class="reference internal" href="#smove">SMOVE</a> 命令不执行任何操作，仅返回 <code class="docutils literal notranslate"><span class="pre">0</span></code> 。否则， <code class="docutils literal notranslate"><span class="pre">member</span></code> 元素从 <code class="docutils literal notranslate"><span class="pre">source</span></code> 集合中被移除，并添加到 <code class="docutils literal notranslate"><span class="pre">destination</span></code> 集合中去。</p>
+<p>当 <code class="docutils literal notranslate"><span class="pre">destination</span></code> 集合已经包含 <code class="docutils literal notranslate"><span class="pre">member</span></code> 元素时， <a class="reference internal" href="#smove">SMOVE</a> 命令只是简单地将 <code class="docutils literal notranslate"><span class="pre">source</span></code> 集合中的 <code class="docutils literal notranslate"><span class="pre">member</span></code> 元素删除。</p>
+<p>当 <code class="docutils literal notranslate"><span class="pre">source</span></code> 或 <code class="docutils literal notranslate"><span class="pre">destination</span></code> 不是集合类型时，返回一个错误。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>如果 <code class="docutils literal"><span class="pre">member</span></code> 元素被成功移除，返回 <code class="docutils literal"><span class="pre">1</span></code> 。
-如果 <code class="docutils literal"><span class="pre">member</span></code> 元素不是 <code class="docutils literal"><span class="pre">source</span></code> 集合的成员，并且没有任何操作对 <code class="docutils literal"><span class="pre">destination</span></code> 集合执行，那么返回 <code class="docutils literal"><span class="pre">0</span></code> 。</p>
+<p>如果 <code class="docutils literal notranslate"><span class="pre">member</span></code> 元素被成功移除，返回 <code class="docutils literal notranslate"><span class="pre">1</span></code> 。
+如果 <code class="docutils literal notranslate"><span class="pre">member</span></code> 元素不是 <code class="docutils literal notranslate"><span class="pre">source</span></code> 集合的成员，并且没有任何操作对 <code class="docutils literal notranslate"><span class="pre">destination</span></code> 集合执行，那么返回 <code class="docutils literal notranslate"><span class="pre">0</span></code> 。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SMEMBERS</span> <span class="n">songs</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SMEMBERS</span> <span class="n">songs</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;Billie Jean&quot;</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;Believe Me&quot;</span>
 

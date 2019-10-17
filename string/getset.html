@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -213,21 +204,21 @@
 <div class="line">时间复杂度： O(1)</div>
 </div>
 </div></blockquote>
-<p>将键 <code class="docutils literal"><span class="pre">key</span></code> 的值设为 <code class="docutils literal"><span class="pre">value</span></code> ，
-并返回键 <code class="docutils literal"><span class="pre">key</span></code> 在被设置之前的旧值。</p>
+<p>将键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的值设为 <code class="docutils literal notranslate"><span class="pre">value</span></code> ，
+并返回键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 在被设置之前的旧值。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>返回给定键 <code class="docutils literal"><span class="pre">key</span></code> 的旧值。</p>
-<p>如果键 <code class="docutils literal"><span class="pre">key</span></code> 没有旧值，
+<p>返回给定键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的旧值。</p>
+<p>如果键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 没有旧值，
 也即是说，
-键 <code class="docutils literal"><span class="pre">key</span></code> 在被设置之前并不存在，
-那么命令返回 <code class="docutils literal"><span class="pre">nil</span></code> 。</p>
-<p>当键 <code class="docutils literal"><span class="pre">key</span></code> 存在但不是字符串类型时，
+键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 在被设置之前并不存在，
+那么命令返回 <code class="docutils literal notranslate"><span class="pre">nil</span></code> 。</p>
+<p>当键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 存在但不是字符串类型时，
 命令返回一个错误。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">GETSET</span> <span class="n">db</span> <span class="n">mongodb</span>    <span class="c1"># 没有旧值，返回 nil</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">GETSET</span> <span class="n">db</span> <span class="n">mongodb</span>    <span class="c1"># 没有旧值，返回 nil</span>
 <span class="p">(</span><span class="n">nil</span><span class="p">)</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">GET</span> <span class="n">db</span>

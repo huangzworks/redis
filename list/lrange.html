@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -211,21 +202,21 @@
 <blockquote>
 <div><div class="line-block">
 <div class="line">可用版本： &gt;= 1.0.0</div>
-<div class="line">时间复杂度: O(S+N)， <code class="docutils literal"><span class="pre">S</span></code> 为偏移量 <code class="docutils literal"><span class="pre">start</span></code> ， <code class="docutils literal"><span class="pre">N</span></code> 为指定区间内元素的数量。</div>
+<div class="line">时间复杂度: O(S+N)， <code class="docutils literal notranslate"><span class="pre">S</span></code> 为偏移量 <code class="docutils literal notranslate"><span class="pre">start</span></code> ， <code class="docutils literal notranslate"><span class="pre">N</span></code> 为指定区间内元素的数量。</div>
 </div>
 </div></blockquote>
-<p>返回列表 <code class="docutils literal"><span class="pre">key</span></code> 中指定区间内的元素，区间以偏移量 <code class="docutils literal"><span class="pre">start</span></code> 和 <code class="docutils literal"><span class="pre">stop</span></code> 指定。</p>
-<p>下标(index)参数 <code class="docutils literal"><span class="pre">start</span></code> 和 <code class="docutils literal"><span class="pre">stop</span></code> 都以 <code class="docutils literal"><span class="pre">0</span></code> 为底，也就是说，以 <code class="docutils literal"><span class="pre">0</span></code> 表示列表的第一个元素，以 <code class="docutils literal"><span class="pre">1</span></code> 表示列表的第二个元素，以此类推。</p>
-<p>你也可以使用负数下标，以 <code class="docutils literal"><span class="pre">-1</span></code> 表示列表的最后一个元素， <code class="docutils literal"><span class="pre">-2</span></code> 表示列表的倒数第二个元素，以此类推。</p>
+<p>返回列表 <code class="docutils literal notranslate"><span class="pre">key</span></code> 中指定区间内的元素，区间以偏移量 <code class="docutils literal notranslate"><span class="pre">start</span></code> 和 <code class="docutils literal notranslate"><span class="pre">stop</span></code> 指定。</p>
+<p>下标(index)参数 <code class="docutils literal notranslate"><span class="pre">start</span></code> 和 <code class="docutils literal notranslate"><span class="pre">stop</span></code> 都以 <code class="docutils literal notranslate"><span class="pre">0</span></code> 为底，也就是说，以 <code class="docutils literal notranslate"><span class="pre">0</span></code> 表示列表的第一个元素，以 <code class="docutils literal notranslate"><span class="pre">1</span></code> 表示列表的第二个元素，以此类推。</p>
+<p>你也可以使用负数下标，以 <code class="docutils literal notranslate"><span class="pre">-1</span></code> 表示列表的最后一个元素， <code class="docutils literal notranslate"><span class="pre">-2</span></code> 表示列表的倒数第二个元素，以此类推。</p>
 <div class="section" id="id1">
 <h2>注意LRANGE命令和编程语言区间函数的区别<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>假如你有一个包含一百个元素的列表，对该列表执行 <code class="docutils literal"><span class="pre">LRANGE</span> <span class="pre">list</span> <span class="pre">0</span> <span class="pre">10</span></code> ，结果是一个包含11个元素的列表，这表明 <code class="docutils literal"><span class="pre">stop</span></code> 下标也在 <a class="reference internal" href="#lrange">LRANGE</a> 命令的取值范围之内(闭区间)，这和某些语言的区间函数可能不一致，比如Ruby的 <code class="docutils literal"><span class="pre">Range.new</span></code> 、 <code class="docutils literal"><span class="pre">Array#slice</span></code> 和Python的 <code class="docutils literal"><span class="pre">range()</span></code> 函数。</p>
+<p>假如你有一个包含一百个元素的列表，对该列表执行 <code class="docutils literal notranslate"><span class="pre">LRANGE</span> <span class="pre">list</span> <span class="pre">0</span> <span class="pre">10</span></code> ，结果是一个包含11个元素的列表，这表明 <code class="docutils literal notranslate"><span class="pre">stop</span></code> 下标也在 <a class="reference internal" href="#lrange">LRANGE</a> 命令的取值范围之内(闭区间)，这和某些语言的区间函数可能不一致，比如Ruby的 <code class="docutils literal notranslate"><span class="pre">Range.new</span></code> 、 <code class="docutils literal notranslate"><span class="pre">Array#slice</span></code> 和Python的 <code class="docutils literal notranslate"><span class="pre">range()</span></code> 函数。</p>
 </div>
 <div class="section" id="id2">
 <h2>超出范围的下标<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>超出范围的下标值不会引起错误。</p>
-<p>如果 <code class="docutils literal"><span class="pre">start</span></code> 下标比列表的最大下标 <code class="docutils literal"><span class="pre">end</span></code> ( <code class="docutils literal"><span class="pre">LLEN</span> <span class="pre">list</span></code> 减去 <code class="docutils literal"><span class="pre">1</span></code> )还要大，那么 <a class="reference internal" href="#lrange">LRANGE</a> 返回一个空列表。</p>
-<p>如果 <code class="docutils literal"><span class="pre">stop</span></code> 下标比 <code class="docutils literal"><span class="pre">end</span></code> 下标还要大，Redis将 <code class="docutils literal"><span class="pre">stop</span></code> 的值设置为 <code class="docutils literal"><span class="pre">end</span></code> 。</p>
+<p>如果 <code class="docutils literal notranslate"><span class="pre">start</span></code> 下标比列表的最大下标 <code class="docutils literal notranslate"><span class="pre">end</span></code> ( <code class="docutils literal notranslate"><span class="pre">LLEN</span> <span class="pre">list</span></code> 减去 <code class="docutils literal notranslate"><span class="pre">1</span></code> )还要大，那么 <a class="reference internal" href="#lrange">LRANGE</a> 返回一个空列表。</p>
+<p>如果 <code class="docutils literal notranslate"><span class="pre">stop</span></code> 下标比 <code class="docutils literal notranslate"><span class="pre">end</span></code> 下标还要大，Redis将 <code class="docutils literal notranslate"><span class="pre">stop</span></code> 的值设置为 <code class="docutils literal notranslate"><span class="pre">end</span></code> 。</p>
 </div>
 <div class="section" id="id3">
 <h2>返回值<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
@@ -233,7 +224,7 @@
 </div>
 <div class="section" id="id4">
 <h2>代码示例<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">RPUSH</span> <span class="n">fp</span><span class="o">-</span><span class="n">language</span> <span class="n">lisp</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">RPUSH</span> <span class="n">fp</span><span class="o">-</span><span class="n">language</span> <span class="n">lisp</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">1</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">LRANGE</span> <span class="n">fp</span><span class="o">-</span><span class="n">language</span> <span class="mi">0</span> <span class="mi">0</span>

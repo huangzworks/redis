@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -198,10 +189,10 @@
 <div class="line">时间复杂度： O(N)，其中 N 为命令返回的配置选项数量。</div>
 </div>
 </div></blockquote>
-<p><code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 命令用于取得运行中的 Redis 服务器的配置参数(configuration parameters)，在 Redis 2.4 版本中， 有部分参数没有办法用 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 访问，但是在最新的 Redis 2.6 版本中，所有配置参数都已经可以用 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 访问了。</p>
-<p><code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 接受单个参数 <code class="docutils literal"><span class="pre">parameter</span></code> 作为搜索关键字，查找所有匹配的配置参数，其中参数和值以“键-值对”(key-value pairs)的方式排列。</p>
-<p>比如执行 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">GET</span> <span class="pre">s*</span></code> 命令，服务器就会返回所有以 <code class="docutils literal"><span class="pre">s</span></code> 开头的配置参数及参数的值：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">CONFIG</span> <span class="n">GET</span> <span class="n">s</span><span class="o">*</span>
+<p><code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 命令用于取得运行中的 Redis 服务器的配置参数(configuration parameters)，在 Redis 2.4 版本中， 有部分参数没有办法用 <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 访问，但是在最新的 Redis 2.6 版本中，所有配置参数都已经可以用 <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 访问了。</p>
+<p><code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 接受单个参数 <code class="docutils literal notranslate"><span class="pre">parameter</span></code> 作为搜索关键字，查找所有匹配的配置参数，其中参数和值以“键-值对”(key-value pairs)的方式排列。</p>
+<p>比如执行 <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">GET</span> <span class="pre">s*</span></code> 命令，服务器就会返回所有以 <code class="docutils literal notranslate"><span class="pre">s</span></code> 开头的配置参数及参数的值：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">CONFIG</span> <span class="n">GET</span> <span class="n">s</span><span class="o">*</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;save&quot;</span>                       <span class="c1"># 参数名：save</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;900 1 300 10 60 10000&quot;</span>      <span class="c1"># save 参数的值</span>
 <span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;slave-serve-stale-data&quot;</span>     <span class="c1"># 参数名： slave-serve-stale-data</span>
@@ -215,13 +206,13 @@
 </pre></div>
 </div>
 <p>如果你只是寻找特定的某个参数的话，你当然也可以直接指定参数的名字：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">CONFIG</span> <span class="n">GET</span> <span class="n">slowlog</span><span class="o">-</span><span class="nb">max</span><span class="o">-</span><span class="nb">len</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">CONFIG</span> <span class="n">GET</span> <span class="n">slowlog</span><span class="o">-</span><span class="nb">max</span><span class="o">-</span><span class="nb">len</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;slowlog-max-len&quot;</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;1000&quot;</span>
 </pre></div>
 </div>
-<p>使用命令 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">GET</span> <span class="pre">*</span></code> ，可以列出 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 命令支持的所有参数：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">CONFIG</span> <span class="n">GET</span> <span class="o">*</span>
+<p>使用命令 <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">GET</span> <span class="pre">*</span></code> ，可以列出 <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 命令支持的所有参数：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">CONFIG</span> <span class="n">GET</span> <span class="o">*</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;dir&quot;</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;/var/lib/redis&quot;</span>
 <span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;dbfilename&quot;</span>
@@ -245,30 +236,30 @@
 <span class="mi">50</span><span class="p">)</span> <span class="s2">&quot;verbose&quot;</span>
 </pre></div>
 </div>
-<p>所有被 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">SET</span></code> 所支持的配置参数都可以在配置文件 redis.conf 中找到，不过 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 和 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">SET</span></code> 使用的格式和 redis.conf 文件所使用的格式有以下两点不同：</p>
+<p>所有被 <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">SET</span></code> 所支持的配置参数都可以在配置文件 redis.conf 中找到，不过 <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 和 <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">SET</span></code> 使用的格式和 redis.conf 文件所使用的格式有以下两点不同：</p>
 <ul>
-<li><div class="first line-block">
-<div class="line"><code class="docutils literal"><span class="pre">10kb</span></code> 、 <code class="docutils literal"><span class="pre">2gb</span></code> 这些在配置文件中所使用的储存单位缩写，不可以用在 <code class="docutils literal"><span class="pre">CONFIG</span></code> 命令中， <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">SET</span></code> 的值只能通过数字值显式地设定。</div>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">10kb</span></code> 、 <code class="docutils literal notranslate"><span class="pre">2gb</span></code> 这些在配置文件中所使用的储存单位缩写，不可以用在 <code class="docutils literal notranslate"><span class="pre">CONFIG</span></code> 命令中， <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">SET</span></code> 的值只能通过数字值显式地设定。</div>
 <div class="line"><br /></div>
-<div class="line">像 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">SET</span> <span class="pre">xxx</span> <span class="pre">1k</span></code> 这样的命令是错误的，正确的格式是 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">SET</span> <span class="pre">xxx</span> <span class="pre">1000</span></code> 。</div>
+<div class="line">像 <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">SET</span> <span class="pre">xxx</span> <span class="pre">1k</span></code> 这样的命令是错误的，正确的格式是 <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">SET</span> <span class="pre">xxx</span> <span class="pre">1000</span></code> 。</div>
 </div>
 </li>
-<li><div class="first line-block">
-<div class="line"><code class="docutils literal"><span class="pre">save</span></code> 选项在 redis.conf 中是用多行文字储存的，但在 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 命令中，它只打印一行文字。</div>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">save</span></code> 选项在 redis.conf 中是用多行文字储存的，但在 <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 命令中，它只打印一行文字。</div>
 <div class="line"><br /></div>
-<div class="line">以下是 <code class="docutils literal"><span class="pre">save</span></code> 选项在 redis.conf 文件中的表示：</div>
+<div class="line">以下是 <code class="docutils literal notranslate"><span class="pre">save</span></code> 选项在 redis.conf 文件中的表示：</div>
 <div class="line"><br /></div>
-<div class="line"><code class="docutils literal"><span class="pre">save</span> <span class="pre">900</span> <span class="pre">1</span></code></div>
-<div class="line"><code class="docutils literal"><span class="pre">save</span> <span class="pre">300</span> <span class="pre">10</span></code></div>
-<div class="line"><code class="docutils literal"><span class="pre">save</span> <span class="pre">60</span> <span class="pre">10000</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">save</span> <span class="pre">900</span> <span class="pre">1</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">save</span> <span class="pre">300</span> <span class="pre">10</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">save</span> <span class="pre">60</span> <span class="pre">10000</span></code></div>
 <div class="line"><br /></div>
-<div class="line">但是 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 命令的输出只有一行：</div>
+<div class="line">但是 <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 命令的输出只有一行：</div>
 <div class="line"><br /></div>
-<div class="line"><code class="docutils literal"><span class="pre">redis&gt;</span> <span class="pre">CONFIG</span> <span class="pre">GET</span> <span class="pre">save</span></code></div>
-<div class="line"><code class="docutils literal"><span class="pre">1)</span> <span class="pre">&quot;save&quot;</span></code></div>
-<div class="line"><code class="docutils literal"><span class="pre">2)</span> <span class="pre">&quot;900</span> <span class="pre">1</span> <span class="pre">300</span> <span class="pre">10</span> <span class="pre">60</span> <span class="pre">10000&quot;</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">redis&gt;</span> <span class="pre">CONFIG</span> <span class="pre">GET</span> <span class="pre">save</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">1)</span> <span class="pre">&quot;save&quot;</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">2)</span> <span class="pre">&quot;900</span> <span class="pre">1</span> <span class="pre">300</span> <span class="pre">10</span> <span class="pre">60</span> <span class="pre">10000&quot;</span></code></div>
 <div class="line"><br /></div>
-<div class="line">上面 <code class="docutils literal"><span class="pre">save</span></code> 参数的三个值表示：在 900 秒内最少有 1 个 key 被改动，或者 300 秒内最少有 10 个 key 被改动，又或者 60 秒内最少有 1000 个 key 被改动，以上三个条件随便满足一个，就触发一次保存操作。</div>
+<div class="line">上面 <code class="docutils literal notranslate"><span class="pre">save</span></code> 参数的三个值表示：在 900 秒内最少有 1 个 key 被改动，或者 300 秒内最少有 10 个 key 被改动，又或者 60 秒内最少有 1000 个 key 被改动，以上三个条件随便满足一个，就触发一次保存操作。</div>
 </div>
 </li>
 </ul>

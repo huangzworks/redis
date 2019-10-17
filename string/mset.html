@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -215,21 +206,21 @@
 </div></blockquote>
 <p>同时为多个键设置值。</p>
 <p>如果某个给定键已经存在，
-那么 <code class="docutils literal"><span class="pre">MSET</span></code> 将使用新值去覆盖旧值，
+那么 <code class="docutils literal notranslate"><span class="pre">MSET</span></code> 将使用新值去覆盖旧值，
 如果这不是你所希望的效果，
-请考虑使用 <code class="docutils literal"><span class="pre">MSETNX</span></code> 命令，
+请考虑使用 <code class="docutils literal notranslate"><span class="pre">MSETNX</span></code> 命令，
 这个命令只会在所有给定键都不存在的情况下进行设置。</p>
-<p><code class="docutils literal"><span class="pre">MSET</span></code> 是一个原子性(atomic)操作，
+<p><code class="docutils literal notranslate"><span class="pre">MSET</span></code> 是一个原子性(atomic)操作，
 所有给定键都会在同一时间内被设置，
 不会出现某些键被设置了但是另一些键没有被设置的情况。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">MSET</span></code> 命令总是返回 <code class="docutils literal"><span class="pre">OK</span></code> 。</p>
+<p><code class="docutils literal notranslate"><span class="pre">MSET</span></code> 命令总是返回 <code class="docutils literal notranslate"><span class="pre">OK</span></code> 。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>同时对多个键进行设置：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">MSET</span> <span class="n">date</span> <span class="s2">&quot;2012.3.30&quot;</span> <span class="n">time</span> <span class="s2">&quot;11:00 a.m.&quot;</span> <span class="n">weather</span> <span class="s2">&quot;sunny&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">MSET</span> <span class="n">date</span> <span class="s2">&quot;2012.3.30&quot;</span> <span class="n">time</span> <span class="s2">&quot;11:00 a.m.&quot;</span> <span class="n">weather</span> <span class="s2">&quot;sunny&quot;</span>
 <span class="n">OK</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">MGET</span> <span class="n">date</span> <span class="n">time</span> <span class="n">weather</span>
@@ -239,7 +230,7 @@
 </pre></div>
 </div>
 <p>覆盖已有的值：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">MGET</span> <span class="n">k1</span> <span class="n">k2</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">MGET</span> <span class="n">k1</span> <span class="n">k2</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;hello&quot;</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;world&quot;</span>
 

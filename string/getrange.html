@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -213,25 +204,25 @@
 <div class="line">时间复杂度： O(N)，其中 N 为被返回的字符串的长度。</div>
 </div>
 </div></blockquote>
-<p>返回键 <code class="docutils literal"><span class="pre">key</span></code> 储存的字符串值的指定部分，
-字符串的截取范围由 <code class="docutils literal"><span class="pre">start</span></code> 和 <code class="docutils literal"><span class="pre">end</span></code> 两个偏移量决定
-(包括 <code class="docutils literal"><span class="pre">start</span></code> 和 <code class="docutils literal"><span class="pre">end</span></code> 在内)。</p>
+<p>返回键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 储存的字符串值的指定部分，
+字符串的截取范围由 <code class="docutils literal notranslate"><span class="pre">start</span></code> 和 <code class="docutils literal notranslate"><span class="pre">end</span></code> 两个偏移量决定
+(包括 <code class="docutils literal notranslate"><span class="pre">start</span></code> 和 <code class="docutils literal notranslate"><span class="pre">end</span></code> 在内)。</p>
 <p>负数偏移量表示从字符串的末尾开始计数，
-<code class="docutils literal"><span class="pre">-1</span></code> 表示最后一个字符，
-<code class="docutils literal"><span class="pre">-2</span></code> 表示倒数第二个字符，
+<code class="docutils literal notranslate"><span class="pre">-1</span></code> 表示最后一个字符，
+<code class="docutils literal notranslate"><span class="pre">-2</span></code> 表示倒数第二个字符，
 以此类推。</p>
-<p><code class="docutils literal"><span class="pre">GETRANGE</span></code> 通过保证子字符串的值域(range)不超过实际字符串的值域来处理超出范围的值域请求。</p>
+<p><code class="docutils literal notranslate"><span class="pre">GETRANGE</span></code> 通过保证子字符串的值域(range)不超过实际字符串的值域来处理超出范围的值域请求。</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last"><code class="docutils literal"><span class="pre">GETRANGE</span></code> 命令在 Redis 2.0 之前的版本里面被称为 <code class="docutils literal"><span class="pre">SUBSTR</span></code> 命令。</p>
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">GETRANGE</span></code> 命令在 Redis 2.0 之前的版本里面被称为 <code class="docutils literal notranslate"><span class="pre">SUBSTR</span></code> 命令。</p>
 </div>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">GETRANGE</span></code> 命令会返回字符串值的指定部分。</p>
+<p><code class="docutils literal notranslate"><span class="pre">GETRANGE</span></code> 命令会返回字符串值的指定部分。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">greeting</span> <span class="s2">&quot;hello, my friend&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">greeting</span> <span class="s2">&quot;hello, my friend&quot;</span>
 <span class="n">OK</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">GETRANGE</span> <span class="n">greeting</span> <span class="mi">0</span> <span class="mi">4</span>          <span class="c1"># 返回索引0-4的字符，包括4。</span>

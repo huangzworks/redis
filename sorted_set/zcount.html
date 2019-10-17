@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -212,18 +203,18 @@
 <blockquote>
 <div><div class="line-block">
 <div class="line">可用版本： &gt;= 2.0.0</div>
-<div class="line">时间复杂度: O(log(N))， <code class="docutils literal"><span class="pre">N</span></code> 为有序集的基数。</div>
+<div class="line">时间复杂度: O(log(N))， <code class="docutils literal notranslate"><span class="pre">N</span></code> 为有序集的基数。</div>
 </div>
 </div></blockquote>
-<p>返回有序集 <code class="docutils literal"><span class="pre">key</span></code> 中， <code class="docutils literal"><span class="pre">score</span></code> 值在 <code class="docutils literal"><span class="pre">min</span></code> 和 <code class="docutils literal"><span class="pre">max</span></code> 之间(默认包括 <code class="docutils literal"><span class="pre">score</span></code> 值等于 <code class="docutils literal"><span class="pre">min</span></code> 或 <code class="docutils literal"><span class="pre">max</span></code> )的成员的数量。</p>
-<p>关于参数 <code class="docutils literal"><span class="pre">min</span></code> 和 <code class="docutils literal"><span class="pre">max</span></code> 的详细使用方法，请参考 <a class="reference internal" href="zrangebyscore.html#zrangebyscore"><span class="std std-ref">ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT offset count]</span></a> 命令。</p>
+<p>返回有序集 <code class="docutils literal notranslate"><span class="pre">key</span></code> 中， <code class="docutils literal notranslate"><span class="pre">score</span></code> 值在 <code class="docutils literal notranslate"><span class="pre">min</span></code> 和 <code class="docutils literal notranslate"><span class="pre">max</span></code> 之间(默认包括 <code class="docutils literal notranslate"><span class="pre">score</span></code> 值等于 <code class="docutils literal notranslate"><span class="pre">min</span></code> 或 <code class="docutils literal notranslate"><span class="pre">max</span></code> )的成员的数量。</p>
+<p>关于参数 <code class="docutils literal notranslate"><span class="pre">min</span></code> 和 <code class="docutils literal notranslate"><span class="pre">max</span></code> 的详细使用方法，请参考 <a class="reference internal" href="zrangebyscore.html#zrangebyscore"><span class="std std-ref">ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT offset count]</span></a> 命令。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">score</span></code> 值在 <code class="docutils literal"><span class="pre">min</span></code> 和 <code class="docutils literal"><span class="pre">max</span></code> 之间的成员的数量。</p>
+<p><code class="docutils literal notranslate"><span class="pre">score</span></code> 值在 <code class="docutils literal notranslate"><span class="pre">min</span></code> 和 <code class="docutils literal notranslate"><span class="pre">max</span></code> 之间的成员的数量。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">ZRANGE</span> <span class="n">salary</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="n">WITHSCORES</span>    <span class="c1"># 测试数据</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">ZRANGE</span> <span class="n">salary</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="n">WITHSCORES</span>    <span class="c1"># 测试数据</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;jack&quot;</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;2000&quot;</span>
 <span class="mi">3</span><span class="p">)</span> <span class="s2">&quot;peter&quot;</span>

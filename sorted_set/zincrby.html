@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -215,18 +206,18 @@
 <div class="line">时间复杂度: O(log(N))</div>
 </div>
 </div></blockquote>
-<p>为有序集 <code class="docutils literal"><span class="pre">key</span></code> 的成员 <code class="docutils literal"><span class="pre">member</span></code> 的 <code class="docutils literal"><span class="pre">score</span></code> 值加上增量 <code class="docutils literal"><span class="pre">increment</span></code> 。</p>
-<p>可以通过传递一个负数值 <code class="docutils literal"><span class="pre">increment</span></code> ，让 <code class="docutils literal"><span class="pre">score</span></code> 减去相应的值，比如 <code class="docutils literal"><span class="pre">ZINCRBY</span> <span class="pre">key</span> <span class="pre">-5</span> <span class="pre">member</span></code> ，就是让 <code class="docutils literal"><span class="pre">member</span></code> 的 <code class="docutils literal"><span class="pre">score</span></code> 值减去 <code class="docutils literal"><span class="pre">5</span></code> 。</p>
-<p>当 <code class="docutils literal"><span class="pre">key</span></code> 不存在，或 <code class="docutils literal"><span class="pre">member</span></code> 不是 <code class="docutils literal"><span class="pre">key</span></code> 的成员时， <code class="docutils literal"><span class="pre">ZINCRBY</span> <span class="pre">key</span> <span class="pre">increment</span> <span class="pre">member</span></code> 等同于 <code class="docutils literal"><span class="pre">ZADD</span> <span class="pre">key</span> <span class="pre">increment</span> <span class="pre">member</span></code> 。</p>
-<p>当 <code class="docutils literal"><span class="pre">key</span></code> 不是有序集类型时，返回一个错误。</p>
-<p><code class="docutils literal"><span class="pre">score</span></code> 值可以是整数值或双精度浮点数。</p>
+<p>为有序集 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的成员 <code class="docutils literal notranslate"><span class="pre">member</span></code> 的 <code class="docutils literal notranslate"><span class="pre">score</span></code> 值加上增量 <code class="docutils literal notranslate"><span class="pre">increment</span></code> 。</p>
+<p>可以通过传递一个负数值 <code class="docutils literal notranslate"><span class="pre">increment</span></code> ，让 <code class="docutils literal notranslate"><span class="pre">score</span></code> 减去相应的值，比如 <code class="docutils literal notranslate"><span class="pre">ZINCRBY</span> <span class="pre">key</span> <span class="pre">-5</span> <span class="pre">member</span></code> ，就是让 <code class="docutils literal notranslate"><span class="pre">member</span></code> 的 <code class="docutils literal notranslate"><span class="pre">score</span></code> 值减去 <code class="docutils literal notranslate"><span class="pre">5</span></code> 。</p>
+<p>当 <code class="docutils literal notranslate"><span class="pre">key</span></code> 不存在，或 <code class="docutils literal notranslate"><span class="pre">member</span></code> 不是 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的成员时， <code class="docutils literal notranslate"><span class="pre">ZINCRBY</span> <span class="pre">key</span> <span class="pre">increment</span> <span class="pre">member</span></code> 等同于 <code class="docutils literal notranslate"><span class="pre">ZADD</span> <span class="pre">key</span> <span class="pre">increment</span> <span class="pre">member</span></code> 。</p>
+<p>当 <code class="docutils literal notranslate"><span class="pre">key</span></code> 不是有序集类型时，返回一个错误。</p>
+<p><code class="docutils literal notranslate"><span class="pre">score</span></code> 值可以是整数值或双精度浮点数。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">member</span></code> 成员的新 <code class="docutils literal"><span class="pre">score</span></code> 值，以字符串形式表示。</p>
+<p><code class="docutils literal notranslate"><span class="pre">member</span></code> 成员的新 <code class="docutils literal notranslate"><span class="pre">score</span></code> 值，以字符串形式表示。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">ZSCORE</span> <span class="n">salary</span> <span class="n">tom</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">ZSCORE</span> <span class="n">salary</span> <span class="n">tom</span>
 <span class="s2">&quot;2000&quot;</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">ZINCRBY</span> <span class="n">salary</span> <span class="mi">2000</span> <span class="n">tom</span>   <span class="c1"># tom 加薪啦！</span>

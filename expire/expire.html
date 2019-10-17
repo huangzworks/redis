@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -206,33 +197,33 @@
 <div class="line">时间复杂度： O(1)</div>
 </div>
 </div></blockquote>
-<p>为给定 <code class="docutils literal"><span class="pre">key</span></code> 设置生存时间，当 <code class="docutils literal"><span class="pre">key</span></code> 过期时(生存时间为 <code class="docutils literal"><span class="pre">0</span></code> )，它会被自动删除。</p>
-<p>在 Redis 中，带有生存时间的 <code class="docutils literal"><span class="pre">key</span></code> 被称为『易失的』(volatile)。</p>
-<p>生存时间可以通过使用 <code class="docutils literal"><span class="pre">DEL</span></code> 命令来删除整个 <code class="docutils literal"><span class="pre">key</span></code> 来移除，或者被 <code class="docutils literal"><span class="pre">SET</span></code> 和 <code class="docutils literal"><span class="pre">GETSET</span></code> 命令覆写(overwrite)，这意味着，如果一个命令只是修改(alter)一个带生存时间的 <code class="docutils literal"><span class="pre">key</span></code> 的值而不是用一个新的 <code class="docutils literal"><span class="pre">key</span></code> 值来代替(replace)它的话，那么生存时间不会被改变。</p>
-<p>比如说，对一个 <code class="docutils literal"><span class="pre">key</span></code> 执行 <code class="docutils literal"><span class="pre">INCR</span></code> 命令，对一个列表进行 <code class="docutils literal"><span class="pre">LPUSH</span></code> 命令，或者对一个哈希表执行 <code class="docutils literal"><span class="pre">HSET</span></code> 命令，这类操作都不会修改 <code class="docutils literal"><span class="pre">key</span></code> 本身的生存时间。</p>
-<p>另一方面，如果使用 <code class="docutils literal"><span class="pre">RENAME</span></code> 对一个 <code class="docutils literal"><span class="pre">key</span></code> 进行改名，那么改名后的 <code class="docutils literal"><span class="pre">key</span></code> 的生存时间和改名前一样。</p>
-<p><code class="docutils literal"><span class="pre">RENAME</span></code> 命令的另一种可能是，尝试将一个带生存时间的 <code class="docutils literal"><span class="pre">key</span></code> 改名成另一个带生存时间的 <code class="docutils literal"><span class="pre">another_key</span></code> ，这时旧的 <code class="docutils literal"><span class="pre">another_key</span></code> (以及它的生存时间)会被删除，然后旧的 <code class="docutils literal"><span class="pre">key</span></code> 会改名为 <code class="docutils literal"><span class="pre">another_key</span></code> ，因此，新的 <code class="docutils literal"><span class="pre">another_key</span></code> 的生存时间也和原本的 <code class="docutils literal"><span class="pre">key</span></code> 一样。</p>
-<p>使用 <code class="docutils literal"><span class="pre">PERSIST</span></code> 命令可以在不删除 <code class="docutils literal"><span class="pre">key</span></code> 的情况下，移除 <code class="docutils literal"><span class="pre">key</span></code> 的生存时间，让 <code class="docutils literal"><span class="pre">key</span></code> 重新成为一个『持久的』(persistent) <code class="docutils literal"><span class="pre">key</span></code> 。</p>
+<p>为给定 <code class="docutils literal notranslate"><span class="pre">key</span></code> 设置生存时间，当 <code class="docutils literal notranslate"><span class="pre">key</span></code> 过期时(生存时间为 <code class="docutils literal notranslate"><span class="pre">0</span></code> )，它会被自动删除。</p>
+<p>在 Redis 中，带有生存时间的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 被称为『易失的』(volatile)。</p>
+<p>生存时间可以通过使用 <code class="docutils literal notranslate"><span class="pre">DEL</span></code> 命令来删除整个 <code class="docutils literal notranslate"><span class="pre">key</span></code> 来移除，或者被 <code class="docutils literal notranslate"><span class="pre">SET</span></code> 和 <code class="docutils literal notranslate"><span class="pre">GETSET</span></code> 命令覆写(overwrite)，这意味着，如果一个命令只是修改(alter)一个带生存时间的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的值而不是用一个新的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 值来代替(replace)它的话，那么生存时间不会被改变。</p>
+<p>比如说，对一个 <code class="docutils literal notranslate"><span class="pre">key</span></code> 执行 <code class="docutils literal notranslate"><span class="pre">INCR</span></code> 命令，对一个列表进行 <code class="docutils literal notranslate"><span class="pre">LPUSH</span></code> 命令，或者对一个哈希表执行 <code class="docutils literal notranslate"><span class="pre">HSET</span></code> 命令，这类操作都不会修改 <code class="docutils literal notranslate"><span class="pre">key</span></code> 本身的生存时间。</p>
+<p>另一方面，如果使用 <code class="docutils literal notranslate"><span class="pre">RENAME</span></code> 对一个 <code class="docutils literal notranslate"><span class="pre">key</span></code> 进行改名，那么改名后的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的生存时间和改名前一样。</p>
+<p><code class="docutils literal notranslate"><span class="pre">RENAME</span></code> 命令的另一种可能是，尝试将一个带生存时间的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 改名成另一个带生存时间的 <code class="docutils literal notranslate"><span class="pre">another_key</span></code> ，这时旧的 <code class="docutils literal notranslate"><span class="pre">another_key</span></code> (以及它的生存时间)会被删除，然后旧的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 会改名为 <code class="docutils literal notranslate"><span class="pre">another_key</span></code> ，因此，新的 <code class="docutils literal notranslate"><span class="pre">another_key</span></code> 的生存时间也和原本的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 一样。</p>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">PERSIST</span></code> 命令可以在不删除 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的情况下，移除 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的生存时间，让 <code class="docutils literal notranslate"><span class="pre">key</span></code> 重新成为一个『持久的』(persistent) <code class="docutils literal notranslate"><span class="pre">key</span></code> 。</p>
 <div class="section" id="id1">
 <h2>更新生存时间<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>可以对一个已经带有生存时间的 <code class="docutils literal"><span class="pre">key</span></code> 执行 <code class="docutils literal"><span class="pre">EXPIRE</span></code> 命令，新指定的生存时间会取代旧的生存时间。</p>
+<p>可以对一个已经带有生存时间的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 执行 <code class="docutils literal notranslate"><span class="pre">EXPIRE</span></code> 命令，新指定的生存时间会取代旧的生存时间。</p>
 </div>
 <div class="section" id="id2">
 <h2>过期时间的精确度<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>在 Redis 2.4 版本中，过期时间的延迟在 1 秒钟之内 —— 也即是，就算 <code class="docutils literal"><span class="pre">key</span></code> 已经过期，但它还是可能在过期之后一秒钟之内被访问到，而在新的 Redis 2.6 版本中，延迟被降低到 1 毫秒之内。</p>
+<p>在 Redis 2.4 版本中，过期时间的延迟在 1 秒钟之内 —— 也即是，就算 <code class="docutils literal notranslate"><span class="pre">key</span></code> 已经过期，但它还是可能在过期之后一秒钟之内被访问到，而在新的 Redis 2.6 版本中，延迟被降低到 1 毫秒之内。</p>
 </div>
 <div class="section" id="redis-2-1-3">
 <h2>Redis 2.1.3 之前的不同之处<a class="headerlink" href="#redis-2-1-3" title="Permalink to this headline">¶</a></h2>
-<p>在 Redis 2.1.3 之前的版本中，修改一个带有生存时间的 <code class="docutils literal"><span class="pre">key</span></code> 会导致整个 <code class="docutils literal"><span class="pre">key</span></code> 被删除，这一行为是受当时复制(replication)层的限制而作出的，现在这一限制已经被修复。</p>
+<p>在 Redis 2.1.3 之前的版本中，修改一个带有生存时间的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 会导致整个 <code class="docutils literal notranslate"><span class="pre">key</span></code> 被删除，这一行为是受当时复制(replication)层的限制而作出的，现在这一限制已经被修复。</p>
 </div>
 <div class="section" id="id3">
 <h2>返回值<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>设置成功返回 <code class="docutils literal"><span class="pre">1</span></code> 。
-当 <code class="docutils literal"><span class="pre">key</span></code> 不存在或者不能为 <code class="docutils literal"><span class="pre">key</span></code> 设置生存时间时(比如在低于 2.1.3 版本的 Redis 中你尝试更新 <code class="docutils literal"><span class="pre">key</span></code> 的生存时间)，返回 <code class="docutils literal"><span class="pre">0</span></code> 。</p>
+<p>设置成功返回 <code class="docutils literal notranslate"><span class="pre">1</span></code> 。
+当 <code class="docutils literal notranslate"><span class="pre">key</span></code> 不存在或者不能为 <code class="docutils literal notranslate"><span class="pre">key</span></code> 设置生存时间时(比如在低于 2.1.3 版本的 Redis 中你尝试更新 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的生存时间)，返回 <code class="docutils literal notranslate"><span class="pre">0</span></code> 。</p>
 </div>
 <div class="section" id="id4">
 <h2>代码示例<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">cache_page</span> <span class="s2">&quot;www.google.com&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">cache_page</span> <span class="s2">&quot;www.google.com&quot;</span>
 <span class="n">OK</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">EXPIRE</span> <span class="n">cache_page</span> <span class="mi">30</span>  <span class="c1"># 设置过期时间为 30 秒</span>
@@ -252,8 +243,8 @@
 <div class="section" id="id5">
 <h2>模式：导航会话<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>假设你有一项 web 服务，打算根据用户最近访问的 N 个页面来进行物品推荐，并且假设用户停止阅览超过 60 秒，那么就清空阅览记录(为了减少物品推荐的计算量，并且保持推荐物品的新鲜度)。</p>
-<p>这些最近访问的页面记录，我们称之为『导航会话』(Navigation session)，可以用 <code class="docutils literal"><span class="pre">INCR</span></code> 和 <code class="docutils literal"><span class="pre">RPUSH</span></code> 命令在 Redis 中实现它：每当用户阅览一个网页的时候，执行以下代码：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">MULTI</span>
+<p>这些最近访问的页面记录，我们称之为『导航会话』(Navigation session)，可以用 <code class="docutils literal notranslate"><span class="pre">INCR</span></code> 和 <code class="docutils literal notranslate"><span class="pre">RPUSH</span></code> 命令在 Redis 中实现它：每当用户阅览一个网页的时候，执行以下代码：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MULTI</span>
     <span class="n">RPUSH</span> <span class="n">pagewviews</span><span class="o">.</span><span class="n">user</span><span class="p">:</span><span class="o">&lt;</span><span class="n">userid</span><span class="o">&gt;</span> <span class="n">http</span><span class="p">:</span><span class="o">//.....</span>
     <span class="n">EXPIRE</span> <span class="n">pagewviews</span><span class="o">.</span><span class="n">user</span><span class="p">:</span><span class="o">&lt;</span><span class="n">userid</span><span class="o">&gt;</span> <span class="mi">60</span>
 <span class="n">EXEC</span>

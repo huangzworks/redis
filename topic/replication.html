@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -204,29 +195,25 @@
   <div class="section" id="replication">
 <span id="replication-topic"></span><h1>复制（Replication）<a class="headerlink" href="#replication" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">本文档翻译自： <a class="reference external" href="http://redis.io/topics/replication">http://redis.io/topics/replication</a> 。</p>
+<p class="admonition-title">Note</p>
+<p>本文档翻译自： <a class="reference external" href="http://redis.io/topics/replication">http://redis.io/topics/replication</a> 。</p>
 </div>
 <p>Redis 支持简单且易用的主从复制（master-slave replication）功能，
 该功能可以让从服务器(slave server)成为主服务器(master server)的精确复制品。</p>
 <p>以下是关于 Redis 复制功能的几个重要方面：</p>
 <ul>
-<li><p class="first">Redis 使用异步复制。
+<li><p>Redis 使用异步复制。
 从 Redis 2.8 开始，
-从服务器会以每秒一次的频率向主服务器报告复制流（replication stream）的处理进度。</p>
-</li>
-<li><p class="first">一个主服务器可以有多个从服务器。</p>
-</li>
-<li><p class="first">不仅主服务器可以有从服务器，
+从服务器会以每秒一次的频率向主服务器报告复制流（replication stream）的处理进度。</p></li>
+<li><p>一个主服务器可以有多个从服务器。</p></li>
+<li><p>不仅主服务器可以有从服务器，
 从服务器也可以有自己的从服务器，
-多个从服务器之间可以构成一个图状结构。</p>
-</li>
-<li><p class="first">复制功能不会阻塞主服务器：
+多个从服务器之间可以构成一个图状结构。</p></li>
+<li><p>复制功能不会阻塞主服务器：
 即使有一个或多个从服务器正在进行初次同步，
-主服务器也可以继续处理命令请求。</p>
-</li>
-<li><p class="first">复制功能也不会阻塞从服务器：
-只要在 <code class="docutils literal"><span class="pre">redis.conf</span></code> 文件中进行了相应的设置，
+主服务器也可以继续处理命令请求。</p></li>
+<li><p>复制功能也不会阻塞从服务器：
+只要在 <code class="docutils literal notranslate"><span class="pre">redis.conf</span></code> 文件中进行了相应的设置，
 即使从服务器正在进行初次同步，
 服务器也可以使用旧版本的数据集来处理命令查询。</p>
 <p>不过，
@@ -236,15 +223,13 @@
 让它在与主服务器之间的连接断开时，
 向客户端发送一个错误。</p>
 </li>
-<li><p class="first">复制功能可以单纯地用于数据冗余（data redundancy），
+<li><p>复制功能可以单纯地用于数据冗余（data redundancy），
 也可以通过让多个从服务器处理只读命令请求来提升扩展性（scalability）：
 比如说，
-繁重的 <a class="reference internal" href="../database/sort.html#sort"><span class="std std-ref">SORT key [BY pattern] [LIMIT offset count] [GET pattern [GET pattern …]] [ASC | DESC] [ALPHA] [STORE destination]</span></a> 命令可以交给附属节点去运行。</p>
-</li>
-<li><p class="first">可以通过复制功能来让主服务器免于执行持久化操作：
+繁重的 <a class="reference internal" href="../database/sort.html#sort"><span class="std std-ref">SORT key [BY pattern] [LIMIT offset count] [GET pattern [GET pattern …]] [ASC | DESC] [ALPHA] [STORE destination]</span></a> 命令可以交给附属节点去运行。</p></li>
+<li><p>可以通过复制功能来让主服务器免于执行持久化操作：
 只要关闭主服务器的持久化功能，
-然后由从服务器去执行持久化操作即可。</p>
-</li>
+然后由从服务器去执行持久化操作即可。</p></li>
 </ul>
 <div class="section" id="id1">
 <h2>关闭主服务器持久化时，复制功能的数据安全<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
@@ -270,8 +255,8 @@
 并在保存操作执行期间，
 将所有新执行的写入命令都保存到一个缓冲区里面。</p>
 <p>当 <a class="reference internal" href="../persistence/bgsave.html#bgsave"><span class="std std-ref">BGSAVE</span></a> 执行完毕后，
-主服务器将执行保存操作所得的 <code class="docutils literal"><span class="pre">.rdb</span></code> 文件发送给从服务器，
-从服务器接收这个 <code class="docutils literal"><span class="pre">.rdb</span></code> 文件，
+主服务器将执行保存操作所得的 <code class="docutils literal notranslate"><span class="pre">.rdb</span></code> 文件发送给从服务器，
+从服务器接收这个 <code class="docutils literal notranslate"><span class="pre">.rdb</span></code> 文件，
 并将文件中的数据载入到内存中。</p>
 <p>之后主服务器会以 Redis 命令协议的格式，
 将写命令缓冲区中积累的所有内容都发送给从服务器。</p>
@@ -279,7 +264,7 @@
 首先连上一个正在处理命令请求的 Redis 服务器，
 然后向它发送 <a class="reference internal" href="../internal/sync.html#sync"><span class="std std-ref">SYNC</span></a> 命令，
 过一阵子，
-你将看到 telnet 会话（session）接收到服务器发来的大段数据（<code class="docutils literal"><span class="pre">.rdb</span></code> 文件），
+你将看到 telnet 会话（session）接收到服务器发来的大段数据（<code class="docutils literal notranslate"><span class="pre">.rdb</span></code> 文件），
 之后还会看到，
 所有在服务器执行过的写命令，
 都会重新发送到 telnet 会话来。</p>
@@ -304,12 +289,12 @@
 从服务器会重新连接，
 并且向主服务器请求继续执行原来的复制进程：</p>
 <ul class="simple">
-<li>如果从服务器记录的主服务器 ID 和当前要连接的主服务器的 ID 相同，
+<li><p>如果从服务器记录的主服务器 ID 和当前要连接的主服务器的 ID 相同，
 并且从服务器记录的偏移量所指定的数据仍然保存在主服务器的复制流缓冲区里面，
 那么主服务器会向从服务器发送断线时缺失的那部分数据，
-然后复制工作可以继续执行。</li>
-<li>否则的话，
-从服务器就要执行完整重同步操作。</li>
+然后复制工作可以继续执行。</p></li>
+<li><p>否则的话，
+从服务器就要执行完整重同步操作。</p></li>
 </ul>
 <p>Redis 2.8 的这个部分重同步特性会用到一个新增的 <a class="reference internal" href="../internal/psync.html#psync"><span class="std std-ref">PSYNC master_run_id offset</span></a> 内部命令，
 而 Redis 2.8 以前的旧版本只有 <a class="reference internal" href="../internal/sync.html#sync"><span class="std std-ref">SYNC</span></a> 命令，
@@ -317,23 +302,23 @@
 只要从服务器是 Redis 2.8 或以上的版本，
 它就会根据主服务器的版本来决定到底是使用 <a class="reference internal" href="../internal/psync.html#psync"><span class="std std-ref">PSYNC master_run_id offset</span></a> 还是 <a class="reference internal" href="../internal/sync.html#sync"><span class="std std-ref">SYNC</span></a> ：</p>
 <ul class="simple">
-<li>如果主服务器是 Redis 2.8 或以上版本，那么从服务器使用 <a class="reference internal" href="../internal/psync.html#psync"><span class="std std-ref">PSYNC master_run_id offset</span></a> 命令来进行同步。</li>
-<li>如果主服务器是 Redis 2.8 之前的版本，那么从服务器使用 <a class="reference internal" href="../internal/sync.html#sync"><span class="std std-ref">SYNC</span></a> 命令来进行同步。</li>
+<li><p>如果主服务器是 Redis 2.8 或以上版本，那么从服务器使用 <a class="reference internal" href="../internal/psync.html#psync"><span class="std std-ref">PSYNC master_run_id offset</span></a> 命令来进行同步。</p></li>
+<li><p>如果主服务器是 Redis 2.8 之前的版本，那么从服务器使用 <a class="reference internal" href="../internal/sync.html#sync"><span class="std std-ref">SYNC</span></a> 命令来进行同步。</p></li>
 </ul>
 </div>
 <div class="section" id="id4">
 <h2>配置<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>配置一个从服务器非常简单，
 只要在配置文件中增加以下的这一行就可以了：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">slaveof</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.1</span> <span class="mi">6379</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">slaveof</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.1</span> <span class="mi">6379</span>
 </pre></div>
 </div>
 <p>当然，
-你需要将代码中的 <code class="docutils literal"><span class="pre">192.168.1.1</span></code> 和 <code class="docutils literal"><span class="pre">6379</span></code> 替换成你的主服务器的 IP 和端口号。</p>
+你需要将代码中的 <code class="docutils literal notranslate"><span class="pre">192.168.1.1</span></code> 和 <code class="docutils literal notranslate"><span class="pre">6379</span></code> 替换成你的主服务器的 IP 和端口号。</p>
 <p>另外一种方法是调用 <a class="reference internal" href="../replication/slaveof.html#slaveof"><span class="std std-ref">SLAVEOF host port</span></a> 命令，
 输入主服务器的 IP 和端口，
 然后同步就会开始：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SLAVEOF</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.1</span> <span class="mi">10086</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">SLAVEOF</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.1</span> <span class="mi">10086</span>
 <span class="n">OK</span>
 </pre></div>
 </div>
@@ -343,15 +328,15 @@
 <p>从 Redis 2.6 开始，
 从服务器支持只读模式，
 并且该模式为从服务器的默认模式。</p>
-<p>只读模式由 <code class="docutils literal"><span class="pre">redis.conf</span></code> 文件中的 <code class="docutils literal"><span class="pre">slave-read-only</span></code> 选项控制，
+<p>只读模式由 <code class="docutils literal notranslate"><span class="pre">redis.conf</span></code> 文件中的 <code class="docutils literal notranslate"><span class="pre">slave-read-only</span></code> 选项控制，
 也可以通过 <a class="reference internal" href="../configure/config_set.html#config-set"><span class="std std-ref">CONFIG SET parameter value</span></a> 命令来开启或关闭这个模式。</p>
 <p>只读从服务器会拒绝执行任何写命令，
 所以不会出现因为操作失误而将数据不小心写入到了从服务器的情况。</p>
 <p>即使从服务器是只读的，
-<code class="docutils literal"><span class="pre">DEBUG</span></code> 和 <code class="docutils literal"><span class="pre">CONFIG</span></code> 等管理式命令仍然是可以使用的，
+<code class="docutils literal notranslate"><span class="pre">DEBUG</span></code> 和 <code class="docutils literal notranslate"><span class="pre">CONFIG</span></code> 等管理式命令仍然是可以使用的，
 所以我们还是不应该将服务器暴露给互联网或者任何不可信网络。
 不过，
-使用 <code class="docutils literal"><span class="pre">redis.conf</span></code> 中的命令改名选项，
+使用 <code class="docutils literal notranslate"><span class="pre">redis.conf</span></code> 中的命令改名选项，
 我们可以通过禁止执行某些命令来提升只读从服务器的安全性。</p>
 <p>你可能会感到好奇，
 既然从服务器上的写数据会被重同步数据覆盖，
@@ -366,22 +351,22 @@
 </div>
 <div class="section" id="id6">
 <h2>从服务器相关配置<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
-<p>如果主服务器通过 <code class="docutils literal"><span class="pre">requirepass</span></code> 选项设置了密码，
+<p>如果主服务器通过 <code class="docutils literal notranslate"><span class="pre">requirepass</span></code> 选项设置了密码，
 那么为了让从服务器的同步操作可以顺利进行，
 我们也必须为从服务器进行相应的身份验证设置。</p>
 <p>对于一个正在运行的服务器，
 可以使用客户端输入以下命令：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">config</span> <span class="nb">set</span> <span class="n">masterauth</span> <span class="o">&lt;</span><span class="n">password</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">config</span> <span class="nb">set</span> <span class="n">masterauth</span> <span class="o">&lt;</span><span class="n">password</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>要永久地设置这个密码，
 那么可以将它加入到配置文件中：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">masterauth</span> <span class="o">&lt;</span><span class="n">password</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">masterauth</span> <span class="o">&lt;</span><span class="n">password</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>另外还有几个选项，
 它们和主服务器执行部分重同步时所使用的复制流缓冲区有关，
-详细的信息可以参考 Redis 源码中附带的 <code class="docutils literal"><span class="pre">redis.conf</span></code> 示例文件。</p>
+详细的信息可以参考 Redis 源码中附带的 <code class="docutils literal notranslate"><span class="pre">redis.conf</span></code> 示例文件。</p>
 </div>
 <div class="section" id="n">
 <h2>主服务器只在有至少 N 个从服务器的情况下，才执行写操作<a class="headerlink" href="#n" title="Permalink to this headline">¶</a></h2>
@@ -397,29 +382,29 @@
 数据丢失的可能性仍然是存在的。</p>
 <p>以下是这个特性的运作原理：</p>
 <ul class="simple">
-<li>从服务器以每秒一次的频率 PING 主服务器一次，
-并报告复制流的处理情况。</li>
-<li>主服务器会记录各个从服务器最后一次向它发送 PING 的时间。</li>
-<li>用户可以通过配置，
-指定网络延迟的最大值 <code class="docutils literal"><span class="pre">min-slaves-max-lag</span></code> ，
-以及执行写操作所需的至少从服务器数量 <code class="docutils literal"><span class="pre">min-slaves-to-write</span></code> 。</li>
+<li><p>从服务器以每秒一次的频率 PING 主服务器一次，
+并报告复制流的处理情况。</p></li>
+<li><p>主服务器会记录各个从服务器最后一次向它发送 PING 的时间。</p></li>
+<li><p>用户可以通过配置，
+指定网络延迟的最大值 <code class="docutils literal notranslate"><span class="pre">min-slaves-max-lag</span></code> ，
+以及执行写操作所需的至少从服务器数量 <code class="docutils literal notranslate"><span class="pre">min-slaves-to-write</span></code> 。</p></li>
 </ul>
-<p>如果至少有 <code class="docutils literal"><span class="pre">min-slaves-to-write</span></code> 个从服务器，
-并且这些服务器的延迟值都少于 <code class="docutils literal"><span class="pre">min-slaves-max-lag</span></code> 秒，
+<p>如果至少有 <code class="docutils literal notranslate"><span class="pre">min-slaves-to-write</span></code> 个从服务器，
+并且这些服务器的延迟值都少于 <code class="docutils literal notranslate"><span class="pre">min-slaves-max-lag</span></code> 秒，
 那么主服务器就会执行客户端请求的写操作。</p>
 <p>你可以将这个特性看作 CAP 理论中的 C 的条件放宽版本：
 尽管不能保证写操作的持久性，
 但起码丢失数据的窗口会被严格限制在指定的秒数中。</p>
 <p>另一方面，
-如果条件达不到 <code class="docutils literal"><span class="pre">min-slaves-to-write</span></code> 和 <code class="docutils literal"><span class="pre">min-slaves-max-lag</span></code> 所指定的条件，
+如果条件达不到 <code class="docutils literal notranslate"><span class="pre">min-slaves-to-write</span></code> 和 <code class="docutils literal notranslate"><span class="pre">min-slaves-max-lag</span></code> 所指定的条件，
 那么写操作就不会被执行，
 主服务器会向请求执行写操作的客户端返回一个错误。</p>
 <p>以下是这个特性的两个选项和它们所需的参数：</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">min-slaves-to-write</span> <span class="pre">&lt;number</span> <span class="pre">of</span> <span class="pre">slaves&gt;</span></code></li>
-<li><code class="docutils literal"><span class="pre">min-slaves-max-lag</span> <span class="pre">&lt;number</span> <span class="pre">of</span> <span class="pre">seconds&gt;</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">min-slaves-to-write</span> <span class="pre">&lt;number</span> <span class="pre">of</span> <span class="pre">slaves&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">min-slaves-max-lag</span> <span class="pre">&lt;number</span> <span class="pre">of</span> <span class="pre">seconds&gt;</span></code></p></li>
 </ul>
-<p>详细的信息可以参考 Redis 源码中附带的 <code class="docutils literal"><span class="pre">redis.conf</span></code> 示例文件。</p>
+<p>详细的信息可以参考 Redis 源码中附带的 <code class="docutils literal notranslate"><span class="pre">redis.conf</span></code> 示例文件。</p>
 </div>
 </div>
 

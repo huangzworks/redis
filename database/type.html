@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -210,22 +201,22 @@
 <div class="line">时间复杂度： O(1)</div>
 </div>
 </div></blockquote>
-<p>返回 <code class="docutils literal"><span class="pre">key</span></code> 所储存的值的类型。</p>
+<p>返回 <code class="docutils literal notranslate"><span class="pre">key</span></code> 所储存的值的类型。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">none</span></code> (key不存在)</li>
-<li><code class="docutils literal"><span class="pre">string</span></code> (字符串)</li>
-<li><code class="docutils literal"><span class="pre">list</span></code> (列表)</li>
-<li><code class="docutils literal"><span class="pre">set</span></code> (集合)</li>
-<li><code class="docutils literal"><span class="pre">zset</span></code> (有序集)</li>
-<li><code class="docutils literal"><span class="pre">hash</span></code> (哈希表)</li>
-<li><code class="docutils literal"><span class="pre">stream</span></code> （流）</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">none</span></code> (key不存在)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">string</span></code> (字符串)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">list</span></code> (列表)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set</span></code> (集合)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">zset</span></code> (有序集)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hash</span></code> (哈希表)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stream</span></code> （流）</p></li>
 </ul>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 字符串</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 字符串</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">weather</span> <span class="s2">&quot;sunny&quot;</span>
 <span class="n">OK</span>

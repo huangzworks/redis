@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -213,28 +204,28 @@
 <div class="line">时间复杂度： 平摊O(1)</div>
 </div>
 </div></blockquote>
-<p>如果键 <code class="docutils literal"><span class="pre">key</span></code> 已经存在并且它的值是一个字符串，
-<code class="docutils literal"><span class="pre">APPEND</span></code> 命令将把 <code class="docutils literal"><span class="pre">value</span></code> 追加到键 <code class="docutils literal"><span class="pre">key</span></code> 现有值的末尾。</p>
-<p>如果 <code class="docutils literal"><span class="pre">key</span></code> 不存在，
-<code class="docutils literal"><span class="pre">APPEND</span></code> 就简单地将键 <code class="docutils literal"><span class="pre">key</span></code> 的值设为 <code class="docutils literal"><span class="pre">value</span></code> ，
-就像执行 <code class="docutils literal"><span class="pre">SET</span> <span class="pre">key</span> <span class="pre">value</span></code> 一样。</p>
+<p>如果键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 已经存在并且它的值是一个字符串，
+<code class="docutils literal notranslate"><span class="pre">APPEND</span></code> 命令将把 <code class="docutils literal notranslate"><span class="pre">value</span></code> 追加到键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 现有值的末尾。</p>
+<p>如果 <code class="docutils literal notranslate"><span class="pre">key</span></code> 不存在，
+<code class="docutils literal notranslate"><span class="pre">APPEND</span></code> 就简单地将键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的值设为 <code class="docutils literal notranslate"><span class="pre">value</span></code> ，
+就像执行 <code class="docutils literal notranslate"><span class="pre">SET</span> <span class="pre">key</span> <span class="pre">value</span></code> 一样。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>追加 <code class="docutils literal"><span class="pre">value</span></code> 之后，
-键 <code class="docutils literal"><span class="pre">key</span></code> 的值的长度。</p>
+<p>追加 <code class="docutils literal notranslate"><span class="pre">value</span></code> 之后，
+键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的值的长度。</p>
 </div>
 <div class="section" id="id2">
 <h2>示例代码<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>对不存在的 <code class="docutils literal"><span class="pre">key</span></code> 执行 <code class="docutils literal"><span class="pre">APPEND</span></code> ：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">EXISTS</span> <span class="n">myphone</span>               <span class="c1"># 确保 myphone 不存在</span>
+<p>对不存在的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 执行 <code class="docutils literal notranslate"><span class="pre">APPEND</span></code> ：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">EXISTS</span> <span class="n">myphone</span>               <span class="c1"># 确保 myphone 不存在</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">0</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">APPEND</span> <span class="n">myphone</span> <span class="s2">&quot;nokia&quot;</span>       <span class="c1"># 对不存在的 key 进行 APPEND ，等同于 SET myphone &quot;nokia&quot;</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">5</span>                         <span class="c1"># 字符长度</span>
 </pre></div>
 </div>
-<p>对已存在的字符串进行 <code class="docutils literal"><span class="pre">APPEND</span></code> ：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">APPEND</span> <span class="n">myphone</span> <span class="s2">&quot; - 1110&quot;</span>     <span class="c1"># 长度从 5 个字符增加到 12 个字符</span>
+<p>对已存在的字符串进行 <code class="docutils literal notranslate"><span class="pre">APPEND</span></code> ：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">APPEND</span> <span class="n">myphone</span> <span class="s2">&quot; - 1110&quot;</span>     <span class="c1"># 长度从 5 个字符增加到 12 个字符</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">12</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">GET</span> <span class="n">myphone</span>

@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -201,20 +192,19 @@
   <div class="section" id="hvals">
 <span id="id1"></span><h1>HVALS<a class="headerlink" href="#hvals" title="Permalink to this headline">¶</a></h1>
 <p><strong>HVALS key</strong></p>
-<p>返回哈希表 <code class="docutils literal"><span class="pre">key</span></code> 中所有域的值。</p>
-<dl class="docutils">
-<dt><strong>可用版本：</strong></dt>
-<dd>&gt;= 2.0.0</dd>
-<dt><strong>时间复杂度：</strong></dt>
-<dd>O(N)， <code class="docutils literal"><span class="pre">N</span></code> 为哈希表的大小。</dd>
-<dt><strong>返回值：</strong></dt>
-<dd><div class="first last line-block">
+<p>返回哈希表 <code class="docutils literal notranslate"><span class="pre">key</span></code> 中所有域的值。</p>
+<dl>
+<dt><strong>可用版本：</strong></dt><dd><p>&gt;= 2.0.0</p>
+</dd>
+<dt><strong>时间复杂度：</strong></dt><dd><p>O(N)， <code class="docutils literal notranslate"><span class="pre">N</span></code> 为哈希表的大小。</p>
+</dd>
+<dt><strong>返回值：</strong></dt><dd><div class="line-block">
 <div class="line">一个包含哈希表中所有值的表。</div>
-<div class="line">当 <code class="docutils literal"><span class="pre">key</span></code> 不存在时，返回一个空表。</div>
+<div class="line">当 <code class="docutils literal notranslate"><span class="pre">key</span></code> 不存在时，返回一个空表。</div>
 </div>
 </dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 非空哈希表</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 非空哈希表</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">HMSET</span> <span class="n">website</span> <span class="n">google</span> <span class="n">www</span><span class="o">.</span><span class="n">google</span><span class="o">.</span><span class="n">com</span> <span class="n">yahoo</span> <span class="n">www</span><span class="o">.</span><span class="n">yahoo</span><span class="o">.</span><span class="n">com</span>
 <span class="n">OK</span>

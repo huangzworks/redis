@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -201,7 +192,7 @@
 <p>当 <a class="reference internal" href="#pfcount"><span class="std std-ref">PFCOUNT key [key …]</span></a> 命令作用于单个键时，
 返回储存在给定键的 HyperLogLog 的近似基数，
 如果键不存在，
-那么返回 <code class="docutils literal"><span class="pre">0</span></code> 。</p>
+那么返回 <code class="docutils literal notranslate"><span class="pre">0</span></code> 。</p>
 <p>当 <a class="reference internal" href="#pfcount"><span class="std std-ref">PFCOUNT key [key …]</span></a> 命令作用于多个键时，
 返回所有给定 HyperLogLog 的并集的近似基数，
 这个近似基数是通过将所有给定 HyperLogLog 合并至一个临时 HyperLogLog 来计算得出的。</p>
@@ -222,7 +213,7 @@
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">PFADD</span>  <span class="n">databases</span>  <span class="s2">&quot;Redis&quot;</span>  <span class="s2">&quot;MongoDB&quot;</span>  <span class="s2">&quot;MySQL&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">PFADD</span>  <span class="n">databases</span>  <span class="s2">&quot;Redis&quot;</span>  <span class="s2">&quot;MongoDB&quot;</span>  <span class="s2">&quot;MySQL&quot;</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">1</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">PFCOUNT</span>  <span class="n">databases</span>

@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -209,19 +200,19 @@
 <blockquote>
 <div><div class="line-block">
 <div class="line">可用版本： &gt;= 1.0.0</div>
-<div class="line">时间复杂度：对头元素或尾元素进行 <a class="reference internal" href="#lset">LSET</a> 操作，复杂度为 O(1)。其他情况下，为 O(N)， <code class="docutils literal"><span class="pre">N</span></code> 为列表的长度。</div>
+<div class="line">时间复杂度：对头元素或尾元素进行 <a class="reference internal" href="#lset">LSET</a> 操作，复杂度为 O(1)。其他情况下，为 O(N)， <code class="docutils literal notranslate"><span class="pre">N</span></code> 为列表的长度。</div>
 </div>
 </div></blockquote>
-<p>将列表 <code class="docutils literal"><span class="pre">key</span></code> 下标为 <code class="docutils literal"><span class="pre">index</span></code> 的元素的值设置为 <code class="docutils literal"><span class="pre">value</span></code> 。</p>
-<p>当 <code class="docutils literal"><span class="pre">index</span></code> 参数超出范围，或对一个空列表( <code class="docutils literal"><span class="pre">key</span></code> 不存在)进行 <a class="reference internal" href="#lset">LSET</a> 时，返回一个错误。</p>
+<p>将列表 <code class="docutils literal notranslate"><span class="pre">key</span></code> 下标为 <code class="docutils literal notranslate"><span class="pre">index</span></code> 的元素的值设置为 <code class="docutils literal notranslate"><span class="pre">value</span></code> 。</p>
+<p>当 <code class="docutils literal notranslate"><span class="pre">index</span></code> 参数超出范围，或对一个空列表( <code class="docutils literal notranslate"><span class="pre">key</span></code> 不存在)进行 <a class="reference internal" href="#lset">LSET</a> 时，返回一个错误。</p>
 <p>关于列表下标的更多信息，请参考 <a class="reference internal" href="lindex.html#lindex"><span class="std std-ref">LINDEX key index</span></a> 命令。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>操作成功返回 <code class="docutils literal"><span class="pre">ok</span></code> ，否则返回错误信息。</p>
+<p>操作成功返回 <code class="docutils literal notranslate"><span class="pre">ok</span></code> ，否则返回错误信息。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 对空列表(key 不存在)进行 LSET</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 对空列表(key 不存在)进行 LSET</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">EXISTS</span> <span class="nb">list</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">0</span>

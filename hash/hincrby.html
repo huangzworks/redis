@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -201,21 +192,21 @@
   <div class="section" id="hincrby">
 <span id="id1"></span><h1>HINCRBY<a class="headerlink" href="#hincrby" title="Permalink to this headline">¶</a></h1>
 <p><strong>HINCRBY key field increment</strong></p>
-<p>为哈希表 <code class="docutils literal"><span class="pre">key</span></code> 中的域 <code class="docutils literal"><span class="pre">field</span></code> 的值加上增量 <code class="docutils literal"><span class="pre">increment</span></code> 。</p>
+<p>为哈希表 <code class="docutils literal notranslate"><span class="pre">key</span></code> 中的域 <code class="docutils literal notranslate"><span class="pre">field</span></code> 的值加上增量 <code class="docutils literal notranslate"><span class="pre">increment</span></code> 。</p>
 <p>增量也可以为负数，相当于对给定域进行减法操作。</p>
-<p>如果 <code class="docutils literal"><span class="pre">key</span></code> 不存在，一个新的哈希表被创建并执行 <a class="reference internal" href="#hincrby">HINCRBY</a> 命令。</p>
-<p>如果域 <code class="docutils literal"><span class="pre">field</span></code> 不存在，那么在执行命令前，域的值被初始化为 <code class="docutils literal"><span class="pre">0</span></code> 。</p>
-<p>对一个储存字符串值的域 <code class="docutils literal"><span class="pre">field</span></code> 执行 <a class="reference internal" href="#hincrby">HINCRBY</a> 命令将造成一个错误。</p>
+<p>如果 <code class="docutils literal notranslate"><span class="pre">key</span></code> 不存在，一个新的哈希表被创建并执行 <a class="reference internal" href="#hincrby">HINCRBY</a> 命令。</p>
+<p>如果域 <code class="docutils literal notranslate"><span class="pre">field</span></code> 不存在，那么在执行命令前，域的值被初始化为 <code class="docutils literal notranslate"><span class="pre">0</span></code> 。</p>
+<p>对一个储存字符串值的域 <code class="docutils literal notranslate"><span class="pre">field</span></code> 执行 <a class="reference internal" href="#hincrby">HINCRBY</a> 命令将造成一个错误。</p>
 <p>本操作的值被限制在 64 位(bit)有符号数字表示之内。</p>
-<dl class="docutils">
-<dt><strong>可用版本：</strong></dt>
-<dd>&gt;= 2.0.0</dd>
-<dt><strong>时间复杂度：</strong></dt>
-<dd>O(1)</dd>
-<dt><strong>返回值：</strong></dt>
-<dd>执行 <a class="reference internal" href="#hincrby">HINCRBY</a> 命令之后，哈希表 <code class="docutils literal"><span class="pre">key</span></code> 中域 <code class="docutils literal"><span class="pre">field</span></code> 的值。</dd>
+<dl class="simple">
+<dt><strong>可用版本：</strong></dt><dd><p>&gt;= 2.0.0</p>
+</dd>
+<dt><strong>时间复杂度：</strong></dt><dd><p>O(1)</p>
+</dd>
+<dt><strong>返回值：</strong></dt><dd><p>执行 <a class="reference internal" href="#hincrby">HINCRBY</a> 命令之后，哈希表 <code class="docutils literal notranslate"><span class="pre">key</span></code> 中域 <code class="docutils literal notranslate"><span class="pre">field</span></code> 的值。</p>
+</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># increment 为正数</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># increment 为正数</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">HEXISTS</span> <span class="n">counter</span> <span class="n">page_view</span>    <span class="c1"># 对空域进行设置</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">0</span>

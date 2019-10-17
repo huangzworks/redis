@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -213,26 +204,26 @@
 <div class="line">时间复杂度： O(1)</div>
 </div>
 </div></blockquote>
-<p>为键 <code class="docutils literal"><span class="pre">key</span></code> 储存的数字值加上一。</p>
-<p>如果键 <code class="docutils literal"><span class="pre">key</span></code> 不存在，
-那么它的值会先被初始化为 <code class="docutils literal"><span class="pre">0</span></code> ，
-然后再执行 <code class="docutils literal"><span class="pre">INCR</span></code> 命令。</p>
-<p>如果键 <code class="docutils literal"><span class="pre">key</span></code> 储存的值不能被解释为数字，
-那么 <code class="docutils literal"><span class="pre">INCR</span></code> 命令将返回一个错误。</p>
+<p>为键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 储存的数字值加上一。</p>
+<p>如果键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 不存在，
+那么它的值会先被初始化为 <code class="docutils literal notranslate"><span class="pre">0</span></code> ，
+然后再执行 <code class="docutils literal notranslate"><span class="pre">INCR</span></code> 命令。</p>
+<p>如果键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 储存的值不能被解释为数字，
+那么 <code class="docutils literal notranslate"><span class="pre">INCR</span></code> 命令将返回一个错误。</p>
 <p>本操作的值限制在 64 位(bit)有符号数字表示之内。</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last"><code class="docutils literal"><span class="pre">INCR</span></code> 命令是一个针对字符串的操作。
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">INCR</span></code> 命令是一个针对字符串的操作。
 因为 Redis 并没有专用的整数类型，
-所以键 <code class="docutils literal"><span class="pre">key</span></code> 储存的值在执行 <code class="docutils literal"><span class="pre">INCR</span></code> 命令时会被解释为十进制 64 位有符号整数。</p>
+所以键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 储存的值在执行 <code class="docutils literal notranslate"><span class="pre">INCR</span></code> 命令时会被解释为十进制 64 位有符号整数。</p>
 </div>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">INCR</span></code> 命令会返回键 <code class="docutils literal"><span class="pre">key</span></code> 在执行加一操作之后的值。</p>
+<p><code class="docutils literal notranslate"><span class="pre">INCR</span></code> 命令会返回键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 在执行加一操作之后的值。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">page_view</span> <span class="mi">20</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">page_view</span> <span class="mi">20</span>
 <span class="n">OK</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">INCR</span> <span class="n">page_view</span>

@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -204,17 +195,17 @@
 <div class="line">时间复杂度： O(N) ， N 为已连接的客户端数量。</div>
 </div>
 </div></blockquote>
-<p>关闭地址为 <code class="docutils literal"><span class="pre">ip:port</span></code> 的客户端。</p>
-<p><code class="docutils literal"><span class="pre">ip:port</span></code> 应该和 <code class="docutils literal"><span class="pre">CLIENT</span> <span class="pre">LIST</span></code> 命令输出的其中一行匹配。</p>
+<p>关闭地址为 <code class="docutils literal notranslate"><span class="pre">ip:port</span></code> 的客户端。</p>
+<p><code class="docutils literal notranslate"><span class="pre">ip:port</span></code> 应该和 <code class="docutils literal notranslate"><span class="pre">CLIENT</span> <span class="pre">LIST</span></code> 命令输出的其中一行匹配。</p>
 <p>因为 Redis 使用单线程设计，所以当 Redis 正在执行命令的时候，不会有客户端被断开连接。</p>
 <p>如果要被断开连接的客户端正在执行命令，那么当这个命令执行之后，在发送下一个命令的时候，它就会收到一个网络错误，告知它自身的连接已被关闭。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>当指定的客户端存在，且被成功关闭时，返回 <code class="docutils literal"><span class="pre">OK</span></code> 。</p>
+<p>当指定的客户端存在，且被成功关闭时，返回 <code class="docutils literal notranslate"><span class="pre">OK</span></code> 。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 列出所有已连接客户端</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 列出所有已连接客户端</span>
 
 <span class="n">redis</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">6379</span><span class="o">&gt;</span> <span class="n">CLIENT</span> <span class="n">LIST</span>
 <span class="n">addr</span><span class="o">=</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">43501</span> <span class="n">fd</span><span class="o">=</span><span class="mi">5</span> <span class="n">age</span><span class="o">=</span><span class="mi">10</span> <span class="n">idle</span><span class="o">=</span><span class="mi">0</span> <span class="n">flags</span><span class="o">=</span><span class="n">N</span> <span class="n">db</span><span class="o">=</span><span class="mi">0</span> <span class="n">sub</span><span class="o">=</span><span class="mi">0</span> <span class="n">psub</span><span class="o">=</span><span class="mi">0</span> <span class="n">multi</span><span class="o">=-</span><span class="mi">1</span> <span class="n">qbuf</span><span class="o">=</span><span class="mi">0</span> <span class="n">qbuf</span><span class="o">-</span><span class="n">free</span><span class="o">=</span><span class="mi">32768</span> <span class="n">obl</span><span class="o">=</span><span class="mi">0</span> <span class="n">oll</span><span class="o">=</span><span class="mi">0</span> <span class="n">omem</span><span class="o">=</span><span class="mi">0</span> <span class="n">events</span><span class="o">=</span><span class="n">r</span> <span class="n">cmd</span><span class="o">=</span><span class="n">client</span>

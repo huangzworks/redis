@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -202,17 +193,17 @@
 </div>
 </div></blockquote>
 <p>从键里面返回所有给定位置元素的位置（经度和纬度）。</p>
-<p>因为 <code class="docutils literal"><span class="pre">GEOPOS</span></code> 命令接受可变数量的位置元素作为输入，
+<p>因为 <code class="docutils literal notranslate"><span class="pre">GEOPOS</span></code> 命令接受可变数量的位置元素作为输入，
 所以即使用户只给定了一个位置元素，
 命令也会返回数组回复。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">GEOPOS</span></code> 命令返回一个数组， 数组中的每个项都由两个元素组成： 第一个元素为给定位置元素的经度， 而第二个元素则为给定位置元素的纬度。
+<p><code class="docutils literal notranslate"><span class="pre">GEOPOS</span></code> 命令返回一个数组， 数组中的每个项都由两个元素组成： 第一个元素为给定位置元素的经度， 而第二个元素则为给定位置元素的纬度。
 当给定的位置元素不存在时， 对应的数组项为空值。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">GEOADD</span> <span class="n">Sicily</span> <span class="mf">13.361389</span> <span class="mf">38.115556</span> <span class="s2">&quot;Palermo&quot;</span> <span class="mf">15.087269</span> <span class="mf">37.502669</span> <span class="s2">&quot;Catania&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">GEOADD</span> <span class="n">Sicily</span> <span class="mf">13.361389</span> <span class="mf">38.115556</span> <span class="s2">&quot;Palermo&quot;</span> <span class="mf">15.087269</span> <span class="mf">37.502669</span> <span class="s2">&quot;Catania&quot;</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">2</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">GEOPOS</span> <span class="n">Sicily</span> <span class="n">Palermo</span> <span class="n">Catania</span> <span class="n">NonExisting</span>

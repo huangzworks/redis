@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -201,14 +192,14 @@
 <div class="line">时间复杂度: O(1)</div>
 </div>
 </div></blockquote>
-<p>对 <code class="docutils literal"><span class="pre">key</span></code> 所储存的字符串值，设置或清除指定偏移量上的位(bit)。</p>
-<p>位的设置或清除取决于 <code class="docutils literal"><span class="pre">value</span></code> 参数，可以是 <code class="docutils literal"><span class="pre">0</span></code> 也可以是 <code class="docutils literal"><span class="pre">1</span></code> 。</p>
-<p>当 <code class="docutils literal"><span class="pre">key</span></code> 不存在时，自动生成一个新的字符串值。</p>
-<p>字符串会进行伸展(grown)以确保它可以将 <code class="docutils literal"><span class="pre">value</span></code> 保存在指定的偏移量上。当字符串值进行伸展时，空白位置以 <code class="docutils literal"><span class="pre">0</span></code> 填充。</p>
-<p><code class="docutils literal"><span class="pre">offset</span></code> 参数必须大于或等于 <code class="docutils literal"><span class="pre">0</span></code> ，小于 2^32 (bit 映射被限制在 512 MB 之内)。</p>
+<p>对 <code class="docutils literal notranslate"><span class="pre">key</span></code> 所储存的字符串值，设置或清除指定偏移量上的位(bit)。</p>
+<p>位的设置或清除取决于 <code class="docutils literal notranslate"><span class="pre">value</span></code> 参数，可以是 <code class="docutils literal notranslate"><span class="pre">0</span></code> 也可以是 <code class="docutils literal notranslate"><span class="pre">1</span></code> 。</p>
+<p>当 <code class="docutils literal notranslate"><span class="pre">key</span></code> 不存在时，自动生成一个新的字符串值。</p>
+<p>字符串会进行伸展(grown)以确保它可以将 <code class="docutils literal notranslate"><span class="pre">value</span></code> 保存在指定的偏移量上。当字符串值进行伸展时，空白位置以 <code class="docutils literal notranslate"><span class="pre">0</span></code> 填充。</p>
+<p><code class="docutils literal notranslate"><span class="pre">offset</span></code> 参数必须大于或等于 <code class="docutils literal notranslate"><span class="pre">0</span></code> ，小于 2^32 (bit 映射被限制在 512 MB 之内)。</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">对使用大的 <code class="docutils literal"><span class="pre">offset</span></code> 的 <a class="reference internal" href="#setbit">SETBIT</a> 操作来说，内存分配可能造成 Redis 服务器被阻塞。具体参考 <a class="reference internal" href="../string/setrange.html#setrange"><span class="std std-ref">SETRANGE key offset value</span></a> 命令，warning(警告)部分。</p>
+<p class="admonition-title">Warning</p>
+<p>对使用大的 <code class="docutils literal notranslate"><span class="pre">offset</span></code> 的 <a class="reference internal" href="#setbit">SETBIT</a> 操作来说，内存分配可能造成 Redis 服务器被阻塞。具体参考 <a class="reference internal" href="../string/setrange.html#setrange"><span class="std std-ref">SETRANGE key offset value</span></a> 命令，warning(警告)部分。</p>
 </div>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
@@ -216,7 +207,7 @@
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SETBIT</span> <span class="n">bit</span> <span class="mi">10086</span> <span class="mi">1</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SETBIT</span> <span class="n">bit</span> <span class="mi">10086</span> <span class="mi">1</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">0</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">GETBIT</span> <span class="n">bit</span> <span class="mi">10086</span>

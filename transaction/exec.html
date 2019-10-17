@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -193,19 +184,18 @@
 <p><strong>EXEC</strong></p>
 <p>执行所有事务块内的命令。</p>
 <p>假如某个(或某些) key 正处于 <a class="reference internal" href="watch.html#watch"><span class="std std-ref">WATCH</span></a> 命令的监视之下，且事务块中有和这个(或这些) key 相关的命令，那么 <a class="reference internal" href="#exec">EXEC</a> 命令只在这个(或这些) key 没有被其他命令所改动的情况下执行并生效，否则该事务被打断(abort)。</p>
-<dl class="docutils">
-<dt><strong>可用版本：</strong></dt>
-<dd>&gt;= 1.2.0</dd>
-<dt><strong>时间复杂度：</strong></dt>
-<dd>事务块内所有命令的时间复杂度的总和。</dd>
-<dt><strong>返回值：</strong></dt>
-<dd><div class="first last line-block">
+<dl>
+<dt><strong>可用版本：</strong></dt><dd><p>&gt;= 1.2.0</p>
+</dd>
+<dt><strong>时间复杂度：</strong></dt><dd><p>事务块内所有命令的时间复杂度的总和。</p>
+</dd>
+<dt><strong>返回值：</strong></dt><dd><div class="line-block">
 <div class="line">事务块内所有命令的返回值，按命令执行的先后顺序排列。</div>
-<div class="line">当操作被打断时，返回空值 <code class="docutils literal"><span class="pre">nil</span></code> 。</div>
+<div class="line">当操作被打断时，返回空值 <code class="docutils literal notranslate"><span class="pre">nil</span></code> 。</div>
 </div>
 </dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 事务被成功执行</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 事务被成功执行</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">MULTI</span>
 <span class="n">OK</span>

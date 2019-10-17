@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -214,51 +205,51 @@
 <div class="line">时间复杂度： O(1)</div>
 </div>
 </div></blockquote>
-<p>将字符串值 <code class="docutils literal"><span class="pre">value</span></code> 关联到 <code class="docutils literal"><span class="pre">key</span></code> 。</p>
-<p>如果 <code class="docutils literal"><span class="pre">key</span></code> 已经持有其他值，
-<code class="docutils literal"><span class="pre">SET</span></code> 就覆写旧值，
+<p>将字符串值 <code class="docutils literal notranslate"><span class="pre">value</span></code> 关联到 <code class="docutils literal notranslate"><span class="pre">key</span></code> 。</p>
+<p>如果 <code class="docutils literal notranslate"><span class="pre">key</span></code> 已经持有其他值，
+<code class="docutils literal notranslate"><span class="pre">SET</span></code> 就覆写旧值，
 无视类型。</p>
-<p>当 <code class="docutils literal"><span class="pre">SET</span></code> 命令对一个带有生存时间（TTL）的键进行设置之后，
+<p>当 <code class="docutils literal notranslate"><span class="pre">SET</span></code> 命令对一个带有生存时间（TTL）的键进行设置之后，
 该键原有的 TTL 将被清除。</p>
 <div class="section" id="id1">
 <h2>可选参数<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>从 Redis 2.6.12 版本开始，
-<code class="docutils literal"><span class="pre">SET</span></code> 命令的行为可以通过一系列参数来修改：</p>
+<code class="docutils literal notranslate"><span class="pre">SET</span></code> 命令的行为可以通过一系列参数来修改：</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">EX</span> <span class="pre">seconds</span></code> ：
-将键的过期时间设置为 <code class="docutils literal"><span class="pre">seconds</span></code> 秒。
-执行 <code class="docutils literal"><span class="pre">SET</span> <span class="pre">key</span> <span class="pre">value</span> <span class="pre">EX</span> <span class="pre">seconds</span></code> 的效果等同于执行 <code class="docutils literal"><span class="pre">SETEX</span> <span class="pre">key</span> <span class="pre">seconds</span> <span class="pre">value</span></code> 。</li>
-<li><code class="docutils literal"><span class="pre">PX</span> <span class="pre">milliseconds</span></code> ：
-将键的过期时间设置为 <code class="docutils literal"><span class="pre">milliseconds</span></code> 毫秒。
-执行 <code class="docutils literal"><span class="pre">SET</span> <span class="pre">key</span> <span class="pre">value</span> <span class="pre">PX</span> <span class="pre">milliseconds</span></code> 的效果等同于执行 <code class="docutils literal"><span class="pre">PSETEX</span> <span class="pre">key</span> <span class="pre">milliseconds</span> <span class="pre">value</span></code> 。</li>
-<li><code class="docutils literal"><span class="pre">NX</span></code> ：
+<li><p><code class="docutils literal notranslate"><span class="pre">EX</span> <span class="pre">seconds</span></code> ：
+将键的过期时间设置为 <code class="docutils literal notranslate"><span class="pre">seconds</span></code> 秒。
+执行 <code class="docutils literal notranslate"><span class="pre">SET</span> <span class="pre">key</span> <span class="pre">value</span> <span class="pre">EX</span> <span class="pre">seconds</span></code> 的效果等同于执行 <code class="docutils literal notranslate"><span class="pre">SETEX</span> <span class="pre">key</span> <span class="pre">seconds</span> <span class="pre">value</span></code> 。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PX</span> <span class="pre">milliseconds</span></code> ：
+将键的过期时间设置为 <code class="docutils literal notranslate"><span class="pre">milliseconds</span></code> 毫秒。
+执行 <code class="docutils literal notranslate"><span class="pre">SET</span> <span class="pre">key</span> <span class="pre">value</span> <span class="pre">PX</span> <span class="pre">milliseconds</span></code> 的效果等同于执行 <code class="docutils literal notranslate"><span class="pre">PSETEX</span> <span class="pre">key</span> <span class="pre">milliseconds</span> <span class="pre">value</span></code> 。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NX</span></code> ：
 只在键不存在时，
 才对键进行设置操作。
-执行 <code class="docutils literal"><span class="pre">SET</span> <span class="pre">key</span> <span class="pre">value</span> <span class="pre">NX</span></code> 的效果等同于执行 <code class="docutils literal"><span class="pre">SETNX</span> <span class="pre">key</span> <span class="pre">value</span></code> 。</li>
-<li><code class="docutils literal"><span class="pre">XX</span></code> ：
+执行 <code class="docutils literal notranslate"><span class="pre">SET</span> <span class="pre">key</span> <span class="pre">value</span> <span class="pre">NX</span></code> 的效果等同于执行 <code class="docutils literal notranslate"><span class="pre">SETNX</span> <span class="pre">key</span> <span class="pre">value</span></code> 。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">XX</span></code> ：
 只在键已经存在时，
-才对键进行设置操作。</li>
+才对键进行设置操作。</p></li>
 </ul>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">因为 <code class="docutils literal"><span class="pre">SET</span></code> 命令可以通过参数来实现 <code class="docutils literal"><span class="pre">SETNX</span></code> 、 <code class="docutils literal"><span class="pre">SETEX</span></code> 以及 <code class="docutils literal"><span class="pre">PSETEX</span></code> 命令的效果，
-所以 Redis 将来的版本可能会移除并废弃 <code class="docutils literal"><span class="pre">SETNX</span></code> 、 <code class="docutils literal"><span class="pre">SETEX</span></code> 和 <code class="docutils literal"><span class="pre">PSETEX</span></code> 这三个命令。</p>
+<p class="admonition-title">Note</p>
+<p>因为 <code class="docutils literal notranslate"><span class="pre">SET</span></code> 命令可以通过参数来实现 <code class="docutils literal notranslate"><span class="pre">SETNX</span></code> 、 <code class="docutils literal notranslate"><span class="pre">SETEX</span></code> 以及 <code class="docutils literal notranslate"><span class="pre">PSETEX</span></code> 命令的效果，
+所以 Redis 将来的版本可能会移除并废弃 <code class="docutils literal notranslate"><span class="pre">SETNX</span></code> 、 <code class="docutils literal notranslate"><span class="pre">SETEX</span></code> 和 <code class="docutils literal notranslate"><span class="pre">PSETEX</span></code> 这三个命令。</p>
 </div>
 </div>
 <div class="section" id="id2">
 <h2>返回值<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>在 Redis 2.6.12 版本以前，
-<code class="docutils literal"><span class="pre">SET</span></code> 命令总是返回 <code class="docutils literal"><span class="pre">OK</span></code> 。</p>
+<code class="docutils literal notranslate"><span class="pre">SET</span></code> 命令总是返回 <code class="docutils literal notranslate"><span class="pre">OK</span></code> 。</p>
 <p>从 Redis 2.6.12 版本开始，
-<code class="docutils literal"><span class="pre">SET</span></code> 命令只在设置操作成功完成时才返回 <code class="docutils literal"><span class="pre">OK</span></code> ；
-如果命令使用了 <code class="docutils literal"><span class="pre">NX</span></code> 或者 <code class="docutils literal"><span class="pre">XX</span></code> 选项，
+<code class="docutils literal notranslate"><span class="pre">SET</span></code> 命令只在设置操作成功完成时才返回 <code class="docutils literal notranslate"><span class="pre">OK</span></code> ；
+如果命令使用了 <code class="docutils literal notranslate"><span class="pre">NX</span></code> 或者 <code class="docutils literal notranslate"><span class="pre">XX</span></code> 选项，
 但是因为条件没达到而造成设置操作未执行，
 那么命令将返回空批量回复（NULL Bulk Reply）。</p>
 </div>
 <div class="section" id="id3">
 <h2>代码示例<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>对不存在的键进行设置：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">key</span> <span class="s2">&quot;value&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">key</span> <span class="s2">&quot;value&quot;</span>
 <span class="n">OK</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">GET</span> <span class="n">key</span>
@@ -266,15 +257,15 @@
 </pre></div>
 </div>
 <p>对已存在的键进行设置：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">key</span> <span class="s2">&quot;new-value&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">key</span> <span class="s2">&quot;new-value&quot;</span>
 <span class="n">OK</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">GET</span> <span class="n">key</span>
 <span class="s2">&quot;new-value&quot;</span>
 </pre></div>
 </div>
-<p>使用 <code class="docutils literal"><span class="pre">EX</span></code> 选项：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">key</span><span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">expire</span><span class="o">-</span><span class="n">time</span> <span class="s2">&quot;hello&quot;</span> <span class="n">EX</span> <span class="mi">10086</span>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">EX</span></code> 选项：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">key</span><span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">expire</span><span class="o">-</span><span class="n">time</span> <span class="s2">&quot;hello&quot;</span> <span class="n">EX</span> <span class="mi">10086</span>
 <span class="n">OK</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">GET</span> <span class="n">key</span><span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">expire</span><span class="o">-</span><span class="n">time</span>
@@ -284,8 +275,8 @@
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">10069</span>
 </pre></div>
 </div>
-<p>使用 <code class="docutils literal"><span class="pre">PX</span></code> 选项：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">key</span><span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">pexpire</span><span class="o">-</span><span class="n">time</span> <span class="s2">&quot;moto&quot;</span> <span class="n">PX</span> <span class="mi">123321</span>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">PX</span></code> 选项：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">key</span><span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">pexpire</span><span class="o">-</span><span class="n">time</span> <span class="s2">&quot;moto&quot;</span> <span class="n">PX</span> <span class="mi">123321</span>
 <span class="n">OK</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">GET</span> <span class="n">key</span><span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">pexpire</span><span class="o">-</span><span class="n">time</span>
@@ -295,8 +286,8 @@
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">111939</span>
 </pre></div>
 </div>
-<p>使用 <code class="docutils literal"><span class="pre">NX</span></code> 选项：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="ow">not</span><span class="o">-</span><span class="n">exists</span><span class="o">-</span><span class="n">key</span> <span class="s2">&quot;value&quot;</span> <span class="n">NX</span>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">NX</span></code> 选项：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="ow">not</span><span class="o">-</span><span class="n">exists</span><span class="o">-</span><span class="n">key</span> <span class="s2">&quot;value&quot;</span> <span class="n">NX</span>
 <span class="n">OK</span>      <span class="c1"># 键不存在，设置成功</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">GET</span> <span class="ow">not</span><span class="o">-</span><span class="n">exists</span><span class="o">-</span><span class="n">key</span>
@@ -309,8 +300,8 @@
 <span class="s2">&quot;value&quot;</span> <span class="c1"># 维持原值不变</span>
 </pre></div>
 </div>
-<p>使用 <code class="docutils literal"><span class="pre">XX</span></code> 选项：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">EXISTS</span> <span class="n">exists</span><span class="o">-</span><span class="n">key</span>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">XX</span></code> 选项：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">EXISTS</span> <span class="n">exists</span><span class="o">-</span><span class="n">key</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">0</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">exists</span><span class="o">-</span><span class="n">key</span> <span class="s2">&quot;value&quot;</span> <span class="n">XX</span>

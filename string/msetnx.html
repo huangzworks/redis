@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -216,22 +207,22 @@
 <p>当且仅当所有给定键都不存在时，
 为所有给定键设置值。</p>
 <p>即使只有一个给定键已经存在，
-<code class="docutils literal"><span class="pre">MSETNX</span></code> 命令也会拒绝执行对所有键的设置操作。</p>
-<p><code class="docutils literal"><span class="pre">MSETNX</span></code> 是一个原子性(atomic)操作，
+<code class="docutils literal notranslate"><span class="pre">MSETNX</span></code> 命令也会拒绝执行对所有键的设置操作。</p>
+<p><code class="docutils literal notranslate"><span class="pre">MSETNX</span></code> 是一个原子性(atomic)操作，
 所有给定键要么就全部都被设置，
 要么就全部都不设置，
 不可能出现第三种状态。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>当所有给定键都设置成功时，
-命令返回 <code class="docutils literal"><span class="pre">1</span></code> ；
+命令返回 <code class="docutils literal notranslate"><span class="pre">1</span></code> ；
 如果因为某个给定键已经存在而导致设置未能成功执行，
-那么命令返回 <code class="docutils literal"><span class="pre">0</span></code> 。</p>
+那么命令返回 <code class="docutils literal notranslate"><span class="pre">0</span></code> 。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>对不存在的键执行 <code class="docutils literal"><span class="pre">MSETNX</span></code> 命令：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">MSETNX</span> <span class="n">rmdbs</span> <span class="s2">&quot;MySQL&quot;</span> <span class="n">nosql</span> <span class="s2">&quot;MongoDB&quot;</span> <span class="n">key</span><span class="o">-</span><span class="n">value</span><span class="o">-</span><span class="n">store</span> <span class="s2">&quot;redis&quot;</span>
+<p>对不存在的键执行 <code class="docutils literal notranslate"><span class="pre">MSETNX</span></code> 命令：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">MSETNX</span> <span class="n">rmdbs</span> <span class="s2">&quot;MySQL&quot;</span> <span class="n">nosql</span> <span class="s2">&quot;MongoDB&quot;</span> <span class="n">key</span><span class="o">-</span><span class="n">value</span><span class="o">-</span><span class="n">store</span> <span class="s2">&quot;redis&quot;</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">1</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">MGET</span> <span class="n">rmdbs</span> <span class="n">nosql</span> <span class="n">key</span><span class="o">-</span><span class="n">value</span><span class="o">-</span><span class="n">store</span>
@@ -241,7 +232,7 @@
 </pre></div>
 </div>
 <p>对某个已经存在的键进行设置：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">MSETNX</span> <span class="n">rmdbs</span> <span class="s2">&quot;Sqlite&quot;</span> <span class="n">language</span> <span class="s2">&quot;python&quot;</span>  <span class="c1"># rmdbs 键已经存在，操作失败</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">MSETNX</span> <span class="n">rmdbs</span> <span class="s2">&quot;Sqlite&quot;</span> <span class="n">language</span> <span class="s2">&quot;python&quot;</span>  <span class="c1"># rmdbs 键已经存在，操作失败</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">0</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">EXISTS</span> <span class="n">language</span>                          <span class="c1"># 因为 MSETNX 命令没有成功执行</span>

@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -199,18 +190,18 @@
 <div class="line">时间复杂度：O(1)</div>
 </div>
 </div></blockquote>
-<p><code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">SET</span></code> 命令可以动态地调整 Redis 服务器的配置(configuration)而无须重启。</p>
+<p><code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">SET</span></code> 命令可以动态地调整 Redis 服务器的配置(configuration)而无须重启。</p>
 <p>你可以使用它修改配置参数，或者改变 Redis 的持久化(Persistence)方式。</p>
-<p><code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">SET</span></code> 可以修改的配置参数可以使用命令 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">GET</span> <span class="pre">*</span></code> 来列出，所有被 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">SET</span></code> 修改的配置参数都会立即生效。</p>
-<p>关于 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">SET</span></code> 命令的更多消息，请参见命令 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 的说明。</p>
-<p>关于如何使用 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">SET</span></code> 命令修改 Redis 持久化方式，请参见 <a class="reference external" href="http://redis.io/topics/persistence">Redis Persistence</a> 。</p>
+<p><code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">SET</span></code> 可以修改的配置参数可以使用命令 <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">GET</span> <span class="pre">*</span></code> 来列出，所有被 <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">SET</span></code> 修改的配置参数都会立即生效。</p>
+<p>关于 <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">SET</span></code> 命令的更多消息，请参见命令 <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">GET</span></code> 的说明。</p>
+<p>关于如何使用 <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">SET</span></code> 命令修改 Redis 持久化方式，请参见 <a class="reference external" href="http://redis.io/topics/persistence">Redis Persistence</a> 。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>当设置成功时返回 <code class="docutils literal"><span class="pre">OK</span></code> ，否则返回一个错误。</p>
+<p>当设置成功时返回 <code class="docutils literal notranslate"><span class="pre">OK</span></code> ，否则返回一个错误。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">CONFIG</span> <span class="n">GET</span> <span class="n">slowlog</span><span class="o">-</span><span class="nb">max</span><span class="o">-</span><span class="nb">len</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">CONFIG</span> <span class="n">GET</span> <span class="n">slowlog</span><span class="o">-</span><span class="nb">max</span><span class="o">-</span><span class="nb">len</span>
 <span class="mi">1</span><span class="p">)</span> <span class="s2">&quot;slowlog-max-len&quot;</span>
 <span class="mi">2</span><span class="p">)</span> <span class="s2">&quot;1024&quot;</span>
 

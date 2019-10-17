@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -197,11 +188,11 @@
 <blockquote>
 <div><div class="line-block">
 <div class="line">可用版本： &gt;= 2.0.0</div>
-<div class="line">时间复杂度： O(N+M) ，其中 <code class="docutils literal"><span class="pre">N</span></code> 是客户端已订阅的模式的数量， <code class="docutils literal"><span class="pre">M</span></code> 则是系统中所有客户端订阅的模式的数量。</div>
+<div class="line">时间复杂度： O(N+M) ，其中 <code class="docutils literal notranslate"><span class="pre">N</span></code> 是客户端已订阅的模式的数量， <code class="docutils literal notranslate"><span class="pre">M</span></code> 则是系统中所有客户端订阅的模式的数量。</div>
 </div>
 </div></blockquote>
 <p>指示客户端退订所有给定模式。</p>
-<p>如果没有模式被指定，也即是，一个无参数的 <code class="docutils literal"><span class="pre">PUNSUBSCRIBE</span></code> 调用被执行，那么客户端使用 <a class="reference internal" href="psubscribe.html#psubscribe"><span class="std std-ref">PSUBSCRIBE pattern [pattern …]</span></a> 命令订阅的所有模式都会被退订。在这种情况下，命令会返回一个信息，告知客户端所有被退订的模式。</p>
+<p>如果没有模式被指定，也即是，一个无参数的 <code class="docutils literal notranslate"><span class="pre">PUNSUBSCRIBE</span></code> 调用被执行，那么客户端使用 <a class="reference internal" href="psubscribe.html#psubscribe"><span class="std std-ref">PSUBSCRIBE pattern [pattern …]</span></a> 命令订阅的所有模式都会被退订。在这种情况下，命令会返回一个信息，告知客户端所有被退订的模式。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>这个命令在不同的客户端中有不同的表现。</p>

@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -198,17 +189,17 @@
 <blockquote>
 <div><div class="line-block">
 <div class="line">可用版本： &gt;= 2.0.0</div>
-<div class="line">时间复杂度： O(N+M)，其中 <code class="docutils literal"><span class="pre">N</span></code> 是频道 <code class="docutils literal"><span class="pre">channel</span></code> 的订阅者数量，而 <code class="docutils literal"><span class="pre">M</span></code> 则是使用模式订阅(subscribed patterns)的客户端的数量。</div>
+<div class="line">时间复杂度： O(N+M)，其中 <code class="docutils literal notranslate"><span class="pre">N</span></code> 是频道 <code class="docutils literal notranslate"><span class="pre">channel</span></code> 的订阅者数量，而 <code class="docutils literal notranslate"><span class="pre">M</span></code> 则是使用模式订阅(subscribed patterns)的客户端的数量。</div>
 </div>
 </div></blockquote>
-<p>将信息 <code class="docutils literal"><span class="pre">message</span></code> 发送到指定的频道 <code class="docutils literal"><span class="pre">channel</span></code> 。</p>
+<p>将信息 <code class="docutils literal notranslate"><span class="pre">message</span></code> 发送到指定的频道 <code class="docutils literal notranslate"><span class="pre">channel</span></code> 。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>接收到信息 <code class="docutils literal"><span class="pre">message</span></code> 的订阅者数量。</p>
+<p>接收到信息 <code class="docutils literal notranslate"><span class="pre">message</span></code> 的订阅者数量。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># 对没有订阅者的频道发送信息</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 对没有订阅者的频道发送信息</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">publish</span> <span class="n">bad_channel</span> <span class="s2">&quot;can any body hear me?&quot;</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">0</span>

@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -213,28 +204,28 @@
 <div class="line">时间复杂度： O(1)</div>
 </div>
 </div></blockquote>
-<p>将键 <code class="docutils literal"><span class="pre">key</span></code> 的值设置为 <code class="docutils literal"><span class="pre">value</span></code> ，
-并将键 <code class="docutils literal"><span class="pre">key</span></code> 的生存时间设置为 <code class="docutils literal"><span class="pre">seconds</span></code> 秒钟。</p>
-<p>如果键 <code class="docutils literal"><span class="pre">key</span></code> 已经存在，
-那么 <code class="docutils literal"><span class="pre">SETEX</span></code> 命令将覆盖已有的值。</p>
-<p><code class="docutils literal"><span class="pre">SETEX</span></code> 命令的效果和以下两个命令的效果类似：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">SET</span> <span class="n">key</span> <span class="n">value</span>
+<p>将键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的值设置为 <code class="docutils literal notranslate"><span class="pre">value</span></code> ，
+并将键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 的生存时间设置为 <code class="docutils literal notranslate"><span class="pre">seconds</span></code> 秒钟。</p>
+<p>如果键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 已经存在，
+那么 <code class="docutils literal notranslate"><span class="pre">SETEX</span></code> 命令将覆盖已有的值。</p>
+<p><code class="docutils literal notranslate"><span class="pre">SETEX</span></code> 命令的效果和以下两个命令的效果类似：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SET</span> <span class="n">key</span> <span class="n">value</span>
 <span class="n">EXPIRE</span> <span class="n">key</span> <span class="n">seconds</span>  <span class="c1"># 设置生存时间</span>
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">SETEX</span></code> 和这两个命令的不同之处在于 <code class="docutils literal"><span class="pre">SETEX</span></code> 是一个原子（atomic）操作，
+<p><code class="docutils literal notranslate"><span class="pre">SETEX</span></code> 和这两个命令的不同之处在于 <code class="docutils literal notranslate"><span class="pre">SETEX</span></code> 是一个原子（atomic）操作，
 它可以在同一时间内完成设置值和设置过期时间这两个操作，
-因此 <code class="docutils literal"><span class="pre">SETEX</span></code> 命令在储存缓存的时候非常实用。</p>
+因此 <code class="docutils literal notranslate"><span class="pre">SETEX</span></code> 命令在储存缓存的时候非常实用。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>命令在设置成功时返回 <code class="docutils literal"><span class="pre">OK</span></code> 。
-当 <code class="docutils literal"><span class="pre">seconds</span></code> 参数不合法时，
+<p>命令在设置成功时返回 <code class="docutils literal notranslate"><span class="pre">OK</span></code> 。
+当 <code class="docutils literal notranslate"><span class="pre">seconds</span></code> 参数不合法时，
 命令将返回一个错误。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>在键 <code class="docutils literal"><span class="pre">key</span></code> 不存在的情况下执行 <code class="docutils literal"><span class="pre">SETEX</span></code> ：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SETEX</span> <span class="n">cache_user_id</span> <span class="mi">60</span> <span class="mi">10086</span>
+<p>在键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 不存在的情况下执行 <code class="docutils literal notranslate"><span class="pre">SETEX</span></code> ：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SETEX</span> <span class="n">cache_user_id</span> <span class="mi">60</span> <span class="mi">10086</span>
 <span class="n">OK</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">GET</span> <span class="n">cache_user_id</span>  <span class="c1"># 值</span>
@@ -244,9 +235,9 @@
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">49</span>
 </pre></div>
 </div>
-<p>键 <code class="docutils literal"><span class="pre">key</span></code> 已经存在，
-使用 <code class="docutils literal"><span class="pre">SETEX</span></code> 覆盖旧值：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">cd</span> <span class="s2">&quot;timeless&quot;</span>
+<p>键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 已经存在，
+使用 <code class="docutils literal notranslate"><span class="pre">SETEX</span></code> 覆盖旧值：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">cd</span> <span class="s2">&quot;timeless&quot;</span>
 <span class="n">OK</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">SETEX</span> <span class="n">cd</span> <span class="mi">3000</span> <span class="s2">&quot;goodbye my love&quot;</span>

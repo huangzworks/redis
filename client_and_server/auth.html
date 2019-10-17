@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -204,21 +195,21 @@
 <div class="line">时间复杂度： O(1)</div>
 </div>
 </div></blockquote>
-<p>通过设置配置文件中 <code class="docutils literal"><span class="pre">requirepass</span></code> 项的值(使用命令 <code class="docutils literal"><span class="pre">CONFIG</span> <span class="pre">SET</span> <span class="pre">requirepass</span> <span class="pre">password</span></code> )，可以使用密码来保护 Redis 服务器。</p>
-<p>如果开启了密码保护的话，在每次连接 Redis 服务器之后，就要使用 <code class="docutils literal"><span class="pre">AUTH</span></code> 命令解锁，解锁之后才能使用其他 Redis 命令。</p>
-<p>如果 <code class="docutils literal"><span class="pre">AUTH</span></code> 命令给定的密码 <code class="docutils literal"><span class="pre">password</span></code> 和配置文件中的密码相符的话，服务器会返回 <code class="docutils literal"><span class="pre">OK</span></code> 并开始接受命令输入。</p>
+<p>通过设置配置文件中 <code class="docutils literal notranslate"><span class="pre">requirepass</span></code> 项的值(使用命令 <code class="docutils literal notranslate"><span class="pre">CONFIG</span> <span class="pre">SET</span> <span class="pre">requirepass</span> <span class="pre">password</span></code> )，可以使用密码来保护 Redis 服务器。</p>
+<p>如果开启了密码保护的话，在每次连接 Redis 服务器之后，就要使用 <code class="docutils literal notranslate"><span class="pre">AUTH</span></code> 命令解锁，解锁之后才能使用其他 Redis 命令。</p>
+<p>如果 <code class="docutils literal notranslate"><span class="pre">AUTH</span></code> 命令给定的密码 <code class="docutils literal notranslate"><span class="pre">password</span></code> 和配置文件中的密码相符的话，服务器会返回 <code class="docutils literal notranslate"><span class="pre">OK</span></code> 并开始接受命令输入。</p>
 <p>另一方面，假如密码不匹配的话，服务器将返回一个错误，并要求客户端需重新输入密码。</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">因为 Redis 高性能的特点，在很短时间内尝试猜测非常多个密码是有可能的，因此请确保使用的密码足够复杂和足够长，以免遭受密码猜测攻击。</p>
+<p class="admonition-title">Warning</p>
+<p>因为 Redis 高性能的特点，在很短时间内尝试猜测非常多个密码是有可能的，因此请确保使用的密码足够复杂和足够长，以免遭受密码猜测攻击。</p>
 </div>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>密码匹配时返回 <code class="docutils literal"><span class="pre">OK</span></code> ，否则返回一个错误。</p>
+<p>密码匹配时返回 <code class="docutils literal notranslate"><span class="pre">OK</span></code> ，否则返回一个错误。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span># 设置密码
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># 设置密码
 
 redis&gt; CONFIG SET requirepass secret_password   # 将密码设置为 secret_password
 OK

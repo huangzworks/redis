@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -192,15 +183,15 @@
 <span id="id1"></span><h1>WATCH<a class="headerlink" href="#watch" title="Permalink to this headline">¶</a></h1>
 <p><strong>WATCH key [key …]</strong></p>
 <p>监视一个(或多个) key ，如果在事务执行之前这个(或这些) key 被其他命令所改动，那么事务将被打断。</p>
-<dl class="docutils">
-<dt><strong>可用版本：</strong></dt>
-<dd>&gt;= 2.2.0</dd>
-<dt><strong>时间复杂度：</strong></dt>
-<dd>O(1)。</dd>
-<dt><strong>返回值：</strong></dt>
-<dd>总是返回 <code class="docutils literal"><span class="pre">OK</span></code> 。</dd>
+<dl class="simple">
+<dt><strong>可用版本：</strong></dt><dd><p>&gt;= 2.2.0</p>
+</dd>
+<dt><strong>时间复杂度：</strong></dt><dd><p>O(1)。</p>
+</dd>
+<dt><strong>返回值：</strong></dt><dd><p>总是返回 <code class="docutils literal notranslate"><span class="pre">OK</span></code> 。</p>
+</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">WATCH</span> <span class="n">lock</span> <span class="n">lock_times</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">WATCH</span> <span class="n">lock</span> <span class="n">lock_times</span>
 <span class="n">OK</span>
 </pre></div>
 </div>

@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -212,20 +203,20 @@
 <blockquote>
 <div><div class="line-block">
 <div class="line">可用版本： &gt;= 2.0.0</div>
-<div class="line">时间复杂度: O(log(N)+M)， <code class="docutils literal"><span class="pre">N</span></code> 为有序集的基数，而 <code class="docutils literal"><span class="pre">M</span></code> 为被移除成员的数量。</div>
+<div class="line">时间复杂度: O(log(N)+M)， <code class="docutils literal notranslate"><span class="pre">N</span></code> 为有序集的基数，而 <code class="docutils literal notranslate"><span class="pre">M</span></code> 为被移除成员的数量。</div>
 </div>
 </div></blockquote>
-<p>移除有序集 <code class="docutils literal"><span class="pre">key</span></code> 中，指定排名(rank)区间内的所有成员。</p>
-<p>区间分别以下标参数 <code class="docutils literal"><span class="pre">start</span></code> 和 <code class="docutils literal"><span class="pre">stop</span></code> 指出，包含 <code class="docutils literal"><span class="pre">start</span></code> 和 <code class="docutils literal"><span class="pre">stop</span></code> 在内。</p>
-<p>下标参数 <code class="docutils literal"><span class="pre">start</span></code> 和 <code class="docutils literal"><span class="pre">stop</span></code> 都以 <code class="docutils literal"><span class="pre">0</span></code> 为底，也就是说，以 <code class="docutils literal"><span class="pre">0</span></code> 表示有序集第一个成员，以 <code class="docutils literal"><span class="pre">1</span></code> 表示有序集第二个成员，以此类推。
-你也可以使用负数下标，以 <code class="docutils literal"><span class="pre">-1</span></code> 表示最后一个成员， <code class="docutils literal"><span class="pre">-2</span></code> 表示倒数第二个成员，以此类推。</p>
+<p>移除有序集 <code class="docutils literal notranslate"><span class="pre">key</span></code> 中，指定排名(rank)区间内的所有成员。</p>
+<p>区间分别以下标参数 <code class="docutils literal notranslate"><span class="pre">start</span></code> 和 <code class="docutils literal notranslate"><span class="pre">stop</span></code> 指出，包含 <code class="docutils literal notranslate"><span class="pre">start</span></code> 和 <code class="docutils literal notranslate"><span class="pre">stop</span></code> 在内。</p>
+<p>下标参数 <code class="docutils literal notranslate"><span class="pre">start</span></code> 和 <code class="docutils literal notranslate"><span class="pre">stop</span></code> 都以 <code class="docutils literal notranslate"><span class="pre">0</span></code> 为底，也就是说，以 <code class="docutils literal notranslate"><span class="pre">0</span></code> 表示有序集第一个成员，以 <code class="docutils literal notranslate"><span class="pre">1</span></code> 表示有序集第二个成员，以此类推。
+你也可以使用负数下标，以 <code class="docutils literal notranslate"><span class="pre">-1</span></code> 表示最后一个成员， <code class="docutils literal notranslate"><span class="pre">-2</span></code> 表示倒数第二个成员，以此类推。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>被移除成员的数量。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">ZADD</span> <span class="n">salary</span> <span class="mi">2000</span> <span class="n">jack</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">ZADD</span> <span class="n">salary</span> <span class="mi">2000</span> <span class="n">jack</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">1</span>
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">ZADD</span> <span class="n">salary</span> <span class="mi">5000</span> <span class="n">tom</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">1</span>

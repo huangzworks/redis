@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -215,17 +206,17 @@
 <div class="line">时间复杂度： O(log(N)+M)， 其中 N 为有序集合的元素数量， 而 M 则为被移除的元素数量。</div>
 </div>
 </div></blockquote>
-<p>对于一个所有成员的分值都相同的有序集合键 <code class="docutils literal"><span class="pre">key</span></code> 来说，
+<p>对于一个所有成员的分值都相同的有序集合键 <code class="docutils literal notranslate"><span class="pre">key</span></code> 来说，
 这个命令会移除该集合中，
-成员介于 <code class="docutils literal"><span class="pre">min</span></code> 和 <code class="docutils literal"><span class="pre">max</span></code> 范围内的所有元素。</p>
-<p>这个命令的 <code class="docutils literal"><span class="pre">min</span></code> 参数和 <code class="docutils literal"><span class="pre">max</span></code> 参数的意义和 <a class="reference internal" href="zrangebylex.html#zrangebylex"><span class="std std-ref">ZRANGEBYLEX key min max [LIMIT offset count]</span></a> 命令的 <code class="docutils literal"><span class="pre">min</span></code> 参数和 <code class="docutils literal"><span class="pre">max</span></code> 参数的意义一样。</p>
+成员介于 <code class="docutils literal notranslate"><span class="pre">min</span></code> 和 <code class="docutils literal notranslate"><span class="pre">max</span></code> 范围内的所有元素。</p>
+<p>这个命令的 <code class="docutils literal notranslate"><span class="pre">min</span></code> 参数和 <code class="docutils literal notranslate"><span class="pre">max</span></code> 参数的意义和 <a class="reference internal" href="zrangebylex.html#zrangebylex"><span class="std std-ref">ZRANGEBYLEX key min max [LIMIT offset count]</span></a> 命令的 <code class="docutils literal notranslate"><span class="pre">min</span></code> 参数和 <code class="docutils literal notranslate"><span class="pre">max</span></code> 参数的意义一样。</p>
 <div class="section" id="id1">
 <h2>返回值<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>整数回复：被移除的元素数量。</p>
 </div>
 <div class="section" id="id2">
 <h2>代码示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">ZADD</span> <span class="n">myzset</span> <span class="mi">0</span> <span class="n">aaaa</span> <span class="mi">0</span> <span class="n">b</span> <span class="mi">0</span> <span class="n">c</span> <span class="mi">0</span> <span class="n">d</span> <span class="mi">0</span> <span class="n">e</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">ZADD</span> <span class="n">myzset</span> <span class="mi">0</span> <span class="n">aaaa</span> <span class="mi">0</span> <span class="n">b</span> <span class="mi">0</span> <span class="n">c</span> <span class="mi">0</span> <span class="n">d</span> <span class="mi">0</span> <span class="n">e</span>
 <span class="p">(</span><span class="n">integer</span><span class="p">)</span> <span class="mi">5</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">ZADD</span> <span class="n">myzset</span> <span class="mi">0</span> <span class="n">foo</span> <span class="mi">0</span> <span class="n">zap</span> <span class="mi">0</span> <span class="nb">zip</span> <span class="mi">0</span> <span class="n">ALPHA</span> <span class="mi">0</span> <span class="n">alpha</span>

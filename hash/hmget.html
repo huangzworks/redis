@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -201,18 +192,18 @@
   <div class="section" id="hmget">
 <span id="id1"></span><h1>HMGET<a class="headerlink" href="#hmget" title="Permalink to this headline">¶</a></h1>
 <p><strong>HMGET key field [field …]</strong></p>
-<p>返回哈希表 <code class="docutils literal"><span class="pre">key</span></code> 中，一个或多个给定域的值。</p>
-<p>如果给定的域不存在于哈希表，那么返回一个 <code class="docutils literal"><span class="pre">nil</span></code> 值。</p>
-<p>因为不存在的 <code class="docutils literal"><span class="pre">key</span></code> 被当作一个空哈希表来处理，所以对一个不存在的 <code class="docutils literal"><span class="pre">key</span></code> 进行 <a class="reference internal" href="#hmget">HMGET</a> 操作将返回一个只带有 <code class="docutils literal"><span class="pre">nil</span></code> 值的表。</p>
-<dl class="docutils">
-<dt><strong>可用版本：</strong></dt>
-<dd>&gt;= 2.0.0</dd>
-<dt><strong>时间复杂度：</strong></dt>
-<dd>O(N)， <code class="docutils literal"><span class="pre">N</span></code> 为给定域的数量。</dd>
-<dt><strong>返回值：</strong></dt>
-<dd>一个包含多个给定域的关联值的表，表值的排列顺序和给定域参数的请求顺序一样。</dd>
+<p>返回哈希表 <code class="docutils literal notranslate"><span class="pre">key</span></code> 中，一个或多个给定域的值。</p>
+<p>如果给定的域不存在于哈希表，那么返回一个 <code class="docutils literal notranslate"><span class="pre">nil</span></code> 值。</p>
+<p>因为不存在的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 被当作一个空哈希表来处理，所以对一个不存在的 <code class="docutils literal notranslate"><span class="pre">key</span></code> 进行 <a class="reference internal" href="#hmget">HMGET</a> 操作将返回一个只带有 <code class="docutils literal notranslate"><span class="pre">nil</span></code> 值的表。</p>
+<dl class="simple">
+<dt><strong>可用版本：</strong></dt><dd><p>&gt;= 2.0.0</p>
+</dd>
+<dt><strong>时间复杂度：</strong></dt><dd><p>O(N)， <code class="docutils literal notranslate"><span class="pre">N</span></code> 为给定域的数量。</p>
+</dd>
+<dt><strong>返回值：</strong></dt><dd><p>一个包含多个给定域的关联值的表，表值的排列顺序和给定域参数的请求顺序一样。</p>
+</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">HMSET</span> <span class="n">pet</span> <span class="n">dog</span> <span class="s2">&quot;doudou&quot;</span> <span class="n">cat</span> <span class="s2">&quot;nounou&quot;</span>    <span class="c1"># 一次设置多个域</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">HMSET</span> <span class="n">pet</span> <span class="n">dog</span> <span class="s2">&quot;doudou&quot;</span> <span class="n">cat</span> <span class="s2">&quot;nounou&quot;</span>    <span class="c1"># 一次设置多个域</span>
 <span class="n">OK</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">HMGET</span> <span class="n">pet</span> <span class="n">dog</span> <span class="n">cat</span> <span class="n">fake_pet</span>             <span class="c1"># 返回值的顺序和传入参数的顺序一样</span>

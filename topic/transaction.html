@@ -20,20 +20,11 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'2019',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -204,31 +195,30 @@
   <div class="section" id="transaction">
 <h1>事务（transaction）<a class="headerlink" href="#transaction" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">本文档翻译自： <a class="reference external" href="http://redis.io/topics/transactions">http://redis.io/topics/transactions</a> 。</p>
+<p class="admonition-title">Note</p>
+<p>本文档翻译自： <a class="reference external" href="http://redis.io/topics/transactions">http://redis.io/topics/transactions</a> 。</p>
 </div>
 <p><a class="reference internal" href="../transaction/multi.html#multi"><span class="std std-ref">MULTI</span></a> 、 <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> 、 <a class="reference internal" href="../transaction/discard.html#discard"><span class="std std-ref">DISCARD</span></a> 和 <a class="reference internal" href="../transaction/watch.html#watch"><span class="std std-ref">WATCH</span></a> 是 Redis 事务的基础。</p>
 <p>事务可以一次执行多个命令，
 并且带有以下两个重要的保证：</p>
 <ul>
-<li><p class="first">事务是一个单独的隔离操作：事务中的所有命令都会序列化、按顺序地执行。事务在执行的过程中，不会被其他客户端发送来的命令请求所打断。</p>
-</li>
-<li><p class="first">事务是一个原子操作：事务中的命令要么全部被执行，要么全部都不执行。</p>
+<li><p>事务是一个单独的隔离操作：事务中的所有命令都会序列化、按顺序地执行。事务在执行的过程中，不会被其他客户端发送来的命令请求所打断。</p></li>
+<li><p>事务是一个原子操作：事务中的命令要么全部被执行，要么全部都不执行。</p>
 <p><a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> 命令负责触发并执行事务中的所有命令：</p>
 <ul class="simple">
-<li>如果客户端在使用 <a class="reference internal" href="../transaction/multi.html#multi"><span class="std std-ref">MULTI</span></a> 开启了一个事务之后，却因为断线而没有成功执行 <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> ，那么事务中的所有命令都不会被执行。</li>
-<li>另一方面，如果客户端成功在开启事务之后执行 <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> ，那么事务中的所有命令都会被执行。</li>
+<li><p>如果客户端在使用 <a class="reference internal" href="../transaction/multi.html#multi"><span class="std std-ref">MULTI</span></a> 开启了一个事务之后，却因为断线而没有成功执行 <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> ，那么事务中的所有命令都不会被执行。</p></li>
+<li><p>另一方面，如果客户端成功在开启事务之后执行 <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> ，那么事务中的所有命令都会被执行。</p></li>
 </ul>
-<p>当使用 AOF 方式做持久化的时候， Redis 会使用单个 <code class="docutils literal"><span class="pre">write(2)</span></code> 命令将事务写入到磁盘中。</p>
+<p>当使用 AOF 方式做持久化的时候， Redis 会使用单个 <code class="docutils literal notranslate"><span class="pre">write(2)</span></code> 命令将事务写入到磁盘中。</p>
 <p>然而，如果 Redis 服务器因为某些原因被管理员杀死，或者遇上某种硬件故障，那么可能只有部分事务命令会被成功写入到磁盘中。</p>
 <p>如果 Redis 在重新启动时发现 AOF 文件出了这样的问题，那么它会退出，并汇报一个错误。</p>
-<p>使用 <code class="docutils literal"><span class="pre">redis-check-aof</span></code> 程序可以修复这一问题：它会移除 AOF 文件中不完整事务的信息，确保服务器可以顺利启动。</p>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">redis-check-aof</span></code> 程序可以修复这一问题：它会移除 AOF 文件中不完整事务的信息，确保服务器可以顺利启动。</p>
 </li>
 </ul>
 <p>从 2.2 版本开始，Redis 还可以通过乐观锁（optimistic lock）实现 CAS （check-and-set）操作，具体信息请参考文档的后半部分。</p>
 <div class="section" id="id1">
 <h2>用法<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="../transaction/multi.html#multi"><span class="std std-ref">MULTI</span></a> 命令用于开启一个事务，它总是返回 <code class="docutils literal"><span class="pre">OK</span></code> 。</p>
+<p><a class="reference internal" href="../transaction/multi.html#multi"><span class="std std-ref">MULTI</span></a> 命令用于开启一个事务，它总是返回 <code class="docutils literal notranslate"><span class="pre">OK</span></code> 。</p>
 <p><a class="reference internal" href="../transaction/multi.html#multi"><span class="std std-ref">MULTI</span></a> 执行之后，
 客户端可以继续向服务器发送任意多条命令，
 这些命令不会立即被执行，
@@ -240,8 +230,8 @@
 客户端可以清空事务队列，
 并放弃执行事务。</p>
 <p>以下是一个事务例子，
-它原子地增加了 <code class="docutils literal"><span class="pre">foo</span></code> 和 <code class="docutils literal"><span class="pre">bar</span></code> 两个键的值：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">MULTI</span>
+它原子地增加了 <code class="docutils literal notranslate"><span class="pre">foo</span></code> 和 <code class="docutils literal notranslate"><span class="pre">bar</span></code> 两个键的值：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">MULTI</span>
 <span class="n">OK</span>
 
 <span class="o">&gt;</span> <span class="n">INCR</span> <span class="n">foo</span>
@@ -260,17 +250,17 @@
 其中，
 回复元素的先后顺序和命令发送的先后顺序一致。</p>
 <p>当客户端处于事务状态时，
-所有传入的命令都会返回一个内容为 <code class="docutils literal"><span class="pre">QUEUED</span></code> 的状态回复（status reply），
+所有传入的命令都会返回一个内容为 <code class="docutils literal notranslate"><span class="pre">QUEUED</span></code> 的状态回复（status reply），
 这些被入队的命令将在 <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> 命令被调用时执行。</p>
 </div>
 <div class="section" id="id2">
 <h2>事务中的错误<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>使用事务时可能会遇上以下两种错误：</p>
 <ul class="simple">
-<li>事务在执行 <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> 之前，入队的命令可能会出错。比如说，命令可能会产生语法错误（参数数量错误，参数名错误，等等），或者其他更严重的错误，比如内存不足（如果服务器使用 <code class="docutils literal"><span class="pre">maxmemory</span></code> 设置了最大内存限制的话）。</li>
-<li>命令可能在 <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> 调用之后失败。举个例子，事务中的命令可能处理了错误类型的键，比如将列表命令用在了字符串键上面，诸如此类。</li>
+<li><p>事务在执行 <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> 之前，入队的命令可能会出错。比如说，命令可能会产生语法错误（参数数量错误，参数名错误，等等），或者其他更严重的错误，比如内存不足（如果服务器使用 <code class="docutils literal notranslate"><span class="pre">maxmemory</span></code> 设置了最大内存限制的话）。</p></li>
+<li><p>命令可能在 <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> 调用之后失败。举个例子，事务中的命令可能处理了错误类型的键，比如将列表命令用在了字符串键上面，诸如此类。</p></li>
 </ul>
-<p>对于发生在 <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> 执行之前的错误，客户端以前的做法是检查命令入队所得的返回值：如果命令入队时返回 <code class="docutils literal"><span class="pre">QUEUED</span></code> ，那么入队成功；否则，就是入队失败。如果有命令在入队时失败，那么大部分客户端都会停止并取消这个事务。</p>
+<p>对于发生在 <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> 执行之前的错误，客户端以前的做法是检查命令入队所得的返回值：如果命令入队时返回 <code class="docutils literal notranslate"><span class="pre">QUEUED</span></code> ，那么入队成功；否则，就是入队失败。如果有命令在入队时失败，那么大部分客户端都会停止并取消这个事务。</p>
 <p>不过，从 Redis 2.6.5 开始，服务器会对命令入队失败的情况进行记录，并在客户端调用 <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> 命令时，拒绝执行并自动放弃这个事务。</p>
 <p>在 Redis 2.6.5 以前， Redis 只执行事务中那些入队成功的命令，而忽略那些入队失败的命令。
 而新的处理方式则使得在流水线（pipeline）中包含事务变得简单，因为发送事务和读取事务的回复都只需要和服务器进行一次通讯。</p>
@@ -282,7 +272,7 @@
 以下例子中，
 <a class="reference internal" href="../list/lpop.html#lpop"><span class="std std-ref">LPOP key</span></a> 命令的执行将出错，
 尽管调用它的语法是正确的：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Trying</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">...</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Trying</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">...</span>
 <span class="n">Connected</span> <span class="n">to</span> <span class="n">localhost</span><span class="o">.</span>
 <span class="n">Escape</span> <span class="n">character</span> <span class="ow">is</span> <span class="s1">&#39;^]&#39;</span><span class="o">.</span>
 
@@ -304,7 +294,7 @@
 </pre></div>
 </div>
 <p><a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> 返回两条批量回复（bulk reply）：
-第一条是 <code class="docutils literal"><span class="pre">OK</span></code> ，而第二条是 <code class="docutils literal"><span class="pre">-ERR</span></code> 。
+第一条是 <code class="docutils literal notranslate"><span class="pre">OK</span></code> ，而第二条是 <code class="docutils literal notranslate"><span class="pre">-ERR</span></code> 。
 至于怎样用合适的方法来表示事务中的错误，
 则是由客户端自己决定的。</p>
 <p>最重要的是记住这样一条，
@@ -314,7 +304,7 @@ Redis 不会停止执行事务中的命令。</p>
 <p>以下例子展示的是另一种情况，
 当命令在入队时产生错误，
 错误会立即被返回给客户端：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">MULTI</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MULTI</span>
 <span class="o">+</span><span class="n">OK</span>
 
 <span class="n">INCR</span> <span class="n">a</span> <span class="n">b</span> <span class="n">c</span>
@@ -330,16 +320,16 @@ Redis 不会停止执行事务中的命令。</p>
 那么 “Redis 在事务失败时不进行回滚，而是继续执行余下的命令”这种做法可能会让你觉得有点奇怪。</p>
 <p>以下是这种做法的优点：</p>
 <ul class="simple">
-<li>Redis 命令只会因为错误的语法而失败（并且这些问题不能在入队时发现），或是命令用在了错误类型的键上面：这也就是说，从实用性的角度来说，失败的命令是由编程错误造成的，而这些错误应该在开发的过程中被发现，而不应该出现在生产环境中。</li>
-<li>因为不需要对回滚进行支持，所以 Redis 的内部可以保持简单且快速。</li>
+<li><p>Redis 命令只会因为错误的语法而失败（并且这些问题不能在入队时发现），或是命令用在了错误类型的键上面：这也就是说，从实用性的角度来说，失败的命令是由编程错误造成的，而这些错误应该在开发的过程中被发现，而不应该出现在生产环境中。</p></li>
+<li><p>因为不需要对回滚进行支持，所以 Redis 的内部可以保持简单且快速。</p></li>
 </ul>
 <p>有种观点认为 Redis 处理事务的做法会产生 bug ，
 然而需要注意的是，
 在通常情况下，
 回滚并不能解决编程错误带来的问题。
 举个例子，
-如果你本来想通过 <a class="reference internal" href="../string/incr.html#incr"><span class="std std-ref">INCR key</span></a> 命令将键的值加上 <code class="docutils literal"><span class="pre">1</span></code> ，
-却不小心加上了 <code class="docutils literal"><span class="pre">2</span></code> ，
+如果你本来想通过 <a class="reference internal" href="../string/incr.html#incr"><span class="std std-ref">INCR key</span></a> 命令将键的值加上 <code class="docutils literal notranslate"><span class="pre">1</span></code> ，
+却不小心加上了 <code class="docutils literal notranslate"><span class="pre">2</span></code> ，
 又或者对错误类型的键执行了 <a class="reference internal" href="../string/incr.html#incr"><span class="std std-ref">INCR key</span></a> ，
 回滚是没有办法处理这些情况的。</p>
 <p>鉴于没有任何机制能避免程序员自己造成的错误，
@@ -352,7 +342,7 @@ Redis 不会停止执行事务中的命令。</p>
 事务会被放弃，
 事务队列会被清空，
 并且客户端会从事务状态中退出：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">foo</span> <span class="mi">1</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">SET</span> <span class="n">foo</span> <span class="mi">1</span>
 <span class="n">OK</span>
 
 <span class="n">redis</span><span class="o">&gt;</span> <span class="n">MULTI</span>
@@ -377,9 +367,9 @@ Redis 不会停止执行事务中的命令。</p>
 那么整个事务都会被取消，
 <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> 返回空多条批量回复（null multi-bulk reply）来表示事务已经失败。</p>
 <p>举个例子，
-假设我们需要原子性地为某个值进行增 <code class="docutils literal"><span class="pre">1</span></code> 操作（假设 <a class="reference internal" href="../string/incr.html#incr"><span class="std std-ref">INCR key</span></a> 不存在）。</p>
+假设我们需要原子性地为某个值进行增 <code class="docutils literal notranslate"><span class="pre">1</span></code> 操作（假设 <a class="reference internal" href="../string/incr.html#incr"><span class="std std-ref">INCR key</span></a> 不存在）。</p>
 <p>首先我们可能会这样做：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>val = GET mykey
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>val = GET mykey
 val = val + 1
 SET mykey $val
 </pre></div>
@@ -390,12 +380,12 @@ SET mykey $val
 就会产生竞争条件。</p>
 <p>举个例子，
 如果客户端 A 和 B 都读取了键原来的值，
-比如 <code class="docutils literal"><span class="pre">10</span></code> ，
-那么两个客户端都会将键的值设为 <code class="docutils literal"><span class="pre">11</span></code> ，
-但正确的结果应该是 <code class="docutils literal"><span class="pre">12</span></code> 才对。</p>
+比如 <code class="docutils literal notranslate"><span class="pre">10</span></code> ，
+那么两个客户端都会将键的值设为 <code class="docutils literal notranslate"><span class="pre">11</span></code> ，
+但正确的结果应该是 <code class="docutils literal notranslate"><span class="pre">12</span></code> 才对。</p>
 <p>有了 <a class="reference internal" href="../transaction/watch.html#watch"><span class="std std-ref">WATCH</span></a> ，
 我们就可以轻松地解决这类问题了：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>WATCH mykey
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>WATCH mykey
 
 val = GET mykey
 val = val + 1
@@ -408,7 +398,7 @@ EXEC
 <p>使用上面的代码，
 如果在 <a class="reference internal" href="../transaction/watch.html#watch"><span class="std std-ref">WATCH</span></a> 执行之后，
 <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> 执行之前，
-有其他客户端修改了 <code class="docutils literal"><span class="pre">mykey</span></code> 的值，
+有其他客户端修改了 <code class="docutils literal notranslate"><span class="pre">mykey</span></code> 的值，
 那么当前客户端的事务就会失败。
 程序需要做的，
 就是不断重试这个操作，
@@ -426,8 +416,8 @@ EXEC
 事务只能在所有被监视键都没有被修改的前提下执行，
 如果这个前提不能满足的话，事务就不会被执行。</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">如果你使用 <a class="reference internal" href="../transaction/watch.html#watch"><span class="std std-ref">WATCH</span></a> 监视了一个带过期时间的键，
+<p class="admonition-title">Note</p>
+<p>如果你使用 <a class="reference internal" href="../transaction/watch.html#watch"><span class="std std-ref">WATCH</span></a> 监视了一个带过期时间的键，
 那么即使这个键过期了，
 事务仍然可以正常执行，
 关于这方面的详细情况，请看这个帖子： <a class="reference external" href="http://code.google.com/p/redis/issues/detail?id=270">http://code.google.com/p/redis/issues/detail?id=270</a></p>
@@ -437,7 +427,7 @@ EXEC
 直到调用 <a class="reference internal" href="../transaction/exec.html#exec"><span class="std std-ref">EXEC</span></a> 为止。</p>
 <p>用户还可以在单个 <a class="reference internal" href="../transaction/watch.html#watch"><span class="std std-ref">WATCH</span></a> 命令中监视任意多个键，
 就像这样：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">WATCH</span> <span class="n">key1</span> <span class="n">key2</span> <span class="n">key3</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">redis</span><span class="o">&gt;</span> <span class="n">WATCH</span> <span class="n">key1</span> <span class="n">key2</span> <span class="n">key3</span>
 <span class="n">OK</span>
 </pre></div>
 </div>
@@ -460,9 +450,9 @@ EXEC
 <h2>使用 WATCH 实现 ZPOP<a class="headerlink" href="#watch-zpop" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference internal" href="../transaction/watch.html#watch"><span class="std std-ref">WATCH</span></a> 可以用于创建 Redis 没有内置的原子操作。</p>
 <p>举个例子，
-以下代码实现了原创的 <code class="docutils literal"><span class="pre">ZPOP</span></code> 命令，
+以下代码实现了原创的 <code class="docutils literal notranslate"><span class="pre">ZPOP</span></code> 命令，
 它可以原子地弹出有序集合中分值（score）最小的元素：</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">WATCH</span> <span class="n">zset</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">WATCH</span> <span class="n">zset</span>
 <span class="n">element</span> <span class="o">=</span> <span class="n">ZRANGE</span> <span class="n">zset</span> <span class="mi">0</span> <span class="mi">0</span>
 <span class="n">MULTI</span>
     <span class="n">ZREM</span> <span class="n">zset</span> <span class="n">element</span>
